@@ -1,0 +1,242 @@
+.x-grid3 .x-window-ml {
+	padding-left: 0;
+}
+
+.x-grid3 .x-window-mr {
+	padding-right: 0;
+}
+
+.x-grid3 .x-window-tl {
+	padding-left: 0;
+}
+
+.x-grid3 .x-window-tr {
+	padding-right: 0;
+}
+
+.x-grid3 .x-window-tc .x-window-header {
+	height: 3px;
+	padding: 0;
+	overflow: hidden;
+}
+
+.x-grid3 .x-window-mc {
+	border-width: 0;
+	background: #cdd9e8;
+}
+
+.x-grid3 .x-window-bl {
+	padding-left: 0;
+}
+
+.x-grid3 .x-window-br {
+	padding-right: 0;
+}
+
+.x-grid3 .x-panel-btns {
+	padding: 0;
+}
+
+.x-grid3 .x-panel-btns td.x-toolbar-cell {
+	padding: 3px 3px 0;
+}
+
+.x-box-inner {
+	zoom: 1;
+}
+
+.icon-user-add {
+	background-image:
+		url(/eXpertSoft/ext-3.2.1/examples/shared/icons/fam/user_add.gif)
+		!important;
+}
+
+.icon-user-delete {
+	background-image:
+		url(/eXpertSoft/ext-3.2.1/examples/shared/icons/fam/user_delete.gif)
+		!important;
+}
+
+.icon-user-save {
+	background-image:
+		url(/eXpertSoft/ext-3.2.1/examples/shared/icons/save.gif)
+		!important;
+}
+
+label{
+  font: 81.25% arial, helvetica, sans-serif;
+  color: #333;
+  line-height: 1;
+  direction: ltr;
+  font-weight: bold;
+}
+
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  }
+  button::-moz-focus-inner,
+  input::-moz-focus-inner {
+  border: 0;
+  }
+  input[type=email],
+  input[type=number],
+  input[type=password],
+  input[type=tel],
+  input[type=text],
+  input[type=url] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-block;
+  height: 23px;
+  margin: 0;
+  padding: 0 3px;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  }
+  input[type=email]:hover,
+  input[type=number]:hover,
+  input[type=password]:hover,
+  input[type=tel]:hover,
+  input[type=text]:hover,
+  input[type=url]:hover {
+  border: 1px solid #b9b9b9;
+  border-top: 1px solid #a0a0a0;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  }
+  input[type=email]:focus,
+  input[type=number]:focus,
+  input[type=password]:focus,
+  input[type=tel]:focus,
+  input[type=text]:focus,
+  input[type=url]:focus {
+  outline: none;
+  border: 1px solid #4d90fe;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+  }
+  input[type=email][disabled=disabled],
+  input[type=number][disabled=disabled],
+  input[type=password][disabled=disabled],
+  input[type=tel][disabled=disabled],
+  input[type=text][disabled=disabled],
+  input[type=url][disabled=disabled] {
+  border: 1px solid #e5e5e5;
+  background: #f1f1f1;
+  }
+  input[type=email][disabled=disabled]:hover,
+  input[type=number][disabled=disabled]:hover,
+  input[type=password][disabled=disabled]:hover,
+  input[type=tel][disabled=disabled]:hover,
+  input[type=text][disabled=disabled]:hover,
+  input[type=url][disabled=disabled]:hover {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  }
+  input[type=email][readonly=readonly],
+  input[type=number][readonly=readonly],
+  input[type=password][readonly=readonly],
+  input[type=text][readonly=readonly],
+  input[type=url][readonly=readonly] {
+  border: 1px solid #d9d9d9;
+  }
+  input[type=email][readonly=readonly]:hover,
+  input[type=number][readonly=readonly]:hover,
+  input[type=password][readonly=readonly]:hover,
+  input[type=text][readonly=readonly]:hover,
+  input[type=url][readonly=readonly]:hover,
+  input[type=email][readonly=readonly]:focus,
+  input[type=number][readonly=readonly]:focus,
+  input[type=password][readonly=readonly]:focus,
+  input[type=text][readonly=readonly]:focus,
+  input[type=url][readonly=readonly]:focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  }
+  input[type=checkbox].form-error,
+  input[type=email].form-error,
+  input[type=number].form-error,
+  input[type=password].form-error,
+  input[type=text].form-error,
+  input[type=tel].form-error,
+  input[type=url].form-error {
+  border: 1px solid #dd4b39;
+  }
+  input[type=checkbox],
+  input[type=radio] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  margin: 0;
+  cursor: pointer;
+  vertical-align: bottom;
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  }
+  input[type=checkbox]:active,
+  input[type=radio]:active {
+  border-color: #c6c6c6;
+  background: #ebebeb;
+  }
+  input[type=checkbox]:hover {
+  border-color: #c6c6c6;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+  }
+  input[type=radio] {
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  border-radius: 1em;
+  width: 15px;
+  height: 15px;
+  }
+  input[type=checkbox]:checked,
+  input[type=radio]:checked {
+  background: #fff;
+  }
+  input[type=radio]:checked::after {
+  content: '';
+  display: block;
+  position: relative;
+  top: 3px;
+  left: 3px;
+  width: 7px;
+  height: 7px;
+  background: #666;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  border-radius: 1em;
+  }
+  input[type=checkbox]:checked::after {
+  content: url(//ssl.gstatic.com/ui/v1/menu/checkmark.png);
+  display: block;
+  position: absolute;
+  top: -6px;
+  left: -5px;
+  }
+  input[type=checkbox]:focus {
+  outline: none;
+  border-color:#4d90fe;
+  }

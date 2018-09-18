@@ -1,0 +1,58 @@
+package ERP.eXpertSoft.wfsi.loianes.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
+
+@JsonAutoDetect
+@Entity
+@Table(name="CONTACT" ,schema="administration")
+public class Contact {
+	
+	private int id;
+	private String name;
+	private String phone;
+	private String email;
+	
+	@Id
+	@Column(name="CONTACT_ID")
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	@Column(name="CONTACT_NAME" )
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	@Column(name="CONTACT_PHONE" )
+	public String getPhone() {
+		return phone;
+	}
+	
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
+	@Column(name="CONTACT_EMAIL" )
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+}

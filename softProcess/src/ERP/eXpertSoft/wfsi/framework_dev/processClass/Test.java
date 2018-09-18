@@ -1,0 +1,13 @@
+package ERP.eXpertSoft.wfsi.framework_dev.processClass;
+public class Test {
+
+	public static void main(String[] args) throws Exception {
+		long t1 = System.currentTimeMillis();
+//		for (int i = 10000; i < 3000; i++) {
+			System.out.println(NombreEuro.CALCULATE.getValue(10.50,"euro"));	
+			System.out.println(NombreEuro.CALCULATE.getValue(6191));
+//		}
+		long t2 = System.currentTimeMillis();
+		System.out.println(t2-t1 +" ms");
+	}
+}

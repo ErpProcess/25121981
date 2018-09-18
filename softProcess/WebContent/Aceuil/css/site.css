@@ -1,0 +1,164 @@
+html,
+body
+{
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+body
+{
+	background-color: #4bb5ef;
+	-webkit-text-size-adjust: none;
+	font-family: Arial, Helvetica, Verdana;
+	font-size: 16px;
+	line-height: 22px;
+	color: #fff;
+	position: relative;
+}
+h1
+{
+	text-shadow: 0 1px 5px rgba( 0, 0, 0, 0.2 );
+	text-transform: lowercase;
+	font-family: 'Pacifico', Arial, sans-serif;
+	font-weight: normal;
+	font-size: 150px;
+	line-height: 150px;
+	letter-spacing: -10px;
+	margin: 0 0 20px 0;
+}
+a,
+a:hover
+{
+	color: #fff;
+	text-decoration: underline;
+}
+
+.container
+{
+	max-width: 350px;
+	padding: 50px 15px;
+	margin: auto;
+}
+
+.demos
+{
+	text-align: center;
+	margin-bottom: 30px;
+}
+.demos a
+{
+	text-decoration: none;
+	display: inline-block;
+	margin: 0 10px;
+}
+.demos a:hover
+{
+	text-decoration: underline;
+}
+
+.tablet
+{
+	width: 695px;
+	height: 510px;
+	padding: 38px 72px;
+	margin: 0 auto 20px auto;
+    
+	position: relative;
+	z-index: 1;
+
+	transform: rotate(0);
+	transition: none .6s ease;
+	transition-property: transform,margin;
+}
+.tablet::after,
+.tablet::before
+{
+    content: '';
+    background: url(../img/tablet-example.png) left top no-repeat transparent;
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 0;
+}
+.tablet::before
+{
+    width: 30%;
+    left: 0;
+}
+.tablet::after
+{
+    background-position: right top;
+    width: 70%;
+    right: 0;
+}
+.tablet div
+{
+    overflow: hidden;
+    background: #111;
+    border: none;
+    display: block;
+    width: 100%;
+    height: 492px;
+    position: relative;
+    z-index: 1;
+}
+.tablet iframe
+{
+    border: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    transform: rotate(0);
+    transition: none .6s ease .6s;
+    transition-property: transform,width,height,top,left;
+}
+
+.portrait .tablet
+{
+    margin-top: 160px;
+    margin-bottom: 170px;
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+.portrait .tablet iframe
+{
+    width: 490px;
+    height: 690px;
+    left: 100px;
+    top: -100px;
+    transform: rotate(-90deg);
+}
+
+a.rotate
+{
+    text-align: center;
+    text-decoration: none;
+    font-size: 50px;
+    display: block;
+    width: 100px;
+    padding-left: 20px;
+    margin: 20px auto;
+}
+a.rotate .portrait
+{
+    opacity: .3;
+}
+a.rotate .landscape
+{
+    opacity: 1;
+    padding-left: 20px;
+    margin-left: -40px;
+}
+.portrait a.rotate .portrait
+{
+    opacity: 1;
+}
+.portrait a.rotate .landscape
+{
+    opacity: .3;
+}
+

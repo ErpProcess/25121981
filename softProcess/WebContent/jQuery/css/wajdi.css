@@ -1,0 +1,81 @@
+.dataTable th{
+/*border-right: 1px solid black;*/
+border: 1px solid #cccccc;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 13px;
+}
+.dataTable td {
+/*border-right: 1px solid black;*/
+border: 1px solid #cccccc;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size:14px;
+}
+.dataTable td input[type=text] {
+/*border-right: 1px solid black;*/
+border: 1px solid #cccccc;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+/*background-color: red;*/
+width:100%;
+font-size:12px;
+}
+.dataTables_processing {
+    position: absolute;
+    margin-top:10%;
+    top: 2px;
+    width: 250px;
+    text-align: center;
+    
+    
+    left: 45%;
+}
+ 
+
+.titremodule{
+    background-color: #616975;
+	border-bottom: 1px solid #33373d;
+	border-top: 1px solid #33373d;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #878e98;
+	-moz-box-shadow: inset 0px 1px 0px 0px #878e98;
+	box-shadow: inset 0px 1px 0px 0px #878e98;
+	color: white;
+}
+
+
+
+label{
+  font: 81.25% arial, helvetica, sans-serif;
+  color: #333;
+  line-height: 1;
+  direction: ltr;
+  font-weight: bold;
+}
+ 
+ 
+.ui-autocomplete { 
+    position: absolute; 
+    cursor: default; 
+    height: 200px; 
+    overflow-y: scroll; 
+    overflow-x: hidden;
+}
+
+.tableStyleContent{
+width: 97%;margin-top: 1.2%;margin-left: 2%;margin-bottom: 2%;margin-right: 8%; background:none;/*background:#f8fcfc;*/
+} 
+
+ 
+.colorBody{
+background: rgb(247, 247, 247);
+/*background: #f8fcfc;*/
+}
+.divStyleContent{
+width: 100%;background: rgb(247, 247, 247);max-height: 92.3%;overflow:auto;
+/*background: #f8fcfc;max-height: 95%;max-width: 100%; */
+}
+
+
+
+
+ 
+
+

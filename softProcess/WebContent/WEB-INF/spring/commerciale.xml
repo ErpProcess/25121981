@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+ 
+    <context:component-scan base-package="ERP.Process.Commerciale.Caracteristique" />
+    <context:component-scan base-package="ERP.Process.Commerciale.DetailCaracteristique" />
+	<context:component-scan base-package="ERP.Process.Commerciale.Article" />
+	<context:component-scan base-package="ERP.Process.Commerciale.Code_barre" />
+	<context:component-scan base-package="ERP.Process.Commerciale.Degre_definition" />
+		
+	
+	<context:component-scan base-package="ERP.Process.Commerciale.FamilleArticle" />
+	
+
+	<context:component-scan base-package="ERP.Process.Commerciale.Entite_etat_commerciale" />
+   
+	<context:component-scan base-package="ERP.Process.Commerciale.TypeFamille" />
+    
+    <context:component-scan base-package="ERP.Process.Commerciale.Type_tarification" />
+    <context:component-scan base-package="ERP.Process.Commerciale.Tarification" />
+        <context:component-scan base-package="ERP.Process.Commerciale.TarificationLot" />
+    
+   
+    <context:component-scan base-package="ERP.Process.Commerciale.GrpTarifPrimitiv" />
+    <context:component-scan base-package="ERP.Process.Commerciale.TarificationPrtvArticle" />
+
+   
+    
+    <context:component-scan base-package="ERP.Process.Commerciale.ParametrageCommerciale.NatureMvtCommerciale" />
+    <context:component-scan base-package="ERP.Process.Commerciale.Parametrage.TypeFacture" />
+    <context:component-scan base-package="ERP.Process.Commerciale.Parametrage.Nature_incident_mvt_retour" />
+    
+      
+</beans>
+ 
+

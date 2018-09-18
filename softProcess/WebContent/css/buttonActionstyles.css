@@ -1,0 +1,329 @@
+button.valido, a.valido, input[type=button].valido {
+	background-image : url("icons/fam/save.gif")!important ;
+	cursor: pointer;
+    padding: 2px 2px 5px 5px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: left;
+    font-weight:bold;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:10px;
+    line-height: 1;
+    background-repeat: no-repeat;
+}
+button.valido:hover, a.valido:hover, input[type=button].valido:hover {
+	background-image : url("icons/fam/save.gif")!important ;
+	cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px #333333;
+    -moz-box-shadow: 0 1px 1px #333333;
+    box-shadow: 0 1px 1px #333333;
+    background-repeat: no-repeat;
+}
+button.valido:active, a.valido:active, input[type=button].valido:active {
+	background-image : url("icons/fam/save.gif")!important ;
+    -webkit-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    -moz-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    background-repeat: no-repeat;
+}
+
+
+
+
+/*********************************************************************************************/
+
+button.First1, a.First1, input[type=button].First1 {
+	background-image : url("icons/fam/First record.gif")!important ;
+	cursor: pointer;
+    padding: 2px 2px 5px 5px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: left;
+    font-weight:bold;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:10px;
+    line-height: 1;
+    background-repeat: no-repeat;
+}
+button.First1:hover, a.First1:hover, input[type=button].First1:hover {
+	background-image : url("icons/fam/First record.gif")!important ;
+	cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px #333333;
+    -moz-box-shadow: 0 1px 1px #333333;
+    box-shadow: 0 1px 1px #333333;
+    background-repeat: no-repeat;
+}
+button.First1:active, a.First1:active, input[type=button].First1:active {
+	background-image : url("icons/fam/First record.gif")!important ;
+    -webkit-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    -moz-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    background-repeat: no-repeat;
+}
+/*****************************************************************************************************************/
+button.Previous1, a.Previous1, input[type=button].Previous1 {
+	background-image : url("icons/fam/Previous record.gif")!important ;
+	cursor: pointer;
+    padding: 2px 2px 5px 5px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: left;
+    font-weight:bold;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:10px;
+    line-height: 1;
+    background-repeat: no-repeat;
+}
+button.Previous1:hover, a.Previous1:hover, input[type=button].Previous1:hover {
+	background-image : url("icons/fam/Previous record.gif")!important ;
+	cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px #333333;
+    -moz-box-shadow: 0 1px 1px #333333;
+    box-shadow: 0 1px 1px #333333;
+    background-repeat: no-repeat;
+}
+button.Previous1:active, a.Previous1:active, input[type=button].Previous1:active {
+	background-image : url("icons/fam/Previous record.gif")!important ;
+    -webkit-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    -moz-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    background-repeat: no-repeat;
+}
+
+ /************************************************************************************/
+ 
+ 
+ 
+ button.Next1, a.Next1, input[type=button].Next1 {
+	background-image : url("icons/fam/Next track.gif")!important ;
+	cursor: pointer;
+    padding: 2px 2px 5px 5px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: left;
+    font-weight:bold;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:10px;
+    line-height: 1;
+    background-repeat: no-repeat;
+}
+button.Next1:hover, a.Next1:hover, input[type=button].Next1:hover {
+	background-image : url("icons/fam/Next track.gif")!important ;
+	cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px #333333;
+    -moz-box-shadow: 0 1px 1px #333333;
+    box-shadow: 0 1px 1px #333333;
+    background-repeat: no-repeat;
+}
+button.Next1:active, a.Next1:active, input[type=button].Next1:active {
+	background-image : url("icons/fam/Next track.gif")!important ;
+    -webkit-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    -moz-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    background-repeat: no-repeat;
+}
+/****************************************************************************************************************/
+
+ 
+ button.Last1, a.Last1, input[type=button].Last1 {
+	background-image : url("icons/fam/Last recor.gif")!important ;
+	cursor: pointer;
+    padding: 2px 2px 5px 5px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: left;
+    font-weight:bold;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:10px;
+    line-height: 1;
+    background-repeat: no-repeat;
+}
+button.Last1:hover, a.Last1:hover, input[type=button].Last1:hover {
+	background-image : url("icons/fam/Last recor.gif")!important ;
+	cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px #333333;
+    -moz-box-shadow: 0 1px 1px #333333;
+    box-shadow: 0 1px 1px #333333;
+    background-repeat: no-repeat;
+}
+button.Last1:active, a.Last1:active, input[type=button].Last1:active {
+	background-image : url("icons/fam/Last recor.gif")!important ;
+    -webkit-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    -moz-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    background-repeat: no-repeat;
+}
+
+
+/****************************************************************************************************************/
+
+ 
+ button.Help, a.Help, input[type=button].Help {
+	background-image : url("icons/fam/Hint.gif")!important ;
+	cursor: pointer;
+    padding: 2px 10px 5px 20px;
+    text-decoration: none;
+    display: inline-block;
+    color:white;
+    text-align: left;
+    font-weight:bold;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:10px;
+    line-height: 1;
+    background-repeat: no-repeat;
+}
+button.Help:hover, a.Help:hover, input[type=button].Help:hover {
+	background-image : url("icons/fam/Hint.gif")!important ;
+	cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px #333333;
+    -moz-box-shadow: 0 1px 1px #333333;
+    box-shadow: 0 1px 1px #333333;
+    background-repeat: no-repeat;
+}
+button.Help:active, a.Help:active, input[type=button].Help:active {
+	background-image : url("icons/fam/Hint.gif")!important ;
+    -webkit-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    -moz-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    background-repeat: no-repeat;
+}
+
+/****************************************************************************************************************/
+
+ 
+ button.Notesz, a.Notesz, input[type=button].Notesz {
+	background-image : url("icons/fam/Notes.gif")!important ;
+	cursor: pointer;
+    padding: 2px 10px 5px 20px;
+    text-decoration: none;
+    display: inline-block;
+     color:white;
+    text-align: left;
+    font-weight:bold;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:10px;
+    line-height: 1;
+    background-repeat: no-repeat;
+}
+button.Notesz:hover, a.Notesz:hover, input[type=button].Notesz:hover {
+	background-image : url("icons/fam/Notes.gif")!important ;
+	cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px #333333;
+    -moz-box-shadow: 0 1px 1px #333333;
+    box-shadow: 0 1px 1px #333333;
+    background-repeat: no-repeat;
+}
+button.Notesz:active, a.Notesz:active, input[type=button].Notesz:active {
+	background-image : url("icons/fam/Notes.gif")!important ;
+    -webkit-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    -moz-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    background-repeat: no-repeat;
+}
+
+/****************************************************************************************************************/
+
+ 
+ button.pluzind, a.pluzind, input[type=button].pluzind {
+	background-image : url("icons/fam/folder_go.png")!important ;
+	cursor: pointer;
+    padding: 2px 2px 5px 5px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: left;
+    font-weight:bold;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:10px;
+    line-height: 1;
+    background-repeat: no-repeat;
+}
+button.pluzind:hover, a.pluzind:hover, input[type=button].pluzind:hover {
+	background-image : url("icons/fam/folder_go.png")!important ;
+	cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px #333333;
+    -moz-box-shadow: 0 1px 1px #333333;
+    box-shadow: 0 1px 1px #333333;
+    background-repeat: no-repeat;
+}
+button.pluzind:active, a.pluzind:active, input[type=button].pluzind:active {
+	background-image : url("icons/fam/folder_go.png")!important ;
+    -webkit-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    -moz-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    background-repeat: no-repeat;
+}
+
+
+/****************************************************************************************************************/
+
+ 
+ button.bpdfe, a.bpdfe, input[type=button].bpdfe {
+	background-image : url("icons/fam/pdf.png")!important ;
+	cursor: pointer;
+	color:white;
+    padding: 2px 10px 5px 20px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: left;
+    font-weight:bold;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:10px;
+    line-height: 1;
+    background-repeat: no-repeat;
+}
+button.bpdfe:hover, a.bpdfe:hover, input[type=button].bpdfe:hover {
+	background-image : url("icons/fam/pdf.png")!important ;
+	cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px #333333;
+    -moz-box-shadow: 0 1px 1px #333333;
+    box-shadow: 0 1px 1px #333333;
+    background-repeat: no-repeat;
+}
+button.bpdfe:active, a.bpdfe:active, input[type=button].bpdfe:active {
+	background-image : url("icons/fam/pdf.png")!important ;
+    -webkit-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    -moz-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    background-repeat: no-repeat;
+}
+
+/****************************************************************************************************************/
+
+ 
+ button.btonExecel, a.btonExecel, input[type=button].btonExecel {
+	background-image : url("icons/fam/Excel.gif")!important ;
+	cursor: pointer;
+	color:white;
+    padding: 2px 10px 5px 20px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: left;
+    font-weight:bold;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:10px;
+    line-height: 1;
+    background-repeat: no-repeat;
+}
+button.btonExecel:hover, a.btonExecel:hover, input[type=button].btonExecel:hover {
+	background-image : url("icons/fam/Excel.gif")!important ;
+	cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px #333333;
+    -moz-box-shadow: 0 1px 1px #333333;
+    box-shadow: 0 1px 1px #333333;
+    background-repeat: no-repeat;
+}
+button.btonExecel:active, a.btonExecel:active, input[type=button].btonExecel:active {
+	background-image : url("icons/fam/Excel.gif")!important ;
+    -webkit-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    -moz-box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    box-shadow: inset 0 0 2px 2px #377cea, 0 1px 0 0 #aaa;
+    background-repeat: no-repeat;
+}
+  
+  
+  
+  
+  
+
+
+

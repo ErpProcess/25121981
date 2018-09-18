@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	
+	<!-- Application Message Bundle -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/messages" />
+        <property name="cacheSeconds" value="3000" />
+    </bean>
+  
+    <import resource="adminProcess.xml" />
+    <import resource="commerciale.xml" />
+    <import resource="achat.xml" />
+    <import resource="stock.xml" />
+    <import resource="vente.xml" />
+	
+	<!-- Configures the @Controller programming model -->
+	<mvc:annotation-driven />
+
+	<!-- misc -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+	    <property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+         <!-- one of the properties available; the maximum file size in bytes -->
+         <property name="maxUploadSize" value="500000"/>
+    </bean>
+	
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />-->
+	<!-- Configures Hibernate - Database Config -->
+	<import resource="db-config.xml" />
+      
+</beans>
+ 
+

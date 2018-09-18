@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+ 
+  
+	
+	<!-- Scans the classpath of this application for @Components to deploy as beans -->
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.TimeOut"  />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.framework_dev.JQuery_datatables_Version1"  />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.PackageSys"  />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.SousPack"  />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Module"  />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.SousModule"  />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction"  />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Smfonction"  />
+	
+	
+	
+	
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionsLinguistiques.GLangue" />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionsLinguistiques.Glibelle" />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionsLinguistiques.Typelibelle" />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionsLinguistiques.EntiteAdmin" />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.WebRootFolder" />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.CompteBancaire" />
+	                                     
+	
+	
+    <context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Spoor" />
+    <context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe" />
+    <context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement" />
+    <context:component-scan base-package=" ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite" />
+    <context:component-scan base-package=" ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise" />
+    <context:component-scan base-package=" ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA" />
+    
+	
+	
+	
+	<context:component-scan base-package="net.viralpatel.spring.autocomplete"  />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.loianes"  />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.jqueryoR.datatables"  />
+	<context:component-scan base-package="jquery.datatables"  />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionUtilisateurs.Utilisateur"    />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionUtilisateurs.Profile"    />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionUtilisateurs.Privilege"    />
+	
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.GestionAuthentification" />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel" />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Data_entite_simple" />
+	<context:component-scan base-package="ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Paysvilleposte" />
+      
+</beans>
+ 
+
