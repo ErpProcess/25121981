@@ -35,8 +35,7 @@
     <context:component-scan base-package="ERP.Process.Commerciale.ParametrageCommerciale.NatureMvtCommerciale" />
     <context:component-scan base-package="ERP.Process.Commerciale.Parametrage.TypeFacture" />
     <context:component-scan base-package="ERP.Process.Commerciale.Parametrage.Nature_incident_mvt_retour" />
-    
-      
+    <context:component-scan base-package="ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement" />
 </beans>
  
 

@@ -127,6 +127,24 @@ public class ProcessWebUtil extends GenericWeb {
 
 	}
 	
+	String  doCharger_Societe_etabCentral_Fetch( String alias  , boolean inclure_central  ) throws Exception {
+
+		String requette="";
+		
+		try {
+			 BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
+			 if(inclure_central){
+					  requette  = requette + "   AND   "+alias+".pk_etab.etab_id in ( '"+bs.getEtab_id()+"' , '"+bs.getEtab_central()+"'  ) ";
+			 }
+			 requette  = requette + "            AND   "+alias+".pk_etab.soc_bean.soc_id='"+bs.getSoc_id()+"'     ";
+		   
+		} catch (Exception e) {
+			throw e;
+		}
+		return requette;
+
+	}
+	
 	
 	
 	

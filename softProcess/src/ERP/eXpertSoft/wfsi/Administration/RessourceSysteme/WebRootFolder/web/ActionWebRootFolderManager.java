@@ -403,7 +403,7 @@ public List doSetBeanInVectorLanq_nameList(List list_desLangue,WebRootFolderBean
 				 
 				
 				String monChemininit=detailBean.getCheminProject().replace('\\', '/');
-				String monChemin=monChemininit+"/WebRoot";
+				String monChemin=monChemininit+"/WebContent";
 				String Cheminsrc=monChemininit+"/src";
 				
 				String cheminfolderSrc_jsp=detailBean.getSousmod_action().replaceAll("root.action", "");

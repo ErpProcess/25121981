@@ -855,6 +855,21 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 		      return  resultat;
       
   	 } 
+     
+     public    String setSocieteEtabCentralFetch(Object ojexct , String alias , boolean inclure_Etabcentral ) throws Exception{
+     	
+    	 ProcessWebUtil pWebUtil= new ProcessWebUtil();
+    	 String resultat="";
+		 try {
+			   String resl=pWebUtil.doCharger_Societe_etabCentral_Fetch(alias,inclure_Etabcentral);
+			   resultat= resultat +"  "+resl;
+			 
+		      } catch (Exception e) {
+		    	  throw e;
+			}
+		      return  resultat;
+      
+  	 } 
     
   public    String setSocieteEtabForArticle(String alias, boolean inclure_central ) throws Exception{
 	
