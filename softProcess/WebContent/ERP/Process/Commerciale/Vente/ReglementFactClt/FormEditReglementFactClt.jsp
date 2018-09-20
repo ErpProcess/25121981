@@ -1,7 +1,70 @@
 <%@include file="/Aceuil/esProcess.jsp" %>
 <c:import url="${context_path}/dataGridSetting/EditabledataGridConfig.jsp"></c:import> 
 <script type="text/javascript">
+$(document).ready(function () { 
+ 
+ 
+	
+	if( "${detailBean.factclient.devise.dev_id}"=="191"  ||  "${detailBean.factclient.devise.dev_id}"=="192"  ){
+		$(":input[type=montant3]").each(function (cnt, item) {
+			    $(item).removeClass( "money2" );  
+		        $(item).removeClass( "money_2" );   
+				var nbrX=2;
+				var ELTs=$(item).val();  
+				var text=ELTs; 
+				var regex = new RegExp(",", 'g');
+				text = text.replace(regex, '');
+				var SSSS  =Math.round(text * Math.pow(10,nbrX)) / Math.pow(10,nbrX);
+				var numS = new Number(SSSS);
+			    var fix = numS.toFixed(nbrX);
+				$(item).val(fix); 
+				$(item).addClass( "money_2" );
+				if($(item).val()=="0.000"  ||  $(item).val()=="0.00"   || $(item).val()=="0.0"  )
+				$(item).val("");
+		});
+		
+		   $('.dataTable tbody td input[type=montant3]').live('keypress', function(e) {
+			    var nbrvv=2;
+				var text=$(this).val();  
+				$(this).addClass( "money_2" );
+				if($(this).val()=="0.000"  ||  $(this).val()=="0.00"   || $(this).val()=="0.0"  )
+				$(this).val("");
+			});
 
+		}else{
+			   
+				$('.dataTable tbody td input[type=montant3]').live('keypress', function(e) {
+				    var nbrvv=3;
+					var text=$(this).val();  
+					$(this).addClass( "money2" );
+					if($(this).val()=="0.000"  ||  $(this).val()=="0.00"   || $(this).val()=="0.0"  )
+					$(this).val("");
+				});
+
+		        $(":input[type=montant3]").each(function (cnt, item) { 
+		        $(item).removeClass( "money2" );  
+		        $(item).removeClass( "money_2" ); 
+			    var nbrX=3;
+				var ELTs=$(item).val();  
+				var text=ELTs; 
+				var regex = new RegExp(",", 'g');
+				text = text.replace(regex, '');
+				var SSSS  =Math.round(text * Math.pow(10,nbrX)) / Math.pow(10,nbrX);
+				var numS = new Number(SSSS);
+			    var fix = numS.toFixed(nbrX);
+				$(item).val(fix); 
+				$(item).addClass( "money2" );
+				if($(item).val()=="0.000"  ||  $(item).val()=="0.00"   || $(item).val()=="0.0"  )
+				$(item).val("");
+		});
+
+		}
+	
+	
+	
+	});
+ 
+ 
  
 				
 function control_de_liste(){
@@ -77,8 +140,8 @@ var lumsbean=[
 	          return '<input   type="montant3"  size="15"  id=echean_montant'+full[0]+'   name=echean_montant    value="'+data+'"    onblur=doEnvoiDataV2(this,"'+full[0]+'")         nextElement=reg_mod'+full[0]+'  >';}}, 
 	         
 	  
-	    {    "sName": "echMode.data_id"                       ,"bSortable": true      ,"mRender": function( data, type, full){  
-	         return '<select   type="select"    id=ech_Mode'+full[0]+'       name=echMode.data_id        onchange=doEnvoiDataV2(this,"'+full[0]+'")   ></select>';}},
+	    {    "sName": "echMode.mod_id"                       ,"bSortable": true      ,"mRender": function( data, type, full){  
+	         return '<select   type="select"    id=ech_Mode'+full[0]+'       name=echMode.mod_id        onchange=doEnvoiDataV2(this,"'+full[0]+'")   ></select>';}},
 	         
 	    
 	    {    "sName": "num_piece_ech"                   ,"bSortable": true      ,"mRender": function( data, type, full){  
@@ -166,7 +229,14 @@ function FnLoadSelectAjax(objeJson){
     <table width="100%"  cellpadding="5" cellspacing="10" class="tableStyleContent"  id="tblData"     >
       <tr>
         <td width="10%"><label>${fact_id}</label></td>
-        <td  width="30%"  ><input id="fact_clt_id" name="factclient.fact_clt_id"    libre   readonly="readonly"   type="text"      size="20"       maxlength="20"        value="${detailBean.factclient.fact_clt_id}"    nextElement="clt_id"              />        </td>
+        <td  width="30%"  >
+        <input id="fact_clt_id" name="factclient.fact_clt_id"    libre   readonly="readonly"   type="text"      size="20"       maxlength="20"   
+             value="${detailBean.factclient.fact_clt_id}"    nextElement="clt_id"              />    
+          
+          <input id="fact_ref_id" name="factclient.fact_ref_id"    libre   readonly="readonly"   type="text"      size="20"       maxlength="20"   
+             value="${detailBean.factclient.fact_ref_id}"                />        
+             
+                 </td>
         <td    >${reg_id}</td>
         <td    ><input id="reg_id" name="reg_id"   libre="libre" readonly="readonly"   type="text"    size="20"       maxlength="20"        value="${detailBean.reg_id}"    nextelement="fact_id"></td>
         <td    >${reg_date}</td>
@@ -215,8 +285,13 @@ function FnLoadSelectAjax(objeJson){
            
            }
            
-           $(function() {  loadSelectAjax("reg_modXX","list_mode_reglment","data_id","data_libelle","${detailBean.mode.data_id}",true);  })</script>
-        <select  id="reg_modXX"  name="mode.data_id"          style="width: 180px;"      nextelement="reg_nbr_echeance"        >
+        
+       
+        
+          $(function() {  loadSelectAjax("reg_modXX","list_mode_reglment","mod_id","mod_libelle","${detailBean.modReg.mod_id}",true);  })</script>
+        <select    id="reg_modXX"  name="modReg.mod_id"     required     style="width: 180px;"      nextelement="num_piece"        ></select>
+           
+           
         </select></td>
         <td  >${num_piece}</td>
         <td  ><input id="num_piece" name="num_piece"     type="text"    size="20"       maxlength="30"        value="${detailBean.num_piece}"    nextelement="reg_nature" /></td>
@@ -259,7 +334,7 @@ function FnLoadSelectAjax(objeJson){
 						<th>
 						<script  >
 						$(function() {  
-        loadSelectAjax("modeRegHeader","list_mode_reglment","data_id","data_libelle","bidand2",true);  })</script>
+        loadSelectAjax("modeRegHeader","list_mode_reglment","mod_id","mod_libelle","bidand2",true);  })</script>
         <select  id="modeRegHeader" name="modeRegHeader"   requiredx      > </select> 
 						
 						

@@ -52,8 +52,8 @@ public class ReglementFactCltDAO extends  GenericWeb    {
 		 if( !StringUtils.isEmpty(beanSearch.getFactclient().getClient().getClt_id()) )  
 			    requette+="   AND   bean.factclient.client.clt_id = '"+beanSearch.getFactclient().getClient().getClt_id()+"'        "; 
 		 
-		 if( !StringUtils.isEmpty(beanSearch.getMode().getData_id()) )  
-			    requette+="   AND   bean.mode.data_id = '"+beanSearch.getMode().getData_id()+"'        ";  
+		 if(  beanSearch.getModReg().getMod_id()!=null )  
+			    requette+="   AND   bean.modReg.mod_id = "+ beanSearch.getModReg().getMod_id()+"        ";  
 		 
 		 if( !StringUtils.isEmpty(beanSearch.getNature().getData_id()) )  
 			    requette+="   AND   bean.nature.data_id = '"+beanSearch.getNature().getData_id()+"'        ";  
@@ -149,11 +149,18 @@ public class ReglementFactCltDAO extends  GenericWeb    {
 					session.save(eCltBean);
 				}
 			}
+			if(!StringUtils.isBlank(beanSave.getFactclient().getFact_ref_id())  ) {
+				session.createQuery( " UPDATE  Facture_clientBean  b  set  " +
+						"            b.etat_reg.data_id='"+nature+"'   " +
+								"     where   b.fact_ref_id='"+beanSave.getFactclient().getFact_ref_id()+"'    ").executeUpdate();
+			}else {
+				session.createQuery( " UPDATE  Facture_clientBean  b  set  " +
+						"            b.etat_reg.data_id='"+nature+"'   " +
+								"     where   b.fact_clt_id='"+beanSave.getFactclient().getFact_clt_id()+"'    ").executeUpdate();
+				
+			}
 			
 			
-			session.createQuery( " UPDATE  Facture_clientBean  b  set  " +
-					"            b.etat_reg.data_id='"+nature+"'   " +
-							"     where   b.fact_clt_id='"+beanSave.getFactclient().getFact_clt_id()+"'    ").executeUpdate();
 			
 			
 			commitTransaction(session);

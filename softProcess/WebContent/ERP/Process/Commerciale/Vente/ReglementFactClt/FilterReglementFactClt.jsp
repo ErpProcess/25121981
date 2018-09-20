@@ -39,9 +39,12 @@ LoadAutoCompletAjax_with_marGin("clt_id"  ,"clt_lib","depot_id","list_client_for
    <tr>  
    <td width="12%" height="32"><label>${reg_mod}</label></td>  
    <td  >
-   <script  >$(function() {  loadSelectAjax("reg_mod","list_mode_reglment","data_id","data_libelle","${searchBean.mode.data_id}",true);  })</script>
+  
    
-   <select id="reg_mod"   name="mode.data_id"   style="width: 150px;"   /></td>  
+     <script  >$(function() {  loadSelectAjax("reg_modXX","list_mode_reglment","mod_id","mod_libelle","${searchBean.modReg.mod_id}",true);  })</script>
+        <select    id="reg_modXX"  name="modReg.mod_id"           style="width: 180px;"      nextelement="num_piece"        ></select>
+   
+   </td>  
    <td ><label>${clt_id}</label></td>
    <td >
    

@@ -63,13 +63,14 @@ $(document).ready(function (){
         <tr>
           <td width="11%"><label>${fact_id}</label></td>
           <td    >
-          <input id="fact_clt_id" name="fact_clt_id"     libre   readonly="readonly"     type="hidden"      size="20"       maxlength="25"        value="${detailBean.fact_clt_id}"    nextElement="clt_id"              />
+          <input id="fact_clt_id" name="fact_clt_id"     libre   readonly="readonly"     type="text"      size="20"       maxlength="25"        value="${detailBean.fact_clt_id}"    nextElement="clt_id"              />
+           <label style="padding-left: 15px;">code</label>
           <input id="fact_ref_id" name="fact_ref_id"    type="text"      size="20"   required    maxlength="25"        value="${detailBean.fact_ref_id}"    nextElement="clt_id"              />
           </td>
           <td><label>Mode Reg</label></td>
           <td> 
-           <script>   $(function() {  loadSelectAjax("reg_modXX","list_mode_reglment_facture","data_id","data_libelle","${detailBean.mode.data_id}",true);  })</script>
-           <select    id="reg_modXX"  name="mode.data_id"     required     style="width: 180px;"      nextelement="reg_nbr_echeance"        ></select>
+           <script>   $(function() {  loadSelectAjax("reg_modXX","list_mode_reglment_facture","mod_id","mod_libelle","${detailBean.modReg.mod_id}",true);  })</script>
+           <select    id="reg_modXX"  name="modReg.mod_id"     required     style="width: 180px;"      nextelement="reg_nbr_echeance"        ></select>
           </td>
         </tr>
         <tr>

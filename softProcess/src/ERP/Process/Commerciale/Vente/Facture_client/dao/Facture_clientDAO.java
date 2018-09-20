@@ -189,7 +189,7 @@ public class Facture_clientDAO extends  GenericWeb    {
 			beanSave.setTotal_facture(   beanTotal.getTotal_facture());
 			beanSave.setNet_a_payer( beanTotal.getNet_a_payer());
 			beanSave.setFacture_remise(beanTotal.getFacture_remise());
-			beanSave.setMode(beanSaveS.getMode());
+			beanSave.setModReg(beanSaveS.getModReg());
 			beanSave.setFact_ref_id(beanSaveS.getFact_ref_id());
 			beanSave.setCpt_bank(beanSaveS.getCpt_bank());
 			beanSave.getEtat_reg().setData_id("fnon");

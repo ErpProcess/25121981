@@ -96,7 +96,14 @@ function loadSelectAjaxX(objeJson){
     <table width="100%"  cellpadding="5" cellspacing="10" class="tableStyleContent"  id="tblData"     >
       <tr>
         <td width="10%"><label>${fact_id}</label></td>
-        <td  width="30%"  ><input id="fact_clt_id" name="factclient.fact_clt_id"    libre   readonly="readonly"   type="text"      size="20"       maxlength="20"        value="${detailBean.factclient.fact_clt_id}"    nextElement="clt_id"              />        </td>
+        <td  width="30%"  ><input id="fact_clt_id" name="factclient.fact_clt_id"    libre   readonly="readonly"   type="text"      size="20"    
+           maxlength="20"        value="${detailBean.factclient.fact_clt_id}"    nextElement="clt_id"              />       
+           
+          
+          <input id="fact_ref_id" name="factclient.fact_ref_id"    libre   readonly="readonly"   type="text"      size="20"       maxlength="20"   
+             value="${detailBean.factclient.fact_ref_id}"                />  
+           
+            </td>
         <td    >${reg_id}</td>
         <td    ><input id="reg_id" name="reg_id"   libre="libre" readonly="readonly"   type="text"    size="20"       maxlength="20"        value="${detailBean.reg_id}"    nextelement="fact_id"></td>
         <td    >${reg_date}</td>
@@ -112,9 +119,11 @@ function loadSelectAjaxX(objeJson){
         <td  >
         
         
-        <script  >$(function() {  loadSelectAjax("reg_mod","list_mode_reglment","data_id","data_libelle","${detailBean.mode.data_id}",true);  })</script>
-        <select  id="reg_mod"  name="mode.data_id"           style="width: 180px;"      nextelement="reg_nbr_echeance"       >
-        </select></td>
+        <script  >$(function() {  loadSelectAjax("reg_modXX","list_mode_reglment","mod_id","mod_libelle","${detailBean.modReg.mod_id}",true);  })</script>
+        <select    id="reg_modXX"  name="modReg.mod_id"     required     style="width: 180px;"      nextelement="num_piece"        ></select>
+        
+        
+        </td>
         <td  >${num_piece}</td>
         <td  ><input id="num_piece" name="num_piece"     type="text"    size="20"       maxlength="30"        value="${detailBean.num_piece}"    nextelement="reg_nature" /></td>
       </tr>

@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import ERP.Process.Commerciale.Code_barre.model.Code_barreBean;
 import ERP.Process.Commerciale.Entite_etat_commerciale.model.Entite_etat_commercialeBean;
 import ERP.Process.Commerciale.Entite_etat_commerciale.service.Entite_etat_commercialeService;
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.model.ModeReglementBean;
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.service.ModeReglementService;
 import ERP.Process.Commerciale.Stock.DepotStockage.model.DepotStockageBean;
 import ERP.Process.Commerciale.Stock.DepotStockage.service.DepotStockageService;
 import ERP.Process.Commerciale.Vente.Client.dao.ClientDAO;
@@ -111,7 +113,11 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		public void setServiceCompteBancaire(CompteBancaireService serviceCompteBancaire) {
 		    this.serviceCompteBancaire = serviceCompteBancaire;
 		} 
-	
+		 private ModeReglementService  serviceModeReglement;
+		  @Autowired
+		  public void setServiceModeReglement(ModeReglementService serviceModeReglement) {
+		      this.serviceModeReglement = serviceModeReglement;
+		  } 
 	public    ModelAndView doInitServletAction() {
 
 		
@@ -131,9 +137,9 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			 List list_client_d= daoClient.doFindListClient(ClientBean.class.newInstance());
 			 setObjectValueModel(LIST_CLIENT_VENTE, list_client_d);
 			 
-			 Entite_etat_commercialeBean beanSearBean = new Entite_etat_commercialeBean();
-			 beanSearBean.setCode_entite("reg_mod");
-			 setObjectValueModel(LIST_MODE_REGLMENT,serviceEntite_etat_commerciale.dofetchDatafromServer(beanSearBean));
+			 
+			 setObjectValueModel(LIST_MODE_REGLMENT,serviceModeReglement.doFetchDatafromServer(ModeReglementBean.class.newInstance()));
+			 
 				
 			 List list_des_tva= serviceTVA.doFetchDatafromServer(TVABean.class.newInstance());
 			 setObjectValueModel(LIST_DES_TVA, list_des_tva);
@@ -202,7 +208,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				
 				BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 				if (bs.getFct_id().equals(Fn_Confirmer) ||  bs.getFct_id().equals(Fn_Annuler) ){
-					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id  not in ('"+Fn_Confirmer+"','"+Fn_Envoyer+"')   ");
+					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id  not in ('"+Fn_Confirmer+"','"+Fn_Envoyer+"' )   ");
 				} 
 				
 				List listDataSrv = serviceFacture.doFetchDatafromServer(searchBean);

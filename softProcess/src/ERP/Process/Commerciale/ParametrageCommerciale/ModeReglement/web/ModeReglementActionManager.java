@@ -1,18 +1,13 @@
 package ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.web;
-import java.lang.reflect.Field; 
-import java.util.ArrayList; 
-import java.util.Collection; 
-import java.util.List; 
-import org.json.JSONException; 
-import org.json.JSONObject; 
-import org.springframework.beans.factory.annotation.Autowired; 
-import org.springframework.web.servlet.ModelAndView;  
-import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.model.ModeReglementBean;
-import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.template.ModeReglementTemplate;
-import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.service.ModeReglementService;
+import java.util.List;
 
-import ERP.eXpertSoft.wfsi.jqueryoR.datatables.controller.AjaxDataTablesUtility; 
-import com.google.gson.JsonIOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.ModelAndView;
+
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.model.ModeReglementBean;
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.service.ModeReglementService;
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.template.ModeReglementTemplate;
+import ERP.eXpertSoft.wfsi.jqueryoR.datatables.controller.AjaxDataTablesUtility;
 public class ModeReglementActionManager extends ModeReglementTemplate {
      private ModeReglementService  serviceModeReglement;
 @Autowired

@@ -11,7 +11,9 @@ LoadAutoCompletAjax_with_marGin("clt_id"  ,"clt_lib","depot_id","list_client_for
    <tr>  
    <td width="7%"><label>${fact_id}</label></td>  
    <td width="93%"  >  
-   <input id="fact_clt_id"   name="fact_clt_id"     type="text"    size="20"       maxlength="20"        value="${searchBean.fact_clt_id}"    nextElement="clt_id"    autofocus         />  
+   <input id="fact_clt_id"   name="fact_clt_id"     type="text"    size="20"       maxlength="20"        value="${searchBean.fact_clt_id}"    nextElement="clt_id"    autofocus         />
+    <label style="padding-left: 15px;">code</label>
+    <input id="fact_ref_id" name="fact_ref_id"    type="text"      size="20"        maxlength="25"        value="${searchBean.fact_ref_id}"    nextElement="clt_id"              />  
   </td>  
   
   <tr>  

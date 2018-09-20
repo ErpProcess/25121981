@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import ERP.Process.Commerciale.Entite_etat_commerciale.model.Entite_etat_commercialeBean;
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.model.ModeReglementBean;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Facture_clientBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
@@ -38,9 +39,12 @@ public class ReglementFactCltBean extends GenericBean {
 
  
 	
+ 
+	
+	
 	@ManyToOne
-	@JoinColumn(name = "reg_mod", insertable = true, updatable = true)
-	private Entite_etat_commercialeBean mode = new Entite_etat_commercialeBean();
+	@JoinColumn(name = "mod_reg_id", insertable = true, updatable = true)
+	private ModeReglementBean   modReg = new ModeReglementBean();
 	
 	
 	@ManyToOne
@@ -276,14 +280,7 @@ public class ReglementFactCltBean extends GenericBean {
 		this.montant_restant = montant_restant;
 	}
 
-	public Entite_etat_commercialeBean getMode() {
-		return mode;
-	}
-
-	public void setMode(Entite_etat_commercialeBean mode) {
-		this.mode = mode;
-	}
-
+	 
 	public String getCondition_juste_echeance() {
 		return condition_juste_echeance;
 	}
@@ -362,6 +359,14 @@ public class ReglementFactCltBean extends GenericBean {
 
 	public void setModeRegHeader(String modeRegHeader) {
 		this.modeRegHeader = modeRegHeader;
+	}
+
+	public ModeReglementBean getModReg() {
+		return modReg;
+	}
+
+	public void setModReg(ModeReglementBean modReg) {
+		this.modReg = modReg;
 	}
  
 	 

@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ERP.Process.Commerciale.Entite_etat_commerciale.model.Entite_etat_commercialeBean;
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.model.ModeReglementBean;
 import ERP.Process.Commerciale.Vente.Commandeclient.model.CommandeclientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Facture_clientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.template.Facture_clientTemplate;
@@ -123,10 +124,10 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 	           List  list_mod_reglement= (List) getObjectValueModel(Facture_clientTemplate.LIST_MODE_REGLMENT);
 	           
 	           for (int i = 0; i < list_mod_reglement.size(); i++) {
-	        	   Entite_etat_commercialeBean beanSearBean = (Entite_etat_commercialeBean) list_mod_reglement.get(i);
+	        	   ModeReglementBean   beanSearBean = (ModeReglementBean) list_mod_reglement.get(i);
 				
 	        	   String key = "";
-	        	   if(denBean.getMode().getData_id().equals(beanSearBean.getData_id())) {
+	        	   if(denBean.getModReg().getMod_id().intValue() == beanSearBean.getMod_id().intValue()  ) {
 	        		   key = "X";
 	        	   }
 				   cell = new PdfPCell(new Phrase(key,GeneratePdf.Bold_10_times_roman));
@@ -135,7 +136,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		           cell.setBorder(cell.NO_BORDER);
 		           table_des_tva.addCell(cell);
 		           
-		           cell = new PdfPCell(new Phrase(beanSearBean.getData_libelle(),GeneratePdf.Bold_10_times_roman));
+		           cell = new PdfPCell(new Phrase(beanSearBean.getMod_libelle(),GeneratePdf.Bold_10_times_roman));
 		           cell.setColspan(90);
 		           //cell.setFixedHeight(20f);
 		           cell.setHorizontalAlignment(Element.ALIGN_LEFT);

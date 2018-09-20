@@ -16,6 +16,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import ERP.Process.Commerciale.Entite_etat_commerciale.model.Entite_etat_commercialeBean;
 import ERP.Process.Commerciale.Parametrage.TypeFacture.model.TypeFactureBean;
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.model.ModeReglementBean;
 import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
@@ -41,12 +42,12 @@ public class Facture_clientBean extends GenericBean {
 	@Column
 	private String fact_ref_id = "";
 	
-	
+	 
 	 
 	
 	@ManyToOne
-	@JoinColumn(name = "reg_mod", insertable = true, updatable = true)
-	private Entite_etat_commercialeBean mode = new Entite_etat_commercialeBean();
+	@JoinColumn(name = "mod_reg_id", insertable = true, updatable = true)
+	private ModeReglementBean   modReg = new ModeReglementBean();
 	
 	 
 	
@@ -422,14 +423,15 @@ public class Facture_clientBean extends GenericBean {
 		this.fact_ref_id = fact_ref_id;
 	}
 
-	public Entite_etat_commercialeBean getMode() {
-		return mode;
+	public ModeReglementBean getModReg() {
+		return modReg;
 	}
 
-	public void setMode(Entite_etat_commercialeBean mode) {
-		this.mode = mode;
+	public void setModReg(ModeReglementBean modReg) {
+		this.modReg = modReg;
 	}
 
+	 
 	 
 
 	 

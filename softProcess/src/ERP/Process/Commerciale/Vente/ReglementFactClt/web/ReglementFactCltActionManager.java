@@ -19,6 +19,8 @@ import com.google.gson.JsonObject;
 import ERP.Process.Commerciale.Code_barre.model.Code_barreBean;
 import ERP.Process.Commerciale.Entite_etat_commerciale.model.Entite_etat_commercialeBean;
 import ERP.Process.Commerciale.Entite_etat_commerciale.service.Entite_etat_commercialeService;
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.model.ModeReglementBean;
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.service.ModeReglementService;
 import ERP.Process.Commerciale.Stock.DocumentLot.model.SerieArticletBean;
 import ERP.Process.Commerciale.Stock.MouvementStock.model.MouvementSerieBean;
 import ERP.Process.Commerciale.Stock.Stock_article.model.Stock_articleBean;
@@ -75,6 +77,13 @@ public class ReglementFactCltActionManager extends ReglementFactCltTemplate {
 	@Autowired
 	Entite_etat_commercialeService serviceEntite_etat_commerciale;
 	
+	
+	  private ModeReglementService  serviceModeReglement;
+	  @Autowired
+	  public void setServiceModeReglement(ModeReglementService serviceModeReglement) {
+	      this.serviceModeReglement = serviceModeReglement;
+	  } 
+	
 	public    ModelAndView doInitServletAction() {
 		 
 		try {
@@ -86,9 +95,9 @@ public class ReglementFactCltActionManager extends ReglementFactCltTemplate {
 			doLoadingLibelleOtherSModule(Facture_clientTemplate.ID_SOUS_MODULE);
 			doLoadingLibelleOtherSModule(ID_SOUS_MODULE);
 			
-			Entite_etat_commercialeBean beanSearBean = new Entite_etat_commercialeBean();
-			beanSearBean.setCode_entite("reg_mod");
-			setObjectValueModel(LIST_MODE_REGLMENT,serviceEntite_etat_commerciale.dofetchDatafromServer(beanSearBean));
+		 
+			 
+			setObjectValueModel(LIST_MODE_REGLMENT,serviceModeReglement.doFetchDatafromServer(ModeReglementBean.class.newInstance()));
 			
 			
 			Entite_etat_commercialeBean beanEch = new Entite_etat_commercialeBean();
@@ -237,9 +246,11 @@ public class ReglementFactCltActionManager extends ReglementFactCltTemplate {
 			etatRegEch.setData_id(detailBean.getEtatRegHeader());
 			beanLigne.setEtatRegEch(etatRegEch);
 			
-			Entite_etat_commercialeBean  echMode = new Entite_etat_commercialeBean();
-			echMode.setCode_entite("reg_mod");
-			echMode.setData_id(detailBean.getModeRegHeader());
+			ModeReglementBean    echMode = new ModeReglementBean();
+		    if( !StringUtils.isBlank(detailBean.getModeRegHeader())   ) {
+		    	echMode.setMod_id( Integer.parseInt(detailBean.getModeRegHeader()) );
+		    }
+		
 			beanLigne.setEchMode(echMode);
 			beanLigne.setNum_piece_ech(detailBean.getPieceNumHeader());
 			listEcheanceReg.add(beanLigne);
@@ -365,7 +376,7 @@ public   ModelAndView doActualiserGrid( ReglementFactCltBean searchBean ) throws
 		JSONObject json = new JSONObject();
 		try {
 			JSONArray items1  =  ActionDataTablesManager.doTraiterJsonSelect(listDataEtatEch  , "data_id"            , "data_libelle");
-			JSONArray items2 =  ActionDataTablesManager.doTraiterJsonSelect(listDataModeReg , "data_id"           , "data_libelle");
+			JSONArray items2 =  ActionDataTablesManager.doTraiterJsonSelect(listDataModeReg , "mod_id"           , "mod_libelle");
 			json.put("etatEchList", items1);
 			json.put("modeRegList", items2);
 			getResponse().setContentType("application/json");

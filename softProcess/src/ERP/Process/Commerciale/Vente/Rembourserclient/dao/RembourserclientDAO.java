@@ -43,8 +43,8 @@ public class RembourserclientDAO extends  GenericWeb    {
 		 if( !StringUtils.isEmpty(beanSearch.getFactclient().getFact_clt_id()) )  
 			    requette+="   AND   bean.factclient.fact_clt_id = '"+beanSearch.getFactclient().getFact_clt_id()+"'        "; 
 		 
-		 if( !StringUtils.isEmpty(beanSearch.getMode().getData_id()) )  
-			    requette+="   AND   bean.mode.data_id = '"+beanSearch.getMode().getData_id()+"'        ";   
+		 if(  beanSearch.getModReg().getMod_id()!=null    )  
+			    requette+="   AND   bean.modReg.mod_id = "+beanSearch.getModReg().getMod_id()+"       ";   
 		 
 		 if( (beanSearch.getReg_date()!=null) )  
 			    requette+="   AND   bean.reg_date = '"+beanSearch.getReg_date()+"'        ";    
