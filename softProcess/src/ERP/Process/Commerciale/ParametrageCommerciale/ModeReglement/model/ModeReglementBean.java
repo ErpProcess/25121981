@@ -19,9 +19,16 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean
 @Table(name = "mode_reglement", schema = "gestioncommerciale")
 public class  ModeReglementBean   extends  GenericBean {
 	
-	 @Id
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4109360959227914856L;
+
+	@Id
+	@Column
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private Integer  mod_id  ; 
+	 
 	 @Column	private String  mod_libelle =""; 
 	 @Column	private Integer mod_ordre;
 	 

@@ -4,17 +4,17 @@
 
 var lumsbean=[ 
 
-        {   "sName": "indx_row"  ,"bSearchable": false  , "bSortable": false,"bVisible": false }, 
+        {   "sName": "indx_row"   ,"bSearchable": false  , "bSortable": false,"bVisible": false }, 
 	    
-	    {    "sTitle":"date"     ,"sName": "pk.echean_date"  ,"bSortable": true    },       
+	    {    "sTitle":"date"      ,"sName": "pk.echean_date"  ,"bSortable": true    },       
 	  
-	    {    "sTitle":"Montant"     ,"sName": "echean_montant"        ,"bSortable": true         }, 
+	    {    "sTitle":"Montant"   ,"sName": "echean_montant"        ,"bSortable": true         }, 
 	  
-	    {   "sTitle":"Mode"     , "sName": "echMode.data_libelle"                       ,"bSortable": true    },
+	    {    "sTitle":"Mode"      , "sName": "echMode.mod_libelle"                       ,"bSortable": true    },
 	         
 	    {    "sTitle":"Piece"     ,"sName": "num_piece_ech"                   ,"bSortable": true    },
 	    
-	    {    "sTitle":"Etat"     ,"sName": "etatRegEch.data_libelle"                   ,"bSortable": true    },
+	    {    "sTitle":"Etat"       ,"sName": "etatRegEch.data_libelle"                   ,"bSortable": true    },
 	         
 	   
 	          
@@ -33,58 +33,8 @@ config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
 }
 
 });
-function getSuiv(){
-
-  var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_LOAD_GRID_ECHEAN','text',false);
-  if(json=="oui"){
  
-  }else{
-   alertExt("","le nombre de fois  d échéance est null","1");
-  }
  
-}
-
- 
-function FnLoadSelectAjax(objeJson){
-    loadSelectAjaxX(objeJson);
-}
-
-
-
-
-function loadSelectAjaxX(objeJson){
-        
-    		$.ajax({
-			        url: UrlServerListeComboSelect,
-			        data: {"nameList_select":"list_mode_reglment" ,"fieldcode":"data_id","fieldlabel":"data_libelle"},  
-			        dataType: "json", 
-			        async: false,
-			        type: "POST",
-			        success: function(data) {
-			        
-			          for ( var q=0  ; q<objeJson.aaData.length ; q++ ) {
-			          
-				 		  var id_region="reg_modx"+objeJson.aaData[q][0];
-				 		  var idInputcode_barre=objeJson.aaData[q][3];
-				 		  
-				 		  $('option', '#'+id_region).remove();
-			              var $regions = $('#'+id_region);
-			              
-			              for (var h = 0; h <data.myliste.length; h++) {
-			              var  sel='';
-			              
-			               
-			              if( data.myliste[h].keyx==idInputcode_barre){
-			                 sel=' selected ';
-			              }
-			              $regions.append('<option value="'+  data.myliste[h].keyx +'"      '+sel+'      >'+ data.myliste[h].valuex +'</option>');
-			             }  
-			          
-                      }    
-	  
-			        }
-            });
-}
 
  
 </script>
@@ -120,7 +70,7 @@ function loadSelectAjaxX(objeJson){
         
         
         <script  >$(function() {  loadSelectAjax("reg_modXX","list_mode_reglment","mod_id","mod_libelle","${detailBean.modReg.mod_id}",true);  })</script>
-        <select    id="reg_modXX"  name="modReg.mod_id"     required     style="width: 180px;"      nextelement="num_piece"        ></select>
+        <select    id="reg_modXX"  name="modReg.mod_id"         style="width: 180px;"      nextelement="num_piece"        ></select>
         
         
         </td>

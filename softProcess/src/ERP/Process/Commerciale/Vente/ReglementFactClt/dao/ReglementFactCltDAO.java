@@ -2,6 +2,9 @@ package ERP.Process.Commerciale.Vente.ReglementFactClt.dao;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -191,10 +194,10 @@ public class ReglementFactCltDAO extends  GenericWeb    {
 				   beanUpdate.setReg_nbr_echeance(null);
 			   }
 			  
-			  session.update(beanUpdate);
+			  session.saveOrUpdate(beanUpdate);
 			  this.saveTrace(beanUpdate);
 			}
-			
+		 
 		
 			List  <EcheanceRegCltBean>list_des_echeances_Origine=(List) getObjectValueModel( ReglementFactCltTemplate.LIST_DES_ECHEANCES_ORIGINE );
 			
@@ -203,16 +206,20 @@ public class ReglementFactCltDAO extends  GenericWeb    {
 				for (int i = 0; i < list_des_echeances_Origine.size(); i++) {
 					EcheanceRegCltBean beaSUp=list_des_echeances_Origine.get(i);
 					session.delete(beaSUp);
+					session.flush();
+					session.clear();
 				}
-				session.flush();
-				session.clear();
+				
+				
+				 
 				for (int i = 0; i < list_des_echeances.size(); i++) {
 					EcheanceRegCltBean beanUp=list_des_echeances.get(i);
 					beanUp.getPk().setReg(beanUpdate);
 					setBeanTrace(beanUp);
-					session.save(beanUp);
+					session.saveOrUpdate(beanUp);
 				}
 			 }
+	
 			if(bs.getFct_id().equals(GenericActionBean.Fn_Annuler)){
 				for (int i = 0; i < list_des_echeances.size(); i++) {
 					EcheanceRegCltBean beaSUp=list_des_echeances.get(i);

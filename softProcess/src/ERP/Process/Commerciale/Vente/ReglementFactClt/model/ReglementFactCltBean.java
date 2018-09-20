@@ -3,6 +3,7 @@ package ERP.Process.Commerciale.Vente.ReglementFactClt.model;
 import java.sql.Time;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,7 +28,12 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean
 public class ReglementFactCltBean extends GenericBean {
 
 
-	private static final long serialVersionUID = 9014517276433567198L;
+ 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7870550959727110742L;
 
 	@Id
 	@Column
@@ -42,7 +48,7 @@ public class ReglementFactCltBean extends GenericBean {
  
 	
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST) 
 	@JoinColumn(name = "mod_reg_id", insertable = true, updatable = true)
 	private ModeReglementBean   modReg = new ModeReglementBean();
 	

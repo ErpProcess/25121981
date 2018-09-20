@@ -287,6 +287,7 @@ public static  List  doGetAzizWild3asoul(final EditableDataTableRequestParam par
 						  fieldo.setAccessible(true);
 						  Object obj=fieldo.get(object);
 						  object=obj;
+						  if(object==null) {  object=""; break;}
 						  
 					}
 	    		 

@@ -30,7 +30,7 @@ public static String  NAME_GRID         = "ReglementFactClt-Grid";
 
 
 
-public static String [][] MapfieldBean  = new String[][]{{ "reg_id", "30" },{ "factclient.fact_clt_id", "30" },{ "mode.data_libelle", "30" },{ "reg_date", "30" },{ "reg_nbr_echeance", "30" },{ "montant_facture", "30" },{ "montant_avance", "30" },{ "montant_restant", "30" },{ "num_piece", "30" },{ "nature.data_libelle", "30" }};
+public static String [][] MapfieldBean  = new String[][]{{ "reg_id", "30" },{ "factclient.fact_clt_id", "30" },{ "modReg.mod_libelle", "30" },{ "reg_date", "30" },{ "reg_nbr_echeance", "30" },{ "montant_facture", "30" },{ "montant_avance", "30" },{ "montant_restant", "30" },{ "num_piece", "30" },{ "nature.data_libelle", "30" }};
 /********************************************************************View Jsp********************************************************************/
 
 

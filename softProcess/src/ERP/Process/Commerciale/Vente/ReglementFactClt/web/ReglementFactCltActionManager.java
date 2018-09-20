@@ -404,21 +404,11 @@ public   ModelAndView doActualiserGrid( ReglementFactCltBean searchBean ) throws
 				ReglementFactCltBean   rowBean =  new ReglementFactCltBean();
 				rowBean.setReg_date(BDateTime.getDateActuel());
 				rowBean.setFactclient(beanFact);
-				 
 				setObjectValueModel(FORM_BEAN, rowBean);
 				return getViewAdd_reg(FORM_EDIT_VIEW);
 			}else{
 				ReglementFactCltBean beanRegFact = (ReglementFactCltBean) getIndexFromDataGrid_v1(LIST_DATA);
 				List<EcheanceRegCltBean> list_des_echeances = serviceReglementFactClt.doFetchDataEcheanceReglementfromServer(beanRegFact);
-//				for (int i = 0; i < list_des_echeances.size(); i++) {
-//					EcheanceRegCltBean   eRegCltBean =list_des_echeances.get(i);
-//					eRegCltBean.setTo_check(""); 
-//					if(    eRegCltBean.getModeBean().getFct_id()!=null &&     
-//						   eRegCltBean.getModeBean().getFct_id().doubleValue()==  Double.parseDouble("31") )
-//						eRegCltBean.setTo_check("checked"); 
-//				}
-				
-				
 				setObjectValueModel(LIST_DES_ECHEANCES, list_des_echeances);
 				setObjectValueModel(LIST_DES_ECHEANCES_ORIGINE, ProcessUtil.cloneList(list_des_echeances) );
 				setObjectValueModel(FORM_BEAN, beanRegFact);
