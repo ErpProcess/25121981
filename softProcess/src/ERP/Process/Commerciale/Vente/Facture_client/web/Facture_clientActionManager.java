@@ -208,9 +208,10 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				
 				BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 				if (bs.getFct_id().equals(Fn_Confirmer) ||  bs.getFct_id().equals(Fn_Annuler) ){
-					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id  not in ('"+Fn_Confirmer+"','"+Fn_Envoyer+"' )   ");
-				} 
-				
+					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id  not in ('"+Fn_Confirmer+"','"+Fn_Envoyer+"' )    "
+							+ "   AND  bean.etat_reg.data_id='fnon'    ");
+					//TODO  teste is false for  find  facture in  list   a supp into entity reglment 
+				}  
 				List listDataSrv = serviceFacture.doFetchDatafromServer(searchBean);
 				
 				setObjectValueModel(SEARCH_BEAN, searchBean);

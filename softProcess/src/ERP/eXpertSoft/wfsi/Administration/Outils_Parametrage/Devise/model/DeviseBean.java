@@ -15,6 +15,11 @@ public class  DeviseBean  {
  @Column	private Integer dev_id; 
  @Column	private String  dev_abrv =""; 
  @Column	private String  dev_libelle =""; 
+ 
+ 
+ @Column	private String  symbole_monetaire	 ;
+ @Column	private String  chiffre_pattern ;
+ 
  @Column	private String  usr_cre =""; 
  @Column	private java.sql.Date  date_cre;
  @Column	private String  usr_mod =""; 
@@ -70,4 +75,19 @@ public class  DeviseBean  {
 	public void setDev_id(Integer dev_id) {
 		this.dev_id = dev_id;
 	}
+	public String getSymbole_monetaire() {
+		return symbole_monetaire;
+	}
+	public void setSymbole_monetaire(String symbole_monetaire) {
+		this.symbole_monetaire = symbole_monetaire;
+	}
+	public String getChiffre_pattern() {
+		return chiffre_pattern;
+	}
+	public void setChiffre_pattern(String chiffre_pattern) {
+		this.chiffre_pattern = chiffre_pattern;
+	}
+	
+	
+	
 	}

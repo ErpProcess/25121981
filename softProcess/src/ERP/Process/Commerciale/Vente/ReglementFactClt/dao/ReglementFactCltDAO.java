@@ -43,7 +43,9 @@ public class ReglementFactCltDAO extends  GenericWeb    {
 		
 		Session session =  openSessionHibernate(sessionFactory);
 		List lisf= new ArrayList();
+		
 		try{
+			
 		 String requette=" select  bean   FROM    ReglementFactCltBean    bean    WHERE     1=1       ";
 		 
 		 if( !StringUtils.isEmpty(beanSearch.getReg_id()) )  
@@ -51,6 +53,10 @@ public class ReglementFactCltDAO extends  GenericWeb    {
 		 
 		 if( !StringUtils.isEmpty(beanSearch.getFactclient().getFact_clt_id()) )  
 			    requette+="   AND   bean.factclient.fact_clt_id = '"+beanSearch.getFactclient().getFact_clt_id()+"'        "; 
+		 
+		 
+		 if( !StringUtils.isEmpty(beanSearch.getFactclient().getFact_ref_id()) )  
+			    requette+="   AND   bean.factclient.fact_ref_id = '"+beanSearch.getFactclient().getFact_ref_id()+"'        "; 
 		 
 		 if( !StringUtils.isEmpty(beanSearch.getFactclient().getClient().getClt_id()) )  
 			    requette+="   AND   bean.factclient.client.clt_id = '"+beanSearch.getFactclient().getClient().getClt_id()+"'        "; 
@@ -206,11 +212,11 @@ public class ReglementFactCltDAO extends  GenericWeb    {
 				for (int i = 0; i < list_des_echeances_Origine.size(); i++) {
 					EcheanceRegCltBean beaSUp=list_des_echeances_Origine.get(i);
 					session.delete(beaSUp);
-					session.flush();
-					session.clear();
+					
 				}
 				
-				
+				session.flush();
+				session.clear();
 				 
 				for (int i = 0; i < list_des_echeances.size(); i++) {
 					EcheanceRegCltBean beanUp=list_des_echeances.get(i);

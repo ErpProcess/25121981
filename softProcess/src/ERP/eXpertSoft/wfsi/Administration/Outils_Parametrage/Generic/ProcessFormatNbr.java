@@ -6,6 +6,7 @@ import java.text.DecimalFormatSymbols;
 
 import org.apache.commons.lang.StringUtils;
 
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.framework_dev.processClass.NombreEuro;
 
@@ -16,6 +17,8 @@ public class ProcessFormatNbr  extends GenericWeb  {
 		super();
 		 
 	}
+	
+     
 
 
 	public static double  FormatDouble_Troischiffre(Double decimal) throws Exception{
@@ -181,12 +184,27 @@ public class ProcessFormatNbr  extends GenericWeb  {
 	    		Double numberTrchifffre= FormatDouble_Troischiffre(number);
 	    		return (decimalFormat.format(numberTrchifffre)); //1,237,516.25
 	    		
-	    		
 	      }catch(Exception e){
 	    	  throw e;
 	      }
-	 
-		
+	}
+	
+	
+	public static String  FormatDouble_To_String_PatternChiffrePrefixes(double number,DeviseBean devise,boolean prefix, boolean suffix) throws Exception{
+	     
+	      try{
+	    	   if(devise==null) return "0";
+	    	    DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
+	    		decimalFormatSymbols.setDecimalSeparator('.');
+	    		decimalFormatSymbols.setGroupingSeparator(' ');
+	    		DecimalFormat decimalFormat = new DecimalFormat("#,##"+devise.getChiffre_pattern(), decimalFormatSymbols);
+	    		Double numberTrchifffre= FormatDouble_Troischiffre(number);
+	    		if(prefix)  return devise.getSymbole_monetaire()+" "+(decimalFormat.format(numberTrchifffre));  
+	    		else if(suffix)  return (decimalFormat.format(numberTrchifffre))+" "+devise.getSymbole_monetaire();  
+	    		else return (decimalFormat.format(numberTrchifffre)); //1,237,516.25
+	      }catch(Exception e){
+	    	  throw e;
+	      }
 	}
 	
 	public static String  FormatDouble_To_String_DeuxChiffre(double number) throws Exception{

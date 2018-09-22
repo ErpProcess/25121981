@@ -56,7 +56,7 @@ public static String [][] MapfieldBean_ModelKobbi  =
 	new String[][]{
 	         
 	          { "pk.fkcode_barre.designation_libelle", "90" },
-	          { "quantite", "30" },
+	          { "quantite", "35" },
 	          { "nbrBoxes", "30" }, 
 	          { "tarif_unit_vente", "30" },
 	          { "montant_ttc_vente", "40" }
