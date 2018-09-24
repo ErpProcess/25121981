@@ -41,8 +41,6 @@ public class Facture_clientBean extends GenericBean {
 	
 	@Column
 	private String fact_ref_id = "";
-	
-	 
 	 
 	
 	@ManyToOne

@@ -61,7 +61,6 @@ public class ReglementFactCltActionManager extends ReglementFactCltTemplate {
 	}
 
 	private Facture_clientService serviceFacture;
-
 	@Autowired
 	public void setServiceFacture(Facture_clientService serviceFacture) {
 		this.serviceFacture = serviceFacture;

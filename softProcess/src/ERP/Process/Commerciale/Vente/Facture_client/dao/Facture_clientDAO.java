@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import ERP.Process.Commerciale.Vente.EditionVente.model.EditionVenteBean;
 import ERP.Process.Commerciale.Vente.Facture_avoir_client.dao.Facture_avoir_clientDAO;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Det_Fact_ClientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Detail_mvt_vente_articleBean;
@@ -153,9 +154,40 @@ public class Facture_clientDAO extends  GenericWeb    {
 			 
 				    requette+="   AND   bean.pk.factclient.fact_clt_id ='"+beanSearch.getFact_clt_id()+"'        "; 
 				    
-				    
-				    
+				  
+			   
+			   lisf= session.createQuery(requette).list();
+			   commitTransaction(session);
+			   
+				 
+	 } catch (Exception e) {  
+	    	 rollbackTransaction(session) ;
+	     throw e;  
+	 } finally {  
+		 session.close();  
+	 }  
+	 return  lisf;
+	 
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Det_Fact_ClientBean> doFindByCriteriaList_detaille_Facture(EditionVenteBean searchBean) throws Exception {
+		
+		Session session =  openSessionHibernate(sessionFactory);
+		List lisf = new ArrayList();
+		try{
+		    String requette=" select  bean   FROM    Det_Fact_ClientBean    bean    WHERE     1=1       ";
 			 
+				   // requette+="   AND   bean.pk.factclient.fact_clt_id ='"+beanSearch.getFact_clt_id()+"'        "; 
+				    
+					 if (searchBean.getDate_debut() != null) 
+					    	requette += "   AND  bean.pk.factclient.fact_date >= '"+ProcessDate.getStringFormatDate(searchBean.getDate_debut())+"'        ";
+					    
+					if (   searchBean.getDate_fin()!= null ) 
+					    	requette += "   bean.pk.factclient.fact_date <=  '"+ProcessDate.getStringFormatDate(searchBean.getDate_fin())+"'         ";
+					
+					  requette+=this.setSocieteEtabFetch(searchBean," bean.pk.factclient.etablissment", false);
 			   
 			   lisf= session.createQuery(requette).list();
 			   commitTransaction(session);

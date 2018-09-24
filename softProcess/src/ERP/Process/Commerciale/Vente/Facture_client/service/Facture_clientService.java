@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ERP.Process.Commerciale.Vente.EditionVente.model.EditionVenteBean;
 import ERP.Process.Commerciale.Vente.Facture_avoir_client.dao.Facture_avoir_clientDAO;
 import ERP.Process.Commerciale.Vente.Facture_avoir_client.model.Facture_avoir_clientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.dao.Facture_clientDAO;
@@ -76,6 +77,14 @@ public class Facture_clientService  extends GenericWeb  {
 	public List<Det_Fact_ClientBean> doFetchDetaillefromServer(Facture_clientBean beanSearch) throws Exception {
 		return daoFacture.doFindList_detaille_Facture(beanSearch);
 	}
+	
+	
+	@Transactional(readOnly=true)
+	public List<Det_Fact_ClientBean> doFindByCriteriaList_detaille_Facture(EditionVenteBean searchBean) throws Exception {
+		return daoFacture.doFindByCriteriaList_detaille_Facture(searchBean);
+	}
+	
+	
 	
 	@Transactional(readOnly=true)
 	public List<MvtVente_articleBean> doFetchDetailleMvt_fact_vente(Facture_clientBean beanSearch) throws Exception {
