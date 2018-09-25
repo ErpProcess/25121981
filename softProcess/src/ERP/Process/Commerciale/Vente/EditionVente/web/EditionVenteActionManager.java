@@ -66,28 +66,9 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 			setObjectValueModel("listEditionVente",  listEditionVente);
 			setObjectValueModel(SEARCH_BEAN, searchBean);
 			
-			
-			 
-			/* { "sTitle": "Date"      ,"sName": "pk.factclient.fact_date"         ,"sWidth": "5%"   , "bSortable": "true"   },
-	           
-	           { "sTitle": "Invoice"   ,"sName": "pk.factclient.fact_ref_id"                     ,"sWidth": "5%"   , "bSortable": "true"   },
-	           
-	           { "sTitle": "Client"   ,"sName": "pk.factclient.client.clt_lib"                     ,"sWidth": "25%"   , "bSortable": "true"   },
-	           
-			         
-			   {      "sTitle":"Designation"    ,"sName": "pk.fkcode_barre.designation_libelle"    ,"sWidth": "30%"   },       
-			                 
-			   {      "sTitle":"Qte"   ,"sName": "quantite"                             , "sWidth": "5%"       },   
-			  
-			   
-			  
-                    
-             {      "sTitle":"Mnt TTC" , "sName": "montant_ttc_vente"    ,"sWidth": "10%"     ,"sClass" : "alignRight"     , "bSortable": "true" ,"bVisible": true  
-                  		  ,"mRender": function (data, type, full) {   return  formatNumberJsXC(data,2);   }  },*/
-             
-			 JSONObject json        = new JSONObject();
-			 JSONArray  listcol = new JSONArray();
-			 JSONObject  element = new JSONObject();
+			 JSONObject json      = new JSONObject();
+			 JSONArray  listcol   = new JSONArray();
+			 JSONObject  element  = new JSONObject();
 			 element.put("sTitle","Date");
 			 element.put("sName","pk.factclient.fact_date");
 			 element.put("sWidth","5%" );
@@ -101,6 +82,56 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 			 element.put("bSortable","true" );
 			 listcol.put(element);
 			 
+			 element = new JSONObject();
+			 element.put("sTitle","Client");
+			 element.put("sName","pk.factclient.client.clt_lib");
+			 element.put("sWidth","25%" );
+			 element.put("bSortable","true" );
+			 listcol.put(element);
+			 
+			 element = new JSONObject();
+			 element.put("sTitle","Description");
+			 element.put("sName","pk.fkcode_barre.designation_libelle");
+			 element.put("sWidth","25%" );
+			 element.put("bSortable","true" );
+			 listcol.put(element);
+			 
+			 
+			 element = new JSONObject();
+			 element.put("sTitle","Qté");
+			 element.put("sName","quantite");
+			 element.put("sWidth","5%" );
+			 element.put("bSortable","true" );
+			 listcol.put(element);
+			 
+			 element = new JSONObject();
+			 element.put("sTitle","N/box");
+			 element.put("sName","nbrBoxes");
+			 element.put("sWidth","10%" );
+			 element.put("bSortable","true" );
+			 listcol.put(element);
+			 
+			 
+			 element = new JSONObject();
+			 element.put("sTitle","prix/Kg");
+			 element.put("sName","tarif_unit_vente");
+			 element.put("formatMnt2","oui");
+			 element.put("sWidth","15%" );
+			 element.put("sClass","alignCenter" );
+			 element.put("bSortable","true" );
+			 listcol.put(element);
+			 
+			 
+			 element = new JSONObject();
+			 element.put("sTitle","Total");
+			 element.put("formatMnt2","oui");
+			 element.put("sName","montant_ttc_vente");
+			 element.put("sWidth","15%" );
+			 element.put("sClass","alignRight" );
+			 element.put("bSortable","true" );
+			 listcol.put(element);
+			 
+ 
 			 
 			 json.put("listcolonne", listcol);
 			 getResponse().setContentType(JSON_CONTENT_TYPE);      

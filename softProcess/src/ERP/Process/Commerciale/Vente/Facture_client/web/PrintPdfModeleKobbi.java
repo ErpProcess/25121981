@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,8 +173,8 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 	        	    if(i>4) continue;
 	        	    if(i==0) {titre=""; value="";}
 	        	    if(i==1) {titre=""; value="Account Number";}
-	        	    if(i==2) {titre="IBAN:"; value=denBean.getCpt_bank().getCptbanribrib();} 
-	        	    if(i==3) {titre="BIC:";  value=denBean.getCpt_bank().getCptbanribrs();}
+	        	    if(i==2) {titre="IBAN:"; value=denBean.getCpt_bank().getCptbanribrs();} 
+	        	    if(i==3) {titre="BIC:";  value=denBean.getCpt_bank().getCptbanribrib();  }
 	        	    if(i==4) {titre="";  value=denBean.getClient().getClt_method_export();}
 	        	    
 	        	    cell = new PdfPCell(new Phrase("",GeneratePdf.Bold_10_times_roman));
@@ -343,17 +344,42 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		    
 		    cell = new PdfPCell(new Phrase("  " ,GeneratePdf.Normal_11_times_roman));
 		    cell.setColspan(51);
-
 		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		    cell.setBorder(cell.NO_BORDER);
 		    tableTopHeader2.addCell(cell);
-		     
-		    
 		    cell = new PdfPCell(new Phrase(denBean.getClient().getClt_adr(),GeneratePdf.Normal_11_times_roman));
 		    cell.setColspan(49);
 		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		    cell.setBorder(cell.NO_BORDER);
 		    tableTopHeader2.addCell(cell);
+		    
+		    
+		    
+		    cell = new PdfPCell(new Phrase("  " ,GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(51);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    cell = new PdfPCell(new Phrase(denBean.getClient().getClt_region(),GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(49);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    
+		    cell = new PdfPCell(new Phrase("  " ,GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(51);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    cell = new PdfPCell(new Phrase(denBean.getClient().getClt_pays(),GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(49);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    
+		    
+		    
+		    
 		    
 		    
 		    cell = new PdfPCell(new Phrase( "  "  ,GeneratePdf.Normal_11_times_roman));
@@ -431,11 +457,20 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 					        PdfPCell cell = new PdfPCell(new Phrase("",GeneratePdf.Bold_10_times_roman));
 					 
 					        Object obj=	 GenericWeb.getValueOject_with_name_field(bean, mapFieldBean[j][0]);
-					        if(j==mapFieldBean.length-3  ){
-					        	cell = new PdfPCell(new Phrase(String.valueOf(obj),GeneratePdf.Bold_10_times_roman));
+					        
+					        if(j==mapFieldBean.length-3  || j==mapFieldBean.length-4  ){
+					        	
+					        	
+					        	String valu="";
+					        	if(obj!=null   &&  !obj.equals("")) {
+					        		Double D = (Double) obj;
+						        	int iddd = Integer.valueOf(D.intValue());
+						        	valu=String.valueOf(iddd);
+					        	}
+					            
+					        	cell = new PdfPCell(new Phrase(  valu  ,GeneratePdf.Bold_10_times_roman));
 						        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 						        cell.setPaddingBottom(5);
-						        cell.setBorderWidth(0.1f);
 						        cell.setBackgroundColor(BaseColor.WHITE);
 						        if(i%2==0)
 						        cell.setBackgroundColor(GeneratePdf.colorLigne);
@@ -447,7 +482,6 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 					        	cell = new PdfPCell(new Phrase(ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(elm,denBean.getDevise(),true, false),GeneratePdf.Bold_10_times_roman));
 						        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 						        cell.setPaddingBottom(5);
-						        cell.setBorderWidth(0.1f);
 						        cell.setBackgroundColor(BaseColor.WHITE);
 						        if(i%2==0)
 						        cell.setBackgroundColor(GeneratePdf.colorLigne);
@@ -456,7 +490,6 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 					        	cell = new PdfPCell(new Phrase(String.valueOf(obj),GeneratePdf.Bold_10_times_roman));
 						        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 						        cell.setPaddingBottom(5);
-						        cell.setBorderWidth(0.1f);
 						        cell.setBackgroundColor(BaseColor.WHITE);
 						        if(i%2==0)
 						        cell.setBackgroundColor(GeneratePdf.colorLigne);

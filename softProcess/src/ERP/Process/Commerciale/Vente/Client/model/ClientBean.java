@@ -28,6 +28,16 @@ public class ClientBean extends GenericBean {
 	private String clt_lib = "";
 	@Column
 	private String clt_adr = "";
+	
+	
+	@Column
+	private String clt_region = "";
+	
+	@Column
+	private String clt_pays = "";
+	
+	
+	
 	@Column
 	private String clt_tel = "";
 	
@@ -231,4 +241,21 @@ public class ClientBean extends GenericBean {
 	public void setClt_method_export(String clt_method_export) {
 		this.clt_method_export = clt_method_export;
 	}
+
+	public String getClt_region() {
+		return clt_region;
+	}
+
+	public void setClt_region(String clt_region) {
+		this.clt_region = clt_region;
+	}
+
+	public String getClt_pays() {
+		return clt_pays;
+	}
+
+	public void setClt_pays(String clt_pays) {
+		this.clt_pays = clt_pays;
+	}
+	
 }

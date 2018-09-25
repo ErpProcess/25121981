@@ -13,6 +13,14 @@ mapEditableGen = {             "otab"   :oTable,
                                };
        function doDisplayTableData (){
     	  var resp= doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_AJAX_FETCH','json',false);
+    	  Object.keys(resp.listcolonne).forEach(function(key) {
+    		   if( resp.listcolonne[key].hasOwnProperty('formatMnt2') ){
+    			   resp.listcolonne[key]['mRender']= function (data, type, full) {   return  formatNumberJsXC(data,2);   } 
+    		   }
+    		   if( resp.listcolonne[key].hasOwnProperty('formatMnt3') ){
+    			   resp.listcolonne[key]['mRender']= function (data, type, full) {   return  formatNumberJsXC(data,3);   } 
+    		   }
+    		});
     	  mapEditableGen["mapCol"]=resp.listcolonne;
     	  LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
     	  config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  ); 

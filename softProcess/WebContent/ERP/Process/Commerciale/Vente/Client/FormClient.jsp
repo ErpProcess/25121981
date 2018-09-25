@@ -27,9 +27,20 @@
    <tr>  
    <td width="7%"><label>${clt_adr}</label></td>  
    <td width="93%"  >  
-   <input id="clt_adr" name="clt_adr"     type="text"    size="500"       maxlength="500"        value="${detailBean.clt_adr}"    nextElement="clt_tel"              />  
+   <input id="clt_adr" name="clt_adr"     type="text"    size="500"       maxlength="500"        value="${detailBean.clt_adr}"    nextElement="clt_tel"              /> 
   </td>  
    </tr>   
+   
+    <tr>  
+   <td width="7%"><label>Region</label></td>  
+   <td width="93%"  >  
+   <input id="clt_region" name="clt_region"     type="text"    size="500"       maxlength="500"        value="${detailBean.clt_region}"         /> 
+   <label>Pays</label>
+    <input id="clt_pays" name="clt_pays"     type="text"    size="500"       maxlength="500"        value="${detailBean.clt_pays}"         /> 
+  </td>  
+   </tr>   
+   
+   
    <tr>  
    <td width="7%"><label>${clt_tel}</label></td>  
    <td width="93%"  >  
@@ -95,10 +106,10 @@
    
   <tr>  
    <td width="7%"><label>Compte.Bank.Fact</label></td>  
-   <td width="93%"  >  
+   <td width="93%" height="40px" >  
    
-   <input id="cptbanribrib"  name="compte.cptbanribrib"      type="text"      size="15"               value="${detailBean.compte.cptbanribrib}"        required         /> 
-   <input id="cptbanribrs" name="compte.cptbanribrs"     type="text"    size="25"                value="${detailBean.compte.cptbanribrs}"         required        />   
+   <input id="cptbanribrib"  name="compte.cptbanribrib"      type="text"      size="15"            value="${detailBean.compte.cptbanribrib}"        required         /> 
+   <input id="cptbanribrs"   name="compte.cptbanribrs"       type="text"    size="25"                value="${detailBean.compte.cptbanribrs}"         required        />   
   </td>  
    </tr>
    
