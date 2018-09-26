@@ -21,7 +21,10 @@ public class BeanSession {
 	private String  sousmod_id = "";
 	private String  sousmod_libelle = "";
 	private String  sousmod_libelle_title = "";
+	private String  prefix_sousmod_libelle_title = "-";
 	
+	
+
 	private String  indexModule = "";
 	private String  indexSousModule = "";
 	
@@ -366,7 +369,13 @@ public class BeanSession {
 	}
 
 	 
- 
+	public String getPrefix_sousmod_libelle_title() {
+		return prefix_sousmod_libelle_title;
+	}
+
+	public void setPrefix_sousmod_libelle_title(String prefix_sousmod_libelle_title) {
+		this.prefix_sousmod_libelle_title = prefix_sousmod_libelle_title;
+	}
 	
  
 	 

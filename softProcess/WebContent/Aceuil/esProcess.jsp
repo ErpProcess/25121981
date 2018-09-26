@@ -817,7 +817,7 @@ function migaXWXXWW(dssss) {
 				              
 				                
 				           </c:if>
-				            <div style="background-color:#616975;padding-left: 3%;font-weight: bold;color:#fff;padding-top: 0.5%;top: -50px;padding-bottom: 5px;font-size: 15px;font-family: arial;"  >${bs.fct_libelle} - ${bs.sousmod_libelle_title}</div>
+				            <div style="background-color:#616975;padding-left: 3%;font-weight: bold;color:#fff;padding-top: 0.5%;top: -50px;padding-bottom: 5px;font-size: 15px;font-family: arial;"  >${bs.fct_libelle} ${bs.prefix_sousmod_libelle_title} ${bs.sousmod_libelle_title}</div>
 				          </ext:toolbar>
 				          
 		                  <ext:toolbar   id="WqsSED"      style="background-color:#f8fcfc;float:right;margin-right:0.5;"  >            

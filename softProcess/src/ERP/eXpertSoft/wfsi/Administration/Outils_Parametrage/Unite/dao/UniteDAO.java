@@ -1,11 +1,17 @@
 package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.dao;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+
+import ERP.Process.Commerciale.Code_barre.model.Code_barreBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.model.DeriverUnite;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.model.DetDeriverUnite;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.model.UniteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.template.UniteTemplate;
 @Repository
@@ -27,7 +33,24 @@ public class UniteDAO extends  GenericWeb    {
 	public Boolean doSaveUnite(UniteBean beanSave) throws Exception {
 	     boolean result=false; 
 		try {
+			
+			DeriverUnite  drv = new DeriverUnite();
+			this.setBeanTrace(drv);
+			this.hibernateTemplate.save(drv);
+			
+			
+			DetDeriverUnite  detdriverUnite = new DetDeriverUnite();
+			detdriverUnite.setDrv(drv); 
+			detdriverUnite.setDrv_oper(beanSave.getOpreration());
+			detdriverUnite.setDrv_coef(beanSave.getUnite_coef());
+			HashMap  map_article=(HashMap) getObjectValueModel("map_article_unite");
+			Code_barreBean searchBean = (Code_barreBean) map_article.get(beanSave.getCode_barre());
+			detdriverUnite.setFkcode_barre(searchBean);
+			this.setBeanTrace(detdriverUnite);
+			this.hibernateTemplate.save(detdriverUnite);
+			
 			this.setBeanTrace(beanSave);
+			beanSave.setDrv(drv);
 			this.hibernateTemplate.save(beanSave);
 			this.saveTrace(beanSave);
 			result=true;

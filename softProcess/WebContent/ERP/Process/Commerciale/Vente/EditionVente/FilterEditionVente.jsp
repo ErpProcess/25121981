@@ -32,31 +32,49 @@ mapEditableGen = {             "otab"   :oTable,
   <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
  <ext:panel  border="false"    bodyStyle="background: none;"    title="Critere de recherche"   collapsible="true"    >  
  <table class="tableStyleContent"  cellpadding="5" cellspacing="10"  id="tblData"     >  
-   <tr>  
-   <td width="7%"><label>${edition_id}</label></td>  
-   <td width="93%"  >  
-   <input id="edition_id"   name="edition_id"     type="text"    size="10"       maxlength="10"        value="${searchBean.edition_id}"    nextElement="edition_libelle"    autofocus         />  
-  </td>  
-   </tr>   
-  <tr>  
-   <td colspan="1" ><label>${_datedebut} </label></td>  
-   <td    >  
-	   <table   >
+ 
 	   <tr>
-	     <td width="40%" > 
+	     <td  width="7%" ><label>${_datedebut} </label></td>  
+	     <td   width="10%"  > 
 	     <input id="date_debut"             compareTo="date_fin"      name="date_debut"        type="datepicker"    size="13"       maxlength="13"        value="${searchBean.date_debut}"    nextElement="date_fin"              /></td>
-	     <td><label>${_datefin}</label></td>
-	     <td>
+	     <td width="5%"  ><label>${_datefin}</label></td>
+	     <td width="78%"   >
 	     <input id="date_fin"        comparedTo="date_debut"      name="date_fin"     type="datepicker"    size="13"       maxlength="13"        value="${searchBean.date_fin}"    nextElement="clt_id"              /></td>
 	   </tr>
-	   </table>
-  </td>  
-   </tr>   
+	   
    
  </table>   
 </ext:panel>
- <ext:panel   id="RET_GRID"   bodyStyle="background: none;"    border="false"      title="Détaille Facture"    >
-      <table id="GRID_DETAIL_FACTURE_CLIENT" class="display" width="100%"      ></table>
+ <ext:panel   id="RET_GRID"   bodyStyle="background: none;"    border="false"      title="Détaille vente"    >
+      <table id="GRID_DETAIL_FACTURE_CLIENT" class="display" width="100%"      >
+      <tfoot>
+          <tr>
+            <td   height="50px" colspan="8" ></td>
+          </tr>
+            <tr  >
+              <td colspan="4"  ></td>
+              <td ></td>
+              <td ></td>
+              <td ></td>
+              <td ></td>
+            </tr>
+        </tfoot>
+      </table>
+      <script type="text/javascript">
+// 					function doLoaderDataFooter( nRow,aData, iStart, iEnd){
+// 					    var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_CALCUL_TOTAL','json',false);
+// 					    var	listTva= json.list_tva ;
+// 					    var	listTotal = json.list_total ;
+// 					    for (var x = 0; x <listTotal.length; x++) {
+// 					     var foot ={} ;
+// 			             foot[listTotal[x].td1] = listTotal[x].value1;
+// 			             foot[listTotal[x].td2] = listTotal[x].value2;
+// 			             footX["BB"+x]=foot;
+// 					     }   
+					        
+// 				    return  footX; 
+// 				}
+        </script>
 </ext:panel>
 
 

@@ -21,4 +21,8 @@ public static String [][] MapfieldBean  = new String[][]{{ "unite_id", "30" },{ 
 public static String FORM_VIEW          = "FormUnite";
 public static String FILTER_VIEW        = "FilterUnite";
 public static String LIST_VIEW          = "ListUnite";
+
+
+public static boolean i$_ACT_INIT_SERVLET = false;
+
 }

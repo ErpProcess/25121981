@@ -15,6 +15,8 @@ public class UniteController  extends UniteActionManager   {
     @RequestMapping(value = ROOT) 
     public ModelAndView doControlAction(UniteBean detailBean,HttpServletRequest request,HttpServletResponse response  )throws  Throwable {  
            ModelAndView model=doInitGenericAction(request,response,new UniteTemplate());
+           
+                  if (i$_ACT_INIT_SERVLET )         return      doInitServletAction();  
 		          if (i$_ACT_ADD)                   return      doAddData(detailBean);
 		          if (i$_ACT_AJAX_FETCH)            return      doFetchData(detailBean);
 		          if (i$_ACT_UPDATE)                return      doUpdateData(detailBean);

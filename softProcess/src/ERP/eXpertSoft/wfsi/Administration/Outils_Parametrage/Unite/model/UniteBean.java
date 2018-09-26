@@ -4,7 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
@@ -38,9 +41,15 @@ public class UniteBean {
 	@Column
 	private Double unite_coef ;
 	
+	@Transient
+	private String opreration = "";
 	
-
-	 
+	@Transient
+	private String code_barre = "";
+	
+	@ManyToOne
+	@JoinColumn(name = "drv_id", insertable = true, updatable = false)
+	private DeriverUnite drv = new DeriverUnite();
 
 	public void setUnite_lib(String unite_lib) {
 		this.unite_lib = unite_lib;
@@ -120,6 +129,30 @@ public class UniteBean {
 
 	public void setUnite_coef(Double unite_coef) {
 		this.unite_coef = unite_coef;
+	}
+
+	public String getOpreration() {
+		return opreration;
+	}
+
+	public void setOpreration(String opreration) {
+		this.opreration = opreration;
+	}
+
+	public String getCode_barre() {
+		return code_barre;
+	}
+
+	public void setCode_barre(String code_barre) {
+		this.code_barre = code_barre;
+	}
+
+	public DeriverUnite getDrv() {
+		return drv;
+	}
+
+	public void setDrv(DeriverUnite drv) {
+		this.drv = drv;
 	}
 
 	 
