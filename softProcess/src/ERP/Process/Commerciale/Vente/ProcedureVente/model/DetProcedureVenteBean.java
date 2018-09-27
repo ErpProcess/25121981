@@ -57,6 +57,11 @@ public class DetProcedureVenteBean extends GenericBean {
 	private TarificationBean  tarif = new TarificationBean();
 	
 	
+	@ManyToOne
+	@JoinColumn(name = "drv_vente_id", insertable = true, updatable = true)
+	private DeriverOperationVente  drv = new DeriverOperationVente();
+	
+	
 	
 	@Column
 	private Double montant_tva_vente;
@@ -98,7 +103,6 @@ public class DetProcedureVenteBean extends GenericBean {
 	
 	@Transient
 	private String	 methode_s	 = "Généric";
-	
 	
 	
 	@Column
@@ -322,6 +326,14 @@ public class DetProcedureVenteBean extends GenericBean {
 
 	public void setNature_produit(String nature_produit) {
 		this.nature_produit = nature_produit;
+	}
+
+	public DeriverOperationVente getDrv() {
+		return drv;
+	}
+
+	public void setDrv(DeriverOperationVente drv) {
+		this.drv = drv;
 	}
 
 	 

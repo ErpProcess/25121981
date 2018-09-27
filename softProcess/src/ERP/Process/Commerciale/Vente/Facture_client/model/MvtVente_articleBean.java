@@ -57,7 +57,20 @@ public class MvtVente_articleBean extends GenericBean  {
 	@Transient
 	private Double montant_ht_vente_reel;
 	
+	@Transient
+	private Double nbrBox;
 	
+	
+	public Double getNbrBox() {
+		return nbrBox;
+	}
+
+
+	public void setNbrBox(Double nbrBox) {
+		this.nbrBox = nbrBox;
+	}
+
+
 	@Transient  
 	private Double montant_Remise_Ligne;
 	

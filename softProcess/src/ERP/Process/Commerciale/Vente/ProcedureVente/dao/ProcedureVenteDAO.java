@@ -2,7 +2,9 @@ package ERP.Process.Commerciale.Vente.ProcedureVente.dao;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -27,6 +29,7 @@ import ERP.Process.Commerciale.Vente.Facture_client.model.MvtVente_articleBean;
 import ERP.Process.Commerciale.Vente.Facture_client.template.Facture_clientTemplate;
 import ERP.Process.Commerciale.Vente.FournitureVente.model.DetFournitureVenteBean;
 import ERP.Process.Commerciale.Vente.FournitureVente.model.FournitureVenteBean;
+import ERP.Process.Commerciale.Vente.ProcedureVente.model.DeriverOperationVente;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.DetProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.template.ProcedureVenteTemplate;
@@ -163,6 +166,18 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			beanSave.setVente_mnt_total(beanTotal.getVente_mnt_total());
 			beanSave.setMarge_benefice_vente(beanTotal.getMarge_benefice_vente());
 			session.save(beanSave);
+			HashMap  map_deriver_vente  =(HashMap) getObjectValueModel(ProcedureVenteTemplate.MAP_DERIVER_VENTE);
+		 
+			
+			if( map_deriver_vente!=null   &&  map_deriver_vente.size() >0 ) {
+				Set setMap_deriver_vente=map_deriver_vente.keySet();
+				for (Iterator iter = setMap_deriver_vente.iterator(); iter.hasNext();) {
+					String codeBarr = (String) iter.next();
+					DeriverOperationVente dVente = (DeriverOperationVente) map_deriver_vente.get(codeBarr);
+					this.setBeanTrace(dVente);
+					session.save(dVente);
+				}
+			}
 			
 			//this.saveTraceVersion1( beanSave  , ProcedureVenteTemplate.MapfieldBean  , ProcedureVenteTemplate.id_entite_pricipale  , ProcedureVenteTemplate.entites);
 			
@@ -172,7 +187,10 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				if( detBean.getQuantite()==null) { continue; }
 				if( detBean.getQuantite()==0 ||  detBean.getQuantite()<0) { continue;}
 				detBean.getPk().setVente(beanSave);
-				 
+				DeriverOperationVente dVente = (DeriverOperationVente) map_deriver_vente.get(detBean.getPk().getFkcode_barre().getPk().getCode_barre());
+				if(dVente!=null) {
+					detBean.setDrv(dVente);
+				}
 				session.save(detBean);
 				result_detaille=true;
 			}

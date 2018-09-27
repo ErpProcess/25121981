@@ -51,8 +51,8 @@ public class Det_Fact_ClientBean extends GenericBean  {
 	private Double montant_ht_vente;
 	
 	
-	@Transient
-	private String nbrBoxes;
+	@Column(name="nbr_boxes")
+	private Double nbrBoxes;
 	
 	 
 	 
@@ -259,16 +259,15 @@ public class Det_Fact_ClientBean extends GenericBean  {
 		this.montant_ttc_vente = montant_ttc_vente;
 	}
 
-	public String getNbrBoxes() {
+	public Double getNbrBoxes() {
 		return nbrBoxes;
 	}
 
-	public void setNbrBoxes(String nbrBoxes) {
+	public void setNbrBoxes(Double nbrBoxes) {
 		this.nbrBoxes = nbrBoxes;
 	}
 
 	 
- 
 	 
 
 	 

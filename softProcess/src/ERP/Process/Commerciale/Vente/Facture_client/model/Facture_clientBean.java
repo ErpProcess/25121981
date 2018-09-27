@@ -95,14 +95,20 @@ public class Facture_clientBean extends GenericBean {
 	
 	@Column
 	private Date fact_date_edition;
-	
-	
-	
-	
+
  
+	@Transient
+	private Double totnbrBox;
 	
 	
-	
+	public Double getTotnbrBox() {
+		return totnbrBox;
+	}
+
+	public void setTotnbrBox(Double totnbrBox) {
+		this.totnbrBox = totnbrBox;
+	}
+
 	@Column
 	private Boolean exonere_tva = false;
 	

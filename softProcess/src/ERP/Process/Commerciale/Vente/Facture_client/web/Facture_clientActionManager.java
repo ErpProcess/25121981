@@ -323,6 +323,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			 
 			 
 			 Double  quantiteGen	= new Double(0);
+			 Double  quantiteBox	= new Double(0);
 			 Double  mnt_ht		    = new Double(0);
 			 Double  mnt_tva	    = new Double(0);
 			 
@@ -372,8 +373,11 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				String natureprix="<br>"+" <p style='color:red;margin-left:20%;font-size:8px;'># Prix "+lot+" * "+groupe+"</p>";
 				detProVente.setInfo(libelle_desi+natureprix);*/
 		    	
-				 quantiteGen=ProcessNumber.addition(quantiteGen, detProVente.getQuantite());
-					  
+				 quantiteGen  =ProcessNumber.addition(quantiteGen, detProVente.getQuantite());
+				 if(detProVente.getDrv()!=null) {
+					 quantiteBox  =ProcessNumber.addition(quantiteBox, detProVente.getDrv().getQuantite());
+				 }
+				
 		    		
 		    		
 		    	/*****************************************Prix Unit Brute reel********************************************/
@@ -430,6 +434,8 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			mvt_article.setFkcode_barre(fkcode_barre); 
 			mvt_article.setTvaBean(tvaBean);
 			mvt_article.setQuantite(quantiteGen);
+			
+			mvt_article.setNbrBox(quantiteBox);
 			mvt_article.setMontant_ht_vente(mnt_ht);
 			mvt_article.setMontant_tva_vente(mnt_tva);
 			mvt_article.setMontant_ht_vente_reel(montant_ht_vente_reel);
@@ -448,6 +454,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	    	 beanDetailleFacture.getPk().setMvtVente(mvt_article);
 	    	 beanDetailleFacture.getPk().setFkcode_barre(mvt_article.getFkcode_barre());
 	    	 beanDetailleFacture.setQuantite(mvt_article.getQuantite());
+	    	 beanDetailleFacture.setNbrBoxes(mvt_article.getNbrBox());
 	    	 Double mntht=ProcessFormatNbr.FormatDouble_ParameterChiffre(mvt_article.getMontant_ht_vente(),pattern);
 	    	 
 	    	 Double mntht_reel=ProcessFormatNbr.FormatDouble_ParameterChiffre(mvt_article.getMontant_ht_vente_reel(),pattern);
@@ -533,6 +540,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			Double tot_ht_net    =new Double(0);
 			Double tot_tva=new Double(0);
 			Double tot_qte=new Double(0);
+			Double tot_qteBox=new Double(0);
 			
 			
 			HashMap   map_des_Tva = new HashMap();
@@ -542,6 +550,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				 
 				/*****************************************le cout ********************************************/
 	    		Double getQuantiteX       = beanLigne.getQuantite()==null?new Double(0):beanLigne.getQuantite();
+	    		Double getQuantiteBox       = beanLigne.getNbrBoxes()==null?new Double(0):beanLigne.getNbrBoxes();
 	    		Double                 qte= ProcessFormatNbr.FormatDouble_ParameterChiffre(getQuantiteX,pattern);
 	    		/*Double  cout              = beanLigne.getTarif().getCout()==null?new Double(0):beanLigne.getTarif().getCout().getTarif_unit_article(,pattern);
 	    		Double	Prixcout          = cout==null?new Double(0):cout;
@@ -556,7 +565,12 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	    		Double montant_ht_vente_brute=ProcessNumber.PRODUIT(priUnitvente, qte);
 	    		montant_ht_vente_brute=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente_brute,pattern);
 	    		beanLigne.setMontant_ht_vente_reel(montant_ht_vente_brute);
-	    		tot_qte     =ProcessNumber.addition(tot_qte, qte);
+	    		tot_qte         =ProcessNumber.addition(tot_qte, qte);
+	    		
+	    		Double       qteBox= ProcessFormatNbr.FormatDouble_ParameterChiffre(getQuantiteBox,pattern);
+	    		tot_qteBox      =ProcessNumber.addition(tot_qteBox, qteBox);
+	    		
+	    		
 				tot_ht_brute=ProcessNumber.addition(tot_ht_brute, montant_ht_vente_brute);
 	    		 
 	    		/*******************************************Remise********************************************************/
@@ -598,8 +612,10 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				/**********************************************************************************************************/
 			}
 			
-			Facture_clientBean    beanTotal = new Facture_clientBean();
+			 Facture_clientBean    beanTotal = new Facture_clientBean();
 			 beanTotal.setAvance_montant_vente(avance)  ; 
+			 beanTotal.setTotnbrBox(tot_qteBox);
+			 beanTotal.setTotal_quantite(String.valueOf(tot_qte));
 			 //beanTotal.setMarge_benefice_vente(ProcessFormatNbr.FormatDouble_ParameterChiffre(marge_benefice_vente));
 			 JSONObject json        = new JSONObject();
 			 JSONArray  listDataTva = new JSONArray();

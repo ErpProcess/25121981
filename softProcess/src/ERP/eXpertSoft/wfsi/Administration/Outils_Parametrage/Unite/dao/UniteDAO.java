@@ -24,12 +24,21 @@ public class UniteDAO extends  GenericWeb    {
 	@SuppressWarnings("unchecked")
 	public List<UniteBean> doFindListUnite(UniteBean beanSearch) throws Exception {
 		    String requette=" select  bean   FROM    UniteBean    bean    WHERE     1=1       ";
-   if( beanSearch.getUnite_id()!=null)  
-	    requette+="   AND   bean.unite_id = "+beanSearch.getUnite_id()+"       ";    
- if( !StringUtils.isEmpty(beanSearch.getUnite_lib()) )  
-	    requette+="   AND   bean.unite_lib = '"+beanSearch.getUnite_lib()+"'        ";    
+		   if( beanSearch.getUnite_id()!=null)  
+			    requette+="   AND   bean.unite_id = "+beanSearch.getUnite_id()+"       ";    
+		   if( !StringUtils.isEmpty(beanSearch.getUnite_lib()) )  
+			    requette+="   AND   bean.unite_lib = '"+beanSearch.getUnite_lib()+"'        ";    
 			return   hibernateTemplate.find(requette);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<DetDeriverUnite> doFetchDetDeriverUniteByDrvId(Integer drv_id) throws Exception {
+			return   hibernateTemplate.find("select  bean   FROM    DetDeriverUnite    bean    WHERE     bean.drv.drv_id="+drv_id+"  ");
+	}
+	
+	
+	
+	
 	public Boolean doSaveUnite(UniteBean beanSave) throws Exception {
 	     boolean result=false; 
 		try {

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Transient;
 
 import jxl.Workbook;
@@ -47,6 +48,7 @@ import ERP.Process.Commerciale.Vente.Commandeclient.template.CommandeclientTempl
 import ERP.Process.Commerciale.Vente.FournitureVente.model.DetFournitureVenteBean;
 import ERP.Process.Commerciale.Vente.FournitureVente.model.FournitureVenteBean;
 import ERP.Process.Commerciale.Vente.FournitureVente.service.FournitureVenteService;
+import ERP.Process.Commerciale.Vente.ProcedureVente.model.DeriverOperationVente;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.DetProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.service.ProcedureVenteService;
@@ -63,6 +65,9 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumb
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.model.TVABean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.service.TVAService;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.model.DeriverUnite;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.model.DetDeriverUnite;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.service.UniteService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BDateTime;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.exportExcel.WriteExcel;
@@ -164,10 +169,18 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 	@Autowired
 	private DeviseService     serviceDevise;
 	
+	
 	private TVAService   serviceTVA;
 	@Autowired
 	public void setServiceTva(TVAService serviceTVA) {
 		this.serviceTVA = serviceTVA;
+	}
+	
+	
+	private UniteService   serviceUnite;
+	@Autowired
+	public void setServiceUnite(UniteService serviceUnite) {
+		this.serviceUnite = serviceUnite;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -191,6 +204,9 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 			 List list_des_tva= serviceTVA.doFetchDatafromServer(TVABean.class.newInstance());
 			 setObjectValueModel(LIST_DES_TVA, list_des_tva);
 			 
+			 
+			 
+			 
 			 ResponsableLieuBean  resLieu =  new ResponsableLieuBean();
 			 resLieu.getPk().getUsr().setUsr_id(bs.getUsr_id());
 			 List <ResponsableLieuBean> listReslieux=serviceResponsableLieu.doFetchDatafromServer(resLieu);
@@ -198,22 +214,26 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 				 throwNewException(" Utilisateur non affecté ");
 			 List  listLieux= new ArrayList();
 			 
-			 DepotStockageBean  depot = null;
-			 for(ResponsableLieuBean res:listReslieux){
+			DepotStockageBean  depot = null;
+			for(ResponsableLieuBean res:listReslieux){
 				  if(depot==null) depot=res.getPk().getDepot();
 				 listLieux.add(res.getPk().getDepot());
-			 }
-			 setObjectValueModel(LIST_DEPOT_STOCK , listLieux);
+			}
+			setObjectValueModel(LIST_DEPOT_STOCK , listLieux);
 			 
-			 List list_client_d= daoClient.doFindListClient(ClientBean.class.newInstance());
-			 setObjectValueModel(LIST_CLIENT_VENTE, list_client_d);
+			List list_client_d= daoClient.doFindListClient(ClientBean.class.newInstance());
+			setObjectValueModel(LIST_CLIENT_VENTE, list_client_d);
 			 
-			 HashMap  mapclientBen = ProcessUtil.getHashMap_code_bean(list_client_d, "clt_id");
-			 setObjectValueModel(MAP_CLIENT_BEN, mapclientBen);
+			HashMap  mapclientBen = ProcessUtil.getHashMap_code_bean(list_client_d, "clt_id");
+			setObjectValueModel(MAP_CLIENT_BEN, mapclientBen);
 			
 	 
 			List  <DetProcedureVenteBean>listGridEditable_VENTE=  new  ArrayList<DetProcedureVenteBean>();
 			setObjectValueModel(LIST_EDITABLE_VENTE, listGridEditable_VENTE);
+			
+			HashMap   map_deriver_vente=  new HashMap();
+			setObjectValueModel(MAP_DERIVER_VENTE, map_deriver_vente);
+			
 			
 			List  <DetFournitureVenteBean>list_editable_fournitureVente=  new  ArrayList<DetFournitureVenteBean>();
 			setObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE, list_editable_fournitureVente);
@@ -221,8 +241,6 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 			
 			List  <DetServiceBean>list_editable_Prestation=  new  ArrayList<DetServiceBean>();
 			setObjectValueModel(LIST_EDITABLE_PRESTATION, list_editable_Prestation);
-			
-			
 			
 			bs.setSousmod_libelle_title(bs.getSousmod_libelle());
 			
@@ -1068,6 +1086,12 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 		try {
 			
 			List listOfmyData  =(List) getObjectValueModel(LIST_EDITABLE_VENTE);
+			HashMap  map_deriver_vente  =(HashMap) getObjectValueModel(MAP_DERIVER_VENTE);
+			
+			 
+			
+			
+			
 			setObjectValueModel(FORM_BEAN,detailBean); 
 			List list_article_Origine =(List) getObjectValueModel(LIST_ARTICLE_VENTE_ORIGINE);
 			HashMap  map_articl=ProcessUtil.getHashMap_code_bean(listOfmyData, "pk.fkcode_barre.pk.code_barre");
@@ -1132,6 +1156,25 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	     
 	    		beanLigne.setTarif(ss);
 	    		beanLigne.setQuantite_en_stock(quantite_en_stock);
+	    		DeriverUnite  drvUnite=cBean.getPk().getAr_bean().getUnitBean().getDrv();
+	    		 
+	    		if(drvUnite!=null) {
+	    			List <DetDeriverUnite> listDrv = serviceUnite.doFetchDetDeriverUniteByDrvId(drvUnite.getDrv_id())  ;
+	    			for (int r = 0; r < listDrv.size();r++) {
+	    				DetDeriverUnite deUnite = listDrv.get(r);
+	    				DeriverOperationVente dVente = new DeriverOperationVente();
+	    				Double qteOpe=ProcessNumber.doMath(beanLigne.getQuantite(), deUnite.getDrv_coef(), deUnite.getDrv_oper().charAt(0));
+	    				dVente.setDrv_oper(deUnite.getDrv_oper());
+	    				dVente.setDrv_coef(deUnite.getDrv_coef());
+	    				dVente.setFkcode_barre(deUnite.getFkcode_barre());
+	    				dVente.setQuantite(qteOpe);
+	    				map_deriver_vente.put(detailBean.getCode_barreX(), dVente);
+	    				cBean.getPk().getAr_bean().getUnitBean().setUnite_lib(cBean.getPk().getAr_bean().getUnitBean().getUnite_lib()+"/Box:"+ qteOpe);
+					}
+	    				
+	    		}
+	    		
+	    	
 	    		/*****************************************le cout ********************************************/
 	    		Double getQuantiteX       = detailBean.getQuantiteX()==null?new Double(0):detailBean.getQuantiteX();
 	    		Double                 qte=ProcessFormatNbr.FormatDouble_ParameterChiffre(getQuantiteX,pattern); 

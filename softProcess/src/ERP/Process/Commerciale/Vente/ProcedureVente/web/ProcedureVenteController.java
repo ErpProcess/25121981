@@ -49,7 +49,7 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 	              
 		          if ( i$_ACT_ACTUALISER_TABLE )    return      doActualiser_GRID(bean);
 		          
-		          if ( i$_ACT_ACTUALISER_TABLE_FOUNITURE )    return      doActualiserGridFourniture(bean);
+		          if ( i$_ACT_ACTUALISER_TABLE_FOUNITURE )     return      doActualiserGridFourniture(bean);
 		          
 		          if ( i$_ACT_ACTUALISER_TABLE_PRESTATION )    return      doActualiserGridPrestation(bean);
 		          

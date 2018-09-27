@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.dao.UniteDAO;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.model.DetDeriverUnite;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.model.UniteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.template.UniteTemplate;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
@@ -18,6 +19,14 @@ public class UniteService  extends GenericWeb  {
 	public List<UniteBean> doFetchDatafromServer(UniteBean beanSearch) throws Exception {
 		return daoUnite.doFindListUnite(beanSearch);
 	}
+	
+	@Transactional(readOnly=true)
+	public List<DetDeriverUnite> doFetchDetDeriverUniteByDrvId(Integer drv_id) throws Exception {
+		return daoUnite.doFetchDetDeriverUniteByDrvId(drv_id);
+	}
+	
+	
+	
 	@Transactional
 	public Boolean doCreateRowData(UniteBean insertBean) throws Exception {
 		 boolean result = false;

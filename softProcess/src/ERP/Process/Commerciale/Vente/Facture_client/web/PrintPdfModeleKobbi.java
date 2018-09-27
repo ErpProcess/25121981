@@ -448,6 +448,8 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 			}
 	      table.setWidthPercentage(poucentage);
 	      table.setWidths(columnWidths);
+	      
+	   
 		  
 			  for(int i=0; i < lisData.size(); i++ ){
 				   Object bean = (Object) lisData.get(i);
@@ -500,7 +502,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 	         }
 			  
 			  
-	         
+			   Facture_clientBean    beanTotal = (Facture_clientBean) getObjectValueModel(Facture_clientTemplate.BEAN_TOTAL_FACTURE_CLIENT );
  
 	         JSONArray  list_total  =  (JSONArray) getObjectValueModel("list_total");
 	           for(int j = 0; j < mapFieldBean.length; j++){
@@ -525,7 +527,35 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				       cell.setBackgroundColor(BaseColor.WHITE);
 				       cell.setBorder(cell.LEFT+cell.RIGHT+cell.BOTTOM+cell.TOP);
 				       table.addCell(cell);
-	        	   }else {
+	        	   }
+	        	   else if(j==1){
+	        		   String valu="";
+			        	if(beanTotal!=null   &&   !StringUtils.isBlank(beanTotal.getTotal_quantite())  ) {
+			        		Double ddd=Double.parseDouble(beanTotal.getTotal_quantite());
+			        		int iddd = Integer.valueOf(ddd.intValue());
+				        	valu=String.valueOf(iddd);
+			        	}
+	        		   PdfPCell cell = new PdfPCell(new Phrase(valu,GeneratePdf.Bold_10_times_roman));
+	        		   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        		   cell.setFixedHeight(17f);
+				       cell.setBackgroundColor(BaseColor.WHITE);
+				       cell.setBorder(cell.LEFT+cell.RIGHT+cell.BOTTOM+cell.TOP);
+				       table.addCell(cell);
+	        	   }
+	        	   else if(j==2){
+	        		   String valu="";
+			        	if(beanTotal!=null   && beanTotal.getTotnbrBox()!=null) {
+				        	int iddd = Integer.valueOf(beanTotal.getTotnbrBox().intValue());
+				        	valu=String.valueOf(iddd);
+			        	}
+	        		   PdfPCell cell = new PdfPCell(new Phrase(valu,GeneratePdf.Bold_10_times_roman));
+	        		   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        		   cell.setFixedHeight(17f);
+				       cell.setBackgroundColor(BaseColor.WHITE);
+				       cell.setBorder(cell.LEFT+cell.RIGHT+cell.BOTTOM+cell.TOP);
+				       table.addCell(cell);
+	        	   }
+	        	   else {
 	        		   PdfPCell cell = new PdfPCell(new Phrase(elem,GeneratePdf.Bold_10_times_roman));
 	        		   cell.setHorizontalAlignment(Element.ALIGN_CENTER);  
 	        		   cell.setFixedHeight(17f);

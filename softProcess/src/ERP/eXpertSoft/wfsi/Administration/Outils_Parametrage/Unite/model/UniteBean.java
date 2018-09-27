@@ -1,15 +1,20 @@
 package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
+
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 
 @JsonAutoDetect
 @Entity
@@ -19,18 +24,23 @@ public class UniteBean {
 	@GeneratedValue
 	@Column
 	private Integer unite_id ;
+	
 	@Column
 	private String unite_lib = "";
+	
+	
 	@Column
 	private String usr_cre = "";
+	
 	@Column
-	private java.sql.Date date_cre;
+	private Date date_cre;
+	
 	@Column
 	private String usr_mod = "";
+	
 	@Column
-	private java.sql.Date date_mod;
-	@Column
-	private String soc_id = "";
+	private Date date_mod;
+	 
 	
 	@Column
 	private String unite_abrv = "";
@@ -50,6 +60,40 @@ public class UniteBean {
 	@ManyToOne
 	@JoinColumn(name = "drv_id", insertable = true, updatable = false)
 	private DeriverUnite drv = new DeriverUnite();
+	
+	
+	@ManyToOne
+	@JoinColumns( {
+			@JoinColumn(name = "etab_id", insertable = true, updatable = true, referencedColumnName = "etab_id"),
+			@JoinColumn(name = "soc_id", insertable = true, updatable = true, referencedColumnName = "soc_id"), })
+	private EtablissementBean fk_etab_Bean = new EtablissementBean();
+	
+	
+
+	
+	public Date getDate_cre() {
+		return date_cre;
+	}
+
+	public void setDate_cre(Date date_cre) {
+		this.date_cre = date_cre;
+	}
+
+	public Date getDate_mod() {
+		return date_mod;
+	}
+
+	public void setDate_mod(Date date_mod) {
+		this.date_mod = date_mod;
+	}
+
+	public EtablissementBean getFk_etab_Bean() {
+		return fk_etab_Bean;
+	}
+
+	public void setFk_etab_Bean(EtablissementBean fk_etab_Bean) {
+		this.fk_etab_Bean = fk_etab_Bean;
+	}
 
 	public void setUnite_lib(String unite_lib) {
 		this.unite_lib = unite_lib;
@@ -67,14 +111,9 @@ public class UniteBean {
 		return usr_cre;
 	}
 
-	public void setDate_cre(java.sql.Date date_cre) {
-		this.date_cre = date_cre;
-	}
+ 
 
-	public java.sql.Date getDate_cre() {
-		return date_cre;
-	}
-
+	 
 	public void setUsr_mod(String usr_mod) {
 		this.usr_mod = usr_mod;
 	}
@@ -83,13 +122,7 @@ public class UniteBean {
 		return usr_mod;
 	}
 
-	public void setDate_mod(java.sql.Date date_mod) {
-		this.date_mod = date_mod;
-	}
-
-	public java.sql.Date getDate_mod() {
-		return date_mod;
-	}
+	 
 
 	public Integer getUnite_id() {
 		return unite_id;
@@ -99,13 +132,7 @@ public class UniteBean {
 		this.unite_id = unite_id;
 	}
 
-	public void setSoc_id(String soc_id) {
-		this.soc_id = soc_id;
-	}
-
-	public String getSoc_id() {
-		return soc_id;
-	}
+	 
 
 	public String getUnite_abrv() {
 		return unite_abrv;

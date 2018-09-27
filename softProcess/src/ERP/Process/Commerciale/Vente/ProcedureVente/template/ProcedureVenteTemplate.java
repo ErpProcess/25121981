@@ -40,12 +40,15 @@ public static String NAME_GRID           = "ProcedureVente-Grid";
 public static String LIST_DATA           = "ProcedureVente-List";
 
 
-public static String LIST_DES_TVA            = "list_des_tva_vente";
+public static String LIST_DES_TVA          = "list_des_tva_vente";
 
 
 public static String LIST_DATA_DEM         = "Commandeclient-List";
 
-public static String LIST_EDITABLE_VENTE          = "list_editable_proVente";
+public static String LIST_EDITABLE_VENTE   = "list_editable_proVente";
+
+public static String MAP_DERIVER_VENTE    = "map_deriver_vente";
+
 public static String LIST_EDITABLE_VENTE_CLONE    = "list_editable_proVente_clone";
 
 public static String LIST_EDITABLE_FOURNITURE_VENTE    = "list_editable_fournitureVente";

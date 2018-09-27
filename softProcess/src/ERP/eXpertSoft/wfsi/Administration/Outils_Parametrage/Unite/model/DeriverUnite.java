@@ -1,12 +1,18 @@
 package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.model;
 
 import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
@@ -32,6 +38,9 @@ public class DeriverUnite {
 
 	@Column
 	private Date date_mod;
+	
+ 
+	
 
 	public Integer getDrv_id() {
 		return drv_id;
@@ -72,5 +81,7 @@ public class DeriverUnite {
 	public void setDate_mod(Date date_mod) {
 		this.date_mod = date_mod;
 	}
+
+	 
 
 }
