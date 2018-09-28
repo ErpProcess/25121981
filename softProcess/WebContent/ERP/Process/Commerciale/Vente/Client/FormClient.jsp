@@ -45,6 +45,13 @@
   </td>  
    </tr>  
    
+    <tr>
+		        <td ><label>Exonérer</label></td>
+		        <td ><input  isboolean  id="clt_exonorer"              name="clt_exonorer"     type="checkbox"        value="${detailBean.clt_exonorer}"       />
+		        </td>
+		      </tr>
+		      
+		      
      <tr>  
    <td width="7%"><label>Methode Export</label></td>  
    <td width="93%"  >  

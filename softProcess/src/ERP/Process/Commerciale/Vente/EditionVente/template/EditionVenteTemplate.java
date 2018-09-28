@@ -19,11 +19,20 @@ public static String  id_entite        = "edition_id";
 /********************************************************************Data Grid********************************************************************/ 
 public static String  LIST_DATA         = "EditionVente-List";
 public static String  NAME_GRID         = "EditionVente-Grid";
-public static String [][] MapfieldBean  = new String[][]{{ "edition_id", "30" },{ "edition_libelle", "30" }};
+public static String [][] MapfieldEtatDeVente  = new String[][]{{ "date", "10" }, { "invoice", "10" },
+																{ "client", "30" },{ "description", "30" },
+																{ "qte", "10" },{ "nbrBox", "10" },
+																{ "prixUnit", "20" },{ "total", "30" },
+															    };
 /********************************************************************View Jsp********************************************************************/
 public static String FORM_VIEW          = "FormEditionVente";
 public static String FILTER_VIEW        = "FilterEditionVente";
 public static String LIST_VIEW          = "ListEditionVente";
+
+
+public static boolean i$_ACT_INIT_SERVLET = false;
+
+public static boolean i$_ACT_PRINT_PDF_ETAT_VENTE = false;
 
 public static ModelAndView getViewFilterEdition(String isPage) {
 	MenuActionBean twebBean = new MenuActionBean();
@@ -31,6 +40,10 @@ public static ModelAndView getViewFilterEdition(String isPage) {
 	twebBean.setAct_doValid("i$_ACT_FETCH_AJAX");
 	twebBean.setAct_doReset("i$_ACT_RESET_FILTER");
 	twebBean.setAct_doRetour("i$_ACT_RETOUR_TO_HOME");
+	twebBean.setAct_doPdf("i$_ACT_PRINT_PDF_DETAILLE");
+	
+	 
+	
 	twebBean.setIconAction("Search.png");
 	twebBean.setBtValid(FALSE);
 	twebBean.setBtReset(FALSE);
@@ -45,6 +58,7 @@ public static ModelAndView getViewFilterEdition(String isPage) {
 	twebBean.setBtPdf(TRUE);
 	twebBean.setTypebtn(button);
 	twebBean.setFctdoValid("doDisplayTableData()");
+	
 	twebBean.setFctdoReset("doResetAjaxData()");
 	return Get_Model_ROOT(isPage, twebBean);
 }

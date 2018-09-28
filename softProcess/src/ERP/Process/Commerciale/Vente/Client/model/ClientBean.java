@@ -36,7 +36,9 @@ public class ClientBean extends GenericBean {
 	@Column
 	private String clt_pays = "";
 	
-	
+	@Column
+	private Boolean clt_exonorer = false;
+	 
 	
 	@Column
 	private String clt_tel = "";
@@ -256,6 +258,14 @@ public class ClientBean extends GenericBean {
 
 	public void setClt_pays(String clt_pays) {
 		this.clt_pays = clt_pays;
+	}
+
+	public Boolean getClt_exonorer() {
+		return clt_exonorer;
+	}
+
+	public void setClt_exonorer(Boolean clt_exonorer) {
+		this.clt_exonorer = clt_exonorer;
 	}
 	
 }

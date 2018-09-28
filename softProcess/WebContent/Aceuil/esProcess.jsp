@@ -830,13 +830,13 @@ function migaXWXXWW(dssss) {
 							
 							<ext:toolbar.button    cls="x-btn-text-icon"    text="&nbsp;"    id="ESPACE_UN"     minWidth="20"  disabled="true" />
 							
-							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/Hint.gif"         cls="x-btn-text-icon"    disabled="${tml.btTrace}"   onClick="doGetHelp()"   text="${_labelhelp}"      />
+							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/Hint.gif"         cls="x-btn-text-icon"      disabled="${tml.btTrace}"   onClick="doGetHelp()"   text="${_labelhelp}"       />
 							<ext:toolbar.separator />  
-							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/Notes.gif"        cls="x-btn-text-icon"    disabled="${tml.btAide}"    onClick="doGetTrace()"  text="${_labeltrace}" />
+							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/Notes.gif"        cls="x-btn-text-icon"      disabled="${tml.btAide}"    onClick="doGetTrace()"  text="${_labeltrace}"       />
 							<ext:toolbar.separator />  
 							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/pdf.png"          cls="x-btn-text-iconXX"    disabled="${tml.btPdf}"     onClick="${tml.fctdoPdf}"       id="btPrintPdfx"  />
 							<ext:toolbar.separator />   
-							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/Excel.gif"        cls="x-btn-text-iconXX"    disabled="${tml.btExcel}"   onClick="${tml.fctdoExcel}"     id="btExportXlsx"    />
+							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/Excel.gif"        cls="x-btn-text-iconXX"    disabled="${tml.btExcel}"   onClick="${tml.fctdoExcel}"     id="btExportXlsx" />
 							
 							<ext:toolbar.button    cls="x-btn-text-icon"    text="&nbsp;"   id="ESPACE_DEUX"      minWidth="20"  disabled="true" />
 								

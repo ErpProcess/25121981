@@ -16,6 +16,7 @@ import ERP.Process.Commerciale.Vente.EditionVente.template.EditionVenteTemplate;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Det_Fact_ClientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Facture_clientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.service.Facture_clientService;
+import ERP.Process.Commerciale.Vente.Facture_client.web.PrintPdfModeleKobbi;
 import ERP.Process.Commerciale.Vente.EditionVente.service.EditionVenteService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
@@ -63,6 +64,17 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 
 	}
 
+	public ModelAndView doPrintDataModelKobbi() throws Exception {
+		PrintPdfModeleKobbi pModeleKobbi = new PrintPdfModeleKobbi();
+		try {
+			pModeleKobbi.printEtatVenteKobbi();
+		} catch (Exception e) {
+			displayException(e);
+		}
+		return null;
+	}
+	
+	
 	@SuppressWarnings("unchecked")
 	public ModelAndView doFetchData(EditionVenteBean searchBean) throws Throwable {
 		try {

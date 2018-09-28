@@ -1,4 +1,4 @@
-package ERP.Process.Commerciale.Vente.ProcedureVente.model;
+package ERP.Process.Commerciale.Vente.Facture_client.model;
 
 import java.util.Date;
 
@@ -12,70 +12,62 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import ERP.Process.Commerciale.Code_barre.model.Code_barreBean;
-import ERP.Process.Commerciale.Tarification.model.TarificationBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
-
 
 @JsonAutoDetect
 @Entity
-@Table(name = "deriver_det_op_vente", schema = "vente")
-public class DeriverOperationVente extends GenericBean {
+@Table(name = "deriver_det_fact_vente", schema = "vente")
+public class DeriverDetFactClientVente extends GenericBean {
 
-	private static final long serialVersionUID = -7812352281869869684L;
+ 
+	private static final long serialVersionUID = -6645439272716730594L;
 
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer drv_vente_id;
-	
-	@Transient
-	private String				indx_row			= "";
-	
-	@Transient
-	private String				indx_row_next		= "";
-	
-	@Transient
-	private String				to_check			= "";
-	
-	@Transient
-	private String				info			    = "";
-	
-	@Transient
-	private String				nature_produit		= "";
-	
-	 
+	private Integer drv_det_fact_id;
 
-	 
+	@Transient
+	private String indx_row = "";
+
+	@Transient
+	private String indx_row_next = "";
+
+	@Transient
+	private String to_check = "";
+
+	@Transient
+	private String info = "";
+
+	@Transient
+	private String nature_produit = "";
+
 	@ManyToOne
-	@JoinColumns( {
-			@JoinColumn(name = "etab_id", insertable = true, updatable = true, referencedColumnName = "etab_id"),
+	@JoinColumns({ @JoinColumn(name = "etab_id", insertable = true, updatable = true, referencedColumnName = "etab_id"),
 			@JoinColumn(name = "soc_id", insertable = true, updatable = true, referencedColumnName = "soc_id"),
 			@JoinColumn(name = "ar_id", insertable = true, updatable = true, referencedColumnName = "ar_id"),
 			@JoinColumn(name = "code_barre", insertable = true, updatable = true, referencedColumnName = "code_barre"), })
-	private Code_barreBean     fkcode_barre ;
-	
-	
+	private Code_barreBean fkcode_barre;
+
 	@Column
 	private String drv_oper = "";
-	
+
 	@Column
 	private Double drv_coef;
-	
-	
+
 	@Column
 	private Double quantite;
-	
-	
-	@ManyToOne
-	@JoinColumn(name = "tarif_vente_id", insertable = true, updatable = true,nullable=true)
-	private TarificationBean  tarif ;
- 
+
+	@Column
+	private Double tarif_unit_vente;
+
 	@Column
 	private Double montant_tva_vente;
- 
+
 	@Column
 	private Double montant_ht_vente;
 
@@ -84,23 +76,15 @@ public class DeriverOperationVente extends GenericBean {
 
 	@Column
 	private Date date_cre;
-	
+
 	@Column
 	private String usr_cre = "";
-	
+
 	@Column
 	private Date date_mod;
-	
+
 	@Column
 	private String usr_mod = "";
-
-	public Integer getDrv_vente_id() {
-		return drv_vente_id;
-	}
-
-	public void setDrv_vente_id(Integer drv_vente_id) {
-		this.drv_vente_id = drv_vente_id;
-	}
 
 	public String getIndx_row() {
 		return indx_row;
@@ -148,14 +132,6 @@ public class DeriverOperationVente extends GenericBean {
 
 	public void setQuantite(Double quantite) {
 		this.quantite = quantite;
-	}
-
-	public TarificationBean getTarif() {
-		return tarif;
-	}
-
-	public void setTarif(TarificationBean tarif) {
-		this.tarif = tarif;
 	}
 
 	public Double getMontant_tva_vente() {
@@ -212,8 +188,8 @@ public class DeriverOperationVente extends GenericBean {
 
 	public void setUsr_mod(String usr_mod) {
 		this.usr_mod = usr_mod;
-	} 
-	
+	}
+
 	public Code_barreBean getFkcode_barre() {
 		return fkcode_barre;
 	}
@@ -238,14 +214,22 @@ public class DeriverOperationVente extends GenericBean {
 		this.drv_coef = drv_coef;
 	}
 
-	 
+	public Integer getDrv_det_fact_id() {
+		return drv_det_fact_id;
+	}
+
+	public void setDrv_det_fact_id(Integer drv_det_fact_id) {
+		this.drv_det_fact_id = drv_det_fact_id;
+	}
+
+	public Double getTarif_unit_vente() {
+		return tarif_unit_vente;
+	}
+
+	public void setTarif_unit_vente(Double tarif_unit_vente) {
+		this.tarif_unit_vente = tarif_unit_vente;
+	}
+	
 	
 
-	
-	
- 
- 
-	 
-
-	 
 }

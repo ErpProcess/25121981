@@ -13,7 +13,10 @@ import ERP.Process.Commerciale.Vente.EditionVente.model.EditionVenteBean;
 import ERP.Process.Commerciale.Vente.EditionVente.template.EditionVenteTemplate;
 @Controller
 public class EditionVenteController  extends EditionVenteActionManager   {
-  	@InitBinder
+  
+	private static final long serialVersionUID = -9181869557167596005L;
+	
+	@InitBinder
   	public void initBinder(WebDataBinder binder) {
   	   SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
   	   dateFormat.setLenient(false); 
@@ -28,6 +31,8 @@ public class EditionVenteController  extends EditionVenteActionManager   {
                   if (i$_ACT_INIT_SERVLET )         return      doInitServletAction();  
 		          if (i$_ACT_ADD)                   return      doAddData(detailBean);
 		          if (i$_ACT_AJAX_FETCH)            return      doFetchData(detailBean);
+		          if (i$_ACT_PRINT_PDF_DETAILLE)    return      doPrintDataModelKobbi();
+		          
 		          //if (i$_ACT_CALCUL_TOTAL)          return      doCalculerTotal( );
 		          if (i$_ACT_UPDATE)                return      doUpdateData(detailBean);
 		          if (i$_ACT_DELETE)                return      doDeleteData(detailBean);

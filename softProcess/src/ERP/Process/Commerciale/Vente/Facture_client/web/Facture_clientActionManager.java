@@ -37,6 +37,7 @@ import ERP.Process.Commerciale.Vente.ProcedureVente.model.DetProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.service.ProcedureVenteService;
 import ERP.Process.Commerciale.Vente.ProcedureVente.template.ProcedureVenteTemplate;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.GenerationPdf.GeneratePdf;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
@@ -523,6 +524,10 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			Double getAvance_montant_vente  = detailBean.getAvance_montant_vente()==null?new Double(0):detailBean.getAvance_montant_vente();
 			Double avance                   = ProcessFormatNbr.FormatDouble_ParameterChiffre(getAvance_montant_vente,pattern);
 			Double timbre                   = ProcessFormatNbr.FormatDouble_ParameterChiffre(bs.getSociete().getMontant_timbre_fiscal(),pattern);
+			 
+			if(rowBean.getClient().getClt_exonorer().booleanValue()==true) {
+				timbre= new Double(0);
+			}
 			if(bs.getFct_id().equals(Fn_Générer)   ){
 				 List_detaille=(List<Det_Fact_ClientBean>) getObjectValueModel(LIST_DATA_DET_FACT);
 			}else{
@@ -746,8 +751,8 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			 element.put("td1","4");
 			 element.put("value1","Total TTC");
 			 element.put("td2","5");
-			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(total_mnt_gen,pattern));
-			 json.put("vente_mnt_total",   ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(total_mnt_gen,pattern));
+			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(total_mnt_gen,rowBean.getDevise(),true, false) );
+			 json.put("vente_mnt_total",   ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(total_mnt_gen,rowBean.getDevise(),true, false) );
 			 beanTotal.setTotal_facture(ProcessFormatNbr.FormatDouble_ParameterChiffre(total_mnt_gen,pattern));
 			 list_total.put(element);
 			  

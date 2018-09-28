@@ -10,6 +10,7 @@ import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
+import ERP.Process.Commerciale.Vente.ProcedureVente.model.DeriverOperationVente;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.model.TVABean;
 
@@ -47,12 +48,12 @@ public class Det_Fact_ClientBean extends GenericBean  {
 	@Column
 	private Double montant_tva_vente;
 
-	@Column
-	private Double montant_ht_vente;
-	
-	
 	@Column(name="nbr_boxes")
 	private Double nbrBoxes;
+	 
+	
+	@Column
+	private Double montant_ht_vente;
 	
 	 
 	 
@@ -266,6 +267,9 @@ public class Det_Fact_ClientBean extends GenericBean  {
 	public void setNbrBoxes(Double nbrBoxes) {
 		this.nbrBoxes = nbrBoxes;
 	}
+
+	 
+	  
 
 	 
 	 

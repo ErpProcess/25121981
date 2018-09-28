@@ -22,6 +22,7 @@ mapEditableGen = {             "otab"   :oTable,
     		   }
     		});
     	  mapEditableGen["mapCol"]=resp.listcolonne;
+    	  Ext.getCmp('btPrintPdfx').enable();
     	  LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
     	  config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  ); 
        }

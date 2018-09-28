@@ -167,8 +167,6 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			beanSave.setMarge_benefice_vente(beanTotal.getMarge_benefice_vente());
 			session.save(beanSave);
 			HashMap  map_deriver_vente  =(HashMap) getObjectValueModel(ProcedureVenteTemplate.MAP_DERIVER_VENTE);
-		 
-			
 			if( map_deriver_vente!=null   &&  map_deriver_vente.size() >0 ) {
 				Set setMap_deriver_vente=map_deriver_vente.keySet();
 				for (Iterator iter = setMap_deriver_vente.iterator(); iter.hasNext();) {

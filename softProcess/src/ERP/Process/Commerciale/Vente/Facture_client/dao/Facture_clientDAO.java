@@ -185,9 +185,12 @@ public class Facture_clientDAO extends  GenericWeb    {
 					    	requette += "   AND  bean.pk.factclient.fact_date >= '"+ProcessDate.getStringFormatDate(searchBean.getDate_debut())+"'        ";
 					    
 					if (   searchBean.getDate_fin()!= null ) 
-					    	requette += "   bean.pk.factclient.fact_date <=  '"+ProcessDate.getStringFormatDate(searchBean.getDate_fin())+"'         ";
+					    	requette += "   AND  bean.pk.factclient.fact_date <=  '"+ProcessDate.getStringFormatDate(searchBean.getDate_fin())+"'         ";
+					
+					       
 					
 					  requette+=this.setSocieteEtabFetch(searchBean," bean.pk.factclient.etablissment", false);
+					  requette+= "   ORDER BY   bean.pk.factclient.fact_date  ASC        ";
 			   
 			   lisf= session.createQuery(requette).list();
 			   commitTransaction(session);
