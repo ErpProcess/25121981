@@ -31,6 +31,12 @@ public class Facture_clientService  extends GenericWeb  {
 	}
 	
 	
+	@Transactional(readOnly=true)
+	public List<Facture_clientBean> doFetchDataFoEdtiton(Facture_clientBean beanSearch) throws Exception {
+		List listFacture=daoFacture.doFindListFacture(beanSearch);
+		return  listFacture;
+	}
+	
 	
 	@Transactional(readOnly=true)
 	public List<Facture_clientBean> doFetchDatafromServer(Facture_clientBean beanSearch) throws Exception {

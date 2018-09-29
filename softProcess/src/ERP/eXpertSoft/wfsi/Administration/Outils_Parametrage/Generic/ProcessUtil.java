@@ -218,14 +218,11 @@ public class ProcessUtil {
 								String.valueOf(element11)) * 1;
 
 					} else {
-						Field field = bean.getClass()
-								.getDeclaredField(lesColun);
+						Field field = bean.getClass().getDeclaredField(lesColun);
 						field.setAccessible(true);
-						String element = ((String) String.valueOf(field
-								.get(bean))).toLowerCase();
+						String element = ((String) String.valueOf(field.get(bean))).toLowerCase();
 						element = element != null ? element : "";
-						Field field2 = bean2.getClass().getDeclaredField(
-								lesColun);
+						Field field2 = bean2.getClass().getDeclaredField(lesColun);
 						field2.setAccessible(true);
 						String element2 = ((String) String.valueOf(field2
 								.get(bean2))).toLowerCase();

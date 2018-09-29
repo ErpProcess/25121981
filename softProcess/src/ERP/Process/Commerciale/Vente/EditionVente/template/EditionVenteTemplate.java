@@ -19,10 +19,10 @@ public static String  id_entite        = "edition_id";
 /********************************************************************Data Grid********************************************************************/ 
 public static String  LIST_DATA         = "EditionVente-List";
 public static String  NAME_GRID         = "EditionVente-Grid";
-public static String [][] MapfieldEtatDeVente  = new String[][]{{ "date", "10" }, { "invoice", "10" },
-																{ "client", "30" },{ "description", "30" },
+public static String [][] MapfieldEtatDeVente  = new String[][]{{ "date", "12" }, { "invoice", "12" },
+																{ "client", "33" },{ "description", "35" },
 																{ "qte", "10" },{ "nbrBox", "10" },
-																{ "prixUnit", "20" },{ "total", "30" },
+																{ "prixUnit", "20" },{ "total", "20" },
 															    };
 /********************************************************************View Jsp********************************************************************/
 public static String FORM_VIEW          = "FormEditionVente";

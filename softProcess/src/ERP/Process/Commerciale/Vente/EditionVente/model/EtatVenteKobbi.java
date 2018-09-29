@@ -18,7 +18,10 @@ public class EtatVenteKobbi implements Serializable {
 	
 	private String client = "";
 	private int rowSpanDate=1;
-	private int rowSpanDetFacture;
+	private  boolean  isrowSpanDate=false;
+	
+	private int rowSpanDetFacture=1;
+	private  boolean  isrowSpanDetFact=false;
 	
 	private String description = "";
 	
@@ -119,6 +122,22 @@ public class EtatVenteKobbi implements Serializable {
 
 	public void setRowSpanDetFacture(int rowSpanDetFacture) {
 		this.rowSpanDetFacture = rowSpanDetFacture;
+	}
+
+	public boolean isIsrowSpanDate() {
+		return isrowSpanDate;
+	}
+
+	public void setIsrowSpanDate(boolean isrowSpanDate) {
+		this.isrowSpanDate = isrowSpanDate;
+	}
+
+	public boolean isIsrowSpanDetFact() {
+		return isrowSpanDetFact;
+	}
+
+	public void setIsrowSpanDetFact(boolean isrowSpanDetFact) {
+		this.isrowSpanDetFact = isrowSpanDetFact;
 	}
 	
 

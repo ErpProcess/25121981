@@ -83,6 +83,8 @@ public class Facture_clientDAO extends  GenericWeb    {
 				   requette+="   AND  bean.modeBean.fct_id  = "+beanSearch.getModeBean().getFct_id()+"        ";  
 			 
 			       requette+=this.setSocieteEtabFetch(beanSearch,"bean.etablissment", false);
+			       
+			       requette+= "   ORDER BY  date(bean.fact_date )   ASC      ";
 			  
 			   lisf= session.createQuery(requette).list();
 			   commitTransaction(session);
@@ -190,8 +192,8 @@ public class Facture_clientDAO extends  GenericWeb    {
 					       
 					
 					  requette+=this.setSocieteEtabFetch(searchBean," bean.pk.factclient.etablissment", false);
-					  requette+= "   ORDER BY   bean.pk.factclient.fact_date  ASC        ";
-			   
+					  requette+= "   ORDER BY  date(bean.pk.factclient.fact_date )   ASC      ";
+					 
 			   lisf= session.createQuery(requette).list();
 			   commitTransaction(session);
 			   

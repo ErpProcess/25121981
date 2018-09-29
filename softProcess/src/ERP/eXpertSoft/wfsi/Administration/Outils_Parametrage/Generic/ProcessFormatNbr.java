@@ -124,6 +124,21 @@ public class ProcessFormatNbr  extends GenericWeb  {
 	      }
 	}
 	
+	public static String convertDoubleToIntString(Double valeur) throws Exception {
+		try {
+			String value = "";
+			if (valeur != null) {
+				int iddd = Integer.valueOf(valeur.intValue());
+				value = String.valueOf(iddd);
+			}
+			return value;
+
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+
 	public static String  addPourcentage(String valeur) throws Exception{
 	      try{
 	    	  String valuer=!StringUtils.isEmpty(valeur)? valeur :"0";

@@ -204,6 +204,15 @@ public class GenericWeb       {
 		this.serviceEntiteAdmin = serviceEntiteAdmin;
 	}
     
+    
+    public static boolean ifEquals(BeanSession bs  ,String fonction) {
+		
+		if( bs.getFct_id().equals(fonction))  return true;
+		else
+		return false;
+		
+	}
+
     public Session getHibernateSession( SessionFactory sessionFactory  ){
     	Session hibernateTemplate= null;
     	try {

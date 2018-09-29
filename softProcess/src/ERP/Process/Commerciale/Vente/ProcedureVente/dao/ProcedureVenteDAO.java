@@ -172,8 +172,10 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				for (Iterator iter = setMap_deriver_vente.iterator(); iter.hasNext();) {
 					String codeBarr = (String) iter.next();
 					DeriverOperationVente dVente = (DeriverOperationVente) map_deriver_vente.get(codeBarr);
-					this.setBeanTrace(dVente);
-					session.save(dVente);
+					if(dVente!=null) {
+						this.setBeanTrace(dVente);
+						session.save(dVente);
+					}
 				}
 			}
 			
@@ -185,9 +187,11 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				if( detBean.getQuantite()==null) { continue; }
 				if( detBean.getQuantite()==0 ||  detBean.getQuantite()<0) { continue;}
 				detBean.getPk().setVente(beanSave);
-				DeriverOperationVente dVente = (DeriverOperationVente) map_deriver_vente.get(detBean.getPk().getFkcode_barre().getPk().getCode_barre());
-				if(dVente!=null) {
-					detBean.setDrv(dVente);
+				if( map_deriver_vente!=null   &&  map_deriver_vente.size() >0 ) {
+					DeriverOperationVente dVente = (DeriverOperationVente) map_deriver_vente.get(detBean.getPk().getFkcode_barre().getPk().getCode_barre());
+					if(dVente!=null) {
+						detBean.setDrv(dVente);
+					}
 				}
 				session.save(detBean);
 				result_detaille=true;

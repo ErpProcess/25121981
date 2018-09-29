@@ -58,8 +58,8 @@ public class DetProcedureVenteBean extends GenericBean {
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "drv_vente_id", insertable = true, updatable = true)
-	private DeriverOperationVente  drv = new DeriverOperationVente();
+	@JoinColumn(name = "drv_vente_id", insertable = true, updatable = true,nullable=true)
+	private DeriverOperationVente  drv  ;
 	
 	
 	

@@ -64,6 +64,7 @@ public class BeanSession {
 	private EtablissementBean etablissement = new EtablissementBean();
 	
  
+	
 
 	public String getFct_id() {
 		return fct_id;
