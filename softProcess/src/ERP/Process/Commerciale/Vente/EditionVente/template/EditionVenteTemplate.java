@@ -1,4 +1,6 @@
 package ERP.Process.Commerciale.Vente.EditionVente.template;
+import java.util.Date;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import ERP.Process.Commerciale.Vente.EditionVente.model.EditionVenteBean;
@@ -24,6 +26,17 @@ public static String [][] MapfieldEtatDeVente  = new String[][]{{ "date", "12" }
 																{ "qte", "10" },{ "nbrBox", "10" },
 																{ "prixUnit", "20" },{ "total", "20" },
 															    };
+public static String [][] MapfieldEtatDeDepense  = new String[][]{{ "date", "12" }, { "invoice", "12" },
+																{ "client", "33" },{ "qteFish", "35" },
+															    { "prixtotFish", "10" },{ "nbrBox", "10" },
+																{ "prixtotPoly", "20" },{ "trsprt", "20" },
+																{ "transit", "20" },{ "mdOuevre", "20" },
+																{ "Embal", "20" },{ "scot_glace", "20" },
+																{ "douane", "20" },{ "chambreCom", "20" },
+																{ "transAe", "20" },{ "total", "20" },
+																};	
+					 
+								
 /********************************************************************View Jsp********************************************************************/
 public static String FORM_VIEW          = "FormEditionVente";
 public static String FILTER_VIEW        = "FilterEditionVente";

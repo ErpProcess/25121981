@@ -54,6 +54,15 @@ public class ProcedureVenteService  extends GenericWeb  {
 		return daoProcedureVente.doFindDetaille_ListProcedureVente(beanSearch);
 	}
 	
+	
+	@Transactional(readOnly=true)
+	public List<DetProcedureVenteBean> doFindDetailleListProcedureVenteEdition(ProcedureVenteBean beanSearch) throws Exception {
+		return daoProcedureVente.doFindDetailleListProcedureVenteEdition(beanSearch);
+	}
+	
+	
+	
+	
 	@Transactional
 	public Boolean doCreateRowData(ProcedureVenteBean insertBean) throws Exception {
 		 boolean result = false;

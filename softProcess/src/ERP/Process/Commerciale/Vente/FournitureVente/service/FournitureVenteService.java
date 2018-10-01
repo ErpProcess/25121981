@@ -7,6 +7,7 @@ import ERP.Process.Commerciale.Vente.FournitureVente.dao.FournitureVenteDAO;
 import ERP.Process.Commerciale.Vente.FournitureVente.model.DetFournitureVenteBean;
 import ERP.Process.Commerciale.Vente.FournitureVente.model.FournitureVenteBean;
 import ERP.Process.Commerciale.Vente.FournitureVente.template.FournitureVenteTemplate;
+import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 @Service
 public class FournitureVenteService  extends GenericWeb  {
@@ -20,10 +21,18 @@ public class FournitureVenteService  extends GenericWeb  {
 		return daoFournitureVente.doFindListFournitureVente(beanSearch);
 	}
 	
+	
+	 
+	
 	@Transactional(readOnly=true)
 	public List<DetFournitureVenteBean> doFetchDetailFourniturefromServer(FournitureVenteBean beanSearch) throws Exception {
 		return daoFournitureVente.doFindDetailFourniturefromServer(beanSearch);
 	}
+	@Transactional(readOnly=true)
+	public List<DetFournitureVenteBean> doFindDetailFournitureEdition(ProcedureVenteBean beanSearch) throws Exception {
+		return daoFournitureVente.doFindDetailFournitureEdition(beanSearch);
+	}
+	
 	
 	
 	@Transactional

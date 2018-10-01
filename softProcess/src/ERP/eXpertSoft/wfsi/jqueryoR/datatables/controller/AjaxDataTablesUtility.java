@@ -223,7 +223,6 @@ public static  List JQueryDefinePlaguinDataTable(JQueryDataTableParamModel param
 		 
 		Collections.sort(listDataTrie, new Comparator<Object>(){
 			public int compare(Object bean, Object bean2) {
-				
 				  
 				try {
 					if(lesColunm[sortColumnIndex].indexOf(".")>0){

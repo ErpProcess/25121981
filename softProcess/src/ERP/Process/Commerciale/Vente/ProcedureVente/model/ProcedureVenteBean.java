@@ -17,6 +17,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import ERP.Process.Commerciale.Stock.DepotStockage.model.DepotStockageBean;
 import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
 import ERP.Process.Commerciale.Vente.Commandeclient.model.CommandeclientBean;
+import ERP.Process.Commerciale.Vente.Facture_client.model.Facture_clientBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
@@ -226,8 +227,19 @@ public class ProcedureVenteBean extends GenericBean {
 	private DeviseBean  devise ;
 	
 	
+	@ManyToOne
+	@JoinColumn(name = "fact_clt_id", insertable = true, updatable = false, nullable=true)
+	private Facture_clientBean   factclient ;
 
 	 
+
+	public Facture_clientBean getFactclient() {
+		return factclient;
+	}
+
+	public void setFactclient(Facture_clientBean factclient) {
+		this.factclient = factclient;
+	}
 
 	public DeviseBean getDevise() {
 		return devise;

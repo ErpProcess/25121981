@@ -27,6 +27,8 @@ import ERP.Process.Commerciale.TarificationPrtvArticle.dao.TarificationPrtvArtic
 import ERP.Process.Commerciale.TarificationPrtvArticle.model.TarificationPrtvArticleBean;
 import ERP.Process.Commerciale.TarificationPrtvArticle.service.TarificationPrtvArticleService;
 import ERP.Process.Commerciale.TarificationPrtvArticle.template.TarificationPrtvArticleTemplate;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.service.DeviseService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
@@ -73,7 +75,8 @@ public class TarificationPrtvArticleActionManager extends TarificationPrtvArticl
 	@Autowired  public  TarificationPrtvArticleDAO      dAOTarificationPrtvArticle ;
 	@Autowired  public  ArticleDAO      dAOArticle ;
 	
-	
+	@Autowired
+	private DeviseService     serviceDevise;
 
 	public ModelAndView doInitServletAction() {
 
@@ -96,6 +99,9 @@ public class TarificationPrtvArticleActionManager extends TarificationPrtvArticl
 			HashMap  map_article=ProcessUtil.getHashMap_code_bean(list_article_TarificationPrtvArticle, "pk.code_barre");
 			setObjectValueModel(MAP_ARTICLE, map_article);
 			setObjectValueModel(LIST_ARTICLE_TARIF_PRTV_ARTICLE, list_article_TarificationPrtvArticle);
+			
+			
+			setObjectValueModel("list_devise", serviceDevise.doFetchDatafromServer(new DeviseBean()));
 			
 			//List<TarificationPrtvArticleBean> list_tyList = serviceTarificationPrtvArticle.doFetchDatafromServer(new TarificationPrtvArticleBean());
 			 

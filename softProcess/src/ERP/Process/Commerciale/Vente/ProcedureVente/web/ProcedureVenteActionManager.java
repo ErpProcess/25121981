@@ -2205,7 +2205,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 				 setObjectValueModel(FORM_BEAN, rowBeans);
 				 List_detaille_vente  =  serviceProcedureVente.doFetch_detDatafromServer(rowBeans);
 				 FournitureVenteBean fourBean= new FournitureVenteBean();
-				 fourBean.setVente_id(rowBeans.getVente_id());
+				 fourBean.setVenteFrn(rowBeans);
 				 List <DetFournitureVenteBean>listDetFournitureVente  =  serviceFournitureVente.doFetchDetailFourniturefromServer(fourBean);
 				 setObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE        ,  listDetFournitureVente);
 				 setObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE_CLONE   ,  ProcessUtil.cloneList(listDetFournitureVente) );

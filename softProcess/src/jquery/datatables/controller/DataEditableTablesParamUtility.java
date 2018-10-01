@@ -367,7 +367,7 @@ public static  List  doGetAzizWild3asoul(final EditableDataTableRequestParam par
 		    		Object objToReturn2 =dynamicClass.castDynamicClassObject(field2.getType().getName(), field2.get(bean2));
 		    		
 		    		
-		    		if(isNumeric(String.valueOf(objToReturn))){
+		    		if(objToReturn instanceof Number &&   objToReturn2 instanceof Number    &&   isNumeric(String.valueOf(objToReturn))){
 		    			
 		    			Double el1=Double.parseDouble(String.valueOf(objToReturn));
 		    			Double el2=Double.parseDouble(String.valueOf(objToReturn2));
@@ -420,6 +420,7 @@ public static  List  doGetAzizWild3asoul(final EditableDataTableRequestParam par
 			Object beantrie =(Object) listDataTrie.get(i);
 			JsonArray row = new JsonArray();
 			int debuIndexSuivant=debuIndex+1;
+			 
 			 
 				Field fielK = beantrie.getClass().getDeclaredField("indx_row");
 				fielK.setAccessible(true);

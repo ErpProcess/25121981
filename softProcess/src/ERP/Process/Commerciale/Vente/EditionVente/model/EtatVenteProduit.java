@@ -4,38 +4,37 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class EtatVenteKobbi implements Serializable {
+public class EtatVenteProduit implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1556458170124129924L;
-	
-	
-	private Date date  ;
-	
+
+	private Date date;
+
 	private String invoice = "";
-	
+
 	private String client = "";
-	private int rowSpanDate=1;
-	private  boolean  isrowSpanDate=false;
 	
-	private int rowSpanDetFacture=1;
-	private  boolean  isrowSpanDetFact=false;
-	
+	private int rowSpanDate = 1;
+	private boolean isrowSpanDate = false;
+
+	private int rowSpanDetFacture = 1;
+	private boolean isrowSpanDetFact = false;
+
 	private String description = "";
-	
+
 	private Double qte;
-	
+
 	private Double nbrBox;
-	
+
 	private Double prixUnit;
-	
+
 	private Double total;
-	
+
 	private List listDetailVente;
 
-	
 	public Date getDate() {
 		return date;
 	}
@@ -139,6 +138,5 @@ public class EtatVenteKobbi implements Serializable {
 	public void setIsrowSpanDetFact(boolean isrowSpanDetFact) {
 		this.isrowSpanDetFact = isrowSpanDetFact;
 	}
-	
 
 }

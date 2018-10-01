@@ -16,8 +16,8 @@ public class PkDetFactClient  extends GenericBean  {
 	private static final long serialVersionUID = -6114506181778113230L;
 
 	@ManyToOne
-	@JoinColumn(name = "fact_clt_id", insertable = true, updatable = false)
-	private Facture_clientBean   factclient = new Facture_clientBean();
+	@JoinColumn(name = "fact_clt_id", insertable = true, updatable = false, nullable=false)
+	private Facture_clientBean   factclient ;
 
 	@ManyToOne
 	@JoinColumns( {
@@ -34,7 +34,7 @@ public class PkDetFactClient  extends GenericBean  {
 	
 	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "mvt_vente_id", insertable = true, updatable = true, referencedColumnName = "mvt_vente_id" )
-	private MvtVente_articleBean mvtVente = new MvtVente_articleBean();
+	private MvtVente_articleBean mvtVente ;
 	 
 	
 	 

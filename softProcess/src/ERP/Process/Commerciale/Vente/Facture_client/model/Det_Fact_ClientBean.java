@@ -10,7 +10,6 @@ import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
-import ERP.Process.Commerciale.Vente.ProcedureVente.model.DeriverOperationVente;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.model.TVABean;
 

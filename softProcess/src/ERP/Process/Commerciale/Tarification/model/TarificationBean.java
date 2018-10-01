@@ -45,19 +45,19 @@ public class TarificationBean  extends GenericBean {
 	
 	
 	@ManyToOne(cascade = CascadeType.PERSIST) 
-	@JoinColumn(name = "dev_id", insertable = true, updatable = true)
+	@JoinColumn(name = "dev_id", insertable = true, updatable = true,nullable=true)
 	private DeviseBean  devise ;
 	
 	@ManyToOne
 	@JoinColumn(name = "tarif_prim_id", insertable = true, updatable = true,referencedColumnName="tarif_prim_id",nullable=true)
-	private TarificationPrtvArticleBean cout = new TarificationPrtvArticleBean();
+	private TarificationPrtvArticleBean cout ;
 	 
 	
 	
 	
 	@ManyToOne
 	@JoinColumn(name = "mode_calcul_prix_vente", insertable = true, updatable = true)
-	private Entite_etat_commercialeBean bean_cal = new Entite_etat_commercialeBean();
+	private Entite_etat_commercialeBean bean_cal ;
 	
 	
 	@Column

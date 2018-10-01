@@ -43,8 +43,9 @@ public class DetFournitureVenteBean extends GenericBean {
 			@JoinColumn(name = "ar_id", insertable = true, updatable = true, referencedColumnName = "ar_id"),
 			@JoinColumn(name = "code_barre", insertable = true, updatable = true, referencedColumnName = "code_barre"), })
 	private Code_barreBean fkcode_barre = new Code_barreBean();
-
-	
+ 
+	@Column(name="is_vente" )
+	private Boolean isVente = false;
 
 	@Transient
 	private String indx_row = "";
@@ -329,6 +330,14 @@ public class DetFournitureVenteBean extends GenericBean {
 
 	public void setTarifAchat(TarificationPrtvArticleBean tarifAchat) {
 		this.tarifAchat = tarifAchat;
+	}
+
+	public Boolean getIsVente() {
+		return isVente;
+	}
+
+	public void setIsVente(Boolean isVente) {
+		this.isVente = isVente;
 	}
 
 }

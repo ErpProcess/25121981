@@ -55,8 +55,8 @@ public class Detail_mvt_vente_articleBean extends GenericBean  {
 	
 
 	@ManyToOne
-	@JoinColumn(name = "tarif_vente_id", insertable = true, updatable = true)
-	private TarificationBean  tarif = new TarificationBean();
+	@JoinColumn(name = "tarif_vente_id", insertable = true, updatable = true, nullable=true)
+	private TarificationBean  tarif ;
 	
 
 	  

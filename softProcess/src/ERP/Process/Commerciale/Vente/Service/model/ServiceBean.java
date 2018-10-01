@@ -15,6 +15,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import ERP.Process.Commerciale.Stock.DepotStockage.model.DepotStockageBean;
 import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
 import ERP.Process.Commerciale.Vente.Commandeclient.model.CommandeclientBean;
+import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
@@ -30,8 +31,13 @@ public class ServiceBean extends GenericBean {
 	private String srv_id = "";
 	@Column
 	private String srv_libelle = "";
-	@Column
-	private String vente_id = "";
+	 
+	
+	@ManyToOne
+	@JoinColumn(name = "vente_id", insertable = true, updatable = true)
+	private ProcedureVenteBean venteSrv = new ProcedureVenteBean();
+	
+	
 	@Column
 	private Date srv_date;
 	@Column
@@ -110,12 +116,14 @@ public class ServiceBean extends GenericBean {
 		return srv_libelle;
 	}
 
-	public void setVente_id(String vente_id) {
-		this.vente_id = vente_id;
+	 
+
+	public ProcedureVenteBean getVenteSrv() {
+		return venteSrv;
 	}
 
-	public String getVente_id() {
-		return vente_id;
+	public void setVenteSrv(ProcedureVenteBean venteSrv) {
+		this.venteSrv = venteSrv;
 	}
 
 	public void setSrv_obs(String srv_obs) {

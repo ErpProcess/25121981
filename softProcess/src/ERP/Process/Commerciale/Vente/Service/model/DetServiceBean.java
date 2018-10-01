@@ -67,6 +67,9 @@ public class DetServiceBean extends GenericBean {
 
 	@Column
 	private Double quantite_confirmer;
+	
+	@Column(name="is_vente" )
+	private Boolean isVente = false;
 
 	@ManyToOne
 	@JoinColumn(name = "tarif_vente_id", insertable = true, updatable = true)
@@ -325,6 +328,14 @@ public class DetServiceBean extends GenericBean {
 
 	public void setService(ServiceBean service) {
 		this.service = service;
+	}
+
+	public Boolean getIsVente() {
+		return isVente;
+	}
+
+	public void setIsVente(Boolean isVente) {
+		this.isVente = isVente;
 	}
 	
 

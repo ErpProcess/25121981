@@ -89,11 +89,46 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 		    if (!StringUtils.isEmpty(beanSearch.getVente_id()))
 				   requette += "   AND   bean.pk.vente.vente_id ='"+beanSearch.getVente_id()+"'        ";
 		    
+		 
+		    
 		    if (!StringUtils.isEmpty(beanSearch.getCondition_de_prix()))
 				   requette += "   "+beanSearch.getCondition_de_prix()+"         ";
 		    
 		    
-		     
+		 
+				    
+				   lisf= session.createQuery(requette).list();
+				   commitTransaction(session);
+		 } catch (Exception e) {  
+		     if (sessionIsTrue(session)) 
+		    	 rollbackTransaction(session) ;
+		     throw e;  
+		 } finally {  
+			 session.close();  
+		 }  
+		 return  lisf;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<DetProcedureVenteBean> doFindDetailleListProcedureVenteEdition(ProcedureVenteBean beanSearch) throws Exception {
+		Session session =  openSessionHibernate(sessionFactory);
+		
+		List<DetProcedureVenteBean>   lisf = new ArrayList<DetProcedureVenteBean>();
+		try {
+		    String requette   =  "   select  bean   FROM    DetProcedureVenteBean    bean    WHERE     1=1       ";
+		    
+		    
+		    if (!StringUtils.isEmpty(beanSearch.getVente_id()))
+				   requette += "   AND   bean.pk.vente.vente_id ='"+beanSearch.getVente_id()+"'        ";
+		    
+			 if (beanSearch.getVente_date() != null) 
+			    	requette += "   AND  bean.pk.vente.factclient.fact_date >= '"+ProcessDate.getStringFormatDate(beanSearch.getVente_date())+"'        ";
+			    
+			if (   beanSearch.getVente_date2()!= null ) 
+			    	requette += "   AND  bean.pk.vente.factclient.fact_date <=  '"+ProcessDate.getStringFormatDate(beanSearch.getVente_date2())+"'         ";
+		    
+		  
+		    requette +=this.setSocieteEtabFetch(beanSearch,"bean.pk.vente.fk_etab_Bean", false);
 				    
 				   lisf= session.createQuery(requette).list();
 				   commitTransaction(session);
@@ -234,7 +269,8 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 					daoNumSequentiel.getNumSeqSimple(fVenteBean,"frn_ve_id",session);
 					this.setBeanTrace(fVenteBean);
 					fVenteBean.setFrn_ve_libelle(beanVente.getVente_libelle());
-					fVenteBean.setVente_id(beanVente.getVente_id());
+					fVenteBean.setVenteFrn(beanVente);
+				 
 					fVenteBean.setClient(beanVente.getClient());
 					fVenteBean.setFrn_ve_date(beanVente.getVente_date());
 					fVenteBean.setDepot(beanVente.getDepot());
@@ -244,6 +280,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						if( detBean.getQuantite()==null) { continue; }
 						if( detBean.getQuantite()==0 ||  detBean.getQuantite()<0) { continue;}
 						detBean.setFourniture(fVenteBean);
+						detBean.setIsVente(false);
 						session.save(detBean);
 					}
 			 
@@ -260,7 +297,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 					daoNumSequentiel.getNumSeqSimple(service,"srv_id",session);
 					this.setBeanTrace(service);
 					service.setSrv_libelle(beanVente.getVente_libelle());
-					service.setVente_id(beanVente.getVente_id());
+					service.setVenteSrv(beanVente);
 					service.setClient(beanVente.getClient());
 					service.setSrv_date(beanVente.getVente_date());
 					service.setDepot(beanVente.getDepot());
@@ -270,6 +307,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						if( detBean.getQuantite()==null) { continue; }
 						if( detBean.getQuantite()==0 ||  detBean.getQuantite()<0) { continue;}
 						detBean.setService(service);
+						detBean.setIsVente(false);
 						session.save(detBean);
 					}
 			 
@@ -330,7 +368,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						 detBean.getFkcode_barre().getPk().getAr_bean().getCathegorie().getData_id().equals("syn") 	
 						 ) continue;
 					 
-				detBean.getFourniture().setVente_id(beanUpdate.getVente_id());
+				detBean.getFourniture().setVenteFrn(beanUpdate);
 				detBean.setQuantite_confirmer(detBean.getQuantite());
 				
 				boolean resultTrai_personnaliser=false;//traitement_for_lot_personnaliser(beanUpdate,detBean,session);

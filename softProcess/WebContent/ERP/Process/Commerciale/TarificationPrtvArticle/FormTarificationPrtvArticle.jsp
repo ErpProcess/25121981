@@ -60,8 +60,10 @@
    <input id="date_prim_trf" name="date_prim_trf"    type="datepicker"      compareTo="dateSys"    size="13"       maxlength="13"       value="${WW}"    required      />     
    </td> 
 </tr>
-
-
+<script>
+$(function() {loadSelectAjax("devX","list_devise","dev_id","dev_libelle","${detailBean.devise.dev_id}",true); })</script>
+<select     required   id="devX"  name="devise.dev_id"   style="width: 180px;"  ></select>
+		        
  <tr> 
 	<td  ><label>référence</label></td>  
 	<td   >  

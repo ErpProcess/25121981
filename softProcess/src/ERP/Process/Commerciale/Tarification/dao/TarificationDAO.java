@@ -78,7 +78,7 @@ public class TarificationDAO extends  GenericWeb    {
 			    requette+="   AND   bean.num_serie ='"+beanSearch.getNum_serie()+"'        ";
 		 
 		 
-		 if( beanSearch.getCout().getTarif_unit_article()!= null  )  
+		 if(beanSearch.getCout() !=null  &&  beanSearch.getCout().getTarif_unit_article()!= null  )  
 			    requette+="   AND   bean.cout.tarif_unit_article ="+beanSearch.getCout().getTarif_unit_article()+"        ";
 		 
 		 if( beanSearch.getTarif_unit_vente()!= null  )  

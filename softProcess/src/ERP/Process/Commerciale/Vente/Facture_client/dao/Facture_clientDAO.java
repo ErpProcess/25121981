@@ -251,7 +251,7 @@ public class Facture_clientDAO extends  GenericWeb    {
 					bDetail_mvt_vente.getPk().setMvt_vente(mvt_vente);
 					session.save(bDetail_mvt_vente);
 					session.createQuery( " UPDATE  ProcedureVenteBean b  set  " +
-							"            b.modeBean.fct_id="+GenericActionBean.Fn_Facturer+"   " +
+							"            b.modeBean.fct_id="+GenericActionBean.Fn_Facturer+" , b.factclient.fact_clt_id='"+beanSave.getFact_clt_id()+"' " +
 									"     where   b.vente_id='"+bDetail_mvt_vente.getPk().getVente().getVente_id()+"' ").executeUpdate();
 				}
 				detBean.getPk().setFactclient(beanSave);

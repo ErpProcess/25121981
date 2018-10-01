@@ -15,6 +15,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import ERP.Process.Commerciale.Stock.DepotStockage.model.DepotStockageBean;
 import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
 import ERP.Process.Commerciale.Vente.Commandeclient.model.CommandeclientBean;
+import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
@@ -31,10 +32,18 @@ public class FournitureVenteBean extends GenericBean {
 	private String frn_ve_id = "";
 	@Column
 	private String frn_ve_libelle = "";
-	@Column
-	private String vente_id = "";
+	
+	 
+	
+	@ManyToOne
+	@JoinColumn(name = "vente_id", insertable = true, updatable = true)
+	private ProcedureVenteBean venteFrn = new ProcedureVenteBean();
+	
 	@Column
 	private Date frn_ve_date;
+	
+
+
 	@Column
 	private String frn_ve_obs = "";
 	
@@ -147,13 +156,7 @@ public class FournitureVenteBean extends GenericBean {
 		return frn_ve_libelle;
 	}
 
-	public void setVente_id(String vente_id) {
-		this.vente_id = vente_id;
-	}
-
-	public String getVente_id() {
-		return vente_id;
-	}
+	 
 
 	public void setFrn_ve_obs(String frn_ve_obs) {
 		this.frn_ve_obs = frn_ve_obs;
@@ -312,5 +315,13 @@ public class FournitureVenteBean extends GenericBean {
 
 	public Integer getDev_id() {
 		return dev_id;
+	}
+	
+	public ProcedureVenteBean getVenteFrn() {
+		return venteFrn;
+	}
+
+	public void setVenteFrn(ProcedureVenteBean venteFrn) {
+		this.venteFrn = venteFrn;
 	}
 }

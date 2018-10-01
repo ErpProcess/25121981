@@ -12,6 +12,7 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate
 import ERP.Process.Commerciale.Vente.FournitureVente.model.DetFournitureVenteBean;
 import ERP.Process.Commerciale.Vente.FournitureVente.model.FournitureVenteBean;
 import ERP.Process.Commerciale.Vente.FournitureVente.template.FournitureVenteTemplate;
+import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 @Repository
 public class FournitureVenteDAO extends  GenericWeb    {
 	private SessionFactory sessionFactory;
@@ -35,12 +36,46 @@ public class FournitureVenteDAO extends  GenericWeb    {
 // 			   
 // 			   if( !StringUtils.isEmpty(beanSearch.getFrn_ve_libelle()) )  
 //	    			requette+="   AND   bean.frn_ve_libelle = '"+beanSearch.getFrn_ve_libelle()+"'        ";    
- 			   if( !StringUtils.isEmpty(beanSearch.getVente_id()) )  
-	    			requette+="   AND   bean.fourniture.vente_id = '"+beanSearch.getVente_id()+"'        ";  
+ 			   if(   beanSearch.getVenteFrn()!=null  &&   !StringUtils.isBlank(beanSearch.getVenteFrn().getVente_id()) )  
+	    			requette+="   AND   bean.fourniture.venteFrn.vente_id = '"+beanSearch.getVenteFrn().getVente_id()+"'        ";  
  			   else 
  					requette+="   AND   bean.fourniture.vente_id = 'bidan01'        ";  
 // 			   if(  beanSearch.getFrn_ve_date()!=null )  
 //	    			requette+="   AND   bean.frn_ve_date = '"+ProcessDate.getStringFormatDate(beanSearch.getFrn_ve_date())+"'        ";    
+				  		list_data= session.createQuery(requette).list();
+				        commitTransaction(session);
+			 } catch (Exception e) {  
+			     if (sessionIsTrue(session)) 
+			    	 rollbackTransaction(session) ;
+				     throw e;  
+				 } finally {  
+				 session.close();  
+			 }  
+			 return  list_data;
+	 }  
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<DetFournitureVenteBean> doFindDetailFournitureEdition(ProcedureVenteBean beanSearch) throws Exception {
+		  Session session =  openSessionHibernate(sessionFactory);
+		  List list_data= new ArrayList();
+		     
+		  try{
+		    String requette=" select  bean   FROM    DetFournitureVenteBean    bean    WHERE     1=1       ";
+ 
+		    if (!StringUtils.isBlank(beanSearch.getVente_id()))
+				   requette += "   AND   bean.fourniture.venteFrn.vente_id ='"+beanSearch.getVente_id()+"'        ";
+		    
+			 if (beanSearch.getVente_date() != null) 
+			    	requette += "   AND  bean.fourniture.venteFrn.factclient.fact_date >= '"+ProcessDate.getStringFormatDate(beanSearch.getVente_date())+"'        ";
+			    
+			 if (   beanSearch.getVente_date2()!= null ) 
+			    	requette += "   AND  bean.fourniture.venteFrn.factclient.fact_date <=  '"+ProcessDate.getStringFormatDate(beanSearch.getVente_date2())+"'         ";
+		    
+		  
+		    requette +=this.setSocieteEtabFetch(beanSearch,"bean.fourniture.fk_etab_Bean", false);
+ 			   
+  
 				  		list_data= session.createQuery(requette).list();
 				        commitTransaction(session);
 			 } catch (Exception e) {  
@@ -65,8 +100,11 @@ public class FournitureVenteDAO extends  GenericWeb    {
 	    			requette+="   AND   bean.frn_ve_id = '"+beanSearch.getFrn_ve_id()+"'        ";    
  			   if( !StringUtils.isEmpty(beanSearch.getFrn_ve_libelle()) )  
 	    			requette+="   AND   bean.frn_ve_libelle = '"+beanSearch.getFrn_ve_libelle()+"'        ";    
- 			   if( !StringUtils.isEmpty(beanSearch.getVente_id()) )  
-	    			requette+="   AND   bean.vente_id = '"+beanSearch.getVente_id()+"'        ";    
+ 			 
+ 			   
+ 			  if(   beanSearch.getVenteFrn()!=null  &&   !StringUtils.isBlank(beanSearch.getVenteFrn().getVente_id()) )  
+	    			requette+="   AND   bean.venteFrn.vente_id = '"+beanSearch.getVenteFrn().getVente_id()+"'        ";   
+ 			   
  			   if(  beanSearch.getFrn_ve_date()!=null )  
 	    			requette+="   AND   bean.frn_ve_date = '"+ProcessDate.getStringFormatDate(beanSearch.getFrn_ve_date())+"'        ";    
 				  		list_data= session.createQuery(requette).list();

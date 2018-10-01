@@ -2,6 +2,7 @@ package ERP.Process.Commerciale.TarificationPrtvArticle.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ import ERP.Process.Commerciale.Code_barre.model.Code_barreBean;
 import ERP.Process.Commerciale.Entite_etat_commerciale.model.Entite_etat_commercialeBean;
 import ERP.Process.Commerciale.GrpTarifPrimitiv.model.GrpTarifPrimitivBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.model.TVABean;
@@ -74,6 +76,10 @@ public class TarificationPrtvArticleBean extends GenericBean {
 	})
 	private EtablissementBean fk_etab_Bean = new EtablissementBean();
 	
+	
+	@ManyToOne(cascade = CascadeType.PERSIST) 
+	@JoinColumn(name = "dev_id", insertable = true, updatable = true)
+	private DeviseBean  devise ;
 	
 	
 	@Transient
@@ -321,6 +327,14 @@ public class TarificationPrtvArticleBean extends GenericBean {
 
 	public void setMode_cal(Entite_etat_commercialeBean mode_cal) {
 		this.mode_cal = mode_cal;
+	}
+
+	public DeviseBean getDevise() {
+		return devise;
+	}
+
+	public void setDevise(DeviseBean devise) {
+		this.devise = devise;
 	}
 
 	 

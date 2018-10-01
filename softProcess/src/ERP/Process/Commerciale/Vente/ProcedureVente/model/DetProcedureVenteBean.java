@@ -53,8 +53,12 @@ public class DetProcedureVenteBean extends GenericBean {
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "tarif_vente_id", insertable = true, updatable = true)
-	private TarificationBean  tarif = new TarificationBean();
+	@JoinColumn(name = "tarif_vente_id", insertable = true, updatable = true ,nullable=false)
+	private TarificationBean  tarif ;
+	
+	
+	
+
 	
 	
 	@ManyToOne

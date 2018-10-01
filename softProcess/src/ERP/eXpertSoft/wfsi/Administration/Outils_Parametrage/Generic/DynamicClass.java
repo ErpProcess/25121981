@@ -123,15 +123,21 @@ public class DynamicClass {
             	  Date date = new Date();
             	  date = df.parse(cunvertCurrentDate);
             	  
-				 return ((String)String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(value)));
+			  return  new SimpleDateFormat("dd/MM/yyyy").format(value) ;
 				 
-              }else if( className.equals("java.math.BigDecimal")  ){
-            	  BigDecimal uuu=(BigDecimal) value;
-            	  return value==null?"":uuu.toString();
-              }else if(className.equals("java.lang.Integer")){	
+              }else if( className.equals("java.lang.Double")  ){
             	  
+            	  Double uuu=(Double) value;
+            	  return value==null?"":uuu;
+            	  
+              }else if( className.equals("java.math.BigDecimal")  ){
+            	  
+            	  BigDecimal uuu=(BigDecimal) value;
+            	  return value==null?"":uuu;
+            	  
+              }else if(className.equals("java.lang.Integer")){	
             	  Integer uuu=(Integer) value;
-            	  return value==null?"":Integer.toString(uuu);
+            	  return value==null?"":uuu;
             	  
 			  }else{
 				 dynamicClass = Class.forName(className); 

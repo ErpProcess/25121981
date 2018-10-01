@@ -46,15 +46,6 @@ public class GenericWeb       {
 	private  static final ThreadLocal<HttpServletRequest>  requestThread     = new ThreadLocal<HttpServletRequest>();
 	private  static final ThreadLocal<HttpServletResponse> responseThread    = new ThreadLocal<HttpServletResponse>();
 	private  static final ThreadLocal<HttpSession>         sessionThread     = new ThreadLocal<HttpSession>();
-	
-	 
-	
-	
-	
-	
-	 
-	 
-	 
 
 	public  static HttpServletRequest getRequest() {
             return requestThread.get();
@@ -73,7 +64,7 @@ public class GenericWeb       {
     public static void destroyThreadLocal() {
     	if(requestThread!=null)  requestThread.remove();
     	if(responseThread!=null) responseThread.remove();
-    	if(sessionThread!=null) sessionThread.remove();
+    	if(sessionThread!=null)  sessionThread.remove();
     }
 
    
@@ -81,12 +72,7 @@ public class GenericWeb       {
 	public GenericWeb() {
 		super();
 	}
-	
-	 
-
  
- 
-	 
 	 
 	public static  String JSON_DATA_RESPONSE    = "aaData";
 	public static  String INDEX_ROW             = "indexRow";
@@ -205,9 +191,10 @@ public class GenericWeb       {
 	}
     
     
-    public static boolean ifEquals(BeanSession bs  ,String fonction) {
-		
-		if( bs.getFct_id().equals(fonction))  return true;
+    public static boolean ifFonctionEqual(String fonction) {
+    	
+    BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
+		if( bSession.getFct_id().equals(fonction))  return true;
 		else
 		return false;
 		
