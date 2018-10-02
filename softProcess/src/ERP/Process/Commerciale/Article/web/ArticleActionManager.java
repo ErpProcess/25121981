@@ -150,15 +150,20 @@ public class ArticleActionManager extends ArticleTemplate {
 			setObjectValueModel("mapTva", mapTva);
 			setObjectValueModel("list_tvList",list_tvList);
 			 
-			    Code_barreBean searchBeanx=new Code_barreBean();
-		        //searchBeanx.getPk().getAr_bean().getPk_article().setAr_id(ar_id) ;
-		        searchBeanx.getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().setSoc_id(bs.getSoc_id());
+			Code_barreBean searchBeanx=new Code_barreBean();
+		    //searchBeanx.getPk().getAr_bean().getPk_article().setAr_id(ar_id) ;
+		    searchBeanx.getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().setSoc_id(bs.getSoc_id());
 			
-			
-			
-			if (bs.getFct_id().equals("1")) { 
+			if(bs.getSousmod_id().equals("52")) {
 				fBean.setConditionDeSelection(" AND  type.typefam_id  in ('art','frn')   ");
 				setObjectValueModel("list_FamilleArticle" , serviceFamilleArticle.dofetchDatafromServer(fBean));
+			}else {
+				fBean.setConditionDeSelection(" AND  type.typefam_id  in ('srv')   ");
+				setObjectValueModel("list_FamilleArticle" , serviceFamilleArticle.dofetchDatafromServer(fBean));
+			}
+			
+			if (bs.getFct_id().equals(Fn_Nouveau)) { 
+				
 				return getViewAdd(FORM_VIEW);
 				
 			}else if(bs.getFct_id().equals(Fn_Client)){	
@@ -173,8 +178,7 @@ public class ArticleActionManager extends ArticleTemplate {
 				
 			}else if(bs.getFct_id().equals(Fn_Créer)){
 				 
-				fBean.setConditionDeSelection(" AND  type.typefam_id  in ('srv')   ");
-				setObjectValueModel("list_FamilleArticle" , serviceFamilleArticle.dofetchDatafromServer(fBean));
+				
 				return getViewAdd(FORM_SERVICE);
 				
 			} else {

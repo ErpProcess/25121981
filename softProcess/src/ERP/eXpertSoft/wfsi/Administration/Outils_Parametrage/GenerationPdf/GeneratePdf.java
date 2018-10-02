@@ -77,6 +77,7 @@ public class GeneratePdf extends  GenericWeb {
 	
 	 public static final Font Normal_10_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.NORMAL);
 	 public static final Font Bold_10_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.BOLD);
+	 public static final Font Bold_8_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 8, Font.BOLD);
 	 
 	 public static final Font Normal_11_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 11, Font.NORMAL);
 	 public static final Font Bold_11_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 11, Font.BOLD);

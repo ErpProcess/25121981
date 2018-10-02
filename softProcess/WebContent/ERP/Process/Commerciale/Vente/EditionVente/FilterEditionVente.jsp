@@ -6,7 +6,6 @@ height_tabbJQuey="auto";
 contenu_toolbarJQuey="";
 mapEditableGen = {             "otab"   :oTable,
                                "table"  :"GRID_DETAIL_FACTURE_CLIENT",
-                               "list"   :"listEditionDepense",
                                "url"    :"${urlloadDataTableAjax}",
                                "action" :"i$_ACT_LOAD_EDITABLE_TABLE_AJAX"
                                };
@@ -23,6 +22,7 @@ mapEditableGen = {             "otab"   :oTable,
     		});
     	  mapEditableGen["mapCol"] = resp.listcolonne;
     	  mapEditableGen["id_name"]= resp.nameColIdGrid;
+    	  mapEditableGen["list"]= resp.list;
     	  Ext.getCmp('btPrintPdfx').enable();
     	  Ext.getCmp('RET_GRID').show();
     	  document.getElementById("GRID_DETAIL_FACTURE_CLIENT").style.display="block";

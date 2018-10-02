@@ -2,6 +2,7 @@ package ERP.Process.Commerciale.Vente.EditionVente.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.persistence.Transient;
 
@@ -23,7 +24,16 @@ public class EtatDepenseProduit implements Serializable {
 	private String invoice = "";
 
 	private String client = "";
+	private String clientId = "";
 	
+	public String getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
 	private int     rowSpanDate = 1;
 	private boolean isrowSpanDate = false;
 
@@ -64,6 +74,9 @@ public class EtatDepenseProduit implements Serializable {
 	private Double total;
  
 	private DeviseBean  devise  = new DeviseBean();
+	
+	private HashMap     mapFourniture     = new HashMap();
+	private HashMap     mapPrestation     = new HashMap();
 
 	
 	 
@@ -299,6 +312,22 @@ public class EtatDepenseProduit implements Serializable {
 
 	public void setDevise(DeviseBean devise) {
 		this.devise = devise;
+	}
+
+	public HashMap getMapFourniture() {
+		return mapFourniture;
+	}
+
+	public void setMapFourniture(HashMap mapFourniture) {
+		this.mapFourniture = mapFourniture;
+	}
+
+	public HashMap getMapPrestation() {
+		return mapPrestation;
+	}
+
+	public void setMapPrestation(HashMap mapPrestation) {
+		this.mapPrestation = mapPrestation;
 	}
 	
 
