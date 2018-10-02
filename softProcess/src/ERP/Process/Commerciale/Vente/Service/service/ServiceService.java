@@ -28,6 +28,12 @@ public class ServiceService  extends GenericWeb  {
 		return daoService.doFindDetailListService(beanSearch);
 	}
 	
+	@Transactional(readOnly=true)
+	public List<DetServiceBean> doFindDetailListServiceByVenteId(ProcedureVenteBean beanSearch) throws Exception {
+		return daoService.doFindDetailListServiceByVenteId(beanSearch);
+	}
+	
+	
 	
 	@Transactional
 	public Boolean doCreateRowData(ServiceBean insertBean) throws Exception {

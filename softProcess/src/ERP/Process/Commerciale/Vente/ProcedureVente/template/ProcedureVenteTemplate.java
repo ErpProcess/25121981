@@ -53,6 +53,7 @@ public static String LIST_EDITABLE_VENTE_CLONE    = "list_editable_proVente_clon
 
 public static String LIST_EDITABLE_FOURNITURE_VENTE    = "list_editable_fournitureVente";
 public static String LIST_EDITABLE_PRESTATION          = "list_editable_prestation";
+public static String LIST_EDITABLE_PRESTATION_CLONE          = "list_editable_prestation_clone";
 
 public static String LIST_EDITABLE_FOURNITURE_VENTE_CLONE    = "list_editable_fournitureVenteClone";
 

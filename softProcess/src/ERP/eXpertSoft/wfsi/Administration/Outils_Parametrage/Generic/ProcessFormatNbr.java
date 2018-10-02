@@ -191,7 +191,7 @@ public class ProcessFormatNbr  extends GenericWeb  {
 	public static String  FormatDouble_To_String_PatternChiffre(double number,String pattern) throws Exception{
 	     
 	      try{
-	    	    BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
+	    	    if(number==0) return "";
 	    	    DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
 	    		decimalFormatSymbols.setDecimalSeparator('.');
 	    		decimalFormatSymbols.setGroupingSeparator(' ');

@@ -55,6 +55,7 @@ import ERP.Process.Commerciale.Vente.ProcedureVente.service.ProcedureVenteServic
 import ERP.Process.Commerciale.Vente.ProcedureVente.template.ProcedureVenteTemplate;
 import ERP.Process.Commerciale.Vente.ReglementFactClt.model.ReglementFactCltBean;
 import ERP.Process.Commerciale.Vente.Service.model.DetServiceBean;
+import ERP.Process.Commerciale.Vente.Service.service.ServiceService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.service.DeviseService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.GenerationPdf.GeneratePdf;
@@ -91,11 +92,19 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 	
 	@Autowired
 	private FournitureVenteService    serviceFournitureVente;
-	
 	@Autowired
 	public void setServiceProcedureVente(ProcedureVenteService serviceProcedureVente) {
 	    this.serviceProcedureVente = serviceProcedureVente;
 	} 
+	
+	
+	private ServiceService serviceService;
+	@Autowired
+	public void setServiceService(ServiceService serviceService) {
+		this.serviceService = serviceService;
+	}
+	
+	
 	private      DepotStockageService       serviceDepotStockage;
 	@Autowired
 	public void setServiceServiceDepotStockage(DepotStockageService serviceDepotStockage) {
@@ -2209,19 +2218,10 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 				 List <DetFournitureVenteBean>listDetFournitureVente  =  serviceFournitureVente.doFetchDetailFourniturefromServer(fourBean);
 				 setObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE        ,  listDetFournitureVente);
 				 setObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE_CLONE   ,  ProcessUtil.cloneList(listDetFournitureVente) );
-				 
-				 //HashMap  map_vente   = ProcessUtil.getHashMap_code_bean(List_detaille_vente, "pk.fkcode_barre.pk.code_barre");
-				 //HashMap  mapTeste    = new HashMap();
-				 /*if (bs.getFct_id().equals(Fn_Confirmer)){ 
-					ProcedureVenteBean venteBean=  new ProcedureVenteBean();
-					venteBean.setCondition_select_vente_non_confirmer(" " +
-					 		" AND  bean.modeBean.fct_id in ('"+Fn_Servir+"','"+Fn_Créer+"','"+Fn_Modifier+"','"+Fn_Transférer+"','"+Fn_Contremander+"')  " +
-					 		" AND  bean.vente_date < '"+ProcessDate.getStringFormatDate(rowBeans.getVente_date())+"' ");
-					List list= serviceProcedureVente.doFetchDatafromServer(venteBean);
-					if(list!= null  &&    list.size()>0){
-						//throwNewException(" il existe des vente non encore confirmer a une date inférieur a :"+ProcessDate.getStringFormatDate(rowBeans.getVente_date()));
-					}
-				 }*/
+
+				 List <DetServiceBean>listDetServiceBean =  serviceService.doFindDetailListServiceByVenteId(rowBeans);
+				 setObjectValueModel(LIST_EDITABLE_PRESTATION       ,  listDetServiceBean);
+				 setObjectValueModel(LIST_EDITABLE_PRESTATION_CLONE,  ProcessUtil.cloneList(listDetServiceBean) );
 			}
 				 
 				 

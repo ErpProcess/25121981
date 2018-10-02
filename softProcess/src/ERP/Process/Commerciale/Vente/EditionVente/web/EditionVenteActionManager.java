@@ -148,12 +148,17 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
             	List<DetProcedureVenteBean>    listDetVente    =serviceProcedureVente.doFindDetailleListProcedureVenteEdition(beanSearch);
             	List<DetFournitureVenteBean>   listDetFouniture=serviceFournitureVente.doFindDetailFournitureEdition(beanSearch) ;
             	List<DetServiceBean>           listDetService  =serviceService.doFetchDetailfromServer(beanSearch);
-            	List<EtatDepenseProduit>listVenteProduit =doBuildDepenseVente(listDetVente);
-            	HashMap mapDataImpressionFourniture = doBuildDepenseFourniture(listDetFouniture);
-            	HashMap  mapDataImpressionService   = doBuildDepenseService(listDetService);
-            	setObjectValueModel("mapDataImpressionFourniture",  mapDataImpressionFourniture);
-            	setObjectValueModel("mapDataImpressionService",  mapDataImpressionService);
-                setObjectValueModel("listEditionDepense",  listVenteProduit);
+
+  		
+  		
+  		        HashMap  mapDepenseProduit = doBuildDepenseVente(listDetVente);
+  		        List <EtatDepenseProduit> listDepenseProduit = (List) mapDepenseProduit.get("list");
+            	HashMap  mapDataImpressionFournit            = doBuildDepenseFourniture(listDetFouniture);
+            	HashMap  mapDataImpressionService            = doBuildDepenseService(listDetService);
+            	HashMap  ligneTotal = doTraiterListFinaldepense(listDepenseProduit, mapDataImpressionFournit, mapDataImpressionService);
+            	
+                setObjectValueModel("listEditionDepense",  listDepenseProduit);
+                setObjectValueModel("ligneTotal",  ligneTotal);
                 JSONArray  listcolonne    = doWriteHeaderGridDataEtatDepenseProduit();
                 json.put("listcolonne", listcolonne); 
                 json.put("nameColIdGrid", "date"); 
@@ -172,17 +177,180 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 		return null;
 	}
 	
-	
-	private List<EtatDepenseProduit> doBuildDepenseVente(List<DetProcedureVenteBean> listDetVente) throws Exception {
+	private HashMap  doTraiterListFinaldepense(List listEditionDepense, HashMap mapDataImpressionFourniture, HashMap mapDataImpressionService) throws Throwable {
+		
+		   HashMap  ligneTotal = new HashMap();
+	       Double totQteFish = new Double(0);
+	       Double totQteBox = new Double(0);
+	       Double totAchatFish = new Double(0);
+	       Double totAchatBox = new Double(0);
+	       Double totTransport = new Double(0);
+	       Double totTransit= new Double(0);
+	       Double totMoeuvre= new Double(0);
+	       Double totEmbal= new Double(0);
+	       Double totGlassScot= new Double(0);
+	       Double totDouane= new Double(0);
+	       Double totChambreCom= new Double(0);
+	       Double totTranAea= new Double(0);
+	       Double totTotal= new Double(0);
+	       
+		 for(int i=0; i < listEditionDepense.size(); i++ ){
+			 
+		       EtatDepenseProduit bean = (EtatDepenseProduit) listEditionDepense.get(i); 
+		       
+		       HashMap mapDataImFournitureQte     =(HashMap) mapDataImpressionFourniture.get("qte"+bean.getDate()+bean.getInvoice()+bean.getClient());
+		       HashMap mapDataImFournitureMnt     =(HashMap) mapDataImpressionFourniture.get("mnt"+bean.getDate()+bean.getInvoice()+bean.getClient());
+		       HashMap mapDataImpressionSrv       =(HashMap) mapDataImpressionService.get(bean.getDate()+bean.getInvoice()+bean.getClient());
+		       Double totligne= new Double(0);
+		       totligne= ProcessNumber.addition(totligne, bean.getPrixtotFish()!=null?bean.getPrixtotFish():new Double(0));
+		       
+		   
+		       totQteFish= ProcessNumber.addition(totQteFish, bean.getQteFish()!=null?bean.getQteFish():new Double(0));
+		       totAchatFish= ProcessNumber.addition(totAchatFish, bean.getPrixtotFish()!=null?bean.getPrixtotFish():new Double(0));
+		       
+		       
+		       
+			   String qteBoxSt="";
+			   if(mapDataImFournitureQte!=null) {
+				   Double  qteBox=(Double) mapDataImFournitureQte.get("60200002");
+				   if(qteBox!=null) {
+					   bean.setNbrBox(qteBox);
+					   totQteBox= ProcessNumber.addition(totQteBox, qteBox);
+					   qteBoxSt=ProcessFormatNbr.convertDoubleToIntString(qteBox);
+				   }
+			   }
+			   String mntBoxSt="";
+			   if(mapDataImFournitureMnt!=null) {
+				   Double  mnt=(Double) mapDataImFournitureMnt.get("60200002");
+				   if(mnt!=null) {  bean.setPrixtotPoly(mnt);
+				       totligne= ProcessNumber.addition(totligne, mnt);
+				       totAchatBox= ProcessNumber.addition(totAchatBox, mnt);
+					   mntBoxSt=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(mnt, "0.000");
+				   }
+			   }
+			   
+			   String mntGace="";
+			   Double Glassmnt= new Double(0);
+			   if(mapDataImFournitureMnt!=null) {
+				    Glassmnt=(Double) mapDataImFournitureMnt.get("60200019");
+				   if(Glassmnt!=null) {
+					   mntGace=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(Glassmnt, "0.000");
+				   }else {
+					   Glassmnt= new Double(0); 
+				   }
+				   totGlassScot= ProcessNumber.addition(totGlassScot, Glassmnt);
+				   totligne= ProcessNumber.addition(totligne, Glassmnt);
+			   }
+			   String mntscot="";
+			   Double mntscotD= new Double(0);
+			   if(mapDataImFournitureMnt!=null) {
+				      mntscotD=(Double) mapDataImFournitureMnt.get("6020004");
+				   if(mntscotD!=null) {
+					   mntscot=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(mntscotD, "0.000");
+				   }else {
+					   mntscotD= new Double(0);
+				   }
+				   totGlassScot= ProcessNumber.addition(totGlassScot, mntscotD);
+				   totligne= ProcessNumber.addition(totligne, mntscotD);
+			   }
+			   Double scot_glace=ProcessNumber.addition(Glassmnt, mntscotD);
+			   bean.setScot_glace(scot_glace);
+			   
+			   
+			   String transport="";
+			   if(mapDataImpressionSrv!=null) {
+				     Double trsprt=(Double) mapDataImpressionSrv.get("60200016");
+				   if(trsprt!=null) {bean.setTrsprt(trsprt);
+				   totligne= ProcessNumber.addition(totligne, trsprt);
+				   totTransport= ProcessNumber.addition(totTransport, trsprt);
+				   transport=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(trsprt, "0.000");
+				   }
+			   }
+			   String transits="";
+			   if(mapDataImpressionSrv!=null) {
+				     Double transit=(Double) mapDataImpressionSrv.get("60200003");
+				   if(transit!=null) {bean.setTransit(transit);
+				   totligne= ProcessNumber.addition(totligne, transit);
+				   totTransit= ProcessNumber.addition(totTransit, transit);
+				   transits=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(transit, "0.000");
+				   }
+			   }
+			   
+			   String meouv="";
+			   if(mapDataImpressionSrv!=null) {
+				     Double mnt=(Double) mapDataImpressionSrv.get("60200015");
+				   if(mnt!=null) {bean.setMdOuevre(mnt);
+				   totligne= ProcessNumber.addition(totligne, mnt);
+				   totMoeuvre= ProcessNumber.addition(totMoeuvre, mnt);
+				   meouv=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(mnt, "0.000");
+				   }
+			   }
+			   
+			   
+			   String chambreCom="";
+			   if(mapDataImpressionSrv!=null) {
+				     Double mnt=(Double) mapDataImpressionSrv.get("60200018");
+				   if(mnt!=null) {bean.setChambreCom(mnt);
+				   totligne= ProcessNumber.addition(totligne, mnt);
+				   totChambreCom= ProcessNumber.addition(totChambreCom, mnt);
+				   chambreCom=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(mnt, "0.000");
+				   }
+			   }
+			   
+			   
+			   String transAren="";
+			   if(mapDataImpressionSrv!=null) {
+				     Double mnt=(Double) mapDataImpressionSrv.get("60200017");
+				   if(mnt!=null) {bean.setTransAe(mnt);
+				   totligne= ProcessNumber.addition(totligne, mnt);
+				   totTranAea= ProcessNumber.addition(totTranAea, mnt);
+				   transAren=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(mnt, "0.000");
+				   }
+			   }
+			   
+			   String douane="";
+			   if(mapDataImpressionSrv!=null) {
+				     Double mnt=(Double) mapDataImpressionSrv.get("60200023");
+				   if(mnt!=null) {bean.setDouane(mnt);
+				   totligne= ProcessNumber.addition(totligne, mnt);
+				   totDouane= ProcessNumber.addition(totDouane, mnt);
+				   douane=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(mnt, "0.000");
+				   }
+			   }
+			   totTotal= ProcessNumber.addition(totTotal, totligne);
+			   bean.setTotal( totligne!=null ? ProcessFormatNbr.FormatDouble_Troischiffre(totligne)  :new Double(0));
+		 }
+		 
+		  
+		   
+	       ligneTotal.put("totQteFish",totQteFish);
+	       ligneTotal.put("totQteBox",totQteBox);
+	       ligneTotal.put("totAchatFish",totAchatFish);
+	       ligneTotal.put("totAchatBox",totAchatBox);
+	       ligneTotal.put("totTransport",totTransport);
+	       ligneTotal.put("totTransit",totTransit);
+	       ligneTotal.put("totMoeuvre",totMoeuvre); 
+	       ligneTotal.put("totEmbal",totEmbal);
+	       ligneTotal.put("totGlassScot",totGlassScot);
+	       ligneTotal.put("totDouane",totDouane);
+	       ligneTotal.put("totChambreCom",totChambreCom);
+	       ligneTotal.put("totTranAea",totTranAea);
+	       ligneTotal.put("totTotal",totTotal);
+		 
+	       return  ligneTotal;
+		
+	}
+		    	
+	private HashMap   doBuildDepenseVente(List<DetProcedureVenteBean> listDetVente) throws Exception {
 	    List<EtatDepenseProduit> list_etat_edition = new ArrayList<EtatDepenseProduit>();
+	    HashMap  mapDateFacture         = new HashMap();
+		   HashMap  mapDate                = new HashMap();
+	       Double totGenAchatFish          = new Double(0);
+	       Double totGenQteAchatFish       = new Double(0);
+	       HashMap  mapReturn               = new HashMap();
 	    
 		try {
-			   HashMap  mapDateFacture= new HashMap();
-			   HashMap  mapDate       = new HashMap();
-		       Double totGenAchatFish   = new Double(0);
-		       Double totGenQteAchatFish       = new Double(0);
-		  
-		       
+			
 		   
 		       DeviseBean  devise = new DeviseBean();
 		       for (int i = 0; i < listDetVente.size(); i++) {
@@ -268,12 +436,16 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 					}
 				}
 
-				
-
 		} catch (Exception e) {
 			throw e;
 		}
-		return list_etat_edition;
+		
+		 
+	          mapReturn.put("list", list_etat_edition);
+	          mapReturn.put("totGenAchatFish", totGenAchatFish);
+	          mapReturn.put("totGenQteAchatFish", totGenQteAchatFish);
+	       
+		return mapReturn;
 	}
 	
 	private HashMap doBuildDepenseFourniture(List<DetFournitureVenteBean> listDetVente) throws Exception {
@@ -315,10 +487,10 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 						String[] element=iClientnvoice.split("²µ²");
 						 
 						List listInvoiceClient=(List) mapInvoiceClient.get(iClientnvoice);
-						
 						 
 						HashMap mapProduitQte= new HashMap();
 						HashMap mapProduitMnt= new HashMap();
+						
 						for (int i = 0; i < listInvoiceClient.size(); i++) {
 							DetFournitureVenteBean dBean  =(DetFournitureVenteBean) listInvoiceClient.get(i);
 						    
@@ -414,9 +586,9 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 						    Double mntProduit=(Double) mapProduitMnt.get(key);
 						    if(mntProduit==null )mntProduit= new Double(0);
 						    Double prixTotLigne= new Double(0);
-						    if(dBean.getTarifVente()!=null  &&  dBean.getTarifVente().getCout()!=null  ) {
-						    	 devise =dBean.getTarifVente().getCout().getDevise();
-						    	 Double prixUnitProduit=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarifVente().getCout().getTarif_unit_ttc(), devise.getChiffre_pattern());
+						    if(dBean.getTarifVente()!=null     ) {
+						    	 devise =dBean.getTarifVente().getDevise();
+						    	 Double prixUnitProduit=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarifVente().getTarif_unit_vente_tt(), devise.getChiffre_pattern());
 						    	 prixTotLigne=ProcessNumber.PRODUIT(prixUnitProduit, dBean.getQuantite());
 						     }
 						    Double totMnt=ProcessNumber.addition(mntProduit, prixTotLigne);

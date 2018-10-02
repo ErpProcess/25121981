@@ -323,8 +323,8 @@ public class Facture_clientDAO extends  GenericWeb    {
 						   for (int j = 0; j < lisf.size(); j++) {
 							   Detail_mvt_vente_articleBean detMvtVenteBean=lisf.get(j);
 							   session.createQuery(" UPDATE  ProcedureVenteBean b  " +
-										"   set  b.modeBean.fct_id="+GenericActionBean.Fn_Confirmer+"   " +
-												"  where   b.vente_id='"+detMvtVenteBean.getPk().getVente().getVente_id()+"' ").executeUpdate(); 
+										"   set  b.factclient.fact_clt_id= NULL  ,  b.modeBean.fct_id="+GenericActionBean.Fn_Confirmer+"   " +
+												"  where      b.vente_id='"+detMvtVenteBean.getPk().getVente().getVente_id()+"' ").executeUpdate(); 
 							  
 							   session.delete(detMvtVenteBean);
 							   

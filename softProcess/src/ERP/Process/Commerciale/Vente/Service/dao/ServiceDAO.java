@@ -80,6 +80,33 @@ public class ServiceDAO extends  GenericWeb    {
 		 } 
 		
 		
+		@SuppressWarnings("unchecked")
+		public List<DetServiceBean> doFindDetailListServiceByVenteId(ProcedureVenteBean beanSearch) throws Exception {
+			  Session session =  openSessionHibernate(sessionFactory);
+			  List  list_data= new ArrayList();
+			  
+			  try{
+				  
+			    String requette=" select  bean   FROM    DetServiceBean    bean    WHERE     1=1       ";
+	 			   
+			    
+			    	requette += "   AND  bean.service.venteSrv.vente_id = '"+beanSearch.getVente_id()+"'        ";
+			    
+			 
+	 			  
+			    list_data= session.createQuery(requette).list();
+					        commitTransaction(session);
+				 } catch (Exception e) {  
+				     if (sessionIsTrue(session)) 
+				    	 rollbackTransaction(session) ;
+					     throw e;  
+					 } finally {  
+					 session.close();  
+				 }  
+				 return  list_data;
+		 } 
+		
+		
 		
 		
 		public Boolean doSaveService(ServiceBean beanSave) throws Exception {

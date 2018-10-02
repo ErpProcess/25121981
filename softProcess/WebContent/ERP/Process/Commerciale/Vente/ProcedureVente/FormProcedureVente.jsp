@@ -1,5 +1,6 @@
 <%@include  file="/Aceuil/esProcess.jsp"  %> 
 <c:import   url="${context_path}/dataGridSetting/EditabledataGridConfig.jsp"></c:import>
+<c:import url="EditablePrestation.jsp"></c:import>
 <script type="text/javascript">
 var ji_oooo="${urlloadDataTableAjax}";
 var ae;
@@ -388,12 +389,22 @@ config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
 					        
 				    return  footX; 
 				}
+					
+					
 				function loadMyTab(myTab){
 				
 LoadDataEditableFromServer_toolbarV22( oTable24, mapEditableGen2  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
 config_header_foot_tableJQuey ,"toolbar_es",  contenu_toolbarJQuey  );
 
 				}
+				
+				function loadMyTabPrestation(myTab){
+					
+					 LoadDataEditableFromServerPrestation( oTable24, mapEditableGenPrs  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
+							 config_header_foot_tableJQuey   ,"toolbar_Service" ,contenu_toolbarJQuey  );
+
+									}
+				
                </script>
  </ext:panel>
 <ext:panel   id="RET_GRIDX"   bodyStyle="background: none;"  onActivate="loadMyTab('RET_GRIDX')"   title="Fourniture de vente" height="350" >
@@ -428,6 +439,25 @@ config_header_foot_tableJQuey ,"toolbar_es",  contenu_toolbarJQuey  );
 				}
                </script>	
 </ext:panel>
+
+<ext:panel   id="RET_GRID_PRESTATION"       onActivate="loadMyTabPrestation('RET_GRID_PRESTATION')"      bodyStyle="background: none;"    border="false"   height="200"   hideCollapseTool="true"  title="Prestation"    >
+	         
+	          <table id="GRID_SAISIE_PRESATATION" class="display" width="100%"   >
+			      <thead   >
+					 <tr> 
+						<th></th>
+						<th></th>
+						<th>Référence</th>
+						<th>Désignation</th>
+						<th>Qté</th>
+						<th>P.U.V</th>
+						<th>T.H.T</th>
+						<th></th>
+				    </tr>
+				 </thead>
+				 </table>
+	         </ext:panel>
+ 
 </ext:tabPanel>
 		 
 		   
