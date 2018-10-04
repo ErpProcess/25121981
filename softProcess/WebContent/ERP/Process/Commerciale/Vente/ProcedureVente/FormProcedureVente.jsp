@@ -283,7 +283,7 @@ config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
     </ext:panel>
     
      <ext:tabPanel   border="true"    activeTab="RET_GRID"    id="sdsfgrgrgpll"  >
-	         <ext:panel   id="RET_GRID"   bodyStyle="background: none;"     border="false"      title="Détaille vente"    > 
+	         <ext:panel   id="RET_GRID"   bodyStyle="background: none;"     border="false"      title="Détaille vente"   height="500"   > 
  			    <table id="GRID_SAISIE_DETAIL_VENTE" class="display" width="100%" >
 			    
 			      <thead   >
@@ -407,7 +407,7 @@ config_header_foot_tableJQuey ,"toolbar_es",  contenu_toolbarJQuey  );
 				
                </script>
  </ext:panel>
-<ext:panel   id="RET_GRIDX"   bodyStyle="background: none;"  onActivate="loadMyTab('RET_GRIDX')"   title="Fourniture de vente" height="350" >
+<ext:panel   id="RET_GRIDX"   bodyStyle="background: none;"  onActivate="loadMyTab('RET_GRIDX')"   title="Fourniture de vente" height="400"    >
            <table id="GRID_SAISIE_FOURNITURE_VENTE" class="display" width="100%"   >
 			      <thead   >
 					 <tr> 
@@ -440,7 +440,7 @@ config_header_foot_tableJQuey ,"toolbar_es",  contenu_toolbarJQuey  );
                </script>	
 </ext:panel>
 
-<ext:panel   id="RET_GRID_PRESTATION"       onActivate="loadMyTabPrestation('RET_GRID_PRESTATION')"      bodyStyle="background: none;"    border="false"   height="200"   hideCollapseTool="true"  title="Prestation"    >
+<ext:panel   id="RET_GRID_PRESTATION"       onActivate="loadMyTabPrestation('RET_GRID_PRESTATION')"      bodyStyle="background: none;"    border="false"  height="400"    hideCollapseTool="true"  title="Prestation"    >
 	         
 	          <table id="GRID_SAISIE_PRESATATION" class="display" width="100%"   >
 			      <thead   >

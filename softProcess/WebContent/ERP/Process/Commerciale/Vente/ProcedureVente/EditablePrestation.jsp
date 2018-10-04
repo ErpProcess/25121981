@@ -19,7 +19,7 @@ var mapEditableGenPrs = {      "otab"   :oTablePr,
 										         
 										   {      "sName": "fkcode_barre.designation_libelle"   ,"sWidth": "40%"    }, 
 										   
-										   {      "sName": "quantite"           ,   "bSortable": true       , "sWidth": "5%"        ,"mRender": function( data, type, full){  
+										   {      "sName": "quantite"           ,   "bSortable": true       , "sWidth": "25%"        ,"mRender": function( data, type, full){  
 										          return '<input   type="number"      style="width:70px;"     id=quantite'+full[0]+'       name=quantite        value="'+data+'"       onblur=doEnvoiDataV4(this,"'+full[2]+'")     nextElement="quantite'+full[8]+'"     >'; }},   
 										    
 										           

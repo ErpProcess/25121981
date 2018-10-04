@@ -290,12 +290,13 @@ public class ArticleActionManager extends ArticleTemplate {
 				arBan.setDesignation(bd.getDesignation());
 				arBan.setDesignation_libelle(bd.getDesignation_libelle());
 				
-				if(bs.getSousmod_id().equals("277") ){
-					
-					 if( bd.getPk().getAr_bean().getCathegorie()!=null  &&  bd.getPk().getAr_bean().getCathegorie().getData_id().equals("srv")  ) 
+				if(bs.getSousmod_id().equals(ID_SOUS_MODULE_PRESTATION)    ){
+					if( bd.getPk().getAr_bean().getCathegorie()!=null  && 
+							 bd.getPk().getAr_bean().getCathegorie().getData_id().equals("srv")   ) 
 					listDataSrv.add(arBan);
-					 
 				}else{
+					if( bd.getPk().getAr_bean().getCathegorie()!=null  && 
+							 !bd.getPk().getAr_bean().getCathegorie().getData_id().equals("srv")   ) 
 					listDataSrv.add(arBan);
 				}
 				

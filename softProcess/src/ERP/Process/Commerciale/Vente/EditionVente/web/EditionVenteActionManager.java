@@ -148,14 +148,12 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
             	List<DetProcedureVenteBean>    listDetVente    =serviceProcedureVente.doFindDetailleListProcedureVenteEdition(beanSearch);
             	List<DetFournitureVenteBean>   listDetFouniture=serviceFournitureVente.doFindDetailFournitureEdition(beanSearch) ;
             	List<DetServiceBean>           listDetService  =serviceService.doFetchDetailfromServer(beanSearch);
-
-  		
   		
   		        HashMap  mapDepenseProduit = doBuildDepenseVente(listDetVente);
   		        List <EtatDepenseProduit> listDepenseProduit = (List) mapDepenseProduit.get("list");
             	HashMap  mapDataImpressionFournit            = doBuildDepenseFourniture(listDetFouniture);
             	HashMap  mapDataImpressionService            = doBuildDepenseService(listDetService);
-            	HashMap  ligneTotal = doTraiterListFinaldepense(listDepenseProduit, mapDataImpressionFournit, mapDataImpressionService);
+            	HashMap  ligneTotal      = doTraiterListFinaldepense(listDepenseProduit, mapDataImpressionFournit, mapDataImpressionService);
             	
                 setObjectValueModel("listEditionDepense",  listDepenseProduit);
                 setObjectValueModel("ligneTotal",  ligneTotal);
@@ -200,6 +198,8 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 		       
 		       HashMap mapDataImFournitureQte     =(HashMap) mapDataImpressionFourniture.get("qte"+bean.getDate()+bean.getInvoice()+bean.getClient());
 		       HashMap mapDataImFournitureMnt     =(HashMap) mapDataImpressionFourniture.get("mnt"+bean.getDate()+bean.getInvoice()+bean.getClient());
+		       HashMap mapDataImFournitureFam     =(HashMap) mapDataImpressionFourniture.get("famille"+bean.getDate()+bean.getInvoice()+bean.getClient());
+		       
 		       HashMap mapDataImpressionSrv       =(HashMap) mapDataImpressionService.get(bean.getDate()+bean.getInvoice()+bean.getClient());
 		       Double totligne= new Double(0);
 		       totligne= ProcessNumber.addition(totligne, bean.getPrixtotFish()!=null?bean.getPrixtotFish():new Double(0));
@@ -241,10 +241,11 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 				   totGlassScot= ProcessNumber.addition(totGlassScot, Glassmnt);
 				   totligne= ProcessNumber.addition(totligne, Glassmnt);
 			   }
+			   
 			   String mntscot="";
 			   Double mntscotD= new Double(0);
 			   if(mapDataImFournitureMnt!=null) {
-				      mntscotD=(Double) mapDataImFournitureMnt.get("6020004");
+				      mntscotD=(Double) mapDataImFournitureMnt.get("60200004"); 
 				   if(mntscotD!=null) {
 					   mntscot=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(mntscotD, "0.000");
 				   }else {
@@ -286,6 +287,16 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 				   }
 			   }
 			   
+			   String emb="";
+			   if(mapDataImFournitureFam!=null) {
+				     Double mnt=(Double) mapDataImFournitureFam.get("emb");
+				   if(mnt!=null) {
+				   bean.setEmbal(mnt);
+				   totligne= ProcessNumber.addition(totligne, mnt);
+				   totEmbal= ProcessNumber.addition(totEmbal, mnt);
+				   emb=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(mnt, "0.000");
+				   }
+			   }
 			   
 			   String chambreCom="";
 			   if(mapDataImpressionSrv!=null) {
@@ -421,9 +432,6 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 							etatBean.setClientId(dBean.getPk().getVente().getClient().getClt_id());
 							etatBean.setDescription(dBean.getPk().getFkcode_barre().getDesignation_libelle());
 							 
-							 
-							 
-							 
 							list_etat_edition.add(etatBean);
 							if(i==listInvoiceClient.size()-1) {
 								 int position=list_etat_edition.size() - listInvoiceClient.size();
@@ -490,15 +498,17 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 						 
 						HashMap mapProduitQte= new HashMap();
 						HashMap mapProduitMnt= new HashMap();
+						HashMap mapFamilleproduit= new HashMap();
 						
 						for (int i = 0; i < listInvoiceClient.size(); i++) {
 							DetFournitureVenteBean dBean  =(DetFournitureVenteBean) listInvoiceClient.get(i);
 						    
 						    String key=dBean.getFkcode_barre().getPk().getCode_barre();
+						    String keyFamille=dBean.getFkcode_barre().getPk().getAr_bean().getFam_art().getFam_id();
 						    Double qteProduit=(Double) mapProduitQte.get(key);
 						    if(qteProduit==null )qteProduit= new Double(0);
-						    Double totQte=ProcessNumber.addition(qteProduit, dBean.getQuantite());
-						    mapProduitQte.put(key, totQte);
+						    qteProduit=ProcessNumber.addition(qteProduit, dBean.getQuantite());
+						    mapProduitQte.put(key, qteProduit);
 						   
 						    Double mntProduit=(Double) mapProduitMnt.get(key);
 						    if(mntProduit==null )mntProduit= new Double(0);
@@ -508,12 +518,29 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 						    	 Double prixUnitProduit=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarifVente().getCout().getTarif_unit_ttc(), devise.getChiffre_pattern());
 						    	 prixTotLigne=ProcessNumber.PRODUIT(prixUnitProduit, dBean.getQuantite());
 						     }
-						    Double totMnt=ProcessNumber.addition(mntProduit, prixTotLigne);
-						    mapProduitMnt.put(key, totMnt);
+						    mntProduit=ProcessNumber.addition(mntProduit, prixTotLigne);
+						    mapProduitMnt.put(key, mntProduit);
+						    
+						    Double mntFamilleProduit=(Double) mapFamilleproduit.get(keyFamille);
+						    if(mntFamilleProduit==null )mntFamilleProduit= new Double(0);
+						    Double prixtotLigneFamille= new Double(0);
+						    if(dBean.getTarifVente()!=null  &&  dBean.getTarifVente().getCout()!=null  ) {
+						    	 devise =dBean.getTarifVente().getCout().getDevise();
+						    	 Double prixUnitFamille=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarifVente().getCout().getTarif_unit_ttc(), devise.getChiffre_pattern());
+						    	 prixtotLigneFamille=ProcessNumber.PRODUIT(prixUnitFamille, dBean.getQuantite());
+						     }
+						    mntFamilleProduit=ProcessNumber.addition(mntFamilleProduit, prixtotLigneFamille);
+						    mapFamilleproduit.put(keyFamille, mntFamilleProduit);
+						    
+						    
+						     
+						    
 		
 							if(i==listInvoiceClient.size()-1) {
+								//System.out.println("facture :"+element[0]+"   produit:"+mntProduit.doubleValue());
 								mapDataImpressionFourniture.put("qte"+dateFact+element[0]+element[1], mapProduitQte);
 								mapDataImpressionFourniture.put("mnt"+dateFact+element[0]+element[1], mapProduitMnt);
+								mapDataImpressionFourniture.put("famille"+dateFact+element[0]+element[1], mapFamilleproduit);
 							} 
 						}
 					}
@@ -580,8 +607,8 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 						    String key=dBean.getFkcode_barre().getPk().getCode_barre();
 						    Double qteProduit=(Double) mapProduitQte.get(key);
 						    if(qteProduit==null )qteProduit= new Double(0);
-						    Double totQte=ProcessNumber.addition(qteProduit, dBean.getQuantite());
-						    mapProduitQte.put(key, totQte);
+						    qteProduit=ProcessNumber.addition(qteProduit, dBean.getQuantite());
+						    mapProduitQte.put(key, qteProduit);
 						   
 						    Double mntProduit=(Double) mapProduitMnt.get(key);
 						    if(mntProduit==null )mntProduit= new Double(0);
@@ -591,8 +618,8 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 						    	 Double prixUnitProduit=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarifVente().getTarif_unit_vente_tt(), devise.getChiffre_pattern());
 						    	 prixTotLigne=ProcessNumber.PRODUIT(prixUnitProduit, dBean.getQuantite());
 						     }
-						    Double totMnt=ProcessNumber.addition(mntProduit, prixTotLigne);
-						    mapProduitMnt.put(key, totMnt);
+						    mntProduit=ProcessNumber.addition(mntProduit, prixTotLigne);
+						    mapProduitMnt.put(key, mntProduit);
 		
 							if(i==listInvoiceClient.size()-1) {
 								mapDataImpressionService.put(dateFact+element[0]+element[1], mapProduitMnt);
@@ -713,12 +740,12 @@ private JSONArray doWriteHeaderGridDataEtatDepenseProduit() throws Exception {
 		 element.put("bSortable","true" );
 		 listcol.put(element);
 		 
-		 element = new JSONObject();
-		 element.put("sTitle","Description");
-		 element.put("sName","description");
-		 element.put("sWidth","25%" );
-		 element.put("bSortable","true" );
-		 listcol.put(element);
+//		 element = new JSONObject();
+//		 element.put("sTitle","Description");
+//		 element.put("sName","description");
+//		 element.put("sWidth","25%" );
+//		 element.put("bSortable","true" );
+//		 listcol.put(element);
 		 
 		 element = new JSONObject();
 		 element.put("sTitle","Qté");
@@ -747,6 +774,8 @@ private JSONArray doWriteHeaderGridDataEtatDepenseProduit() throws Exception {
 		 element = new JSONObject();
 		 element.put("sTitle","prixtotPoly");
 		 element.put("sName","prixtotPoly");
+		 element.put("sClass","alignRight" );
+		 element.put("formatMnt3","oui" );
 		 element.put("sWidth","10%" );
 		 element.put("bSortable","true" );
 		 listcol.put(element);
@@ -754,6 +783,8 @@ private JSONArray doWriteHeaderGridDataEtatDepenseProduit() throws Exception {
 		 element = new JSONObject();
 		 element.put("sTitle","trsprt");
 		 element.put("sName","trsprt");
+		 element.put("sClass","alignRight" );
+		 element.put("formatMnt3","oui" );
 		 element.put("sWidth","10%" );
 		 element.put("bSortable","true" );
 		 listcol.put(element);
@@ -762,6 +793,8 @@ private JSONArray doWriteHeaderGridDataEtatDepenseProduit() throws Exception {
 		 element = new JSONObject();
 		 element.put("sTitle","transit");
 		 element.put("sName","transit");
+		 element.put("sClass","alignRight" );
+		 element.put("formatMnt3","oui" );
 		 element.put("sWidth","10%" );
 		 element.put("bSortable","true" );
 		 listcol.put(element);
@@ -769,13 +802,17 @@ private JSONArray doWriteHeaderGridDataEtatDepenseProduit() throws Exception {
 		 element = new JSONObject();
 		 element.put("sTitle","mdOuevre");
 		 element.put("sName","mdOuevre");
+		 element.put("sClass","alignRight" );
+		 element.put("formatMnt3","oui" );
 		 element.put("sWidth","10%" );
 		 element.put("bSortable","true" );
 		 listcol.put(element);
 		 
 		 element = new JSONObject();
 		 element.put("sTitle","Embal");
-		 element.put("sName","Embal");
+		 element.put("sName","embal");
+		 element.put("sClass","alignRight" );
+		 element.put("formatMnt3","oui" );
 		 element.put("sWidth","10%" );
 		 element.put("bSortable","true" );
 		 listcol.put(element);
@@ -783,6 +820,8 @@ private JSONArray doWriteHeaderGridDataEtatDepenseProduit() throws Exception {
 		 element = new JSONObject();
 		 element.put("sTitle","scot_glace");
 		 element.put("sName","scot_glace");
+		 element.put("sClass","alignRight" );
+		 element.put("formatMnt3","oui" );
 		 element.put("sWidth","10%" );
 		 element.put("bSortable","true" );
 		 listcol.put(element);
@@ -790,6 +829,8 @@ private JSONArray doWriteHeaderGridDataEtatDepenseProduit() throws Exception {
 		 element = new JSONObject();
 		 element.put("sTitle","douane");
 		 element.put("sName","douane");
+		 element.put("sClass","alignRight" );
+		 element.put("formatMnt3","oui" );
 		 element.put("sWidth","10%" );
 		 element.put("bSortable","true" );
 		 listcol.put(element);
@@ -797,6 +838,8 @@ private JSONArray doWriteHeaderGridDataEtatDepenseProduit() throws Exception {
 		 element = new JSONObject();
 		 element.put("sTitle","chambreCom");
 		 element.put("sName","chambreCom");
+		 element.put("sClass","alignRight" );
+		 element.put("formatMnt3","oui" );
 		 element.put("sWidth","10%" );
 		 element.put("bSortable","true" );
 		 listcol.put(element);
@@ -805,12 +848,16 @@ private JSONArray doWriteHeaderGridDataEtatDepenseProduit() throws Exception {
 		 element = new JSONObject();
 		 element.put("sTitle","transAe");
 		 element.put("sName","transAe");
+		 element.put("sClass","alignRight" );
+		 element.put("formatMnt3","oui" );
 		 element.put("sWidth","10%" );
 		 element.put("bSortable","true" );
 		 listcol.put(element);
 			
 		 element = new JSONObject();
 		 element.put("sTitle","total");
+		 element.put("sClass","alignRight" );
+		 element.put("formatMnt3","oui" );
 		 element.put("sName","total");
 		 element.put("sWidth","10%" );
 		 element.put("bSortable","true" );

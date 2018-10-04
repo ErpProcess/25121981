@@ -63,8 +63,7 @@ public class FournitureVenteDAO extends  GenericWeb    {
 		  try{
 		    String requette=" select  bean   FROM    DetFournitureVenteBean    bean    WHERE     1=1       ";
  
-		    if (!StringUtils.isBlank(beanSearch.getVente_id()))
-				   requette += "   AND   bean.fourniture.venteFrn.vente_id ='"+beanSearch.getVente_id()+"'        ";
+		  
 		    
 			 if (beanSearch.getVente_date() != null) 
 			    	requette += "   AND  bean.fourniture.venteFrn.factclient.fact_date >= '"+ProcessDate.getStringFormatDate(beanSearch.getVente_date())+"'        ";

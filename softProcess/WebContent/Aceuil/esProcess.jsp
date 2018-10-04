@@ -896,7 +896,7 @@ function migaXWXXWW(dssss) {
 Ext.onReady(function(){
 var primecontact = Ext.getCmp('hyuE');
 primecontact.collapse();
-var dffff_win=$(window).height() - 185;
+var dffff_win=$(window).height() - 195;
 dffff_win=dffff_win+"px";
 document.getElementById("ThePageJsp").style.maxHeight=dffff_win; 
 		});

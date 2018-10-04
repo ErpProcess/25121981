@@ -53,6 +53,8 @@ public class TarificationPrtvArticleDAO extends  GenericWeb    {
 
 			 if(  !StringUtils.isEmpty(beanSearch.getCondition_etat_achat() )  )  
 				 requette+=""+beanSearch.getCondition_etat_achat();
+			 
+		        requette+=this.setSocieteEtabCentralFetch(beanSearch,"bean.fk_etab_Bean", false);
 		    
 			return   hibernateTemplate.find(requette);
 	}

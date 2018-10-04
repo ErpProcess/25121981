@@ -20,8 +20,7 @@
 <tr>  
    <td width="9%"><label>Date Tarif Achat</label></td>  
    <td      >
-   <fmt:formatDate pattern="dd/MM/yyyy"  value="${searchBean.date_prim_trf}"   var="WW"/>
-   <input id="date_prim_trf" name="date_prim_trf"   type="datepicker"    size="13"       maxlength="13"       value="${WW} "         />     
+   <input id="date_prim_trf" name="date_prim_trf"   type="datepicker"    size="13"       maxlength="13"       value="${searchBean.date_prim_trf}"         />     
    </td> 
 </tr>
 <tr> 

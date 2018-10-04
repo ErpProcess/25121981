@@ -1289,6 +1289,73 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   cell.setBackgroundColor(GeneratePdf.colorLigne);
 				   table.addCell(cell);
 				   
+				   
+				
+					
+					  String transport="";
+					   if(bean.getTrsprt()!=null) {
+						   transport=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(bean.getTrsprt(), "0.000")   ;
+					   }
+					   cell = new PdfPCell(new Phrase( transport ,GeneratePdf.Bold_8_times_roman));
+					   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					   cell.setRowspan(bean.getRowSpanDetFacture());
+				       cell.setPadding(3f);
+				       cell.setPaddingBottom(5f);
+					   cell.setBackgroundColor(BaseColor.WHITE);
+					   if(i%2==0)
+					   cell.setBackgroundColor(GeneratePdf.colorLigne);
+					   table.addCell(cell);
+					   
+					   String transit="";
+					   if(bean.getTransit()!=null) {
+						   transit=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(bean.getTransit(), "0.000")   ;
+					   }
+					   cell = new PdfPCell(new Phrase( transit ,GeneratePdf.Bold_8_times_roman));
+					   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					   cell.setRowspan(bean.getRowSpanDetFacture());
+				       cell.setPadding(3f);
+				       cell.setPaddingBottom(5f);
+					   cell.setBackgroundColor(BaseColor.WHITE);
+					   if(i%2==0)
+					   cell.setBackgroundColor(GeneratePdf.colorLigne);
+					   table.addCell(cell);
+					   
+					   
+					
+					   
+					   String maiOevre="";
+					   if(bean.getMdOuevre()!=null) {
+						   maiOevre=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(bean.getMdOuevre(), "0.000")   ;
+					   }
+					   cell = new PdfPCell(new Phrase( maiOevre ,GeneratePdf.Bold_8_times_roman));
+					   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					   cell.setRowspan(bean.getRowSpanDetFacture());
+				       cell.setPadding(3f);
+				       cell.setPaddingBottom(5f);
+					   cell.setBackgroundColor(BaseColor.WHITE);
+					   if(i%2==0)
+					   cell.setBackgroundColor(GeneratePdf.colorLigne);
+					   table.addCell(cell);
+					   
+					   String Emballage="";
+					   if(bean.getEmbal()!=null) {
+						   Emballage=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(bean.getEmbal(), "0.000")   ;
+					   }
+					   cell = new PdfPCell(new Phrase( Emballage ,GeneratePdf.Bold_8_times_roman));
+					   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+					   cell.setRowspan(bean.getRowSpanDetFacture());
+				       cell.setPadding(3f);
+				       cell.setPaddingBottom(5f);
+					   cell.setBackgroundColor(BaseColor.WHITE);
+					   if(i%2==0)
+					   cell.setBackgroundColor(GeneratePdf.colorLigne);
+					   table.addCell(cell);
+					   
+				   
 				   String mntStockGace="";
 				   
 				   if(bean.getScot_glace()!=null) {
@@ -1305,68 +1372,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   cell.setBackgroundColor(GeneratePdf.colorLigne);
 				   table.addCell(cell);
 				   
-				   
-                   String transport="";
-				   if(bean.getTrsprt()!=null) {
-					   transport=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(bean.getTrsprt(), "0.000")   ;
-				   }
-				   cell = new PdfPCell(new Phrase( transport ,GeneratePdf.Bold_8_times_roman));
-				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				   cell.setRowspan(bean.getRowSpanDetFacture());
-			       cell.setPadding(3f);
-			       cell.setPaddingBottom(5f);
-				   cell.setBackgroundColor(BaseColor.WHITE);
-				   if(i%2==0)
-				   cell.setBackgroundColor(GeneratePdf.colorLigne);
-				   table.addCell(cell);
-				   
-				   
-				   String transit="";
-				   if(bean.getTrsprt()!=null) {
-					   transit=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(bean.getTransit(), "0.000")   ;
-				   }
-				   cell = new PdfPCell(new Phrase( transit ,GeneratePdf.Bold_8_times_roman));
-				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				   cell.setRowspan(bean.getRowSpanDetFacture());
-			       cell.setPadding(3f);
-			       cell.setPaddingBottom(5f);
-				   cell.setBackgroundColor(BaseColor.WHITE);
-				   if(i%2==0)
-				   cell.setBackgroundColor(GeneratePdf.colorLigne);
-				   table.addCell(cell);
-				   
-				   String maiOevre="";
-				   if(bean.getTrsprt()!=null) {
-					   maiOevre=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(bean.getMdOuevre(), "0.000")   ;
-				   }
-				   cell = new PdfPCell(new Phrase( maiOevre ,GeneratePdf.Bold_8_times_roman));
-				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				   cell.setRowspan(bean.getRowSpanDetFacture());
-			       cell.setPadding(3f);
-			       cell.setPaddingBottom(5f);
-				   cell.setBackgroundColor(BaseColor.WHITE);
-				   if(i%2==0)
-				   cell.setBackgroundColor(GeneratePdf.colorLigne);
-				   table.addCell(cell);
-				   
-				   
-				   String Emballage="";
-				   if(bean.getEmbal()!=null) {
-					   Emballage=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(bean.getEmbal(), "0.000")   ;
-				   }
-				   cell = new PdfPCell(new Phrase( Emballage ,GeneratePdf.Bold_8_times_roman));
-				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				   cell.setRowspan(bean.getRowSpanDetFacture());
-			       cell.setPadding(3f);
-			       cell.setPaddingBottom(5f);
-				   cell.setBackgroundColor(BaseColor.WHITE);
-				   if(i%2==0)
-				   cell.setBackgroundColor(GeneratePdf.colorLigne);
-				   table.addCell(cell);
+				  
 				   
 				   
 				   String douanne="";
@@ -1386,10 +1392,10 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   
 				   
 				   String chamCom="";
-				   if(bean.getDouane()!=null) {
+				   if(bean.getChambreCom()!=null) {
 					   chamCom=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(bean.getChambreCom(), "0.000")   ;
 				   }
-				   cell = new PdfPCell(new Phrase( douanne ,GeneratePdf.Bold_8_times_roman));
+				   cell = new PdfPCell(new Phrase( chamCom ,GeneratePdf.Bold_8_times_roman));
 				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				   cell.setRowspan(bean.getRowSpanDetFacture());
@@ -1487,16 +1493,10 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   table.addCell(cell);
 				   
 				   
-				   cell = new PdfPCell(new Phrase( ProcessFormatNbr.FormatDouble_To_String_PatternChiffre((Double) hashMapTotal.get("totGlassScot"), "0.000")    ,GeneratePdf.Bold_8_times_roman));
-				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			       cell.setPadding(3f);
-			       cell.setPaddingBottom(5f);
-				   cell.setBackgroundColor(GeneratePdf.colorLigne);
-				   table.addCell(cell);
+
 				   
 				   
-                  
+	                  
 				   cell = new PdfPCell(new Phrase(  ProcessFormatNbr.FormatDouble_To_String_PatternChiffre((Double) hashMapTotal.get("totTransport"), "0.000")   ,GeneratePdf.Bold_8_times_roman));
 				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -1525,6 +1525,9 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   table.addCell(cell);
 				   
 				   
+
+				   
+				   
 				    
 				   cell = new PdfPCell(new Phrase( ProcessFormatNbr.FormatDouble_To_String_PatternChiffre((Double) hashMapTotal.get("totEmbal"), "0.000")  ,GeneratePdf.Bold_8_times_roman));
 				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -1534,6 +1537,15 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   cell.setBackgroundColor(GeneratePdf.colorLigne);
 				   table.addCell(cell);
 				   
+				   
+				   
+				   cell = new PdfPCell(new Phrase( ProcessFormatNbr.FormatDouble_To_String_PatternChiffre((Double) hashMapTotal.get("totGlassScot"), "0.000")    ,GeneratePdf.Bold_8_times_roman));
+				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			       cell.setPadding(3f);
+			       cell.setPaddingBottom(5f);
+				   cell.setBackgroundColor(GeneratePdf.colorLigne);
+				   table.addCell(cell);
 				  
 			     
 			     

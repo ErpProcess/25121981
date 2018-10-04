@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
          id="WebApp_ID" version="3.0" >
 	
-	<display-name>eXpertSoft</display-name>
+	<display-name>softProcess</display-name>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet>
-		<servlet-name>eXpertSoft</servlet-name>
+		<servlet-name>softProcess</servlet-name>
 		<servlet-class>
 			org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
@@ -31,7 +31,7 @@
 	</session-config>
 
 	<servlet-mapping>
-		<servlet-name>eXpertSoft</servlet-name>
+		<servlet-name>softProcess</servlet-name>
 		<url-pattern>*.action</url-pattern>
 	</servlet-mapping>
 	

@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
@@ -619,6 +620,17 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			return null;
 	}
 	
+	private String getComputerName()
+	{
+	    Map<String, String> env = System.getenv();
+	    if (env.containsKey("COMPUTERNAME"))
+	        return env.get("COMPUTERNAME");
+	    else if (env.containsKey("HOSTNAME"))
+	        return env.get("HOSTNAME");
+	    else
+	        return "Unknown Computer";
+	}
+	
 	public ModelAndView getUserName() {
 
 		getResponse().setContentType("text");
@@ -629,8 +641,9 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 		UtilisateurBean beanUti = new UtilisateurBean();
 		beanUti.setUsr_login(usr_login);
 		beanUti.setUsr_pwd(password);
-		
+		//System.out.println("computer -------- "+getComputerName());
 		System.out.println("SYSO -------- "+getSession().getId());
+		
 		
 		try {
 			if (usr_login.equals("")) {

@@ -19,6 +19,8 @@ public class ArticleTemplate extends TemplateGeneric {
 	/*******************************************************************Config Entite*****************************************************************/
 	public static final String ROOT = "/ERP/Process/Commerciale/Article/root.action";
 	public static final   String ID_SOUS_MODULE      ="52";
+	public static final   String ID_SOUS_MODULE_PRESTATION      ="277";
+	 
 	
 	public static Object NAME_MODEL_BEAN = new ArticleBean();
 	public static Object NAME_TEMPLATE   = new ArticleTemplate();

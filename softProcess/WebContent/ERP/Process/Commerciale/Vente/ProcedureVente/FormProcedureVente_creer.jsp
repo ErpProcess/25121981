@@ -372,6 +372,7 @@ $("#depot_libelle").autocomplete({
  Ext.getCmp('RET_GRID').setTitle(' Détaille Vente ');
     
 if(panelName=='article'){
+ Ext.getCmp("RET_GRID").show();
  LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
  config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
 }
@@ -426,7 +427,7 @@ function doExcuteFnAfterGrid( dataSS ){
         <ext:toolbar         toolbarType="bbar"   > 
         <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuivant('article')"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar>
     
-     <table class="tableStyleContent"  cellpadding="5" cellspacing="10"  id="tblData"   width="100%"  >  
+     <table class="tableStyleContent"  cellpadding="5" cellspacing="5"  id="tblData"   width="100%"  >  
 		   <tr>  
 		   <td width="10%"><label><input id="choixPanel" name="choixPanel"  type="hidden"     >     ${vente_id}</label></td>  
 		   <td  width="39%" >  
@@ -551,8 +552,8 @@ function doExcuteFnAfterGrid( dataSS ){
     </ext:panel>
 	 
 	 
-	 <ext:tabPanel   border="true"        id="sdsfgrgrgpll"  >
-	         <ext:panel   id="RET_GRID"   bodyStyle="background: none;"    onActivate="getSuivant('article')"  height="490"    border="false"      title="Détaille vente"    > 
+	 <ext:tabPanel   border="false"        id="sdsfgrgrgpll"    >
+	         <ext:panel   id="RET_GRID"   bodyStyle="background: none;"    onActivate="getSuivant('article')"  height="500"    border="false"      title="Détaille vente"    > 
 			    <table id="GRID_SAISIE_DETAIL_VENTE" class="display" width="100%"   style="display: none;"  >
 			  
 			      <thead   >
@@ -674,7 +675,7 @@ function doExcuteFnAfterGrid( dataSS ){
 			    
 			    
 	         </ext:panel>
-	         <ext:panel   id="RET_GRIDX"   bodyStyle="background: none;"  onActivate="getSuivant('fourniture')"  border="false"   height="200"   hideCollapseTool="true"  title="Fourniture de vente"    >
+	         <ext:panel   id="RET_GRIDX"   bodyStyle="background: none;"  onActivate="getSuivant('fourniture')"  border="false"   height="400"   hideCollapseTool="true"  title="Fourniture de vente"    >
 	         <table id="GRID_SAISIE_FOURNITURE_VENTE" class="display" width="100%"   >
 			      <thead   >
 			        <tr style="border-color:#a9bfd3;background-color:#d0def0;"   >
@@ -728,9 +729,9 @@ function doExcuteFnAfterGrid( dataSS ){
 	         
 	         
 	         
-	         <ext:panel   id="RET_GRID_PRESTATION"    onActivate="getSuivant('prestation')"      bodyStyle="background: none;"    border="false"   height="200"   hideCollapseTool="true"  title="Prestation"    >
-	         
-	          <table id="GRID_SAISIE_PRESATATION" class="display" width="100%"   >
+	         <ext:panel   id="RET_GRID_PRESTATION"    onActivate="getSuivant('prestation')"      bodyStyle="background: none;"    border="false"  height="400"  hideCollapseTool="true"  title="Prestation"    >
+	          
+	          <table id="GRID_SAISIE_PRESATATION" class="display" width="100%"    >
 			      <thead   >
 			       <tr style="border-color:#a9bfd3;background-color:#d0def0;"   >
 					
@@ -738,7 +739,7 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th><input   type="checkbox"   id="Cheked_unCheked1"               name="Cheked_unCheked"      ></th>
 						<th><input   type="text"       id="codeFocusPrestation"    requiredPrestation        name="code_barreService"       style="width: 95%;"        requiredy ></th>
 						<th><input   type="text"       id="XnextFocusPrestation"   requiredPrestation        name="XnextFocusPrestation"    style="width: 95%;"        requiredy ></th>
-		                <th ><input  type="number"     id="quantitePrestation"     requiredPrestation        name="quantiteService"       min="1"    value="1"    style="width: 93%;"              requiredx ></th>
+		                <th ><input  type="number"     id="quantitePrestation"     requiredPrestation        name="quantiteService"       min="1"    value="1"    style="width: 150px;"              requiredx ></th>
 						 
 						<th></th>
 						<th></th>
