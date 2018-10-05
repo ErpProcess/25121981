@@ -810,7 +810,7 @@ private JSONArray doWriteHeaderGridDataEtatDepenseProduit() throws Exception {
 		 
 		 element = new JSONObject();
 		 element.put("sTitle","Embal");
-		 element.put("sName","embal");
+		 element.put("sName","Embal");
 		 element.put("sClass","alignRight" );
 		 element.put("formatMnt3","oui" );
 		 element.put("sWidth","10%" );

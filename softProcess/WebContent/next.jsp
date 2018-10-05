@@ -206,14 +206,21 @@ function doWelcome() {
 	           {
 		           var  daddou=data;
 		           $("#intWin").unmask(); 
-		         
-	               if(daddou=="looooadapplication"){
+		           
+		           if(daddou=="Contacter l 'administrateur"){
+		        	   $('#usr_login').val('') ;
+	                   $('#usr_login').val('') ;
+	                   document.getElementById("btnSave").style.display="none";
+		        	   Ext.Msg.alert('Status', "Contacter l 'administrateur");
+	                  
+		        	   
+		           }else if(daddou=="looooadapplication"){
 	            	 
 	              
 	                }else if( daddou=="loginGhalit" ){
 	                
 	                
-	                   Ext.Msg.alert('Status', " Vï¿½rifier le Login ! !");
+	                   Ext.Msg.alert('Status', " Vérifier le Login ! !");
 	                   $('#usr_login').val('') ;
 	                   $('#usr_login').focus() ;
 	                   document.getElementById("nomprenom").value="";

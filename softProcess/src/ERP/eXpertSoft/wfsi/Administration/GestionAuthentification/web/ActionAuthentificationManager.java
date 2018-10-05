@@ -8,9 +8,11 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.security.Key;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -51,6 +53,7 @@ import ERP.eXpertSoft.wfsi.Administration.GestionsLinguistiques.Glibelle.model.I
 import ERP.eXpertSoft.wfsi.Administration.GestionsLinguistiques.Glibelle.service.GlibelleService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.dao.EtablissementDAO;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.template.MenuActionBean;
@@ -631,7 +634,7 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 	        return "Unknown Computer";
 	}
 	
-	public ModelAndView getUserName() {
+	public ModelAndView getUserName() throws Throwable {
 
 		getResponse().setContentType("text");
 		getResponse().setHeader("Cache-Control", "no-cache");
@@ -645,7 +648,19 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 		System.out.println("SYSO -------- "+getSession().getId());
 		
 		
+		//date1.compareTo(date2);
+		
 		try {
+			String  system = ProcessDate.getCurrentTimeStamp(new Date());
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date dateteste = sdf.parse(system); //La date1 est le 23 février 1995
+			Date date2 = sdf.parse("28/10/2018");
+			int ret= dateteste.compareTo(date2);
+			
+			if(ret>0) {
+				getResponse().getWriter().write("Contacter l 'administrateur");
+				return null;
+			}
 			if (usr_login.equals("")) {
 				getResponse().getWriter().write("lezim  login");
 				return null;

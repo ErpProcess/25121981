@@ -422,12 +422,12 @@ function doExcuteFnAfterGrid( dataSS ){
   
   <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
   
-   <ext:panel  border="false"    bodyStyle="background: none;"       title="&nbsp;&nbsp;&nbsp;"   collapsible="true"    >
+   <ext:panel  border="false"    bodyStyle="background: none;"       title="&nbsp;&nbsp;&nbsp;"   collapsible="true"  height="350"  >
    
         <ext:toolbar         toolbarType="bbar"   > 
         <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuivant('article')"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar>
     
-     <table class="tableStyleContent"  cellpadding="5" cellspacing="5"  id="tblData"   width="100%"  >  
+     <table class="tableStyleContent"  cellpadding="4" cellspacing="4"  id="tblData"   width="100%"  border="0" >  
 		   <tr>  
 		   <td width="10%"><label><input id="choixPanel" name="choixPanel"  type="hidden"     >     ${vente_id}</label></td>  
 		   <td  width="39%" >  
