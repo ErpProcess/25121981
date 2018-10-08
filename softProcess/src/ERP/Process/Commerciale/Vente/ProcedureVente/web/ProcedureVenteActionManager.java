@@ -492,7 +492,6 @@ public   ModelAndView doActualiserGridPrestation( ProcedureVenteBean bean ) thro
 		    		/*****************************************  setInfo  ********************************************/
 		    		
 		    		Double priUnitvente=ProcessFormatNbr.FormatDouble_Troischiffre(ss.getTarif_unit_vente());
-		    		priUnitvente=ProcessNumber.PRODUIT(priUnitvente, new Double(-1));
 		    		
 		    		/*****************************************Prix Unit Brute reel********************************************/
 		    		
@@ -579,7 +578,7 @@ public   ModelAndView doActualiserGridFourniture( ProcedureVenteBean bean ) thro
 		    		
 		    		
 		    		Double priUnitvente=ProcessFormatNbr.FormatDouble_Troischiffre(ss.getTarif_unit_vente());
-		    		priUnitvente=ProcessNumber.PRODUIT(priUnitvente, new Double(-1));
+		    		 
 		    		      
 		    		  
 		    		
@@ -1339,7 +1338,7 @@ public   ModelAndView doAdd_row_Fourniture( ProcedureVenteBean detailBean  ) thr
 			
 		 
 			 
-			TarificationBean ss= definitionTarification_deventeFouniture(  detailBean  ,bCode_barreBean,beancl);
+			TarificationBean ss = definitionTarification_deventeFouniture(  detailBean  ,bCode_barreBean,beancl);
 			
 			
 			 
@@ -1365,8 +1364,6 @@ public   ModelAndView doAdd_row_Fourniture( ProcedureVenteBean detailBean  ) thr
 				String natureprix="<br>"+" <p style='color:red;margin-left:20%;font-size:8px;'># Prix "+lot+" * "+groupe+"</p>";
 				beanLigne.setInfo(libelle_desi+natureprix);
 	    		Double priUnitvente=ProcessFormatNbr.FormatDouble_Troischiffre(ss.getTarif_unit_vente());
-	    	      	   priUnitvente=ProcessNumber.PRODUIT(priUnitvente, new Double(-1));
-	    		  
 	    		
 	    		
 	    		/*****************************************Prix Unit Brute reel********************************************/

@@ -1,7 +1,10 @@
 <%@    include file="/Aceuil/esProcess.jsp"     %>
 <ext:body  >
 <ext:panel  renderTo="ThePageJsp"             >
-<table class="tableStyleContent"  cellpadding="5" cellspacing="10"  border="0"  id="tblData"    >
+
+ <ext:tabPanel   border="false"        id="sdsfgrgrgpll"  activeTab="fr"  >
+	  <ext:panel   id="fr"    bodyStyle="background: none;"       border="false"      title="Francais"    > 
+	  <table class="tableStyleContent"  cellpadding="5" cellspacing="10"  border="0"  id="tblData"    >
 <!-- ******************************************************************************************************************************************** -->
           <tr>
              <td width="100%" colspan="6"    align="center" >
@@ -99,6 +102,18 @@
          </tr>
    
           </table>
+	  </ext:panel>
+	  
+	   <ext:panel   id="ar"   bodyStyle="background: none;"       height="500"    border="false"      title="Arabic"    > 
+	   <textarea id="dataSocieteLng_ar" name="dataSocieteLng_ar"   rows="10"   style="width: 100%;">${detailBean.maplang.get("ar")}</textarea>
+	  </ext:panel>
+	  
+	   <ext:panel   id="en"   bodyStyle="background: none;"       height="500"    border="false"      title="English"    > 
+	   <textarea id="dataSocieteLng_en" name="dataSocieteLng_en"   rows="10"   style="width: 100%;">${detailBean.maplang.get("en")}</textarea>
+	  </ext:panel>
+	  
+ </ext:tabPanel>
+
   	  </ext:panel>
 </ext:body>
 

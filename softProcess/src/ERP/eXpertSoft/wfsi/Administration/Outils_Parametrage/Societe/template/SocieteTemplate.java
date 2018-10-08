@@ -22,4 +22,5 @@ public class SocieteTemplate   extends   TemplateGeneric   {
 	/******************************************************************************************************************************/
 	public static boolean  isSpoored = true;
 	public static boolean  i$_ACT_INIT_SERVLET = false;
+	public static boolean i$_ACT_SELECT_ROW = false;
 }

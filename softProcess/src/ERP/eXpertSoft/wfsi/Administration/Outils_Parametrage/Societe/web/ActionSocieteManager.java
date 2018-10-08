@@ -1,7 +1,14 @@
 package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +26,7 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.template.So
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.JsonResponse;
 import ERP.eXpertSoft.wfsi.jqueryoR.datatables.controller.AjaxDataTablesUtility;
+
 
 import com.google.gson.JsonIOException;
 
@@ -110,6 +118,13 @@ public class ActionSocieteManager extends SocieteTemplate {
 
 	public ModelAndView doAddData(SocieteBean detailBean) throws Throwable {
 		try {
+			 String dataSocieteLng_ar= getRequest().getParameter("dataSocieteLng_ar");
+			 String dataSocieteLng_en= getRequest().getParameter("dataSocieteLng_en");
+			 JSONObject json        = new JSONObject();
+			 json.put("ar", dataSocieteLng_ar);
+			 json.put("en", dataSocieteLng_en);
+			 String data_societe_langue=json.toString();
+			 detailBean.setData_societe_langue(data_societe_langue);
 			 serviceSociete.doCreateRowData(detailBean);
 		     removeObjectModel(FORM_BEAN);
 		     throwNewException("Insertion Reussit");
@@ -118,8 +133,33 @@ public class ActionSocieteManager extends SocieteTemplate {
 		}
 		return getViewAdd(FORM_VIEW);
 	}
+	
+	
+	public    ModelAndView doGetRowDataBean() {
 
-	 
+		try {
+			removeObjectModel(FORM_BEAN);
+			BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
+			SocieteBean rowBean = (SocieteBean) getIndexFromDataGrid_v1("SocieteList");
+			
+			JSONObject jsonObj = new JSONObject(rowBean.getData_societe_langue());
+			Map<String,Object> yearMap = toMap(jsonObj);
+			rowBean.setMaplang(yearMap);
+			   
+			setObjectValueModel(FORM_BEAN, rowBean);
+			if (bs.getFct_id().equals("2"))
+				return getViewConsult((String) getObjectValueModel("FORM_VIEW"));
+			if (bs.getFct_id().equals("3"))
+				return getViewUpdate((String) getObjectValueModel("FORM_VIEW"));
+			if (bs.getFct_id().equals("4"))
+				return getViewDelete((String) getObjectValueModel("FORM_VIEW"));
+		} catch (Exception e) {
+			displayException(e);
+			return getViewFilterAjax((String) getObjectValueModel("FILTER_VIEW"));
+		}
+		return getHome();
+
+	}
 
 	public ModelAndView doRetourToHome(SocieteBean pack) {
 		return getHome();
@@ -128,6 +168,13 @@ public class ActionSocieteManager extends SocieteTemplate {
 
 	public ModelAndView doUpdateData(SocieteBean beanUpBean) {
 		try {
+			String dataSocieteLng_ar= getRequest().getParameter("dataSocieteLng_ar");
+			String dataSocieteLng_en= getRequest().getParameter("dataSocieteLng_en");
+			JSONObject json        = new JSONObject();
+			json.put("ar", dataSocieteLng_ar);
+			json.put("en", dataSocieteLng_en);
+			String data_societe_langue=json.toString();
+			beanUpBean.setData_societe_langue(data_societe_langue);
 			serviceSociete.doUpdateRowData(beanUpBean);
 			update_row_from_list(LIST_DATA, beanUpBean)  ;
 			throwNewException("Update Reussit");

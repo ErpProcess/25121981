@@ -93,6 +93,7 @@ public static boolean i$_ACT_CONFIRM          = false;
 public static boolean i$_ACT_ENVOYER          = false;
 public static boolean i$_ACT_RETOUR_TO_LIST_VE = false;
 public static boolean i$_RESET_APRES_FACT = false;
+public static boolean i$_ACT_IMPRIMER_EXPORT_KB = false;
 
  
 

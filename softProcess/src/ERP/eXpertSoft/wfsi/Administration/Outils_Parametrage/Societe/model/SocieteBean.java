@@ -3,6 +3,8 @@ package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
@@ -38,6 +41,42 @@ public class SocieteBean implements Serializable,Cloneable {
 	private String  lib_arab ="";
 	@Column 
 	private String  adresse ="";
+	
+	@Column 
+	private String  pays ="";
+	
+	@Column 
+	private String  data_societe_langue ="";
+	
+	@Transient
+	private  Map   maplang = new HashMap();
+	
+	 
+	 
+	public Map getMaplang() {
+		return maplang;
+	}
+
+	public void setMaplang(Map maplang) {
+		this.maplang = maplang;
+	}
+
+	public String getPays() {
+		return pays;
+	}
+
+	public void setPays(String pays) {
+		this.pays = pays;
+	}
+
+	public String getData_societe_langue() {
+		return data_societe_langue;
+	}
+
+	public void setData_societe_langue(String data_societe_langue) {
+		this.data_societe_langue = data_societe_langue;
+	}
+
 	@Column 
 	private String  adresse_arabe ="";
 	@Column 

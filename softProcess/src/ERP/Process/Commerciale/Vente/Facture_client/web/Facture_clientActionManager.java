@@ -973,6 +973,18 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	}
 	 
 	
+	public ModelAndView doPrintExportManchaKobbi() throws Exception {
+		PrintPdfModeleKobbi pModeleKobbi = new PrintPdfModeleKobbi();
+		try {
+			pModeleKobbi.printExportManchafacture();
+		} catch (Exception e) {
+			displayException(e);
+		}
+		return null;
+	}
+	
+	
+	
 	 public   void doWriteEntete(Document document, Facture_clientBean denBean) throws Exception {
 		PdfPTable tableTopHeader = new PdfPTable(100);
 		tableTopHeader.setWidthPercentage(96);

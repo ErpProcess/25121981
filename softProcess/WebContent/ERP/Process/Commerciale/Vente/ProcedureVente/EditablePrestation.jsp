@@ -1,7 +1,7 @@
 
 <script type="text/javascript">
 
-    
+var otab_otraPrestation;  
 var oTablePr;
 var mapEditableGenPrs = {      "otab"   :oTablePr,
                                "table"  :"GRID_SAISIE_PRESATATION",
@@ -35,7 +35,19 @@ var mapEditableGenPrs = {      "otab"   :oTablePr,
 										   {      "sName": "indx_row_next"        ,"bSearchable": false  , "bSortable": false,"bVisible": false },       
 	                                            ]
  
-                               };                    
+                               }; 
+
+function ADD_Prestation(){
+	 lib_required="requiredPrestation";
+	 if(!teste_required()) return ;
+	 lib_required="required";
+	 doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_ADD_ROW_PRESTATION','text',false);
+	 otab_otraPrestation.fnAdjustColumnSizing();
+	 $('input[id="codeFocusPrestation"]').val('');               
+	 $('#XnextFocusPrestation').val('');
+	 $('#quantitePrestation').val('1');
+} 
+	
 function doEnvoiDataV4(element,value_id_de_la_ligne){
 	if($(element).attr('type')=="checkbox")
 	    element.value=element.checked==false?"":"checked";
@@ -70,40 +82,20 @@ function doEnvoiDataV4(element,value_id_de_la_ligne){
 			      }
 			      
 			   });
+		      // otab_otraPrestation.fnAdjustColumnSizing();
 	         }
 	       }
       });      
 }
 
 
-var otab_otraPrestation;
+
 function  LoadDataEditableFromServerPrestation( varoTable23,  mapDone  , afficher_mess_empty  ,  
 nombre_deligne   ,  heightTable  ,  widthTable  ,  ssdomm  , nameDivToolBar , elmeTollbar  ){  
      
    if ( mapDone["otab"] != undefined ) {
 	} else{
     mapDone["otab"] = $('#'+mapDone['table']).dataTable( {
-   
-                 "fnFooterCallback": function( nRow, aData, iStart, iEnd, aiDisplay ) {
-			   
-			   if (typeof doLoaderDataFooter3 !== 'undefined' && typeof doLoaderDataFooter3 === 'function'){    
-			                var items= doLoaderDataFooter2( nRow, aData, iStart, iEnd );
-			                   var EE=nRow;
-			                   for (var keyZ in items) {
-				                   var ITEM=items[keyZ];
-				                   for (var key in ITEM) {
-				                      if( ITEM[key] =="deletio"){
-				                       $(EE).hide();
-				                      }else{
-				                       $('td:eq('+key+')', EE).html( '<b>'+ITEM[key]+'</b>' );
-				                      }
-	                               }
-	                               
-	                               EE=$(EE).next();  
-                               }
-                      }  
-                        
-			    },
 				"oLanguage": { "sUrl": "<%=request.getContextPath() %>/jQuery/dataTable/langue/French.json"},
 				//"fnInitComplete": function () {    $("div.toolbar_es").html(elmeTollbar);   },
 				"fnInitComplete": function () {    $("div."+nameDivToolBar).html(elmeTollbar);   },

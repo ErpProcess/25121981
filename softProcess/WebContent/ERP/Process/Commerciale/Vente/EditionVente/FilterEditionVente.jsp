@@ -10,7 +10,9 @@ mapEditableGen = {             "otab"   :oTable,
                                "action" :"i$_ACT_LOAD_EDITABLE_TABLE_AJAX"
                                };
        function doDisplayTableData (){
+    	   
     	   if(!teste_required()) return ; 
+    	   $("#sedK").mask("Veuillez Patientez...");
     	  var resp= doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_AJAX_FETCH','json',false);
     	  Object.keys(resp.listcolonne).forEach(function(key) {
     		   if( resp.listcolonne[key].hasOwnProperty('formatMnt2') ){
@@ -20,6 +22,7 @@ mapEditableGen = {             "otab"   :oTable,
     			   resp.listcolonne[key]['mRender']= function (data, type, full) {   return  formatNumberJsXC(data,3);   } 
     		   }
     		});
+    	 
     	  mapEditableGen["mapCol"] = resp.listcolonne;
     	  mapEditableGen["id_name"]= resp.nameColIdGrid;
     	  mapEditableGen["list"]= resp.list;
@@ -31,13 +34,14 @@ mapEditableGen = {             "otab"   :oTable,
     	     
     	  LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
     	  config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  ); 
+    	  $("#sedK").unmask();  
        }
        
                                                                                         							                        
  </script>
   <ext:body  >  
   <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
- <ext:panel  border="false"    bodyStyle="background: none;"    title="Critere de recherche"   collapsible="true"    >  
+ <ext:panel  border="false"    bodyStyle="background: none;"  id="sedK"   title="Critere de recherche"   collapsible="true"    >  
  <table class="tableStyleContent"  cellpadding="5" cellspacing="10"  id="tblData"     >  
  
 	   <tr>

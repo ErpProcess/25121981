@@ -16,6 +16,7 @@ import java.util.HashMap;
  
  
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ProcessUtil {
@@ -55,6 +56,8 @@ public class ProcessUtil {
 						|| field.getType().equals(Collection.class) 
 						|| field.getType().equals(ArrayList.class)
 						|| field.getType().equals(List.class)
+						|| field.getType().equals(HashMap.class)  
+						|| field.getType().equals(Map.class)  
 						|| field.getType().equals(Set.class)) {
 					continue;
 				}

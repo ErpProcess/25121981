@@ -11,12 +11,16 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 import org.apache.commons.lang.WordUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ERP.Process.Commerciale.Entite_etat_commerciale.model.Entite_etat_commercialeBean;
@@ -41,8 +45,11 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.model.SocieteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -114,7 +121,6 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 	    doWrite_Header_ContentTable(document,73,Facture_clientTemplate.MapfieldBean_ModelKobbi);
 	    doWrite_Data_Table (denBean,lisData,document,73,Facture_clientTemplate.MapfieldBean_ModelKobbi);
 	    doWrite_mode_pay_banc(denBean,lisData,73,document);  ;  
-	    
 	    /*****************************************************************************************************/
 	    document.close();
 		getResponse().setContentType("text");
@@ -127,6 +133,211 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		} 
 	}
 	
+	
+	public void printExportManchafacture( ) throws Exception{
+		
+		try {
+		List   lisData=  (List) getObjectValueModel(Facture_clientTemplate.LIST_DATA_DET_FACT) ;
+		Facture_clientBean    denBean= (Facture_clientBean) getObjectValueModel(FORM_BEAN) ;
+		File file = new File(getRequest().getRealPath("/")+"/temp/"+Facture_clientTemplate.LIST_DATA_DET_FACT+"Mancha"+getRequest().getSession().getId()+".pdf");
+		BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
+	    FileOutputStream fs = new FileOutputStream(file);
+		Document document = new Document(PageSize.A4, 5, 5, 5, 25);
+		String varLangue="kb";
+		EntiteAdminBean  beAdminBean=new EntiteAdminBean();
+		beAdminBean.getPk_entite_admin().setLang_id(varLangue);
+		List   <EntiteAdminBean>  list_EntiteAdmin=serviceEntiteAdmin.getListDataServer(beAdminBean);
+		for (int i = 0; i < list_EntiteAdmin.size(); i++) {
+			EntiteAdminBean bsdx = (EntiteAdminBean) list_EntiteAdmin.get(i); 
+			   int df=bsdx.getPk_entite_admin().getEnt_id().indexOf("/");
+				setObjectValueModel("kb_"+bsdx.getPk_entite_admin().getEnt_id().substring(df+1),bsdx.getEnt_libelle());
+		}
+	  
+	    doWriteHeaderDocument_PDF_NOT_PASY(document,73,fs,Facture_clientTemplate.MapfieldBean_ModelKobbi,bSession);
+	    doWriteEnteteKobbiMancha(document,73,denBean); 
+	
+	    
+	    
+	    doWrite_Data_Table (denBean,lisData,document,73,Facture_clientTemplate.MapfieldBean_ModelKobbi);
+	    doWrite_mode_pay_banc(denBean,lisData,73,document);  ;  
+	    /*****************************************************************************************************/
+	    document.close();
+		getResponse().setContentType("text");
+		getResponse().setHeader("Cache-Control", "no-cache");
+		getResponse().setStatus(200);
+		getResponse().getWriter().write(Facture_clientTemplate.LIST_DATA_DET_FACT+"Mancha"+getRequest().getSession().getId()+".pdf");
+		
+		} catch (Exception e) {
+			throw e;
+		} 
+	}
+	
+	 private   void doWriteEnteteKobbiMancha(Document document,int poucentage, Facture_clientBean denBean) throws Exception {
+			PdfPTable tableTopHeader = new PdfPTable(100);
+			tableTopHeader.setWidthPercentage(poucentage);
+		    BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+		  
+           SocieteBean ste=bs.getSociete();
+		    
+		    JSONObject jsonObj = new JSONObject(ste.getData_societe_langue());
+			Map<String,Object> yearMap = toMap(jsonObj);
+			String arabic =(String) yearMap.get("ar");
+			JSONObject jsonObjF = new JSONObject("{"+arabic+"}");
+			
+			
+			PdfPCell cell = new PdfPCell(new Phrase("Invoice N#",GeneratePdf.Bold_11_times_roman));
+		    cell.setColspan(15);
+		    cell.setFixedHeight(20f);
+		    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader.addCell(cell);
+		    
+		    cell = new PdfPCell(new Phrase(" "+jsonObjF.getString("soc_lib"),GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(25);
+		    cell.setFixedHeight(20f);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader.addCell(cell);
+		    
+		    
+		    cell = new PdfPCell(new Phrase("",GeneratePdf.Bold_11_times_roman));
+		    cell.setColspan(18);
+		    cell.setFixedHeight(20f);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader.addCell(cell);
+		    
+		    
+		    cell = new PdfPCell(new Phrase("" ,GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(42);
+		    cell.setFixedHeight(20f);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader.addCell(cell);
+		    
+		     
+		   
+		    
+		    cell = new PdfPCell(new Phrase("Place,  Date  Tunis",GeneratePdf.Bold_11_times_roman));
+		    cell.setColspan(25);
+		    cell.setFixedHeight(20f);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader.addCell(cell);
+		    
+		    SimpleDateFormat month_date = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+		    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		    
+		    Date date = sdf.parse(ProcessDate.getCurrentTimeStamp(denBean.getFact_date()));
+
+		    String month_name = month_date.format(date);
+		    
+		    cell = new PdfPCell(new Phrase(","+month_name ,GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(75);
+		    cell.setFixedHeight(20f);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader.addCell(cell);
+		    
+		    PdfPTable tableTopHeader2 = new PdfPTable(100);
+		    tableTopHeader2.setWidthPercentage(85);
+		    
+		    cell = new PdfPCell(new Phrase("  ",GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(51);
+		    cell.setFixedHeight(20f);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    
+		    
+		   
+		    
+		    Font FONT_12_bold = new Font(Font.getFamily("TIMES_ROMAN"), 11, Font.BOLD|  Font.UNDERLINE);
+		    cell = new PdfPCell(new Phrase("Billing To",FONT_12_bold));
+		    cell.setColspan(49);
+		    cell.setFixedHeight(20f);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    
+		    cell = new PdfPCell(new Phrase("  ",GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(51);
+		    cell.setFixedHeight(20f);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		     
+		    
+		    cell = new PdfPCell(new Phrase(denBean.getClient().getClt_lib(),GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(49);
+
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    
+		    
+		    
+		    cell = new PdfPCell(new Phrase("  " ,GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(51);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    cell = new PdfPCell(new Phrase(denBean.getClient().getClt_adr(),GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(49);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    
+		    
+		    
+		    cell = new PdfPCell(new Phrase("  " ,GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(51);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    cell = new PdfPCell(new Phrase(denBean.getClient().getClt_region(),GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(49);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    
+		    cell = new PdfPCell(new Phrase("  " ,GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(51);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    cell = new PdfPCell(new Phrase(denBean.getClient().getClt_pays(),GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(49);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    
+		    
+		    
+		    
+		    
+		    
+		    cell = new PdfPCell(new Phrase( "  "  ,GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(100);
+		    cell.setFixedHeight(5f);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    
+		    PdfPTable tableTopHeader3 = new PdfPTable(100);
+		    tableTopHeader3.setWidthPercentage(73);
+		    PdfPCell cellSummary = new PdfPCell(new Phrase( "Summary table:" ,GeneratePdf.Normal_10_times_roman));
+	        cellSummary.setHorizontalAlignment(Element.ALIGN_LEFT);
+	        cellSummary.setPaddingBottom(3);
+	        cellSummary.setColspan(100);
+	        cellSummary.setBorder(cellSummary.NO_BORDER);
+	        tableTopHeader3.addCell(cellSummary);
+	        document.add(tableTopHeader);
+		    document.add(tableTopHeader2);
+		    document.add(tableTopHeader3);
+
+	}
 	
 	public void printEtatVenteExportKobbi( EditionVenteBean searchBean ) throws Exception{
 		
@@ -713,9 +924,8 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 						etatBean.setQte(dBean.getQuantite());
 						etatBean.setNbrBox(dBean.getNbrBoxes());
 						etatBean.setPrixUnit(dBean.getTarif_unit_vente());
-						
-						etatBean.setTotal(ProcessFormatNbr.FormatDouble_ParameterChiffre(totfacture, devise.getChiffre_pattern())   );
 						list_etat_edition.add(etatBean);
+						
 						if(i==listInvoiceClient.size()-1) {
 							 int position=list_etat_edition.size() - listInvoiceClient.size();
 							 list_etat_edition.get(position).setTotal(ProcessFormatNbr.FormatDouble_ParameterChiffre(totfacture, devise.getChiffre_pattern())  ); 
@@ -1145,8 +1355,8 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 			try {
 				String [][] MapfieldEtatDeDepense  = new String[][]{{ "date", "20" }, { "invoice", "20" },
 					{ "client", "30" },{ "qté", "15" },
-				    { "AchatFish", "20" },{ "n/Box", "15" },
-					{ "Poly", "20" },{ "trsprt", "15" },
+				    { "AchatFish", "20" },{ "n/Box", "13" },
+					{ "Poly", "20" },{ "trsprt", "20" },
 					{ "transit", "20" },{ "m/Oeuv", "20" },
 					{ "Embal", "20" },{ "scot/glace", "20" },
 					{ "douane", "20" },{ "ch/Com", "20" },
@@ -1212,7 +1422,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 			    	}
 			    	
 			    	
-			    	if(bean.isIsrowSpanDetFact()) {
+			    	 
 			    	PdfPCell cell  = new PdfPCell(new Phrase( bean.getInvoice(),GeneratePdf.Bold_8_times_roman));
 			        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -1438,7 +1648,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   cell.setBackgroundColor(GeneratePdf.colorLigne);
 				   table.addCell(cell);
 				   
-			     }
+			    
  
 		        }
 			    

@@ -165,6 +165,7 @@ function doEnvoiDataV3(element,value_id_de_la_ligne){
 			      }
 			      
 			   });
+		       otab_otra2.fnAdjustColumnSizing();
 	         }
 	       }
       });      
@@ -246,17 +247,7 @@ function ADD_Fourniture(){
     
 } 
 
-function ADD_Prestation(){
- lib_required="requiredPrestation";
- if(!teste_required()) return ;
- lib_required="required";
  
- doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_ADD_ROW_PRESTATION','text',false);
- otab_otraPrestation.fnAdjustColumnSizing();
- $('input[id="codeFocusPrestation"]').val('');               
- $('#XnextFocusPrestation').val('');
- $('#quantitePrestation').val('1');
-} 
 
 
 

@@ -103,6 +103,20 @@ $(document).ready(function (){
           <td   ><label>Net a payer</label></td>
           <td   ><input id="net_a_payer"     name="net_a_payer"  style="text-align: right;"    type="montant3"    size="25"    libre="libre"   readonly="readonly"      maxlength="50"        value="${detailBean.net_a_payer}"    nextelement="btValidx"></td>
         </tr>
+        
+         <tr>
+          <td  colspan="4" >
+          <script type="text/javascript">
+          function imprimerExport() {
+        	    var url = contexPath+"${tmlx.url}?HiddenAction=i$_ACT_IMPRIMER_EXPORT_KB";
+        		genericPdfProcess(url);     
+        	}
+
+          </script> 
+          <ext:button type="button" text="imprimer Export"  onClick="imprimerExport()" ><label>imprimer Transit</label></ext:button>
+          </td>
+        </tr>
+        
       </table>
     </ext:panel>
     <ext:panel   id="RET_GRID"   bodyStyle="background: none;"    border="false"      title="Détaille Facture"    >

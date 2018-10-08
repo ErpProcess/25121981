@@ -81,8 +81,8 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 			BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
 			bs.setSousmod_libelle_title("");
 			bs.setPrefix_sousmod_libelle_title("");
-
-		 
+			setObjectValueModel("listEditionVente",  new ArrayList<>());
+			setObjectValueModel("listEditionDepense", new ArrayList<>());
 		    return getViewFilterEdition(FILTER_VIEW);
 
 			 
@@ -400,13 +400,11 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 						List listInvoiceClient=(List) mapInvoiceClient.get(iClientnvoice);
 						Double totAchatFishParFacture= new Double(0);
 						Double totQteFishParFacture= new Double(0);
+						EtatDepenseProduit    etatBean  =  new EtatDepenseProduit();
 						
 						for (int i = 0; i < listInvoiceClient.size(); i++) {
 							DetProcedureVenteBean dBean  =(DetProcedureVenteBean) listInvoiceClient.get(i);
-							
-						    EtatDepenseProduit    etatBean  =  new EtatDepenseProduit();
-						    
-						    
+							 
 						     if(dBean.getTarif()!=null  &&  dBean.getTarif().getCout()!=null  ) {
 						    	 devise =dBean.getTarif().getCout().getDevise();
 						    	 etatBean.setDevise(devise);
@@ -432,15 +430,16 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 							etatBean.setClientId(dBean.getPk().getVente().getClient().getClt_id());
 							etatBean.setDescription(dBean.getPk().getFkcode_barre().getDesignation_libelle());
 							 
-							list_etat_edition.add(etatBean);
+							
 							if(i==listInvoiceClient.size()-1) {
-								 int position=list_etat_edition.size() - listInvoiceClient.size();
-								 list_etat_edition.get(position).setQteFish(ProcessFormatNbr.FormatDouble_ParameterChiffre(totQteFishParFacture, devise.getChiffre_pattern())  ); 
-								 list_etat_edition.get(position).setPrixtotFish(ProcessFormatNbr.FormatDouble_ParameterChiffre(totAchatFishParFacture, devise.getChiffre_pattern())  ); 
+								 etatBean.setQteFish(ProcessFormatNbr.FormatDouble_ParameterChiffre(totQteFishParFacture, devise.getChiffre_pattern())  ); 
+								 etatBean.setPrixtotFish(ProcessFormatNbr.FormatDouble_ParameterChiffre(totAchatFishParFacture, devise.getChiffre_pattern())  );
+								 list_etat_edition.add(etatBean);
 							}
 							isrowSpanDate=false;
 							isrowSpanDetailFacture=false;
 						}
+						
 					}
 				}
 
@@ -513,11 +512,17 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 						    Double mntProduit=(Double) mapProduitMnt.get(key);
 						    if(mntProduit==null )mntProduit= new Double(0);
 						    Double prixTotLigne= new Double(0);
+						    
 						    if(dBean.getTarifVente()!=null  &&  dBean.getTarifVente().getCout()!=null  ) {
 						    	 devise =dBean.getTarifVente().getCout().getDevise();
 						    	 Double prixUnitProduit=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarifVente().getCout().getTarif_unit_ttc(), devise.getChiffre_pattern());
 						    	 prixTotLigne=ProcessNumber.PRODUIT(prixUnitProduit, dBean.getQuantite());
-						     }
+						    }else {
+						    	 devise =dBean.getTarifVente().getDevise();
+						    	 Double prixUnitProduit=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarifVente().getTarif_unit_vente_tt(), devise.getChiffre_pattern());
+						    	 prixTotLigne=ProcessNumber.PRODUIT(prixUnitProduit, dBean.getQuantite());
+						    }
+						    
 						    mntProduit=ProcessNumber.addition(mntProduit, prixTotLigne);
 						    mapProduitMnt.put(key, mntProduit);
 						    
@@ -528,21 +533,18 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 						    	 devise =dBean.getTarifVente().getCout().getDevise();
 						    	 Double prixUnitFamille=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarifVente().getCout().getTarif_unit_ttc(), devise.getChiffre_pattern());
 						    	 prixtotLigneFamille=ProcessNumber.PRODUIT(prixUnitFamille, dBean.getQuantite());
+						     }else {
+						    	 devise =dBean.getTarifVente().getDevise();
+						    	 Double prixUnitFamille=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarifVente().getTarif_unit_vente_tt(), devise.getChiffre_pattern());
+						    	 prixtotLigneFamille=ProcessNumber.PRODUIT(prixUnitFamille, dBean.getQuantite());
 						     }
 						    mntFamilleProduit=ProcessNumber.addition(mntFamilleProduit, prixtotLigneFamille);
 						    mapFamilleproduit.put(keyFamille, mntFamilleProduit);
-						    
-						    
-						     
-						    
-		
-							if(i==listInvoiceClient.size()-1) {
-								//System.out.println("facture :"+element[0]+"   produit:"+mntProduit.doubleValue());
-								mapDataImpressionFourniture.put("qte"+dateFact+element[0]+element[1], mapProduitQte);
-								mapDataImpressionFourniture.put("mnt"+dateFact+element[0]+element[1], mapProduitMnt);
-								mapDataImpressionFourniture.put("famille"+dateFact+element[0]+element[1], mapFamilleproduit);
-							} 
 						}
+
+						mapDataImpressionFourniture.put("qte"+dateFact+element[0]+element[1], mapProduitQte);
+						mapDataImpressionFourniture.put("mnt"+dateFact+element[0]+element[1], mapProduitMnt);
+						mapDataImpressionFourniture.put("famille"+dateFact+element[0]+element[1], mapFamilleproduit);
 					}
 				}
 
@@ -620,11 +622,8 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 						     }
 						    mntProduit=ProcessNumber.addition(mntProduit, prixTotLigne);
 						    mapProduitMnt.put(key, mntProduit);
-		
-							if(i==listInvoiceClient.size()-1) {
-								mapDataImpressionService.put(dateFact+element[0]+element[1], mapProduitMnt);
-							} 
 						}
+						mapDataImpressionService.put(dateFact+element[0]+element[1], mapProduitMnt);
 					}
 				}
 
@@ -647,7 +646,7 @@ private JSONArray doWriteHeaderGridDataEtatVenteProduit() throws Exception {
 			 element.put("sTitle","Date");
 			 element.put("sName","pk.factclient.fact_date");
 			 element.put("sWidth","5%" );
-			 element.put("bSortable","true" );
+			 element.put("bSortable","false" );
 			 listcol.put(element);
 			 
 			 element = new JSONObject();
@@ -722,7 +721,7 @@ private JSONArray doWriteHeaderGridDataEtatDepenseProduit() throws Exception {
 		 element.put("sTitle","Date");
 		 element.put("sName","date");
 		 element.put("sWidth","5%" );
-		 element.put("bSortable","true" );
+		 element.put("bSortable","false" );
 		 listcol.put(element);
 		 
 		 

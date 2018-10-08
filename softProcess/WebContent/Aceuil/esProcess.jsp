@@ -694,7 +694,6 @@ function migaXWXXWW(dssss) {
          <td > 
              <ext:body> 	 
                 <ext:toolbar   id="sqhjS" renderTo="sdcvfrdx"    >   
-				    <ext:toolbar.button  id="ddZopiZbzze" text="Profil&nbsp;&nbsp;>"    />
 				    <ext:toolbar.button  id="ddZopgiZzze" text="${bs.prf_libelle}"    />
 			    </ext:toolbar>
 			 </ext:body>

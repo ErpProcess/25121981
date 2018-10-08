@@ -322,7 +322,6 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				 result  = TraitementVenteArticleMarchandise(beanUp,session);
 				List <DetFournitureVenteBean> listOfmyData=(List) getObjectValueModel(ProcedureVenteTemplate.LIST_EDITABLE_FOURNITURE_VENTE);
 				if(listOfmyData!=null  &&  listOfmyData.size()>0){
-					 
 					TraitementFournitureVente(listOfmyData,beanUp,session);
 				}
 				           
@@ -713,11 +712,11 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 					 Double sold_stock_jr            = ProcessNumber.SOUSTRACTION(Sqte_Stock , Vqte_vente);
 					 
 					 
-					 Double  Stock_montant_ht_V          = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_ht());
-					 Double  Stock_montant_tva_V          = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_tva());
+					 Double  Stock_montant_ht_V      = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_ht());
+					 Double  Stock_montant_tva_V     = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_tva());
 					 
-					 Double tot_Stock_Mnt_ht_vente        = ProcessNumber.addition(Stock_montant_ht_V , Vmnt_ht__vente);
-					 Double tot_Stock_Mnt_tva_vente        = ProcessNumber.addition(Stock_montant_tva_V , Vmnt_tva_vente);
+					 Double tot_Stock_Mnt_ht_vente   = ProcessNumber.addition(Stock_montant_ht_V , Vmnt_ht__vente);
+					 Double tot_Stock_Mnt_tva_vente  = ProcessNumber.addition(Stock_montant_tva_V , Vmnt_tva_vente);
 					 
 					 
 					 if(sold_stock_jr.doubleValue()<0){
