@@ -105,15 +105,15 @@ $(document).ready(function (){
         </tr>
         
          <tr>
-          <td  colspan="4" >
+          <td  colspan="4" align="left" >
           <script type="text/javascript">
           function imprimerExport() {
         	    var url = contexPath+"${tmlx.url}?HiddenAction=i$_ACT_IMPRIMER_EXPORT_KB";
         		genericPdfProcess(url);     
         	}
 
-          </script> 
-          <ext:button type="button" text="imprimer Export"  onClick="imprimerExport()" ><label>imprimer Transit</label></ext:button>
+          </script> <div id="scxxx" style="left: 0px;"></div>
+          <ext:button type="button" text="imprimer Export"  onClick="imprimerExport()"  renderTo="scxxx"><label>imprimer Transit</label></ext:button>
           </td>
         </tr>
         

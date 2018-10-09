@@ -238,6 +238,7 @@ public class Reception_achatDAO extends GenericWeb {
 	private HashMap doGetStock_artcicle(Reception_achatBean beanUpdate, String chaine) throws Exception {
 		
 		HashMap  map_resultat= new HashMap();
+		
 		 try {
 				Stock_articleBean beanMvtJourStock= new Stock_articleBean();
 				String quString= "    " +
@@ -466,7 +467,35 @@ public class Reception_achatDAO extends GenericWeb {
 					 if(map_article_jour.get(key_trait)!=null) { 
 					     stock               = (Stock_articleBean) map_article_jour.get(key_trait); 
 					     String  date_stock  = ProcessDate.getStringFormatDate(stock.getPk().getDate_stock());
+					     Double prix_unit_moyen_pond= new Double(0);
+					    
+					    
+					     if(stock.getCout_unitaire_moyen_pondere()==null) {
+					    	  prix_unit_moyen_pond=
+					    			  ProcessFormatNbr.FormatDouble_ParameterChiffre(detBean.getTarif().getTarif_unit_ttc(), 
+					    					  detBean.getTarif().getDevise().getChiffre_pattern());
+					     }else{
+					    	 
+					    	 Double cout_unitaire_moyen_pondere_ancien=stock.getCout_unitaire_moyen_pondere()!=null ?
+						    		 ProcessFormatNbr.FormatDouble_ParameterChiffre(stock.getCout_unitaire_moyen_pondere(), detBean.getTarif().getDevise().getChiffre_pattern()) 
+						    		 :  new Double(0);
+						    Double qteStock_prix_Pondere_ancien=ProcessNumber.PRODUIT(cout_unitaire_moyen_pondere_ancien, Sqte_Stock);
+						    
+						    Double prix_nouveau=detBean.getTarif().getTarif_unit_ttc()!=null ?
+						    		 ProcessFormatNbr.FormatDouble_ParameterChiffre(detBean.getTarif().getTarif_unit_ttc(), detBean.getTarif().getDevise().getChiffre_pattern()) 
+						    		 :  new Double(0);
+						    Double qteStock_prix_Pondere_nouveau=ProcessNumber.PRODUIT(prix_nouveau, Vqte_reception);
+						    Double sommeDeuxBorn=ProcessNumber.addition(qteStock_prix_Pondere_ancien, qteStock_prix_Pondere_nouveau);
+						    Double sommeStockNouVEauEntere=ProcessNumber.addition(Sqte_Stock, Vqte_reception);
+						    prix_unit_moyen_pond= ProcessNumber.DIVISION(sommeDeuxBorn, sommeStockNouVEauEntere) ;
+						    prix_unit_moyen_pond= ProcessFormatNbr.FormatDouble_ParameterChiffre(prix_unit_moyen_pond, 
+						    		detBean.getTarif().getDevise().getChiffre_pattern()); 
+					    	
+					     }
+					     
 					     if(date_reception.equals(date_stock)){
+					    	 
+					    	 //((200 * 5) + (100 * 8)) / (200 + 100) = 6 euros.
 					    	 
 							 stock.getPk().setDate_stock(beanUpdate.getAchat_date());
 							 stock.setSolde_stock    ( ProcessFormatNbr.FormatDouble_Troischiffre(sold_stock_jr) );
@@ -476,7 +505,7 @@ public class Reception_achatDAO extends GenericWeb {
 							 
 							 stock.setSolde_achat_tva(ProcessFormatNbr.FormatDouble_Troischiffre(tot_Stock_Mnt_tva_recept));
 							 stock.setSolde_achat_ht(ProcessFormatNbr.FormatDouble_Troischiffre( tot_Stock_Mnt_ht_recept));
-							 
+							 stock.setCout_unitaire_moyen_pondere(prix_unit_moyen_pond);
 							 
 							 stock.getPk().setFkCode_barre(detBean.getPk().getFkCode_barre());
 							 stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
@@ -493,7 +522,7 @@ public class Reception_achatDAO extends GenericWeb {
 							 stock.setMnt_ht_recept (ProcessFormatNbr.FormatDouble_Troischiffre( Vmnt_ht__recept));
 							 stock.setSolde_achat_tva(ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_recept));
 							 stock.setSolde_achat_ht(ProcessFormatNbr.FormatDouble_Troischiffre( Vmnt_ht__recept));
-							 
+							 stock.setCout_unitaire_moyen_pondere(prix_unit_moyen_pond);
 							 stock.getPk().setFkCode_barre(detBean.getPk().getFkCode_barre());
 							 stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
 							 //stock.getFk_etab_Bean().getPk_etab().setEtab_id(bs.getEtab_id());
@@ -512,7 +541,7 @@ public class Reception_achatDAO extends GenericWeb {
 						 stock.setMnt_ht_recept (ProcessFormatNbr.FormatDouble_Troischiffre( Vmnt_ht__recept));
 						 stock.setSolde_achat_tva(ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_recept));
 						 stock.setSolde_achat_ht(ProcessFormatNbr.FormatDouble_Troischiffre( Vmnt_ht__recept));
-						   
+						 stock.setCout_unitaire_moyen_pondere(ProcessFormatNbr.FormatDouble_ParameterChiffre(detBean.getTarif().getTarif_unit_ttc(), detBean.getTarif().getDevise().getChiffre_pattern()));
 						  
 						 stock.getPk().setFkCode_barre(detBean.getPk().getFkCode_barre());
 						 stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());

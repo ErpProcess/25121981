@@ -1,6 +1,9 @@
 package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.web;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +12,8 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,7 +32,7 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.JsonResponse;
 import ERP.eXpertSoft.wfsi.jqueryoR.datatables.controller.AjaxDataTablesUtility;
 
-
+import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 
 public class ActionSocieteManager extends SocieteTemplate {
@@ -115,14 +120,26 @@ public class ActionSocieteManager extends SocieteTemplate {
 		return null;
 
 	}
+	public Map convertStringToHashMap(String strData){
+		
+		 Map<String, String> myMap = new HashMap<String, String>();
+		 
+		String[] pairs = strData.split(",");
+		 for (int i=0;i<pairs.length;i++) {
+		     String pair = pairs[i];
+		     String[] keyValue = pair.split(":");
+		     myMap.put(keyValue[0],  keyValue[1] );
+		 }
+		 return myMap;
+	}
 
 	public ModelAndView doAddData(SocieteBean detailBean) throws Throwable {
 		try {
 			 String dataSocieteLng_ar= getRequest().getParameter("dataSocieteLng_ar");
 			 String dataSocieteLng_en= getRequest().getParameter("dataSocieteLng_en");
 			 JSONObject json        = new JSONObject();
-			 json.put("ar", dataSocieteLng_ar);
-			 json.put("en", dataSocieteLng_en);
+			 json.put("ar",  convertStringToHashMap(dataSocieteLng_ar));
+			 json.put("en", convertStringToHashMap(dataSocieteLng_en));
 			 String data_societe_langue=json.toString();
 			 detailBean.setData_societe_langue(data_societe_langue);
 			 serviceSociete.doCreateRowData(detailBean);
@@ -143,7 +160,10 @@ public class ActionSocieteManager extends SocieteTemplate {
 			SocieteBean rowBean = (SocieteBean) getIndexFromDataGrid_v1("SocieteList");
 			
 			JSONObject jsonObj = new JSONObject(rowBean.getData_societe_langue());
-			Map<String,Object> yearMap = toMap(jsonObj);
+			
+			HashMap<String, Object> yourHashMap = new Gson().fromJson(jsonObj.toString(), HashMap.class);
+
+			Map<String,Object> yearMap = yourHashMap; //toMap(jsonObj);
 			rowBean.setMaplang(yearMap);
 			   
 			setObjectValueModel(FORM_BEAN, rowBean);
@@ -168,13 +188,14 @@ public class ActionSocieteManager extends SocieteTemplate {
 
 	public ModelAndView doUpdateData(SocieteBean beanUpBean) {
 		try {
-			String dataSocieteLng_ar= getRequest().getParameter("dataSocieteLng_ar");
-			String dataSocieteLng_en= getRequest().getParameter("dataSocieteLng_en");
-			JSONObject json        = new JSONObject();
-			json.put("ar", dataSocieteLng_ar);
-			json.put("en", dataSocieteLng_en);
-			String data_societe_langue=json.toString();
-			beanUpBean.setData_societe_langue(data_societe_langue);
+			 
+			 String dataSocieteLng_ar= getRequest().getParameter("dataSocieteLng_ar");
+			 String dataSocieteLng_en= getRequest().getParameter("dataSocieteLng_en");
+			 JSONObject json        = new JSONObject();
+			 json.put("ar",  convertStringToHashMap(dataSocieteLng_ar) );
+			 json.put("en", convertStringToHashMap(dataSocieteLng_en) );
+			 String data_societe_langue=json.toString();
+			 beanUpBean.setData_societe_langue(data_societe_langue);
 			serviceSociete.doUpdateRowData(beanUpBean);
 			update_row_from_list(LIST_DATA, beanUpBean)  ;
 			throwNewException("Update Reussit");
@@ -184,6 +205,24 @@ public class ActionSocieteManager extends SocieteTemplate {
 
 		return getViewList_Ajax(FILTER_VIEW);
 	}
+	
+	
+//	public static void main (String[] args){
+//		
+//		 
+//		
+//		
+//		String nssss="&#1578;&#1608;&#1606;&#1587;";
+//		String qsqs=" شركة القبي فيش";
+//		Document  sss= Jsoup.parse(nssss);
+//		String text = sss.body().text();
+//	 
+//		  
+//       System.out.print(text);
+//		}
+		 
+	
+	 
 
 	public ModelAndView doDeleteData(SocieteBean beanDelBean) {
 

@@ -60,14 +60,16 @@ public class Stock_articleBean extends GenericBean {
 	@Column
 	private Double solde_stock_valeur;
 	
-	
-	
-	
+	 
 	
 	@Column
 	private Double solde_achat_ht;
 	
 	
+	@Column
+	private Double cout_unitaire_moyen_pondere;
+	
+	 
 	@Column
 	private Double solde_vente_ht;
 	
@@ -351,6 +353,14 @@ public class Stock_articleBean extends GenericBean {
 
 	public void setMnt_ttc_vendu(Double mnt_ttc_vendu) {
 		this.mnt_ttc_vendu = mnt_ttc_vendu;
+	}
+
+	public Double getCout_unitaire_moyen_pondere() {
+		return cout_unitaire_moyen_pondere;
+	}
+
+	public void setCout_unitaire_moyen_pondere(Double cout_unitaire_moyen_pondere) {
+		this.cout_unitaire_moyen_pondere = cout_unitaire_moyen_pondere;
 	}
 
 }

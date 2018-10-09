@@ -2,6 +2,8 @@ package ERP.Process.Commerciale.Vente.Facture_client.web;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,9 +18,10 @@ import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-
+import org.jsoup.Jsoup;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.WordUtils;
+import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,17 +51,20 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.model.SocieteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.html.WebColors;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -172,49 +178,75 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		} 
 	}
 	
+	private String htmlEncode(final String string) {
+		  final StringBuffer stringBuffer = new StringBuffer();
+		  for (int i = 0; i < string.length(); i++) {
+		    final Character character = string.charAt(i);
+		    if (CharUtils.isAscii(character)) {
+		      // Encode common HTML equivalent characters
+		      stringBuffer.append(
+		          StringEscapeUtils.escapeHtml(character.toString()));
+		    } else {
+		      // Why isn't this done in escapeHtml4()?
+		      stringBuffer.append(
+		          String.format("&#x%x;",
+		              Character.codePointAt(string, i)));
+		    }
+		  }
+		  return stringBuffer.toString();
+		}
+	
+//	public static void main (String[] args) throws DocumentException, IOException{
+//		
+//  		 
+//		Document document = new Document(PageSize.A4, 5, 5, 5, 25);
+//		
+//		String nssss="&#1578;&#1608;&#1606;&#1587;";
+//		String qsqs=" شركة القبي فيش";
+//		org.jsoup.nodes.Document  sss= Jsoup.parse(nssss);
+//		String text = sss.body().text();
+//	 
+//		BaseFont bf = BaseFont.createFont(
+//			    "c://windows/fonts/arialuni.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//			Font font = new Font(bf, 8);
+//			PdfPTable table = new PdfPTable(1);
+//			PdfPCell  cell = new PdfPCell(new Phrase("\u062D\u064A\u0633\u0648", font));
+//			cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+//			table.addCell(cell);
+//			document.add(table);
+//			
+//     
+//		}
+	
 	 private   void doWriteEnteteKobbiMancha(Document document,int poucentage, Facture_clientBean denBean) throws Exception {
 			PdfPTable tableTopHeader = new PdfPTable(100);
 			tableTopHeader.setWidthPercentage(poucentage);
 		    BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 		  
-           SocieteBean ste=bs.getSociete();
+            SocieteBean ste=bs.getSociete();
 		    
 		    JSONObject jsonObj = new JSONObject(ste.getData_societe_langue());
-			Map<String,Object> yearMap = toMap(jsonObj);
-			String arabic =(String) yearMap.get("ar");
-			JSONObject jsonObjF = new JSONObject("{"+arabic+"}");
+		    JSONObject jsonObjff = (JSONObject) jsonObj.get("ar");
+		 
+		    String fsdd=jsonObjff.getString("soc_lib");
+	     	 
+		    org.jsoup.nodes.Document  sss= Jsoup.parse(fsdd);
+			String text = sss.body().text();
 			
+			BaseFont bf = BaseFont.createFont(
+				    "c://windows/fonts/arialuni.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+				Font font = new Font(bf, 15);
 			
-			PdfPCell cell = new PdfPCell(new Phrase("Invoice N#",GeneratePdf.Bold_11_times_roman));
-		    cell.setColspan(15);
-		    cell.setFixedHeight(20f);
-		    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-		    cell.setBorder(cell.NO_BORDER);
-		    tableTopHeader.addCell(cell);
-		    
-		    cell = new PdfPCell(new Phrase(" "+jsonObjF.getString("soc_lib"),GeneratePdf.Normal_11_times_roman));
-		    cell.setColspan(25);
+			PdfPCell cell     = new PdfPCell(new Phrase(" " +text,font));
+		    cell.setColspan(100);
+		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
 		    cell.setFixedHeight(20f);
 		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		    cell.setBorder(cell.NO_BORDER);
 		    tableTopHeader.addCell(cell);
 		    
 		    
-		    cell = new PdfPCell(new Phrase("",GeneratePdf.Bold_11_times_roman));
-		    cell.setColspan(18);
-		    cell.setFixedHeight(20f);
-		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-		    cell.setBorder(cell.NO_BORDER);
-		    tableTopHeader.addCell(cell);
-		    
-		    
-		    cell = new PdfPCell(new Phrase("" ,GeneratePdf.Normal_11_times_roman));
-		    cell.setColspan(42);
-		    cell.setFixedHeight(20f);
-		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-		    cell.setBorder(cell.NO_BORDER);
-		    tableTopHeader.addCell(cell);
+		  
 		    
 		     
 		   
@@ -886,7 +918,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				HashMap  mapInvoiceClient=  new HashMap();
 				for (int i = 0; i < listmapDate.size(); i++) {
 					Det_Fact_ClientBean dBean  =(Det_Fact_ClientBean) listmapDate.get(i);
-					String  key =dBean.getPk().getFactclient().getFact_ref_id()+"���"+dBean.getPk().getFactclient().getClient().getClt_lib();
+					String  key =dBean.getPk().getFactclient().getFact_ref_id()+"²µ²"+dBean.getPk().getFactclient().getClient().getClt_lib();
 					List listInvoice=(List) mapInvoiceClient.get(key);
 					if(listInvoice==null) {listInvoice= new ArrayList();  }
 					listInvoice.add(dBean);
@@ -897,7 +929,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				
 				for (Iterator iterInvo = mapInvoiceClientSet.iterator(); iterInvo.hasNext();) {
 					String iClientnvoice = (String) iterInvo.next();
-					String[] element=iClientnvoice.split("���");
+					String[] element=iClientnvoice.split("²µ²");
 					boolean isrowSpanDetailFacture=true;
 					List listInvoiceClient=(List) mapInvoiceClient.get(iClientnvoice);
 					Double totfacture= new Double(0);
@@ -1235,7 +1267,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		tableTopHeader.setWidthPercentage(96);
 		 
 		    
-		PdfPCell cell = new PdfPCell(new Phrase("Facture Pro Forma N�",GeneratePdf.FONT_12_bold));
+		PdfPCell cell = new PdfPCell(new Phrase("Facture Pro Forma N°",GeneratePdf.FONT_12_bold));
 	    cell.setColspan(24);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -1354,7 +1386,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 			 
 			try {
 				String [][] MapfieldEtatDeDepense  = new String[][]{{ "date", "20" }, { "invoice", "20" },
-					{ "client", "30" },{ "qt�", "15" },
+					{ "client", "30" },{ "qté", "15" },
 				    { "AchatFish", "20" },{ "n/Box", "13" },
 					{ "Poly", "20" },{ "trsprt", "20" },
 					{ "transit", "20" },{ "m/Oeuv", "20" },

@@ -105,11 +105,11 @@
 	  </ext:panel>
 	  
 	   <ext:panel   id="ar"   bodyStyle="background: none;"       height="500"    border="false"      title="Arabic"    > 
-	   <textarea id="dataSocieteLng_ar" name="dataSocieteLng_ar"   rows="10"   style="width: 100%;">${detailBean.maplang.get("ar")}</textarea>
+	   <textarea id="dataSocieteLng_ar" name="dataSocieteLng_ar"   rows="10"   style="width: 100%;"><c:forEach var="entry" items="${detailBean.maplang.get('ar')}" >${entry.key}:${entry.value},</c:forEach></textarea>
 	  </ext:panel>
 	  
 	   <ext:panel   id="en"   bodyStyle="background: none;"       height="500"    border="false"      title="English"    > 
-	   <textarea id="dataSocieteLng_en" name="dataSocieteLng_en"   rows="10"   style="width: 100%;">${detailBean.maplang.get("en")}</textarea>
+	   <textarea id="dataSocieteLng_en" name="dataSocieteLng_en"   rows="10"   style="width: 100%;"><c:forEach var="entry" items="${detailBean.maplang.get('en')}" >${entry.key}:${entry.value},</c:forEach></textarea>
 	  </ext:panel>
 	  
  </ext:tabPanel>
