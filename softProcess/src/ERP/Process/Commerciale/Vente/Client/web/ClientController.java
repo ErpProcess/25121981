@@ -39,8 +39,5 @@ public class ClientController  extends ClientActionManager     {
 		}
 
 	}
-    
-     
-   
-    
+ 
      }
