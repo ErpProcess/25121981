@@ -112,8 +112,8 @@ $(document).ready(function (){
         		genericPdfProcess(url);     
         	}
 
-          </script> <div id="scxxx" style="left: 0px;"></div>
-          <ext:button type="button" text="imprimer Export"  onClick="imprimerExport()"  renderTo="scxxx"><label>imprimer Transit</label></ext:button>
+          </script> <div id="scxxx"  ></div>
+          <ext:button type="button" text="imprimer cerificat"  onClick="imprimerExport()"    renderTo="scxxx"><label>imprimer Transit</label></ext:button>
           </td>
         </tr>
         

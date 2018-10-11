@@ -12,6 +12,7 @@ import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
+import ERP.Process.Commerciale.Stock.Stock_article.model.MouvementStockBean;
 import ERP.Process.Commerciale.TarificationPrtvArticle.model.TarificationPrtvArticleBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
 
@@ -45,9 +46,16 @@ public class Det_reception_achatBean  extends  GenericBean{
 	@JoinColumn(name = "trf_prim_id", insertable = true, updatable = true,referencedColumnName="tarif_prim_id")
 	private TarificationPrtvArticleBean tarif = new TarificationPrtvArticleBean();
 	
-	 
-
+ 
 	
+	@Column
+	private Double cout_unit_moyen_pondere;
+	 
+	 
+	@Column
+	private Integer mvt_stock_id;
+	 
+	 
 	@Transient
 	private String indx_row = "";
 	
@@ -62,7 +70,6 @@ public class Det_reception_achatBean  extends  GenericBean{
 	private String id_entite = "";
 
 	 
- 
 
 	@Column
 	private String observation = "";
@@ -242,5 +249,23 @@ public class Det_reception_achatBean  extends  GenericBean{
 	public void setTarif(TarificationPrtvArticleBean tarif) {
 		this.tarif = tarif;
 	}
+
+	public Double getCout_unit_moyen_pondere() {
+		return cout_unit_moyen_pondere;
+	}
+
+	public void setCout_unit_moyen_pondere(Double cout_unit_moyen_pondere) {
+		this.cout_unit_moyen_pondere = cout_unit_moyen_pondere;
+	}
+
+	public Integer getMvt_stock_id() {
+		return mvt_stock_id;
+	}
+
+	public void setMvt_stock_id(Integer mvt_stock_id) {
+		this.mvt_stock_id = mvt_stock_id;
+	}
+	
+	
 
 }

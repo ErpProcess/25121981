@@ -159,13 +159,13 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				setObjectValueModel("kb_"+bsdx.getPk_entite_admin().getEnt_id().substring(df+1),bsdx.getEnt_libelle());
 		}
 	  
-	    doWriteHeaderDocument_PDF_NOT_PASY(document,73,fs,Facture_clientTemplate.MapfieldBean_ModelKobbi,bSession);
+		doWriteHeaderDocumentMancha(document,73,fs,Facture_clientTemplate.MapfieldBean_ModelKobbi,bSession);
 	    doWriteEnteteKobbiMancha(document,73,denBean); 
 	
 	    
 	    
-	    doWrite_Data_Table (denBean,lisData,document,73,Facture_clientTemplate.MapfieldBean_ModelKobbi);
-	    doWrite_mode_pay_banc(denBean,lisData,73,document);  ;  
+	    //doWrite_Data_Table (denBean,lisData,document,73,Facture_clientTemplate.MapfieldBean_ModelKobbi);
+	    //doWrite_mode_pay_banc(denBean,lisData,73,document);  ;  
 	    /*****************************************************************************************************/
 	    document.close();
 		getResponse().setContentType("text");
@@ -222,59 +222,53 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 			PdfPTable tableTopHeader = new PdfPTable(100);
 			tableTopHeader.setWidthPercentage(poucentage);
 		    BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-		  
+		    BaseFont bf = BaseFont.createFont("c://windows/fonts/arialuni.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+			Font arialuniArab = new Font(bf, 10);
+		    
+			  
             SocieteBean ste=bs.getSociete();
 		    
 		    JSONObject jsonObj = new JSONObject(ste.getData_societe_langue());
 		    JSONObject jsonObjff = (JSONObject) jsonObj.get("ar");
 		 
-		    String fsdd=jsonObjff.getString("soc_lib");
-	     	 
-		    org.jsoup.nodes.Document  sss= Jsoup.parse(fsdd);
-			String text = sss.body().text();
+		    String societe=jsonObjff.getString("soc_lib");
+		    String adresse=jsonObjff.getString("adresse");
 			
-			BaseFont bf = BaseFont.createFont(
-				    "c://windows/fonts/arialuni.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-				Font font = new Font(bf, 15);
 			
-			PdfPCell cell     = new PdfPCell(new Phrase(" " +text,font));
-		    cell.setColspan(100);
+			
+			PdfPCell cell     = new PdfPCell(new Phrase(" "+Jsoup.parse(societe).body().text(),arialuniArab));
+		    cell.setColspan(60);
 		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
 		    cell.setFixedHeight(20f);
-		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		    cell.setBorder(cell.NO_BORDER);
 		    tableTopHeader.addCell(cell);
 		    
+		    cell     = new PdfPCell(new Phrase(" "+Jsoup.parse(societe).body().text(),arialuniArab));
+		    cell.setColspan(40);
+		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader.addCell(cell);
+	 
 		    
 		  
 		    
-		     
-		   
 		    
-		    cell = new PdfPCell(new Phrase("Place,  Date  Tunis",GeneratePdf.Bold_11_times_roman));
-		    cell.setColspan(25);
+		    
+		    cell = new PdfPCell(new Phrase(" "+Jsoup.parse(adresse).body().text(),arialuniArab));
+		    cell.setColspan(100);
 		    cell.setFixedHeight(20f);
+		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
 		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		    cell.setBorder(cell.NO_BORDER);
 		    tableTopHeader.addCell(cell);
 		    
-		    SimpleDateFormat month_date = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
-		    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		    
-		    Date date = sdf.parse(ProcessDate.getCurrentTimeStamp(denBean.getFact_date()));
-
-		    String month_name = month_date.format(date);
 		    
-		    cell = new PdfPCell(new Phrase(","+month_name ,GeneratePdf.Normal_11_times_roman));
-		    cell.setColspan(75);
-		    cell.setFixedHeight(20f);
-		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-		    cell.setBorder(cell.NO_BORDER);
-		    tableTopHeader.addCell(cell);
 		    
 		    PdfPTable tableTopHeader2 = new PdfPTable(100);
-		    tableTopHeader2.setWidthPercentage(85);
-		    
+		    tableTopHeader2.setWidthPercentage(73);
 		    cell = new PdfPCell(new Phrase("  ",GeneratePdf.Normal_11_times_roman));
 		    cell.setColspan(51);
 		    cell.setFixedHeight(20f);
@@ -286,7 +280,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		   
 		    
 		    Font FONT_12_bold = new Font(Font.getFamily("TIMES_ROMAN"), 11, Font.BOLD|  Font.UNDERLINE);
-		    cell = new PdfPCell(new Phrase("Billing To",FONT_12_bold));
+		    cell = new PdfPCell(new Phrase(" ",FONT_12_bold));
 		    cell.setColspan(49);
 		    cell.setFixedHeight(20f);
 		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -300,51 +294,39 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		    cell.setBorder(cell.NO_BORDER);
 		    tableTopHeader2.addCell(cell);
 		     
-		    
-		    cell = new PdfPCell(new Phrase(denBean.getClient().getClt_lib(),GeneratePdf.Normal_11_times_roman));
-		    cell.setColspan(49);
-
+		    JSONObject jsonclient = new JSONObject(denBean.getClient().getData_client_langue());
+		    JSONObject j_arab = (JSONObject) jsonclient.get("ar");
+		    String clt_lib=j_arab.getString("clt_lib");
+		    cell = new PdfPCell(new Phrase(Jsoup.parse(clt_lib).body().text(),arialuniArab));
+		    cell.setColspan(100);
+		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
 		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		    cell.setBorder(cell.NO_BORDER);
 		    tableTopHeader2.addCell(cell);
 		    
 		    
-		    
-		    cell = new PdfPCell(new Phrase("  " ,GeneratePdf.Normal_11_times_roman));
-		    cell.setColspan(51);
+		    String adresse1=j_arab.getString("adresse1");
+		  
+		    cell = new PdfPCell(new Phrase(Jsoup.parse(adresse1).body().text(),arialuniArab));
+		    cell.setColspan(100);
+		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
 		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		    cell.setBorder(cell.NO_BORDER);
 		    tableTopHeader2.addCell(cell);
-		    cell = new PdfPCell(new Phrase(denBean.getClient().getClt_adr(),GeneratePdf.Normal_11_times_roman));
-		    cell.setColspan(49);
-		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-		    cell.setBorder(cell.NO_BORDER);
-		    tableTopHeader2.addCell(cell);
-		    
-		    
-		    
-		    cell = new PdfPCell(new Phrase("  " ,GeneratePdf.Normal_11_times_roman));
-		    cell.setColspan(51);
-		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-		    cell.setBorder(cell.NO_BORDER);
-		    tableTopHeader2.addCell(cell);
-		    cell = new PdfPCell(new Phrase(denBean.getClient().getClt_region(),GeneratePdf.Normal_11_times_roman));
-		    cell.setColspan(49);
+		 
+		    String adresse2=j_arab.getString("adresse2");
+		    cell = new PdfPCell(new Phrase(Jsoup.parse(adresse2).body().text(),arialuniArab));
+		    cell.setColspan(100);
+		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
 		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		    cell.setBorder(cell.NO_BORDER);
 		    tableTopHeader2.addCell(cell);
 		    
-		    cell = new PdfPCell(new Phrase("  " ,GeneratePdf.Normal_11_times_roman));
-		    cell.setColspan(51);
-		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-		    cell.setBorder(cell.NO_BORDER);
-		    tableTopHeader2.addCell(cell);
-		    cell = new PdfPCell(new Phrase(denBean.getClient().getClt_pays(),GeneratePdf.Normal_11_times_roman));
-		    cell.setColspan(49);
-		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-		    cell.setBorder(cell.NO_BORDER);
-		    tableTopHeader2.addCell(cell);
 		    
+		   
+		    
+		    
+		  
 		    
 		    
 		    
@@ -359,7 +341,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		    
 		    PdfPTable tableTopHeader3 = new PdfPTable(100);
 		    tableTopHeader3.setWidthPercentage(73);
-		    PdfPCell cellSummary = new PdfPCell(new Phrase( "Summary table:" ,GeneratePdf.Normal_10_times_roman));
+		    PdfPCell cellSummary = new PdfPCell(new Phrase( " " ,GeneratePdf.Normal_10_times_roman));
 	        cellSummary.setHorizontalAlignment(Element.ALIGN_LEFT);
 	        cellSummary.setPaddingBottom(3);
 	        cellSummary.setColspan(100);
@@ -586,7 +568,48 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 	    document.add(tableheader);
 	
 }
-	 private   void doWriteEnteteKobbi(Document document,int poucentage, Facture_clientBean denBean) throws Exception {
+	
+	private  void doWriteHeaderDocumentMancha(Document document,int poucentage, FileOutputStream fs ,String [][] mapFieldBean,BeanSession bSession) throws Exception {
+	    PdfWriter writer = PdfWriter.getInstance(document,  fs);
+	    TableHeaderNormale event = new TableHeaderNormale(bSession);
+        //writer.setPageEvent(event);
+        
+       
+        BeanSession  bs=(BeanSession) getObjectValueModel(BEAN_SESSION);
+        
+        document.addCreator(bs.getPack_libelle());
+	    document.addAuthor(bs.getMod_libelle());
+	    document.addTitle(bs.getFct_libelle()+"/"+bs.getSousmod_libelle_title());
+	    document.open();
+        
+        PdfPTable tableheader = new PdfPTable(100);
+        PdfPCell cellheder;
+        tableheader.setWidthPercentage(poucentage);
+        
+        Image companyLogo = Image.getInstance("c:/images/sigle_ibs.jpg");
+		companyLogo.scalePercent(50);
+		cellheder = new PdfPCell(); 
+		cellheder.setBorder(3);
+		//cellheder.addElement(new Chunk(companyLogo, 10, -50));
+		
+		cellheder.setColspan(10);
+		cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
+		cellheder.setBorder(cellheder.NO_BORDER);
+		tableheader.addCell(cellheder);
+		//bs.getSoc_lib()+"\n\r"+bs.getEtab_lib()+"\n\r"+bs.getPrf_libelle()
+		
+	    cellheder = new PdfPCell(new Phrase("                            ",GeneratePdf.Normal_10_times_roman));
+	    cellheder.setColspan(90);
+	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cellheder.setPaddingLeft(28f);
+	    cellheder.setPaddingBottom(172f);
+	    cellheder.setBorder(cellheder.NO_BORDER);
+	    tableheader.addCell(cellheder);
+	    document.add(tableheader);
+	
+}
+	
+	private   void doWriteEnteteKobbi(Document document,int poucentage, Facture_clientBean denBean) throws Exception {
 			PdfPTable tableTopHeader = new PdfPTable(100);
 			tableTopHeader.setWidthPercentage(poucentage);
 			    

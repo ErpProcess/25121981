@@ -31,6 +31,9 @@ public class Stock_articleBean extends GenericBean {
 
 	@Column
 	private Double quantite_recept;
+	
+	@Column
+	private Double quantite_vendu;
 
 	@Transient
 	private Double mnt_ttc_recept;
@@ -45,8 +48,7 @@ public class Stock_articleBean extends GenericBean {
 	@Column
 	private Double mnt_ht_recept;
 
-	@Column
-	private Double quantite_vendu;
+	
 
 	@Column
 	private Double mnt_tva_vente;

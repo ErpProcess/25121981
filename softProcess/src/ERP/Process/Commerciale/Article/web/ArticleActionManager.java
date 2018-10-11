@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,6 +15,8 @@ import org.hibernate.ejb.criteria.predicate.IsEmptyPredicate;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import ERP.Process.Commerciale.Article.model.ArticleBean;
 import ERP.Process.Commerciale.Article.model.ClientArticleBean;
@@ -319,7 +322,12 @@ public class ArticleActionManager extends ArticleTemplate {
 			removeObjectModel(FORM_BEAN);
 			BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
 			ArticleBean rowBean = (ArticleBean) getIndexFromDataGrid_v1((String) getObjectValueModel(NAME_LIST_G));
-			
+			if( !StringUtils.isBlank(rowBean.getData_article_langue()) ) {
+				JSONObject jsonObj = new JSONObject(rowBean.getData_article_langue());
+				HashMap<String, Object> yourHashMap = new Gson().fromJson(jsonObj.toString(), HashMap.class);
+				Map<String,Object> yearMap = yourHashMap;  
+				rowBean.setMaplang(yearMap);
+			}
 			setObjectValueModel(FORM_BEAN, rowBean);
 			if (bs.getFct_id().equals("2"))
 				return getViewConsult((String) getObjectValueModel("FORM_VIEW"));
@@ -463,7 +471,20 @@ public class ArticleActionManager extends ArticleTemplate {
 		try {
 			setObjectValueModel(FORM_BEAN, detailBean);
 			detailBean.getBean_sitcod().setData_id("A");
- 
+			
+			
+			 String dataSocieteLng_ar= getRequest().getParameter("dataSocieteLng_ar");
+			 String dataSocieteLng_en= getRequest().getParameter("dataSocieteLng_en");
+			 
+			 JSONObject json        = new JSONObject();
+			 boolean enter=false;
+			 if( !StringUtils.isBlank(dataSocieteLng_ar) ) { enter=true; json.put("ar",  convertStringToHashMap(dataSocieteLng_ar)); }
+			 if( !StringUtils.isBlank(dataSocieteLng_en) ) { enter=true; json.put("en", convertStringToHashMap(dataSocieteLng_en));  }
+			 
+			 if(enter ) { 
+			 String data_societe_langue=json.toString();
+			 detailBean.setData_article_langue(data_societe_langue);
+			 }
 			
 			if(bs.getFct_id().equals("5")){
 				detailBean.getBean_mode_cal().setData_id("coef");
@@ -536,6 +557,13 @@ public class ArticleActionManager extends ArticleTemplate {
 	public ModelAndView doUpdateData(ArticleBean beanUpBean) {
 		try {
 			setObjectValueModel("moda", "tout");
+			String dataSocieteLng_ar= getRequest().getParameter("dataSocieteLng_ar");
+			String dataSocieteLng_en= getRequest().getParameter("dataSocieteLng_en");
+			JSONObject json        = new JSONObject();
+			json.put("ar",  convertStringToHashMap(dataSocieteLng_ar));
+			json.put("en", convertStringToHashMap(dataSocieteLng_en));
+			String data_article_langue=json.toString();
+			beanUpBean.setData_article_langue(data_article_langue);
 			serviceArticle.doUpdateRowData(beanUpBean);
 			update_row_from_list(LIST_DATA, beanUpBean);
 			removeObjectModel(FORM_BEAN);

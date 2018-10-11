@@ -2,6 +2,8 @@ package ERP.Process.Commerciale.Article.model;
 
  
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -147,10 +149,30 @@ public class ArticleBean extends GenericBean {
 	
 	 
 
-	 
+	@Transient
+	private  Map   maplang = new HashMap();
+	
+	@Column 
+	private String  data_article_langue ="";
 	 
 
  
+
+	public Map getMaplang() {
+		return maplang;
+	}
+
+	public void setMaplang(Map maplang) {
+		this.maplang = maplang;
+	}
+
+	public String getData_article_langue() {
+		return data_article_langue;
+	}
+
+	public void setData_article_langue(String data_article_langue) {
+		this.data_article_langue = data_article_langue;
+	}
 
 	public Double getStock_maximum() {
 		return stock_maximum;

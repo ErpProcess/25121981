@@ -2,6 +2,7 @@ package ERP.Process.Commerciale.Vente.Service.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import ERP.Process.Commerciale.Code_barre.model.Code_barreBean;
 import ERP.Process.Commerciale.Tarification.model.TarificationBean;
 import ERP.Process.Commerciale.TarificationPrtvArticle.model.TarificationPrtvArticleBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
 
 @JsonAutoDetect
@@ -119,6 +121,19 @@ public class DetServiceBean extends GenericBean {
 	private Date date_mod;
 	@Column
 	private String usr_mod = "";
+	
+	
+	@ManyToOne(cascade = CascadeType.PERSIST) 
+	@JoinColumn(name = "dev_id", insertable = true, updatable = true)
+	private DeviseBean  devise ;
+
+	public DeviseBean getDevise() {
+		return devise;
+	}
+
+	public void setDevise(DeviseBean devise) {
+		this.devise = devise;
+	}
 
 	public Double getQuantite() {
 		return quantite;

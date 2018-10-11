@@ -6,10 +6,15 @@
    });
    </script>
   <ext:body  >  
+  
   <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
+  
+  
+  <ext:tabPanel   border="false"        id="sdsfgrgrgpll"  activeTab="fr"  >
+  
+	  <ext:panel   id="fr"    bodyStyle="background: none;"       border="false"      title="Francais"    > 
+	  
  <table class="tableStyleContent"  cellpadding="5" cellspacing="10"  id="tblData"     >
-
-
 <tr>  
    <td width="7%"><label>${clt_id}</label></td>  
    <td width="93%"  >  
@@ -123,12 +128,16 @@
    <input id="clt_typ" name="clt_typ"     type="text"    size="1"              value="${detailBean.clt_typ}"    nextElement="btValidx"              />  
   </td>  
    </tr>
-  
-   
-  
-   
-    
-   
- </table>   
+ </table> 
+  </ext:panel>  
+   <ext:panel   id="ar"   bodyStyle="background: none;"       height="500"    border="false"      title="Arabic"    > 
+     <textarea id="dataSocieteLng_ar" name="dataSocieteLng_ar"   rows="10"   style="width: 100%;"><c:forEach var="entry" items="${detailBean.maplang.get('ar')}" >${entry.key}:${entry.value},</c:forEach></textarea>
+   </ext:panel>
+	  
+   <ext:panel   id="en"   bodyStyle="background: none;"       height="500"    border="false"      title="English"    > 
+	 <textarea id="dataSocieteLng_en" name="dataSocieteLng_en"   rows="10"   style="width: 100%;"><c:forEach var="entry" items="${detailBean.maplang.get('en')}" >${entry.key}:${entry.value},</c:forEach></textarea>
+  </ext:panel>
+ </ext:tabPanel>
+ 
 </ext:panel>
 </ext:body>

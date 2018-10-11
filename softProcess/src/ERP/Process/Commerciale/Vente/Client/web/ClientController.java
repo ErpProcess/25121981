@@ -28,6 +28,7 @@ public class ClientController  extends ClientActionManager     {
     	 try {
 			ModelAndView model = doInitGenericAction(request, response, new ClientTemplate());
 			if (i$_ACT_INIT_SERVLET)  		return doInitServletAction();
+			if (i$_ACT_SELECT_ROW)          return doGetRowDataBean();              
 			if (i$_ACT_ADD)             	return doAddData(detailBean);
 			if (i$_ACT_AJAX_FETCH)    		return doFetchData(detailBean);
 			if (i$_ACT_UPDATE)				return doUpdateData(detailBean);

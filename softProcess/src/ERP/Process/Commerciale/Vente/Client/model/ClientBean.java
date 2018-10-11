@@ -1,5 +1,8 @@
 package ERP.Process.Commerciale.Vente.Client.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
@@ -89,6 +93,32 @@ public class ClientBean extends GenericBean {
 	@JoinColumn(name = "cptbanribrib", insertable = true, updatable = true, referencedColumnName = "cptbanribrib")
 	private CompteBancaireBean compte = new CompteBancaireBean();
 	
+	
+	@Transient
+	private  Map   maplang = new HashMap();
+	
+	@Column 
+	private String  data_client_langue ="";
+	
+	
+
+ 
+
+	public String getData_client_langue() {
+		return data_client_langue;
+	}
+
+	public void setData_client_langue(String data_client_langue) {
+		this.data_client_langue = data_client_langue;
+	}
+
+	public Map getMaplang() {
+		return maplang;
+	}
+
+	public void setMaplang(Map maplang) {
+		this.maplang = maplang;
+	}
 
 	public Type_tarificationBean getTyp_trfBean() {
 		return typ_trfBean;

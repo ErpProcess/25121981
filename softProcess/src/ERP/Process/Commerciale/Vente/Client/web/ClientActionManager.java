@@ -1,15 +1,22 @@
 package ERP.Process.Commerciale.Vente.Client.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import ERP.Process.Commerciale.Type_tarification.model.Type_tarificationBean;
 import ERP.Process.Commerciale.Type_tarification.service.Type_tarificationService;
 import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
 import ERP.Process.Commerciale.Vente.Client.service.ClientService;
 import ERP.Process.Commerciale.Vente.Client.template.ClientTemplate;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.model.SocieteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.CompteBancaire.model.CompteBancaireBean;
 import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.CompteBancaire.service.CompteBancaireService;
@@ -85,10 +92,13 @@ public class ClientActionManager extends ClientTemplate {
 
 	public ModelAndView doAddData(ClientBean detailBean) throws Throwable {
 		try {
-			BeanSession  bs =(BeanSession) getObjectValueModel(BEAN_SESSION);
-			
-		 
-			
+			 String dataSocieteLng_ar= getRequest().getParameter("dataSocieteLng_ar");
+			 String dataSocieteLng_en= getRequest().getParameter("dataSocieteLng_en");
+			 JSONObject json        = new JSONObject();
+			 json.put("ar",  convertStringToHashMap(dataSocieteLng_ar));
+			 json.put("en", convertStringToHashMap(dataSocieteLng_en));
+			 String data_societe_langue=json.toString();
+			detailBean.setData_client_langue(data_societe_langue);
 			setObjectValueModel(FORM_BEAN, detailBean);
 			serviceClient.doCreateRowData(detailBean);
 			removeObjectModel(FORM_BEAN);
@@ -98,9 +108,45 @@ public class ClientActionManager extends ClientTemplate {
 		}
 		return getViewAdd(FORM_VIEW);
 	}
+	
+	public    ModelAndView doGetRowDataBean() {
+
+		try {
+			removeObjectModel(FORM_BEAN);
+			BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
+			ClientBean rowBean = (ClientBean)getIndexFromDataGrid_v1((String) getObjectValueModel(NAME_LIST_G));
+			if( !StringUtils.isBlank(rowBean.getData_client_langue()) ) {
+			JSONObject jsonObj = new JSONObject(rowBean.getData_client_langue());
+			HashMap<String, Object> yourHashMap = new Gson().fromJson(jsonObj.toString(), HashMap.class);
+			Map<String,Object> yearMap = yourHashMap;  
+			rowBean.setMaplang(yearMap);
+			}
+			setObjectValueModel(FORM_BEAN, rowBean);
+			if (bs.getFct_id().equals("2"))
+				return getViewConsult((String) getObjectValueModel("FORM_VIEW"));
+			if (bs.getFct_id().equals("3"))
+				return getViewUpdate((String) getObjectValueModel("FORM_VIEW"));
+			if (bs.getFct_id().equals("4"))
+				return getViewDelete((String) getObjectValueModel("FORM_VIEW"));
+		} catch (Exception e) {
+			displayException(e);
+			return getViewFilterAjax((String) getObjectValueModel("FILTER_VIEW"));
+		}
+		return getHome();
+
+	}
 
 	public ModelAndView doUpdateData(ClientBean beanUpBean) {
 		try {
+			
+			 String dataSocieteLng_ar= getRequest().getParameter("dataSocieteLng_ar");
+			 String dataSocieteLng_en= getRequest().getParameter("dataSocieteLng_en");
+			 JSONObject json        = new JSONObject();
+			 json.put("ar",  convertStringToHashMap(dataSocieteLng_ar) );
+			 json.put("en", convertStringToHashMap(dataSocieteLng_en) );
+			 String data_societe_langue=json.toString();
+			 beanUpBean.setData_client_langue(data_societe_langue);
+			 
 			serviceClient.doUpdateRowData(beanUpBean);
 			update_row_from_list(LIST_DATA, beanUpBean);
 			throwNewException("mod01");

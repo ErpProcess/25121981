@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -203,6 +204,19 @@ public class GenericWeb       {
 		else
 		return false;
 		
+	}
+    
+    public Map convertStringToHashMap(String strData){
+		
+		Map<String, String> myMap = new HashMap<String, String>();
+		if(StringUtils.isBlank(strData)) return myMap;
+		String[] pairs = strData.split(",");
+		 for (int i=0;i<pairs.length;i++) {
+		     String pair = pairs[i];
+		     String[] keyValue = pair.split(":");
+		     myMap.put(keyValue[0],  keyValue[1] );
+		 }
+		 return myMap;
 	}
     
     public static Map<String, Object> toMap(JSONObject object) throws JSONException {

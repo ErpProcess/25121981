@@ -120,18 +120,7 @@ public class ActionSocieteManager extends SocieteTemplate {
 		return null;
 
 	}
-	public Map convertStringToHashMap(String strData){
-		
-		 Map<String, String> myMap = new HashMap<String, String>();
-		 
-		String[] pairs = strData.split(",");
-		 for (int i=0;i<pairs.length;i++) {
-		     String pair = pairs[i];
-		     String[] keyValue = pair.split(":");
-		     myMap.put(keyValue[0],  keyValue[1] );
-		 }
-		 return myMap;
-	}
+	
 
 	public ModelAndView doAddData(SocieteBean detailBean) throws Throwable {
 		try {

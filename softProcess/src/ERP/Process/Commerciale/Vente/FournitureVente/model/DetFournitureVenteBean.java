@@ -2,6 +2,7 @@ package ERP.Process.Commerciale.Vente.FournitureVente.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +17,10 @@ import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import ERP.Process.Commerciale.Code_barre.model.Code_barreBean;
+import ERP.Process.Commerciale.Stock.Stock_article.model.MouvementStockBean;
 import ERP.Process.Commerciale.Tarification.model.TarificationBean;
 import ERP.Process.Commerciale.TarificationPrtvArticle.model.TarificationPrtvArticleBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
 
 @JsonAutoDetect
@@ -117,9 +120,39 @@ public class DetFournitureVenteBean extends GenericBean {
 	private Date date_mod;
 	@Column
 	private String usr_mod = "";
+	
+	
+	@Column
+	private Double cout_unit_moyen_pondere;
+	 
+
+	@ManyToOne(cascade = CascadeType.PERSIST) 
+	@JoinColumn(name = "mvt_stock_id", insertable = true, updatable = true, nullable=true)
+	private MouvementStockBean mvt_stock ;
+	
+
+	public Double getCout_unit_moyen_pondere() {
+		return cout_unit_moyen_pondere;
+	}
+
+	public void setCout_unit_moyen_pondere(Double cout_unit_moyen_pondere) {
+		this.cout_unit_moyen_pondere = cout_unit_moyen_pondere;
+	}
+
+	@ManyToOne(cascade = CascadeType.PERSIST) 
+	@JoinColumn(name = "dev_id", insertable = true, updatable = true)
+	private DeviseBean  devise ;
 
 	public Double getQuantite() {
 		return quantite;
+	}
+
+	public DeviseBean getDevise() {
+		return devise;
+	}
+
+	public void setDevise(DeviseBean devise) {
+		this.devise = devise;
 	}
 
 	public void setQuantite(Double quantite) {
@@ -186,6 +219,14 @@ public class DetFournitureVenteBean extends GenericBean {
 
 	public void setMontant_ht_vente(Double montant_ht_vente) {
 		this.montant_ht_vente = montant_ht_vente;
+	}
+
+	public MouvementStockBean getMvt_stock() {
+		return mvt_stock;
+	}
+
+	public void setMvt_stock(MouvementStockBean mvt_stock) {
+		this.mvt_stock = mvt_stock;
 	}
 
 	public String getIndx_row() {
