@@ -602,7 +602,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 	    cellheder.setColspan(90);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cellheder.setPaddingLeft(28f);
-	    cellheder.setPaddingBottom(172f);
+	    cellheder.setPaddingBottom(156f);
 	    cellheder.setBorder(cellheder.NO_BORDER);
 	    tableheader.addCell(cellheder);
 	    document.add(tableheader);
