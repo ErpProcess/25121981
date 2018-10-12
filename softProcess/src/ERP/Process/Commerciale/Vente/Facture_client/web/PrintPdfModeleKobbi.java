@@ -145,7 +145,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		try {
 		List   lisData=  (List) getObjectValueModel(Facture_clientTemplate.LIST_DATA_DET_FACT) ;
 		Facture_clientBean    denBean= (Facture_clientBean) getObjectValueModel(FORM_BEAN) ;
-		File file = new File(getRequest().getRealPath("/")+"/temp/"+Facture_clientTemplate.LIST_DATA_DET_FACT+"Mancha"+getRequest().getSession().getId()+".pdf");
+		File file = new File(getRequest().getRealPath("/")+"/temp/"+"certificat_origine_"+denBean.getClient().getClt_id()+""+getRequest().getSession().getId()+".pdf");
 		BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
 	    FileOutputStream fs = new FileOutputStream(file);
 		Document document = new Document(PageSize.A4, 5, 5, 5, 25);
@@ -160,7 +160,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		}
 	  
 		doWriteHeaderDocumentMancha(document,73,fs,Facture_clientTemplate.MapfieldBean_ModelKobbi,bSession);
-	    doWriteEnteteKobbiMancha(document,73,denBean); 
+	    doWriteEnteteKobbiMancha(lisData,document,73,denBean); 
 	
 	    
 	    
@@ -171,7 +171,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		getResponse().setContentType("text");
 		getResponse().setHeader("Cache-Control", "no-cache");
 		getResponse().setStatus(200);
-		getResponse().getWriter().write(Facture_clientTemplate.LIST_DATA_DET_FACT+"Mancha"+getRequest().getSession().getId()+".pdf");
+		getResponse().getWriter().write("certificat_origine_"+denBean.getClient().getClt_id()+""+getRequest().getSession().getId()+".pdf");
 		
 		} catch (Exception e) {
 			throw e;
@@ -218,7 +218,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 //     
 //		}
 	
-	 private   void doWriteEnteteKobbiMancha(Document document,int poucentage, Facture_clientBean denBean) throws Exception {
+	 private   void doWriteEnteteKobbiMancha(List   lisData,Document document,int poucentage, Facture_clientBean denBean) throws Exception {
 			PdfPTable tableTopHeader = new PdfPTable(100);
 			tableTopHeader.setWidthPercentage(poucentage);
 		    BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
@@ -228,11 +228,12 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 			  
             SocieteBean ste=bs.getSociete();
 		    
-		    JSONObject jsonObj = new JSONObject(ste.getData_societe_langue());
-		    JSONObject jsonObjff = (JSONObject) jsonObj.get("ar");
+		    JSONObject societeObj = new JSONObject(ste.getData_societe_langue());
+		    JSONObject societeData = (JSONObject) societeObj.get("ar");
 		 
-		    String societe=jsonObjff.getString("soc_lib");
-		    String adresse=jsonObjff.getString("adresse");
+		    String societe=societeData.getString("soc_lib");
+		    String adresse=societeData.getString("adresse");
+		    String pays=societeData.getString("pays");
 			
 			
 			
@@ -296,7 +297,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		     
 		    JSONObject jsonclient = new JSONObject(denBean.getClient().getData_client_langue());
 		    JSONObject j_arab = (JSONObject) jsonclient.get("ar");
-		    String clt_lib=j_arab.getString("clt_lib");
+		    String clt_lib=j_arab.getString("ligne0");
 		    cell = new PdfPCell(new Phrase(Jsoup.parse(clt_lib).body().text(),arialuniArab));
 		    cell.setColspan(100);
 		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
@@ -305,16 +306,26 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		    tableTopHeader2.addCell(cell);
 		    
 		    
-		    String adresse1=j_arab.getString("adresse1");
-		  
+		    cell = new PdfPCell(new Phrase(Jsoup.parse(pays).body().text(),arialuniArab));
+		    cell.setColspan(40);
+		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+		    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    
+		    
+		    String adresse1=j_arab.getString("ligne1");
 		    cell = new PdfPCell(new Phrase(Jsoup.parse(adresse1).body().text(),arialuniArab));
-		    cell.setColspan(100);
+		    cell.setColspan(60);
 		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
 		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		    cell.setBorder(cell.NO_BORDER);
 		    tableTopHeader2.addCell(cell);
+		    
+		  
+		    
 		 
-		    String adresse2=j_arab.getString("adresse2");
+		    String adresse2=j_arab.getString("ligne2");
 		    cell = new PdfPCell(new Phrase(Jsoup.parse(adresse2).body().text(),arialuniArab));
 		    cell.setColspan(100);
 		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
@@ -323,10 +334,102 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		    tableTopHeader2.addCell(cell);
 		    
 		    
+		    cell = new PdfPCell(new Phrase( "  "  ,GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(100);
+		    cell.setFixedHeight(35f);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    
+		    
+		    String ligne4=j_arab.getString("ligne4");
+		    cell = new PdfPCell(new Phrase(Jsoup.parse(ligne4).body().text(),arialuniArab));
+		    cell.setColspan(40);
+		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+		    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		    cell.setBorder(cell.NO_BORDER);
+		    cell.setFixedHeight(80f);
+		    tableTopHeader2.addCell(cell);
+		    
+		    
+		    String ligne3=j_arab.getString("ligne3");
+		    cell = new PdfPCell(new Phrase(Jsoup.parse(ligne3).body().text(),arialuniArab));
+		    cell.setColspan(60);
+		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    cell.setFixedHeight(80f);
+		    tableTopHeader2.addCell(cell);
+		    
+		    cell = new PdfPCell(new Phrase( "  "  ,GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(100);
+		    cell.setFixedHeight(20f);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    tableTopHeader2.addCell(cell);
+		    
+		    Double qteBox= new Double(0);
+		    for(int i=0; i < lisData.size(); i++ ){
+			    Det_Fact_ClientBean bean = (Det_Fact_ClientBean) lisData.get(i);
+			    qteBox=ProcessNumber.addition(qteBox,  bean.getNbrBoxes());
+	         }
+		     
+		    String QteBox="";
+		    if(qteBox!=null && qteBox>0) {
+		    	QteBox=ProcessFormatNbr.convertDoubleToIntString(qteBox);
+		    }
+		    
+		    String ligne1=j_arab.getString("ligne1");
+		    cell = new PdfPCell(new Phrase(Jsoup.parse("عدد الطرود").body().text()+" : "+QteBox+" "+Jsoup.parse("طرد").body().text(),arialuniArab));
+		    cell.setColspan(100);
+		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    cell.setFixedHeight(30f);
+		    tableTopHeader2.addCell(cell);
+		    
+		    
+		    cell = new PdfPCell(new Phrase(Jsoup.parse("تحتوي على").body().text()+" :",arialuniArab));
+		    cell.setColspan(100);
+		    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    cell.setFixedHeight(30f);
+		    tableTopHeader2.addCell(cell);
+		    
+		    cell = new PdfPCell(new Phrase( "  "  ,GeneratePdf.Normal_11_times_roman));
+		    cell.setColspan(100);
+		    cell.setFixedHeight(2f);
+		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cell.setBorder(cell.NO_BORDER);
+		    tableTopHeader2.addCell(cell);
+		    
+		    for(int i=0; i < lisData.size(); i++ ){
+				    Det_Fact_ClientBean bean = (Det_Fact_ClientBean) lisData.get(i);
+
+				    JSONObject articleObj = new JSONObject(bean.getPk().getFkcode_barre().getPk().getAr_bean().getData_article_langue());
+				    JSONObject articleData = (JSONObject) articleObj.get("ar");
+				 
+				    String produit=articleData.getString("produit");
+				    String unite=articleData.getString("unite");
+				    String Qte="";
+				    if(bean.getQuantite()!=null && bean.getQuantite().doubleValue()>0) {
+				    	Qte=ProcessFormatNbr.convertDoubleToIntString(bean.getQuantite());
+				    }
+				    
+				    cell = new PdfPCell(new Phrase("    - "+Qte+"  "+Jsoup.parse(unite).body().text()+"  "+Jsoup.parse(produit).body().text(),arialuniArab));
+				    cell.setColspan(100);
+				    cell.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+				    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+				    cell.setBorder(cell.NO_BORDER);
+				    tableTopHeader2.addCell(cell);
+				    
+		    }
 		   
+		 
 		    
-		    
-		  
+		    //unite:كلغ,produit:وراطة 400-600 غ , box:طرد,ligne1:عدد الطرود,ligne2:تحتوي على,
 		    
 		    
 		    
@@ -339,14 +442,27 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		    cell.setBorder(cell.NO_BORDER);
 		    tableTopHeader2.addCell(cell);
 		    
+		    
+		    
 		    PdfPTable tableTopHeader3 = new PdfPTable(100);
 		    tableTopHeader3.setWidthPercentage(73);
 		    PdfPCell cellSummary = new PdfPCell(new Phrase( " " ,GeneratePdf.Normal_10_times_roman));
 	        cellSummary.setHorizontalAlignment(Element.ALIGN_LEFT);
 	        cellSummary.setPaddingBottom(3);
+	        cellSummary.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
 	        cellSummary.setColspan(100);
 	        cellSummary.setBorder(cellSummary.NO_BORDER);
 	        tableTopHeader3.addCell(cellSummary);
+	        
+	        cellSummary = new PdfPCell(new Phrase( " " ,GeneratePdf.Normal_10_times_roman));
+	        cellSummary.setHorizontalAlignment(Element.ALIGN_LEFT);
+	        cellSummary.setPaddingBottom(3);
+	        cellSummary.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+	        cellSummary.setColspan(100);
+	        cellSummary.setBorder(cellSummary.NO_BORDER);
+	        tableTopHeader3.addCell(cellSummary);
+	        
+	        
 	        document.add(tableTopHeader);
 		    document.add(tableTopHeader2);
 		    document.add(tableTopHeader3);
