@@ -2,6 +2,7 @@ package ERP.Process.Commerciale.Achat.Reception_achat.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -52,8 +53,11 @@ public class Det_reception_achatBean  extends  GenericBean{
 	private Double cout_unit_moyen_pondere;
 	 
 	 
-	@Column
-	private Integer mvt_stock_id;
+ 
+	
+	@ManyToOne(cascade = CascadeType.PERSIST) 
+	@JoinColumn(name = "mvt_stock_id", insertable = true, updatable = true, nullable=true)
+	private MouvementStockBean mvt_stock ;
 	 
 	 
 	@Transient
@@ -258,14 +262,15 @@ public class Det_reception_achatBean  extends  GenericBean{
 		this.cout_unit_moyen_pondere = cout_unit_moyen_pondere;
 	}
 
-	public Integer getMvt_stock_id() {
-		return mvt_stock_id;
+	public MouvementStockBean getMvt_stock() {
+		return mvt_stock;
 	}
 
-	public void setMvt_stock_id(Integer mvt_stock_id) {
-		this.mvt_stock_id = mvt_stock_id;
+	public void setMvt_stock(MouvementStockBean mvt_stock) {
+		this.mvt_stock = mvt_stock;
 	}
-	
+
+	 
 	
 
 }

@@ -2,6 +2,7 @@ package ERP.Process.Commerciale.Vente.FournitureVente.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
 import ERP.Process.Commerciale.Vente.Commandeclient.model.CommandeclientBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
 
@@ -105,8 +107,10 @@ public class FournitureVenteBean extends GenericBean {
 	private Double frn_ve_remise_alacaisse  ;
 	@Column
 	private Double frn_ve_benefice_vente  ;
-	@Column
-	private Integer dev_id;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST) 
+	@JoinColumn(name = "dev_id", insertable = true, updatable = true)
+	private DeviseBean  deviseFr ;
 
 	public Date getFrn_ve_date() {
 		return frn_ve_date;
@@ -309,14 +313,15 @@ public class FournitureVenteBean extends GenericBean {
 		this.frn_ve_benefice_vente = frn_ve_benefice_vente;
 	}
 
-	public void setDev_id(Integer dev_id) {
-		this.dev_id = dev_id;
+	 
+	public DeviseBean getDeviseFr() {
+		return deviseFr;
 	}
 
-	public Integer getDev_id() {
-		return dev_id;
+	public void setDeviseFr(DeviseBean deviseFr) {
+		this.deviseFr = deviseFr;
 	}
-	
+
 	public ProcedureVenteBean getVenteFrn() {
 		return venteFrn;
 	}

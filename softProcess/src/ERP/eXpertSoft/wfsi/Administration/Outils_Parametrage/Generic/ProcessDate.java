@@ -63,9 +63,22 @@ public class ProcessDate {
 		} catch (Exception e) {
 			throw e;
 		}
-		
 	    //return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(dat);
 	}
+	
+	public static String getStringFormatDateRTL(Date dat) throws Exception {
+		try {
+			 if(dat==null) return "";
+			 String ELmm=new SimpleDateFormat("yyyy/MM/dd").format(dat);
+		     return ELmm;
+			
+		} catch (Exception e) {
+			throw e;
+		}
+	    //return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(dat);
+	}
+	
+	
 	
 	public static boolean isStrictementSuperieur(Date date_bord_1 ,Date date_bord_2) throws Exception {
 		try {

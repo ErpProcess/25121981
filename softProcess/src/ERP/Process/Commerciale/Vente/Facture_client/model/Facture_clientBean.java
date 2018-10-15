@@ -174,6 +174,16 @@ public class Facture_clientBean extends GenericBean {
 	@JoinColumn(name = "dev_id", insertable = true, updatable = true)
 	private DeviseBean  devise ;
 	
+	@Transient
+	private  String btnPrintCertificat="display:none;";
+	
+	public String getBtnPrintCertificat() {
+		return btnPrintCertificat;
+	}
+
+	public void setBtnPrintCertificat(String btnPrintCertificat) {
+		this.btnPrintCertificat = btnPrintCertificat;
+	}
 
 	public DeviseBean getDevise() {
 		return devise;

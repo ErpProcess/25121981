@@ -1,4 +1,9 @@
 <%@include file="/Aceuil/esProcess.jsp" %>
+<style>
+.x-panel-btns x-panel-btns-right print_cert{
+float: left;
+}
+</style> 
 <c:import url="${context_path}/dataGridSetting/EditabledataGridConfig.jsp"></c:import>
 <script type="text/javascript">
 width_tabbJQuey="100%";
@@ -104,7 +109,7 @@ $(document).ready(function (){
           <td   ><input id="net_a_payer"     name="net_a_payer"  style="text-align: right;"    type="montant3"    size="25"    libre="libre"   readonly="readonly"      maxlength="50"        value="${detailBean.net_a_payer}"    nextelement="btValidx"></td>
         </tr>
         
-         <tr>
+         <tr style="${detailBean.btnPrintCertificat}">
           <td  colspan="4" align="left" >
           <script type="text/javascript">
           function imprimerExport() {
@@ -112,8 +117,8 @@ $(document).ready(function (){
         		genericPdfProcess(url);     
         	}
 
-          </script> <div id="scxxx"  ></div>
-          <ext:button type="button" text="imprimer cerificat"  onClick="imprimerExport()"    renderTo="scxxx"><label>imprimer Transit</label></ext:button>
+          </script> <div id="scxxx" class="x-panel-btns x-panel-btns-right print_cert" ></div>
+          <ext:button type="button" text="imprimer cerificat"  onClick="imprimerExport()"  style="${detailBean.btnPrintCertificat}"   renderTo="scxxx"><label>imprimer Transit</label></ext:button>
           </td>
         </tr>
         

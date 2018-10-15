@@ -12,10 +12,12 @@ import ERP.Process.Commerciale.Vente.Facture_client.model.Detail_mvt_vente_artic
 import ERP.Process.Commerciale.Vente.Facture_client.model.Facture_clientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.model.MvtVente_articleBean;
 import ERP.Process.Commerciale.Vente.Facture_client.template.Facture_clientTemplate;
+import ERP.Process.Commerciale.Vente.FournitureVente.model.FournitureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.dao.ProcedureVenteDAO;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.DetProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.template.ProcedureVenteTemplate;
+import ERP.Process.Commerciale.Vente.Service.model.ServiceBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericActionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
@@ -64,12 +66,12 @@ public class ProcedureVenteService  extends GenericWeb  {
 	
 	
 	@Transactional
-	public Boolean doCreateRowData(ProcedureVenteBean insertBean) throws Exception {
+	public Boolean doCreateRowData(ProcedureVenteBean detailBean, FournitureVenteBean    fVenteBean , ServiceBean    service) throws Exception {
 		 boolean result = false;
 		 try {
 			 
-		       daoNumSequentiel.getNumSeqSimple(insertBean,"vente_id");
-		       if(daoProcedureVente.doSaveProcedureVente(insertBean)){
+		       daoNumSequentiel.getNumSeqSimple(detailBean,"vente_id");
+		       if(daoProcedureVente.doSaveProcedureVente(detailBean,fVenteBean,service)){
 		       result = true;
 		       }else{
 		    	result = false;  
@@ -97,10 +99,10 @@ public class ProcedureVenteService  extends GenericWeb  {
 	}
 	
 	@Transactional
-	public Boolean  doConfirmRowData(ProcedureVenteBean updateBean)  throws Exception {
+	public Boolean  doConfirmRowData(ProcedureVenteBean updateBean, FournitureVenteBean    fVenteBean , ServiceBean    service)  throws Exception {
 		 boolean result = false;
 		 try {
-		if(daoProcedureVente.doConfirmerVente_article(updateBean)){
+		if(daoProcedureVente.doConfirmerVente_article(updateBean,fVenteBean,service)){
 		    result = true;
 		       }else{
 		    	result = false;  

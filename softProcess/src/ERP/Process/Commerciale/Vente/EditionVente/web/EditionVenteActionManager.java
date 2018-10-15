@@ -405,10 +405,10 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 						for (int i = 0; i < listInvoiceClient.size(); i++) {
 							DetProcedureVenteBean dBean  =(DetProcedureVenteBean) listInvoiceClient.get(i);
 							 
-						     if(dBean.getTarif()!=null  &&  dBean.getTarif().getCout()!=null  ) {
-						    	 devise =dBean.getTarif().getCout().getDevise();
+						     if(dBean.getMvt_stock()!=null  &&  dBean.getMvt_stock().getCout_unitaire_moyen_pondere()!=null  ) {
+						    	 devise =dBean.getMvt_stock().getDevise();
 						    	 etatBean.setDevise(devise);
-						    	 Double prixUnitAchatFishTTC=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarif().getCout().getTarif_unit_ttc(), devise.getChiffre_pattern());
+						    	 Double prixUnitAchatFishTTC=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getMvt_stock().getCout_unitaire_moyen_pondere(), devise.getChiffre_pattern());
 						    	 Double PrixTot=ProcessNumber.PRODUIT(prixUnitAchatFishTTC, dBean.getQuantite());
 						    	 totAchatFishParFacture =ProcessNumber.addition(totAchatFishParFacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(PrixTot, devise.getChiffre_pattern())  );
 						    	 totGenAchatFish      =ProcessNumber.addition(totGenAchatFish,   ProcessFormatNbr.FormatDouble_ParameterChiffre(PrixTot, devise.getChiffre_pattern())  );
@@ -513,15 +513,11 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 						    if(mntProduit==null )mntProduit= new Double(0);
 						    Double prixTotLigne= new Double(0);
 						    
-						    if(dBean.getTarifVente()!=null  &&  dBean.getTarifVente().getCout()!=null  ) {
-						    	 devise =dBean.getTarifVente().getCout().getDevise();
-						    	 Double prixUnitProduit=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarifVente().getCout().getTarif_unit_ttc(), devise.getChiffre_pattern());
+						    if(dBean.getMvt_stock()!=null  &&  dBean.getMvt_stock().getCout_unitaire_moyen_pondere()!=null  ) {
+						    	 devise =dBean.getMvt_stock().getDevise();
+						    	 Double prixUnitProduit=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getMvt_stock().getCout_unitaire_moyen_pondere(), devise.getChiffre_pattern());
 						    	 prixTotLigne=ProcessNumber.PRODUIT(prixUnitProduit, dBean.getQuantite());
-						    }else {
-						    	 devise =dBean.getTarifVente().getDevise();
-						    	 Double prixUnitProduit=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarifVente().getTarif_unit_vente_tt(), devise.getChiffre_pattern());
-						    	 prixTotLigne=ProcessNumber.PRODUIT(prixUnitProduit, dBean.getQuantite());
-						    }
+						    } 
 						    
 						    mntProduit=ProcessNumber.addition(mntProduit, prixTotLigne);
 						    mapProduitMnt.put(key, mntProduit);
@@ -529,19 +525,14 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 						    Double mntFamilleProduit=(Double) mapFamilleproduit.get(keyFamille);
 						    if(mntFamilleProduit==null )mntFamilleProduit= new Double(0);
 						    Double prixtotLigneFamille= new Double(0);
-						    if(dBean.getTarifVente()!=null  &&  dBean.getTarifVente().getCout()!=null  ) {
-						    	 devise =dBean.getTarifVente().getCout().getDevise();
-						    	 Double prixUnitFamille=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarifVente().getCout().getTarif_unit_ttc(), devise.getChiffre_pattern());
+						    if(dBean.getMvt_stock()!=null  &&  dBean.getMvt_stock().getCout_unitaire_moyen_pondere()!=null  ) {
+						    	 devise =dBean.getMvt_stock().getDevise();
+						    	 Double prixUnitFamille=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getMvt_stock().getCout_unitaire_moyen_pondere(), devise.getChiffre_pattern());
 						    	 prixtotLigneFamille=ProcessNumber.PRODUIT(prixUnitFamille, dBean.getQuantite());
-						     }else {
-						    	 devise =dBean.getTarifVente().getDevise();
-						    	 Double prixUnitFamille=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getTarifVente().getTarif_unit_vente_tt(), devise.getChiffre_pattern());
-						    	 prixtotLigneFamille=ProcessNumber.PRODUIT(prixUnitFamille, dBean.getQuantite());
-						     }
+						     } 
 						    mntFamilleProduit=ProcessNumber.addition(mntFamilleProduit, prixtotLigneFamille);
 						    mapFamilleproduit.put(keyFamille, mntFamilleProduit);
 						}
-
 						mapDataImpressionFourniture.put("qte"+dateFact+element[0]+element[1], mapProduitQte);
 						mapDataImpressionFourniture.put("mnt"+dateFact+element[0]+element[1], mapProduitMnt);
 						mapDataImpressionFourniture.put("famille"+dateFact+element[0]+element[1], mapFamilleproduit);

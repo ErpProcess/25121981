@@ -124,6 +124,12 @@ public class Stock_articleBean extends GenericBean {
 	@ManyToOne(cascade = CascadeType.PERSIST) 
 	@JoinColumn(name = "dev_id", insertable = true, updatable = true)
 	private DeviseBean  devise ;
+	
+	
+	
+	@ManyToOne(cascade = CascadeType.PERSIST) 
+	@JoinColumn(name = "dev_id_vente", insertable = true, updatable = true)
+	private DeviseBean  deviseVente ;
 
 	/*@ManyToOne
 	@JoinColumns( {
@@ -141,6 +147,14 @@ public class Stock_articleBean extends GenericBean {
 
 	public DeviseBean getDevise() {
 		return devise;
+	}
+
+	public DeviseBean getDeviseVente() {
+		return deviseVente;
+	}
+
+	public void setDeviseVente(DeviseBean deviseVente) {
+		this.deviseVente = deviseVente;
 	}
 
 	public void setDevise(DeviseBean devise) {

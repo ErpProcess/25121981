@@ -544,7 +544,7 @@ function doExcuteFnAfterGrid( dataSS ){
 	 
 	 
 	 <ext:tabPanel   border="false"        id="sdsfgrgrgpll"    >
-	         <ext:panel   id="RET_GRID"   bodyStyle="background: none;"    onActivate="getSuivant('article')"  height="500"    border="false"      title="Détaille vente"    > 
+	         <ext:panel   id="RET_GRID"   bodyStyle="background: none;"    onActivate="getSuivant('article')"  height="500"    border="false"      title="Détaille vente"    >
 			    <table id="GRID_SAISIE_DETAIL_VENTE" class="display" width="100%"   style="display: none;"  >
 			  
 			      <thead   >
@@ -556,8 +556,8 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th><input   type="text"       id="pk.code_barre"         name="code_barreX"           style="width: 95%;"        requiredx ></th>
 						<th><input   type="text"       id="designation_libelle"   name="designation_libelle"   style="width: 95%;"        requiredx ></th>
 						<th ><input  type="number"     id="quantite_stock"        name="quantite_stock"        style="width: 93%;"        libre readonly="readonly"        ></th>
-		                <th ><input  type="number"     id="quantiteX"             name="quantiteX"              min="1"    value="1"    style="width: 93%;"              requiredx ></th>
-						<th> <input  type="hidden"     id="next_Focus"            style="width: 10%;"    name="next_Focus"    libre readonly="readonly"        >  </th>
+		                <th  colspan="2"><input  type="number"     id="quantiteX"             name="quantiteX"              min="1"    value="1"    style="width: 93%;"              requiredx > 
+						<input  type="hidden"     id="next_Focus"            style="width: 10%;"    name="next_Focus"    libre readonly="readonly"        ></th> 
 						<th></th>
 						<th></th>
 						<th></th>
@@ -667,6 +667,8 @@ function doExcuteFnAfterGrid( dataSS ){
 			    
 	         </ext:panel>
 	         <ext:panel   id="RET_GRIDX"   bodyStyle="background: none;"  onActivate="getSuivant('fourniture')"  border="false"   height="400"   hideCollapseTool="true"  title="Fourniture de vente"    >
+	            <script>$(function() {loadSelectAjax("devXY","list_devise","dev_id","dev_libelle","${detailFrnBean.deviseFr.dev_id}",true); })</script>
+		        <label>Devise</label><select    required   id="devXY"  name="deviseFr.dev_id"   style="width: 180px;"  ></select>
 	         <table id="GRID_SAISIE_FOURNITURE_VENTE" class="display" width="100%"   >
 			      <thead   >
 			        <tr style="border-color:#a9bfd3;background-color:#d0def0;"   >
@@ -676,9 +678,7 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th><input   type="text"       id="codeFocuso"            name="code_barreFurniture"           style="width: 95%;"        requiredy ></th>
 						<th><input   type="text"       id="XnextFocuso"           name="XnextFocuso"   style="width: 95%;"        requiredy ></th>
 						<th ><input  type="number"     id="quantite_stockxc"      name="quantite_stock_fourniture"        style="width: 93%;"             ></th>
-		                <th ><input  type="number"     id="quantiteXx"            name="quantiteFourniture"      min="1"    value="1"    style="width: 93%;"              requiredx ></th>
-						 
-						<th></th>
+		                <th  colspan="2"><input  type="number"     id="quantiteXx"            name="quantiteFourniture"      min="1"    value="1"    style="width: 93%;"              requiredx ></th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -721,7 +721,9 @@ function doExcuteFnAfterGrid( dataSS ){
 	         
 	         
 	         <ext:panel   id="RET_GRID_PRESTATION"    onActivate="getSuivant('prestation')"      bodyStyle="background: none;"    border="false"  height="400"  hideCollapseTool="true"  title="Prestation"    >
-	          
+	         
+	          <script>$(function() {loadSelectAjax("devXYZ","list_devise","dev_id","dev_libelle","${detailSrvBean.deviseSrv.dev_id}",true); })</script>
+		      <label>Devise</label><select    required   id="devXYZ"  name="deviseSrv.dev_id"   style="width: 180px;"  ></select>
 	          <table id="GRID_SAISIE_PRESATATION" class="display" width="100%"    >
 			      <thead   >
 			       <tr style="border-color:#a9bfd3;background-color:#d0def0;"   >

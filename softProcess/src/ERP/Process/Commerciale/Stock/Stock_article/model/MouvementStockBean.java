@@ -124,6 +124,21 @@ public class MouvementStockBean implements Serializable, Cloneable {
 	@ManyToOne(cascade = CascadeType.PERSIST) 
 	@JoinColumn(name = "dev_id", insertable = true, updatable = true)
 	private DeviseBean  devise ;
+	
+	
+	@ManyToOne(cascade = CascadeType.PERSIST) 
+	@JoinColumn(name = "dev_id_vente", insertable = true, updatable = true)
+	private DeviseBean  deviseVente ;
+	
+	
+
+	public DeviseBean getDeviseVente() {
+		return deviseVente;
+	}
+
+	public void setDeviseVente(DeviseBean deviseVente) {
+		this.deviseVente = deviseVente;
+	}
 
 	public Integer getMvt_stock_article_id() {
 		return mvt_stock_article_id;

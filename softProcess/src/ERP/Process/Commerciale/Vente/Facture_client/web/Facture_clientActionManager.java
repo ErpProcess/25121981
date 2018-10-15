@@ -825,6 +825,11 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				//setObjectValueModel(LIST_DATA_DET_FACT_MVT_VENTE, list_detaille_mvt);
 				setObjectValueModel(LIST_DATA_DET_FACT, list_detaille);
 				setObjectValueModel(LIST_DATA_DET_FACT_CLONE, ProcessUtil.cloneList(list_detaille) );  
+				if( bs.getSoc_id().equals("6") ) {
+					rowBean.setBtnPrintCertificat("display:block;");
+				}else {
+					rowBean.setBtnPrintCertificat("display:none;");
+				}
 				setObjectValueModel(FORM_BEAN, rowBean);
 			} 
 			 

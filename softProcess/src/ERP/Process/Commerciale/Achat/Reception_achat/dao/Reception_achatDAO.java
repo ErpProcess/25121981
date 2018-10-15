@@ -427,7 +427,7 @@ public class Reception_achatDAO extends GenericWeb {
 	private void traitement_for_stock(Reception_achatBean beanUpdate, Det_reception_achatBean detBean, HashMap map_article_jour ,Session session   ) throws Exception {
 		
 		 try {
-			        BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+			 
 			        String date_reception=ProcessDate.getStringFormatDate(beanUpdate.getAchat_date());//forcer a date system ;;;;;;; c pas date achat
 				    String key_trait =""+
 					detBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
@@ -512,6 +512,7 @@ public class Reception_achatDAO extends GenericWeb {
 							 
 							 stock.getPk().setFkCode_barre(detBean.getPk().getFkCode_barre());
 							 stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
+							 stock.setDevise(detBean.getTarif().getDevise());
 							 //stock.getFk_etab_Bean().getPk_etab().setEtab_id(bs.getEtab_id());
 							 //stock.getFk_etab_Bean().getPk_etab().getSoc_bean().setSoc_id(bs.getSoc_id());
 						     session.saveOrUpdate(stock);
@@ -528,6 +529,7 @@ public class Reception_achatDAO extends GenericWeb {
 							 stock.setCout_unitaire_moyen_pondere(prix_unit_moyen_pond);
 							 stock.getPk().setFkCode_barre(detBean.getPk().getFkCode_barre());
 							 stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
+							 stock.setDevise(detBean.getTarif().getDevise());
 							 //stock.getFk_etab_Bean().getPk_etab().setEtab_id(bs.getEtab_id());
 							 //stock.getFk_etab_Bean().getPk_etab().getSoc_bean().setSoc_id(bs.getSoc_id());
 						     session.saveOrUpdate(stock);
@@ -548,6 +550,7 @@ public class Reception_achatDAO extends GenericWeb {
 						  
 						 stock.getPk().setFkCode_barre(detBean.getPk().getFkCode_barre());
 						 stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
+						 stock.setDevise(detBean.getTarif().getDevise());
 						 //stock.getFk_etab_Bean().getPk_etab().setEtab_id(bs.getEtab_id());
 						 //stock.getFk_etab_Bean().getPk_etab().getSoc_bean().setSoc_id(bs.getSoc_id());
 					     session.saveOrUpdate(stock);
@@ -561,10 +564,11 @@ public class Reception_achatDAO extends GenericWeb {
 				      mvtStock.setTarifAchat(detBean.getTarif());
 					  mvtStock.setCout_unitaire_moyen_pondere(prix_unit_moyen_pond);
 					  mvtStock.setDepot(beanUpdate.getDepot());
+					  mvtStock.setDevise(detBean.getTarif().getDevise());
 					  mvtStock.setSolde_stock(sold_stock_jr);
 					  session.saveOrUpdate(mvtStock);
 					  detBean.setCout_unit_moyen_pondere(prix_unit_moyen_pond);
-					  detBean.setMvt_stock_id(mvtStock.getMvt_stock_article_id());
+					  detBean.setMvt_stock(mvtStock);
 					  session.update(detBean);
 				     
 				     String qString=""+

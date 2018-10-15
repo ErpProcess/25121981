@@ -2,6 +2,7 @@ package ERP.Process.Commerciale.Vente.Service.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
 import ERP.Process.Commerciale.Vente.Commandeclient.model.CommandeclientBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
 
@@ -97,8 +99,22 @@ public class ServiceBean extends GenericBean {
 	private Double srv_remise_alacaisse;
 	@Column
 	private Double srv_benefice_vente;
-	@Column
-	private Integer dev_id;
+	
+	 
+
+	@ManyToOne(cascade = CascadeType.PERSIST) 
+	@JoinColumn(name = "dev_id", insertable = true, updatable = true)
+	private DeviseBean  deviseSrv ;
+	
+	
+
+	public DeviseBean getDeviseSrv() {
+		return deviseSrv;
+	}
+
+	public void setDeviseSrv(DeviseBean deviseSrv) {
+		this.deviseSrv = deviseSrv;
+	}
 
 	public void setSrv_id(String srv_id) {
 		this.srv_id = srv_id;
@@ -206,13 +222,7 @@ public class ServiceBean extends GenericBean {
 		return usr_confirm;
 	}
 
-	public void setDev_id(Integer dev_id) {
-		this.dev_id = dev_id;
-	}
-
-	public Integer getDev_id() {
-		return dev_id;
-	}
+	 
 
 	public Date getSrv_date() {
 		return srv_date;

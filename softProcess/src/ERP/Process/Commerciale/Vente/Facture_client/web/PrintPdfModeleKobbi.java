@@ -426,15 +426,9 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				    tableTopHeader2.addCell(cell);
 				    
 		    }
-		   
 		 
-		    
 		    //unite:كلغ,produit:وراطة 400-600 غ , box:طرد,ligne1:عدد الطرود,ligne2:تحتوي على,
-		    
-		    
-		    
-		    
-		    
+		     
 		    cell = new PdfPCell(new Phrase( "  "  ,GeneratePdf.Normal_11_times_roman));
 		    cell.setColspan(100);
 		    cell.setFixedHeight(5f);
@@ -445,8 +439,44 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		    
 		    
 		    PdfPTable tableTopHeader3 = new PdfPTable(100);
-		    tableTopHeader3.setWidthPercentage(73);
-		    PdfPCell cellSummary = new PdfPCell(new Phrase( " " ,GeneratePdf.Normal_10_times_roman));
+		    tableTopHeader3.setWidthPercentage(85);
+		    PdfPCell cellSummary = new PdfPCell(new Phrase( " 2000 "+""+Jsoup.parse("كلغ").body().text()+"                        "+denBean.getFact_ref_id(),arialuniArab));
+	        cellSummary.setHorizontalAlignment(Element.ALIGN_RIGHT);
+	        cellSummary.setPaddingBottom(3);
+	        cellSummary.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+	        cellSummary.setColspan(100);
+	        cellSummary.setBorder(cellSummary.NO_BORDER);
+	        tableTopHeader3.addCell(cellSummary);
+	        
+	        cellSummary = new PdfPCell(new Phrase(Jsoup.parse("بتاريخ").body().text(),arialuniArab));
+	        cellSummary.setHorizontalAlignment(Element.ALIGN_RIGHT);
+	        cellSummary.setPaddingBottom(3);
+	        cellSummary.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+	        cellSummary.setColspan(100);
+	        cellSummary.setBorder(cellSummary.NO_BORDER);
+	        tableTopHeader3.addCell(cellSummary);
+	        
+
+	        
+	        cellSummary = new PdfPCell(new Phrase( ProcessDate.getStringFormatDateRTL(denBean.getFact_date()) ,arialuniArab));
+	        cellSummary.setHorizontalAlignment(Element.ALIGN_RIGHT);
+	        cellSummary.setPaddingBottom(3);
+	        cellSummary.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+	        cellSummary.setColspan(100);
+	        cellSummary.setBorder(cellSummary.NO_BORDER);
+	        tableTopHeader3.addCell(cellSummary);
+	        
+	        
+	        cellSummary = new PdfPCell(new Phrase( " " ,GeneratePdf.Normal_10_times_roman));
+	        cellSummary.setHorizontalAlignment(Element.ALIGN_LEFT);
+	        cellSummary.setPaddingBottom(70);
+	        cellSummary.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+	        cellSummary.setColspan(100);
+	        cellSummary.setBorder(cellSummary.NO_BORDER);
+	        tableTopHeader3.addCell(cellSummary);
+	        
+	        
+	        cellSummary = new PdfPCell(new Phrase(Jsoup.parse("صفاقس ـ  تونس").body().text() ,arialuniArab));
 	        cellSummary.setHorizontalAlignment(Element.ALIGN_LEFT);
 	        cellSummary.setPaddingBottom(3);
 	        cellSummary.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
@@ -454,9 +484,26 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 	        cellSummary.setBorder(cellSummary.NO_BORDER);
 	        tableTopHeader3.addCell(cellSummary);
 	        
-	        cellSummary = new PdfPCell(new Phrase( " " ,GeneratePdf.Normal_10_times_roman));
+	        cellSummary = new PdfPCell(new Phrase("    " ,arialuniArab));
+	        cellSummary.setHorizontalAlignment(Element.ALIGN_LEFT);
+	        cellSummary.setPaddingBottom(10);
+	        cellSummary.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+	        cellSummary.setColspan(100);
+	        cellSummary.setBorder(cellSummary.NO_BORDER);
+	        tableTopHeader3.addCell(cellSummary);
+	        
+	        cellSummary = new PdfPCell(new Phrase(ProcessDate.getStringFormatDateRTL(denBean.getFact_date())  ,arialuniArab));
 	        cellSummary.setHorizontalAlignment(Element.ALIGN_LEFT);
 	        cellSummary.setPaddingBottom(3);
+	        cellSummary.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+	        cellSummary.setColspan(100);
+	        cellSummary.setBorder(cellSummary.NO_BORDER);
+	        tableTopHeader3.addCell(cellSummary);
+	        
+	        cellSummary = new PdfPCell(new Phrase(ProcessDate.getStringFormatDateRTL(denBean.getFact_date())  ,arialuniArab));
+	        cellSummary.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        cellSummary.setVerticalAlignment(Element.ALIGN_BOTTOM);
+	        cellSummary.setFixedHeight(75f);
 	        cellSummary.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
 	        cellSummary.setColspan(100);
 	        cellSummary.setBorder(cellSummary.NO_BORDER);
@@ -1524,7 +1571,8 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		public void printEtatDepensesProduitsKobbi(EditionVenteBean searchBean) throws Throwable  {
 			 
 			try {
-				String [][] MapfieldEtatDeDepense  = new String[][]{{ "date", "20" }, { "invoice", "20" },
+				String [][] MapfieldEtatDeDepense  = new String[][]{
+					{ "date", "20" }, { "invoice", "20" },
 					{ "client", "30" },{ "qté", "15" },
 				    { "AchatFish", "20" },{ "n/Box", "13" },
 					{ "Poly", "20" },{ "trsprt", "20" },

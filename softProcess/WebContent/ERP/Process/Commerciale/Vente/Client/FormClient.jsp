@@ -1,4 +1,6 @@
- <%@include file="/Aceuil/esProcess.jsp" %>  
+ <%@include file="/Aceuil/esProcess.jsp" %> 
+ 
+
   <script type="text/javascript">
    $(document).ready(function () { 
    LoadAutoCompletAjax("type_trf_id","type_trf_lib","btValidx","list_type_tarif_client");   

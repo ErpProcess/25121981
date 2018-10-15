@@ -55,6 +55,7 @@ import ERP.Process.Commerciale.Vente.ProcedureVente.service.ProcedureVenteServic
 import ERP.Process.Commerciale.Vente.ProcedureVente.template.ProcedureVenteTemplate;
 import ERP.Process.Commerciale.Vente.ReglementFactClt.model.ReglementFactCltBean;
 import ERP.Process.Commerciale.Vente.Service.model.DetServiceBean;
+import ERP.Process.Commerciale.Vente.Service.model.ServiceBean;
 import ERP.Process.Commerciale.Vente.Service.service.ServiceService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.service.DeviseService;
@@ -250,6 +251,18 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 			
 			List  <DetServiceBean>list_editable_Prestation=  new  ArrayList<DetServiceBean>();
 			setObjectValueModel(LIST_EDITABLE_PRESTATION, list_editable_Prestation);
+			
+			ServiceBean detailSrvBean = new ServiceBean();
+			detailSrvBean.setDeviseSrv(bs.getSociete().getDevise());
+		
+			
+			FournitureVenteBean detailFrnBean = new FournitureVenteBean();
+			detailFrnBean.setDeviseFr(bs.getSociete().getDevise());
+			setObjectValueModel("detailFrnBean", detailFrnBean);
+			setObjectValueModel("detailSrvBean", detailSrvBean);
+			
+			
+		    
 			
 			bs.setSousmod_libelle_title(bs.getSousmod_libelle());
 			
@@ -1962,10 +1975,12 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	}
 
 
-	public ModelAndView doAddData(ProcedureVenteBean detailBean) throws Throwable {
+	public ModelAndView doAddData(ProcedureVenteBean detailBean, FournitureVenteBean    fVenteBean , ServiceBean    service ) throws Throwable {
 	     try {
 				setObjectValueModel(FORM_BEAN, detailBean);
-	            serviceProcedureVente.doCreateRowData(detailBean);
+				setObjectValueModel("detailFrnBean", fVenteBean);
+				setObjectValueModel("detailSrvBean", service);
+	            serviceProcedureVente.doCreateRowData(detailBean,fVenteBean,service);
 	            throwNewException("ins01");
 	          } catch (Exception e) {
 	        	  displayException(e);
@@ -1976,12 +1991,14 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		}
 	
 	
-	public ModelAndView doCommitData(ProcedureVenteBean beanUpfBean) {	 
+	public ModelAndView doCommitData(   ProcedureVenteBean beanUpfBean, FournitureVenteBean    fVenteBean , ServiceBean    service) {	 
 	 	try {
 	    ProcedureVenteBean  detailBean=	(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
+	    ServiceBean  srvBean=	(ServiceBean) getObjectValueModel("detailSrvBean");
+	    FournitureVenteBean  frnBean=	(FournitureVenteBean) getObjectValueModel("detailFrnBean");
 	    BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 		bs.setFct_id(Fn_Confirmer);
-	    serviceProcedureVente.doConfirmRowData(detailBean); 
+	    serviceProcedureVente.doConfirmRowData(detailBean,frnBean,srvBean); 
 	    ProcedureVenteBean  devBean = (ProcedureVenteBean) getObjectValueModel("beanInito");
 		setObjectValueModel(FORM_BEAN, devBean);
 		List  <DetProcedureVenteBean>listGridEditable_VENTE=  new  ArrayList<DetProcedureVenteBean>();
@@ -2018,10 +2035,10 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	
 	
 	
-	public ModelAndView doServirData(ProcedureVenteBean detailBean) throws Throwable {
+	public ModelAndView doServirData( ProcedureVenteBean detailBean, FournitureVenteBean    fVenteBean , ServiceBean    service) throws Throwable {
 	     try {
 				setObjectValueModel(FORM_BEAN, detailBean);
-	            serviceProcedureVente.doCreateRowData(detailBean);
+	            serviceProcedureVente.doCreateRowData(detailBean,      fVenteBean ,      service);
 	            throwNewException("ins01");
 	          } catch (Exception e) {
 	            displayException(e);
@@ -2030,7 +2047,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		}
 	
 	
-	public ModelAndView doUpdateData(ProcedureVenteBean beanUpBean) {	 
+	public ModelAndView doUpdateData(ProcedureVenteBean beanUpBean, FournitureVenteBean    fVenteBean , ServiceBean    service) {	 
 		 	try {
 		        serviceProcedureVente.doUpdateRowData(beanUpBean); 
 				update_row_from_list(LIST_DATA, beanUpBean); 
@@ -2042,9 +2059,9 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			}
 	
 	
-	public ModelAndView doConfirmData(ProcedureVenteBean beanUpBean) {	 
+	public ModelAndView doConfirmData(ProcedureVenteBean beanUpBean, FournitureVenteBean    fVenteBean , ServiceBean    service) {	 
 	 	try {
-	 serviceProcedureVente.doConfirmRowData(beanUpBean); 
+	 serviceProcedureVente.doConfirmRowData(beanUpBean,fVenteBean,service); 
 	 remove_row_from_list(LIST_DATA); 
 	 removeObjectModel(FORM_BEAN);
 	 throwNewException("validation ok ");
