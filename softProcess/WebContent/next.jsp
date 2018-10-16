@@ -205,13 +205,13 @@ function doWelcome() {
 	           success: function(data)
 	           {
 		           var  daddou=data;
-		           $("#intWin").unmask(); 
+		           $("#intWin").unmask();   
 		           
-		           if(daddou=="Contacter l 'administrateur"){
+		           if(daddou=="Erreur de mise a jour systeme"){
 		        	   $('#usr_login').val('') ;
 	                   $('#usr_login').val('') ;
 	                   document.getElementById("btnSave").style.display="none";
-		        	   Ext.Msg.alert('Status', "Contacter l 'administrateur");
+		        	   Ext.Msg.alert('Status', "Erreur de mise à jour système");
 	                  
 		        	   
 		           }else if(daddou=="looooadapplication"){

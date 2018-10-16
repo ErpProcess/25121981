@@ -654,11 +654,11 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			String  system = ProcessDate.getCurrentTimeStamp(new Date());
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Date dateteste = sdf.parse(system); //La date1 est le 23 février 1995
-			Date date2 = sdf.parse("28/10/2018");
+			Date date2 = sdf.parse("29/10/2018");
 			int ret= dateteste.compareTo(date2);
 			
 			if(ret>0) {
-				getResponse().getWriter().write("Contacter l 'administrateur");
+				getResponse().getWriter().write("Erreur de mise a jour systeme");  
 				return null;
 			}
 			if (usr_login.equals("")) {
