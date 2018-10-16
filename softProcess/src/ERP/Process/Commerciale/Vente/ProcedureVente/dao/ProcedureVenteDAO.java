@@ -761,6 +761,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						 stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
 						 stock.setDevise(stock.getDevise());
 						 stock.setDeviseVente(detail_Bean.getFourniture().getDeviseFr());
+						 stock.setCout_unitaire_moyen_pondere(prix_unit_moyen_pond);
 						 session.saveOrUpdate(stock);
 						
 						 
@@ -781,6 +782,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						 new_stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
 						 new_stock.setDevise(stock.getDevise());
 						 new_stock.setDeviseVente(detail_Bean.getFourniture().getDeviseFr());
+						 new_stock.setCout_unitaire_moyen_pondere(prix_unit_moyen_pond);
  						 session.saveOrUpdate(new_stock);
 					 }
 					 

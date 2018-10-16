@@ -1646,7 +1646,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 			        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 			        cell.setPadding(3f);
-			        cell.setRowspan(bean.getRowSpanDetFacture());
+			        //cell.setRowspan(bean.getRowSpanDetFacture());
 			        cell.setPaddingBottom(5f);
 			        cell.setBackgroundColor(BaseColor.WHITE);
 			        if(i%2==0)
@@ -1656,7 +1656,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 			        cell = new PdfPCell(new Phrase( bean.getClient(),GeneratePdf.Bold_8_times_roman));
 			        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			        cell.setRowspan(bean.getRowSpanDetFacture());
+			        //cell.setRowspan(bean.getRowSpanDetFacture());
 			        cell.setPadding(3f);
 			        cell.setPaddingBottom(5f);
 			        cell.setBackgroundColor(BaseColor.WHITE);
@@ -1667,7 +1667,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 			    	cell = new PdfPCell(new Phrase(  ProcessFormatNbr.convertDoubleToIntString(bean.getQteFish()) ,GeneratePdf.Bold_8_times_roman));
 				    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				    cell.setRowspan(bean.getRowSpanDetFacture());
+				    //cell.setRowspan(bean.getRowSpanDetFacture());
 			        cell.setPadding(3f);
 			        cell.setPaddingBottom(5f);
 				    cell.setBackgroundColor(BaseColor.WHITE);
@@ -1679,7 +1679,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   cell = new PdfPCell(new Phrase( ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes (bean.getPrixtotFish(), bean.getDevise(), false, false)    ,GeneratePdf.Bold_8_times_roman));
 				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				   cell.setRowspan(bean.getRowSpanDetFacture());
+				   //cell.setRowspan(bean.getRowSpanDetFacture());
 			       cell.setPadding(3f);
 			       cell.setPaddingBottom(5f);
 				   cell.setBackgroundColor(BaseColor.WHITE);
@@ -1694,7 +1694,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   cell = new PdfPCell(new Phrase( qteBoxSt ,GeneratePdf.Bold_8_times_roman));
 				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				   cell.setRowspan(bean.getRowSpanDetFacture());
+				   //cell.setRowspan(bean.getRowSpanDetFacture());
 			       cell.setPadding(3f);
 			       cell.setPaddingBottom(5f);
 				   cell.setBackgroundColor(BaseColor.WHITE);
@@ -1710,7 +1710,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   cell = new PdfPCell(new Phrase( mntBoxSt ,GeneratePdf.Bold_8_times_roman));
 				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				   cell.setRowspan(bean.getRowSpanDetFacture());
+				   //cell.setRowspan(bean.getRowSpanDetFacture());
 			       cell.setPadding(3f);
 			       cell.setPaddingBottom(5f);
 				   cell.setBackgroundColor(BaseColor.WHITE);
@@ -1728,7 +1728,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 					   cell = new PdfPCell(new Phrase( transport ,GeneratePdf.Bold_8_times_roman));
 					   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					   cell.setRowspan(bean.getRowSpanDetFacture());
+					   //cell.setRowspan(bean.getRowSpanDetFacture());
 				       cell.setPadding(3f);
 				       cell.setPaddingBottom(5f);
 					   cell.setBackgroundColor(BaseColor.WHITE);
@@ -1743,7 +1743,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 					   cell = new PdfPCell(new Phrase( transit ,GeneratePdf.Bold_8_times_roman));
 					   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					   cell.setRowspan(bean.getRowSpanDetFacture());
+					   //cell.setRowspan(bean.getRowSpanDetFacture());
 				       cell.setPadding(3f);
 				       cell.setPaddingBottom(5f);
 					   cell.setBackgroundColor(BaseColor.WHITE);
@@ -1761,7 +1761,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 					   cell = new PdfPCell(new Phrase( maiOevre ,GeneratePdf.Bold_8_times_roman));
 					   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					   cell.setRowspan(bean.getRowSpanDetFacture());
+					   //cell.setRowspan(bean.getRowSpanDetFacture());
 				       cell.setPadding(3f);
 				       cell.setPaddingBottom(5f);
 					   cell.setBackgroundColor(BaseColor.WHITE);
@@ -1776,7 +1776,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 					   cell = new PdfPCell(new Phrase( Emballage ,GeneratePdf.Bold_8_times_roman));
 					   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					   cell.setRowspan(bean.getRowSpanDetFacture());
+					   //cell.setRowspan(bean.getRowSpanDetFacture());
 				       cell.setPadding(3f);
 				       cell.setPaddingBottom(5f);
 					   cell.setBackgroundColor(BaseColor.WHITE);
@@ -1793,7 +1793,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   cell = new PdfPCell(new Phrase( mntStockGace ,GeneratePdf.Bold_8_times_roman));
 				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				   cell.setRowspan(bean.getRowSpanDetFacture());
+				   //cell.setRowspan(bean.getRowSpanDetFacture());
 			       cell.setPadding(3f);
 			       cell.setPaddingBottom(5f);
 				   cell.setBackgroundColor(BaseColor.WHITE);
@@ -1811,7 +1811,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   cell = new PdfPCell(new Phrase( douanne ,GeneratePdf.Bold_8_times_roman));
 				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				   cell.setRowspan(bean.getRowSpanDetFacture());
+				   //cell.setRowspan(bean.getRowSpanDetFacture());
 			       cell.setPadding(3f);
 			       cell.setPaddingBottom(5f);
 				   cell.setBackgroundColor(BaseColor.WHITE);
@@ -1827,7 +1827,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   cell = new PdfPCell(new Phrase( chamCom ,GeneratePdf.Bold_8_times_roman));
 				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				   cell.setRowspan(bean.getRowSpanDetFacture());
+				   //cell.setRowspan(bean.getRowSpanDetFacture());
 			       cell.setPadding(3f);
 			       cell.setPaddingBottom(5f);
 				   cell.setBackgroundColor(BaseColor.WHITE);
@@ -1843,7 +1843,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   cell = new PdfPCell(new Phrase( transarean ,GeneratePdf.Bold_8_times_roman));
 				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				   cell.setRowspan(bean.getRowSpanDetFacture());
+				   //cell.setRowspan(bean.getRowSpanDetFacture());
 			       cell.setPadding(3f);
 			       cell.setPaddingBottom(5f);
 				   cell.setBackgroundColor(BaseColor.WHITE);
@@ -1859,7 +1859,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 				   cell = new PdfPCell(new Phrase( total ,GeneratePdf.Bold_8_times_roman));
 				   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-				   cell.setRowspan(bean.getRowSpanDetFacture());
+				   //cell.setRowspan(bean.getRowSpanDetFacture());
 			       cell.setPadding(3f);
 			       cell.setPaddingBottom(5f);
 				   cell.setBackgroundColor(BaseColor.WHITE);

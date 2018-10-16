@@ -222,7 +222,8 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 			   String mntBoxSt="";
 			   if(mapDataImFournitureMnt!=null) {
 				   Double  mnt=(Double) mapDataImFournitureMnt.get("60200002");
-				   if(mnt!=null) {  bean.setPrixtotPoly(mnt);
+				   if(mnt!=null) {  
+					   bean.setPrixtotPoly(mnt);
 				       totligne= ProcessNumber.addition(totligne, mnt);
 				       totAchatBox= ProcessNumber.addition(totAchatBox, mnt);
 					   mntBoxSt=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(mnt, "0.000");
@@ -354,16 +355,16 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 		    	
 	private HashMap   doBuildDepenseVente(List<DetProcedureVenteBean> listDetVente) throws Exception {
 	    List<EtatDepenseProduit> list_etat_edition = new ArrayList<EtatDepenseProduit>();
-	    HashMap  mapDateFacture         = new HashMap();
-		   HashMap  mapDate                = new HashMap();
-	       Double totGenAchatFish          = new Double(0);
-	       Double totGenQteAchatFish       = new Double(0);
-	       HashMap  mapReturn               = new HashMap();
+	       HashMap  mapDateFacture     = new HashMap();
+		   HashMap  mapDate            = new HashMap();
+	       Double   totGenAchatFish    = new Double(0);
+	       Double   totGenQteAchatFish = new Double(0);
+	       HashMap  mapReturn          = new HashMap();
 	    
 		try {
-			
 		   
 		       DeviseBean  devise = new DeviseBean();
+		       
 		       for (int i = 0; i < listDetVente.size(); i++) {
 					DetProcedureVenteBean dBean= listDetVente.get(i);
 					Date dateFact=dBean.getPk().getVente().getFactclient().getFact_date();
@@ -372,18 +373,16 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 					listPardate.add(dBean);
 					mapDate.put(dateFact, listPardate);
 				}
+		       
 				Set set_mapdate= mapDate.keySet();
-			
 				for (Iterator iterr = set_mapdate.iterator(); iterr.hasNext();) {
 					Date dateFact = (Date) iterr.next();
+					List listMapDate=(List) mapDate.get(dateFact);
 					boolean isrowSpanDate=true;
-					List listmapDate=(List) mapDate.get(dateFact);
-					
-					
 					
 					HashMap  mapInvoiceClient=  new HashMap();
-					for (int i = 0; i < listmapDate.size(); i++) {
-						DetProcedureVenteBean dBean  =(DetProcedureVenteBean) listmapDate.get(i);
+					for (int i = 0; i < listMapDate.size(); i++) {
+						DetProcedureVenteBean dBean  =(DetProcedureVenteBean) listMapDate.get(i);
 						String  key =dBean.getPk().getVente().getFactclient().getFact_ref_id()+"²µ²"+dBean.getPk().getVente().getFactclient().getClient().getClt_lib();
 						List listInvoice=(List) mapInvoiceClient.get(key);
 						if(listInvoice==null) {listInvoice= new ArrayList();  }
@@ -392,54 +391,43 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 					}
 					
 					Set mapInvoiceClientSet = mapInvoiceClient.keySet(); 
-					
 					for (Iterator iterInvo = mapInvoiceClientSet.iterator(); iterInvo.hasNext();) {
 						String iClientnvoice = (String) iterInvo.next();
 						String[] element=iClientnvoice.split("²µ²");
-						boolean isrowSpanDetailFacture=true;
+//						boolean isrowSpanDetailFacture=true;
 						List listInvoiceClient=(List) mapInvoiceClient.get(iClientnvoice);
 						Double totAchatFishParFacture= new Double(0);
 						Double totQteFishParFacture= new Double(0);
-						EtatDepenseProduit    etatBean  =  new EtatDepenseProduit();
-						
 						for (int i = 0; i < listInvoiceClient.size(); i++) {
 							DetProcedureVenteBean dBean  =(DetProcedureVenteBean) listInvoiceClient.get(i);
-							 
+							 devise = new DeviseBean();
 						     if(dBean.getMvt_stock()!=null  &&  dBean.getMvt_stock().getCout_unitaire_moyen_pondere()!=null  ) {
 						    	 devise =dBean.getMvt_stock().getDevise();
-						    	 etatBean.setDevise(devise);
 						    	 Double prixUnitAchatFishTTC=ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getMvt_stock().getCout_unitaire_moyen_pondere(), devise.getChiffre_pattern());
 						    	 Double PrixTot=ProcessNumber.PRODUIT(prixUnitAchatFishTTC, dBean.getQuantite());
+						    	 
 						    	 totAchatFishParFacture =ProcessNumber.addition(totAchatFishParFacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(PrixTot, devise.getChiffre_pattern())  );
 						    	 totGenAchatFish      =ProcessNumber.addition(totGenAchatFish,   ProcessFormatNbr.FormatDouble_ParameterChiffre(PrixTot, devise.getChiffre_pattern())  );
 						     }
-						     
-						     
 						    totQteFishParFacture   =ProcessNumber.addition(totQteFishParFacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getQuantite(), devise.getChiffre_pattern())  );
 						    totGenQteAchatFish     =ProcessNumber.addition(totGenQteAchatFish,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getQuantite(), devise.getChiffre_pattern())  );
-						    
-						    etatBean.setIsrowSpanDate(isrowSpanDate);
-						    etatBean.setRowSpanDate(listmapDate.size());
-						    
-						    etatBean.setIsrowSpanDetFact(isrowSpanDetailFacture);
-						    etatBean.setRowSpanDetFacture(listInvoiceClient.size());
-						    
-							etatBean.setDate(dateFact);
-							etatBean.setInvoice(element[0]);
-							etatBean.setClient(element[1]);
-							etatBean.setClientId(dBean.getPk().getVente().getClient().getClt_id());
-							etatBean.setDescription(dBean.getPk().getFkcode_barre().getDesignation_libelle());
-							 
-							
-							if(i==listInvoiceClient.size()-1) {
-								 etatBean.setQteFish(ProcessFormatNbr.FormatDouble_ParameterChiffre(totQteFishParFacture, devise.getChiffre_pattern())  ); 
-								 etatBean.setPrixtotFish(ProcessFormatNbr.FormatDouble_ParameterChiffre(totAchatFishParFacture, devise.getChiffre_pattern())  );
-								 list_etat_edition.add(etatBean);
-							}
-							isrowSpanDate=false;
-							isrowSpanDetailFacture=false;
+//							isrowSpanDetailFacture=false;
 						}
-						
+						EtatDepenseProduit    etatBean  =  new EtatDepenseProduit();
+						etatBean.setDevise(devise);
+					    etatBean.setIsrowSpanDate(isrowSpanDate);
+					    etatBean.setRowSpanDate(mapInvoiceClientSet.size());
+//					    etatBean.setIsrowSpanDetFact(isrowSpanDetailFacture);
+					    //etatBean.setRowSpanDetFacture(listInvoiceClient.size());
+						etatBean.setDate(dateFact);
+						etatBean.setInvoice(element[0]);
+						etatBean.setClient(element[1]);
+//						etatBean.setClientId(dBean.getPk().getVente().getClient().getClt_id());
+//						etatBean.setDescription(dBean.getPk().getFkcode_barre().getDesignation_libelle());
+						etatBean.setQteFish(ProcessFormatNbr.FormatDouble_ParameterChiffre(totQteFishParFacture, devise.getChiffre_pattern())  ); 
+						etatBean.setPrixtotFish(ProcessFormatNbr.FormatDouble_ParameterChiffre(totAchatFishParFacture, devise.getChiffre_pattern())  );
+						list_etat_edition.add(etatBean);
+						isrowSpanDate=false;
 					}
 				}
 

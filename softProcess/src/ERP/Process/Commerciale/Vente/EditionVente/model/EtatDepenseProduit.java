@@ -37,8 +37,8 @@ public class EtatDepenseProduit implements Serializable {
 	private int     rowSpanDate = 1;
 	private boolean isrowSpanDate = false;
 
-	private int     rowSpanDetFacture = 1;
-	private boolean isrowSpanDetFact = false;
+	//private int     rowSpanDetFacture = 1;
+	//private boolean isrowSpanDetFact = false;
 
 	private String description = "";
 
@@ -154,13 +154,13 @@ public class EtatDepenseProduit implements Serializable {
 		this.rowSpanDate = rowSpanDate;
 	}
 
-	public int getRowSpanDetFacture() {
-		return rowSpanDetFacture;
-	}
-
-	public void setRowSpanDetFacture(int rowSpanDetFacture) {
-		this.rowSpanDetFacture = rowSpanDetFacture;
-	}
+//	public int getRowSpanDetFacture() {
+//		return rowSpanDetFacture;
+//	}
+//
+//	public void setRowSpanDetFacture(int rowSpanDetFacture) {
+//		this.rowSpanDetFacture = rowSpanDetFacture;
+//	}
 
 	public boolean isIsrowSpanDate() {
 		return isrowSpanDate;
@@ -170,13 +170,13 @@ public class EtatDepenseProduit implements Serializable {
 		this.isrowSpanDate = isrowSpanDate;
 	}
 
-	public boolean isIsrowSpanDetFact() {
-		return isrowSpanDetFact;
-	}
-
-	public void setIsrowSpanDetFact(boolean isrowSpanDetFact) {
-		this.isrowSpanDetFact = isrowSpanDetFact;
-	}
+//	public boolean isIsrowSpanDetFact() {
+//		return isrowSpanDetFact;
+//	}
+//
+//	public void setIsrowSpanDetFact(boolean isrowSpanDetFact) {
+//		this.isrowSpanDetFact = isrowSpanDetFact;
+//	}
 
 	public Double getQteFish() {
 		return qteFish;
