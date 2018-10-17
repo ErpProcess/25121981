@@ -617,6 +617,10 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 					
 			 }
 			 
+			 if( bs.getFct_id().equals(Fn_Corriger)   ){
+				 searchBean.setCondition_etat_achat("    AND  bean.modeBean.fct_id not in ('"+Fn_Facturer+"','"+Fn_Annuler+"' )   ");
+			  }
+			 
 			 
 			List listDataSrv = serviceReception_achat.doFetchDatafromServer(searchBean);
 			setObjectValueModel(SEARCH_BEAN, searchBean);
@@ -750,7 +754,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 	}
 	
 	
-	public    ModelAndView doSelect_detaille_Row () throws Exception {
+	public    ModelAndView doSelectDetailleRow () throws Exception {
 
 		
 		
@@ -931,6 +935,10 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			if ( bs.getFct_id().equals(Fn_Modifier) && demandeId.equals("")   )
 				return getViewUpdate(FORM_VIEW_EDIT);
 			
+			if ( bs.getFct_id().equals(Fn_Corriger)  )
+				return getViewCorriger(FORM_VIEW_EDIT);
+			
+			
 			if ( bs.getFct_id().equals(Fn_Modifier) && !demandeId.equals("")   )
 				return getViewModif_Srv(FORM_SERVIR_DEMANDE_ACHAT);
 			
@@ -969,6 +977,8 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 				bs.setSousmod_libelle_title((String) getObjectValueModel("srv_dem_achat"));
 				return getViewServir_demande(FORM_SERVIR_DEMANDE_ACHAT);
 			}
+			
+			
 			if (bs.getFct_id().equals("17")){
 				bs.setSousmod_libelle_title((String) getObjectValueModel("srv_dem_achat"));
 				return getViewUpdate(FORM_VIEW_EDIT);
@@ -1257,10 +1267,20 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		 
 		}
 	
-	
-	
 
 	public ModelAndView doUpdateData(Reception_achatBean beanUpBean) {
+		try {
+			serviceReception_achat.doUpdateRowData(beanUpBean);
+			update_row_from_list(LIST_DATA, beanUpBean);
+			throwNewException("mod01");
+		} catch (Exception e) {
+			displayException(e);
+		}
+		return getViewList_Ajax(FILTER_VIEW);
+	}
+	
+	
+	public ModelAndView doCorrigerData(Reception_achatBean beanUpBean) {
 		try {
 			serviceReception_achat.doUpdateRowData(beanUpBean);
 			update_row_from_list(LIST_DATA, beanUpBean);

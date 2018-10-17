@@ -40,15 +40,19 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
            
 		          if (i$_ACT_INIT_SERVLET )         return      doInitServletAction(); 
 		          
+		          if (i$_ACT_SELECT_ROW)            return      doSelectDetailleRow();
+		          
 		          if (i$_ACT_RESET_FORM)            return      doResetFormVente();   
 		           
 		          if (i$_ACT_DELETE_ROW )           return      doDelete_row_Editable(); 
 		          
 		          if (i$_ACT_DELETE_ROW_FOURNIURE ) return      doDeleteRowFourniture(); 
+		          
+		          if (i$_ACT_ADD_ROW )              return      doAdd_row_Editable(beanVente); 
 
 	              if (i$_ACT_ADD_ROW_FOURNIURE )    return      doAdd_row_Fourniture(beanVente);
 	              
-	              if (i$_ACT_ADD_ROW_PRESTATION )    return     doAdd_row_Prestation(beanVente);
+	              if (i$_ACT_ADD_ROW_PRESTATION )   return      doAdd_row_Prestation(beanVente);
 	              
 		          if ( i$_ACT_ACTUALISER_TABLE )    return      doActualiser_GRID(beanVente);
 		          
@@ -79,7 +83,9 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 		          
 		          if (i$_ACT_AJAX_FETCH)            return      doFetchData(beanVente);
 		          
-		          if (i$_ACT_SELECT_ROW)            return      doSelect_detaille_Row();
+		     
+		          
+		          
 		          
 		          if (ACT_NAVIGATE)                 return      getViewConsult_Pdf_ex(FORM_VIEW);
 		          
@@ -88,6 +94,9 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 		    	  if (i$_ACT_COMMIT)                return      doCommitData(beanVente,fVenteBean,service);
 		    	  
 		    	  if (i$_ACT_FACTURER)              return      doFacturerData(beanVente);
+		    	  
+		    	  
+		    	  if (i$_ACT_CORRIGER)              return      doCorrigerData(beanVente,fVenteBean,service);
 		          
 		          if (i$_ACT_UPDATE)                return      doUpdateData(beanVente,fVenteBean,service);
 		          
@@ -111,11 +120,11 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 		    	  if (i$_ACT_CONFIRM)               return      doConfirmData(beanVente,fVenteBean,service);
 		    
 		          
-		          if (i$_ACT_ADD_ROW )              return      doAdd_row_Editable(beanVente); 
+		      
 		            
-		          if (i$_ACT_CALCUL_TOTAL)          return      doCalculerTotal(beanVente);
+		          if (i$_ACT_CALCUL_TOTAL)             return      doCalculerTotal(beanVente);
 		          
-		          if (i$_ACT_CALCUL_TOTAL_FOURNITURE)          return      doCalculerTotalFourniture();
+		          if (i$_ACT_CALCUL_TOTAL_FOURNITURE)  return      doCalculerTotalFourniture();
 		    	  
 		          
 		    	  
@@ -125,7 +134,7 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 		    	  
 		    	  //if (i$_ACT_STOCKER)             return      doStockerData(detailBean);
 		    	  
-		    	  //if (i$_ACT_ANNULER)             return      doAnnulerData(detailBean);
+		    	 // if (i$_ACT_ANNULER)             return      doAnnulerData(detailBean);
 		    	  
 		    	 
 		          

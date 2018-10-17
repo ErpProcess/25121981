@@ -140,6 +140,8 @@ public static String  LIST_VIEW_SERVIR   = "ListCommandeclient";
  
 public static boolean i$_ACT_INIT_SERVLET = false;
 public static boolean i$_ACT_RESET_FORM = false;
+public static boolean i$_ACT_CORRIGER = false;
+
 public static boolean i$_ACT_CALCUL_TOTAL = false;
 public static boolean i$_ACT_CALCUL_TOTAL_FOURNITURE = false;
 

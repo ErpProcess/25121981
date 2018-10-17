@@ -517,43 +517,43 @@ public class Reception_achatDAO extends GenericWeb {
 							 //stock.getFk_etab_Bean().getPk_etab().getSoc_bean().setSoc_id(bs.getSoc_id());
 						     session.saveOrUpdate(stock);
 					     }else{
-					    	 stock = new  Stock_articleBean();
-					    	 daoNumSequentiel.getNumSeqSimple(stock,"stock_article_id",session);
-					    	 stock.getPk().setDate_stock(beanUpdate.getAchat_date());
-							 stock.setSolde_stock    ( ProcessFormatNbr.FormatDouble_Troischiffre(sold_stock_jr) );
-							 stock.setQuantite_recept(ProcessFormatNbr.FormatDouble_Troischiffre (Vqte_reception));
-							 stock.setMnt_tva_recept(ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_recept));
-							 stock.setMnt_ht_recept (ProcessFormatNbr.FormatDouble_Troischiffre( Vmnt_ht__recept));
-							 stock.setSolde_achat_tva(ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_recept));
-							 stock.setSolde_achat_ht(ProcessFormatNbr.FormatDouble_Troischiffre( Vmnt_ht__recept));
-							 stock.setCout_unitaire_moyen_pondere(prix_unit_moyen_pond);
-							 stock.getPk().setFkCode_barre(detBean.getPk().getFkCode_barre());
-							 stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
-							 stock.setDevise(detBean.getTarif().getDevise());
+					    	 Stock_articleBean newStock = new  Stock_articleBean();
+					    	 daoNumSequentiel.getNumSeqSimple(newStock,"stock_article_id",session);
+					    	 newStock.getPk().setDate_stock(beanUpdate.getAchat_date());
+					    	 newStock.setSolde_stock    ( ProcessFormatNbr.FormatDouble_Troischiffre(sold_stock_jr) );
+					    	 newStock.setQuantite_recept(ProcessFormatNbr.FormatDouble_Troischiffre (Vqte_reception));
+					    	 newStock.setMnt_tva_recept(ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_recept));
+					    	 newStock.setMnt_ht_recept (ProcessFormatNbr.FormatDouble_Troischiffre( Vmnt_ht__recept));
+					    	 newStock.setSolde_achat_tva(ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_recept));
+					    	 newStock.setSolde_achat_ht(ProcessFormatNbr.FormatDouble_Troischiffre( Vmnt_ht__recept));
+					    	 newStock.setCout_unitaire_moyen_pondere(prix_unit_moyen_pond);
+					    	 newStock.getPk().setFkCode_barre(detBean.getPk().getFkCode_barre());
+					    	 newStock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
+					    	 newStock.setDevise(detBean.getTarif().getDevise());
 							 //stock.getFk_etab_Bean().getPk_etab().setEtab_id(bs.getEtab_id());
 							 //stock.getFk_etab_Bean().getPk_etab().getSoc_bean().setSoc_id(bs.getSoc_id());
-						     session.saveOrUpdate(stock);
+						     session.saveOrUpdate(newStock);
 					     }
 							 
 					  }else{
 						  
-						 stock = new  Stock_articleBean();
-						 daoNumSequentiel.getNumSeqSimple(stock,"stock_article_id",session);
-						 stock.getPk().setDate_stock(beanUpdate.getAchat_date());
-						 stock.setSolde_stock    ( ProcessFormatNbr.FormatDouble_Troischiffre(sold_stock_jr) );
-						 stock.setQuantite_recept(ProcessFormatNbr.FormatDouble_Troischiffre (Vqte_reception));
-						 stock.setMnt_tva_recept(ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_recept));
-						 stock.setMnt_ht_recept (ProcessFormatNbr.FormatDouble_Troischiffre( Vmnt_ht__recept));
-						 stock.setSolde_achat_tva(ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_recept));
-						 stock.setSolde_achat_ht(ProcessFormatNbr.FormatDouble_Troischiffre( Vmnt_ht__recept));
-						 stock.setCout_unitaire_moyen_pondere(ProcessFormatNbr.FormatDouble_ParameterChiffre(detBean.getTarif().getTarif_unit_ttc(), detBean.getTarif().getDevise().getChiffre_pattern()));
+						  Stock_articleBean stockNew = new  Stock_articleBean();
+						 daoNumSequentiel.getNumSeqSimple(stockNew,"stock_article_id",session);
+						 stockNew.getPk().setDate_stock(beanUpdate.getAchat_date());
+						 stockNew.setSolde_stock    ( ProcessFormatNbr.FormatDouble_Troischiffre(sold_stock_jr) );
+						 stockNew.setQuantite_recept(ProcessFormatNbr.FormatDouble_Troischiffre (Vqte_reception));
+						 stockNew.setMnt_tva_recept(ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_recept));
+						 stockNew.setMnt_ht_recept (ProcessFormatNbr.FormatDouble_Troischiffre( Vmnt_ht__recept));
+						 stockNew.setSolde_achat_tva(ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_recept));
+						 stockNew.setSolde_achat_ht(ProcessFormatNbr.FormatDouble_Troischiffre( Vmnt_ht__recept));
+						 stockNew.setCout_unitaire_moyen_pondere(ProcessFormatNbr.FormatDouble_ParameterChiffre(detBean.getTarif().getTarif_unit_ttc(), detBean.getTarif().getDevise().getChiffre_pattern()));
 						  
-						 stock.getPk().setFkCode_barre(detBean.getPk().getFkCode_barre());
-						 stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
-						 stock.setDevise(detBean.getTarif().getDevise());
+						 stockNew.getPk().setFkCode_barre(detBean.getPk().getFkCode_barre());
+						 stockNew.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
+						 stockNew.setDevise(detBean.getTarif().getDevise());
 						 //stock.getFk_etab_Bean().getPk_etab().setEtab_id(bs.getEtab_id());
 						 //stock.getFk_etab_Bean().getPk_etab().getSoc_bean().setSoc_id(bs.getSoc_id());
-					     session.saveOrUpdate(stock);
+					     session.saveOrUpdate(stockNew);
 					  }
 					  MouvementStockBean  mvtStock        = new MouvementStockBean(); 
 				      mvtStock.setDate_stock(beanUpdate.getAchat_date());

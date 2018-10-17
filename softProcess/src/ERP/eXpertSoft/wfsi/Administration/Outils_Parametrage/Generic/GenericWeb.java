@@ -115,7 +115,7 @@ public class GenericWeb       {
 	public static final String DISBLED          ="disabled";
 	public static final String BTN_ADD          ="Enregistrer";
 	public static final String BTN_SEARCH       ="Chercher";
-	public static final String BTN_UPDATE       ="Modifier";
+	public static final String BTN_UPDATE       ="Valider";
 	
 	public static final String BTN_STOCK        ="Valider-Stocker";
 	public static final String BTN_VLD_SERVICE  ="Valider-Service";

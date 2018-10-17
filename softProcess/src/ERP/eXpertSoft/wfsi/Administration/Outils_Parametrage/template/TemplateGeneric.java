@@ -635,6 +635,24 @@ public class TemplateGeneric extends GenericActionBean {
 		return Get_Model_ROOT(isPage, twebBean);
 
 	}
+	
+	
+	public static ModelAndView getViewCorriger(String isPage) {
+		MenuActionBean twebBean = new MenuActionBean();
+
+		twebBean.setLibelleAction(BTN_UPDATE);
+		twebBean.setAct_doValid("i$_ACT_CORRIGER");
+		twebBean.setAct_doReset("i$_ACT_CANCEL_UPDATE");
+		twebBean.setAct_doRetour("i$_ACT_RETOUR_TO_LIST");
+		twebBean.setFctdoValid("doValidAction()");
+
+		 
+		twebBean.setIdReadonly(true);
+		twebBean.setBtValid(FALSE);
+		twebBean.setBtReset(FALSE);
+		twebBean.setBtRetour(FALSE);
+		return Get_Model_ROOT(isPage, twebBean);
+	}
 
 	public static ModelAndView getViewDelete(String isPage) {
 		MenuActionBean twebBean = new MenuActionBean();

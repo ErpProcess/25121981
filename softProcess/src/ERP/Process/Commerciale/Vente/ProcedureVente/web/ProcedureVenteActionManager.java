@@ -1190,7 +1190,7 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	    				dVente.setFkcode_barre(deUnite.getFkcode_barre());
 	    				dVente.setQuantite(qteOpe);
 	    				map_deriver_vente.put(detailBean.getCode_barreX(), dVente);
-	    				cBean.getPk().getAr_bean().getUnitBean().setUnite_lib(cBean.getPk().getAr_bean().getUnitBean().getUnite_lib()+"/Box:"+ qteOpe);
+	    				cBean.getPk().getAr_bean().getUnitBean().setUnite_lib(cBean.getPk().getAr_bean().getUnitBean().getUnite_lib()+":"+ qteOpe);
 					}
 	    				
 	    		}
@@ -2058,13 +2058,24 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		return getViewList_Ajax(FILTER_VIEW);
 			}
 	
+	public ModelAndView doCorrigerData(ProcedureVenteBean beanUpBean, FournitureVenteBean    fVenteBean , ServiceBean    service) {	 
+	 	try {
+	        serviceProcedureVente.doUpdateRowData(beanUpBean); 
+			update_row_from_list(LIST_DATA, beanUpBean); 
+	        throwNewException("mod01");
+	 	} catch (Exception e) {
+	 	displayException(e);
+	 }
+	return getViewList_Ajax(FILTER_VIEW);
+		}
+	
 	
 	public ModelAndView doConfirmData(ProcedureVenteBean beanUpBean, FournitureVenteBean    fVenteBean , ServiceBean    service) {	 
-	 	try {
-	 serviceProcedureVente.doConfirmRowData(beanUpBean,fVenteBean,service); 
-	 remove_row_from_list(LIST_DATA); 
-	 removeObjectModel(FORM_BEAN);
-	 throwNewException("validation ok ");
+		 	try {
+		 serviceProcedureVente.doConfirmRowData(beanUpBean,fVenteBean,service); 
+		 remove_row_from_list(LIST_DATA); 
+		 removeObjectModel(FORM_BEAN);
+		 throwNewException("validation ok ");
 	 	} catch (Exception e) {
 	 	displayException(e);
 	 }
@@ -2089,7 +2100,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	
 	
 	
-	public    ModelAndView doSelect_detaille_Row () throws Exception {
+	public    ModelAndView doSelectDetailleRow () throws Exception {
 
 		
 		
@@ -2253,6 +2264,10 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			
 			if ( bs.getFct_id().equals(Fn_Modifier) && demandeId.equals("")   )
 				return getViewUpdate(FORM_VIEW_CREER);
+			
+			
+			  if ( bs.getFct_id().equals(Fn_Corriger)  )
+					return getViewCorriger(FORM_VIEW_CREER);
 			
 			if ( bs.getFct_id().equals(Fn_Modifier) && !demandeId.equals("")   )
 				return getViewModif_Srv(FORM_VIEW_SERVIR);

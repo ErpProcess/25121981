@@ -428,13 +428,13 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				DetProcedureVenteBean detBean  = (DetProcedureVenteBean) listOfmyData.get(i);
 				
 				 if(  !StringUtils.isEmpty(  detBean.getPk().getFkcode_barre().getPk().getAr_bean().getCathegorie().getData_id()) &&  
-						 detBean.getPk().getFkcode_barre().getPk().getAr_bean().getCathegorie().getData_id().equals("syn") 	
-						 ) continue;
+					  detBean.getPk().getFkcode_barre().getPk().getAr_bean().getCathegorie().getData_id().equals("syn") )continue;
+				 
 					 
 				detBean.getPk().setVente(beanUpdate);
 				detBean.setQuantite_confirmer(detBean.getQuantite());
+				boolean resultTrai_personnaliser=false;   //traitement_for_lot_personnaliser(beanUpdate,detBean,session);
 				
-				boolean resultTrai_personnaliser=false;//traitement_for_lot_personnaliser(beanUpdate,detBean,session);
 				
 				if(!resultTrai_personnaliser && (list_lot_article!=null &&  list_lot_article.size()>0) ) {
 				HashMap resultTrai_generic=traitement_for_lot_generic(beanUpdate,detBean,list_lot_article,session);

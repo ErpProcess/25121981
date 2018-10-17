@@ -37,6 +37,9 @@ public class Reception_achatController  extends Reception_achatActionManager   {
            
                   if (i$_ACT_INIT_SERVLET )         return      doInitServletAction(); 
                   
+                  if (i$_ACT_AJAX_FETCH)            return      doFetchData(detailBean);
+                  
+                  if (i$_ACT_SELECT_ROW)            return      doSelectDetailleRow();
                  
                   if (i$_ACT_RESET_FORM)            return      doResetFormEdit();  
                   
@@ -57,11 +60,12 @@ public class Reception_achatController  extends Reception_achatActionManager   {
 		          
 		          if (i$_ACT_FETCH_AJAX_SERVIR)     return      doFetchData_for_servir_demande(detailBean);
 		          
-		          if (i$_ACT_AJAX_FETCH)            return      doFetchData(detailBean);
-		          
-		          if (i$_ACT_SELECT_ROW)            return      doSelect_detaille_Row();
+		        
 		          
 		          if (i$_ACT_UPDATE)                return      doUpdateData(detailBean);
+		          
+		          if (i$_ACT_CORRIGER)              return      doCorrigerData(detailBean);
+		          
 		          
 		          if (i$_ACT_DELETE)                return      doDeleteData(detailBean);
 		          

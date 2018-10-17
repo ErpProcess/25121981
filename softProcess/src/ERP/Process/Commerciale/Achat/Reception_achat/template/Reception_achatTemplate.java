@@ -118,6 +118,8 @@ public static boolean i$_ACT_RECEPTION= false;
 public static boolean i$_ACT_EXPORT_XLS = false;
 public static boolean i$_ACT_ADD_ROW = false;
 public static boolean i$_ACT_LOAD_TARIF = false;
+public static boolean i$_ACT_CORRIGER = false;
+
 
 public static boolean i$_ACT_DELETE_ROW = false;
 public static boolean i$_ACT_ACTUALISER_TABLE= false;
