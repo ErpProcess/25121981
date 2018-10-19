@@ -543,9 +543,10 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 		    
 		    
 		    
+		    
+		    
+		    
 		   List <DetProcedureVenteBean> listOfmyData=(List) getObjectValueModel(ProcedureVenteTemplate.LIST_EDITABLE_VENTE);
-		   
-		   
 		   String chaine="";
 		   for(DetProcedureVenteBean beanvente:listOfmyData){
 			   if(  !StringUtils.isEmpty(  beanvente.getPk().getFkcode_barre().getPk().getAr_bean().getCathegorie().getData_id()) &&  
@@ -674,6 +675,41 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 		}
 		return list_lot_article;
 	}
+	
+	
+	public   List doGetLotArtcicleDejaSauvgarderByVenteId(ProcedureVenteBean beanUpd, String chaine) throws Exception {
+		 
+		List list_lot_article = new ArrayList();
+		 try {
+			 
+			 SerieArticletBean  beanSerie= new SerieArticletBean();
+			 beanSerie.setCondition_list_article("   AND   bean.date_utilisation  <= '"+ProcessDate.getStringFormatDate(beanUpd.getVente_date())+"'    " +
+					                             "   AND   bean.quantite  > 0    " +
+					 					         "   AND   ( bean.date_peremption  is null   OR    bean.date_peremption  > '"+ProcessDate.getStringFormatDate(beanUpd.getVente_date())+"' )   " +
+			 		"                                AND   bean.fkCode_barre.pk.code_barre in ( "+  chaine + ")    " );
+			 
+			 if(beanUpd.getFifo()) 
+			   beanSerie.setCondition_fifo_lifo("  ORDER BY  bean.date_serie  ASC    ");
+			 else
+			   beanSerie.setCondition_fifo_lifo("  ORDER BY  bean.date_serie  DESC   ");
+			 
+			   beanSerie.getPk().setDepot(beanUpd.getDepot());
+			   list_lot_article=serviceDocumentLot.doFetch_detailleLotfromServer(beanSerie);
+			   
+			  if(list_lot_article==null ||  list_lot_article.size()==0)
+				   throwNewException(" il existe un ou plusieur  article(s) sans Lot ");
+			   
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		return list_lot_article;
+	}
+	
+	
+	
+	
+	
 
 	@SuppressWarnings("unchecked")
 	private boolean traitement_for_stock(ProcedureVenteBean beanUpdate, DetProcedureVenteBean detail_Bean, HashMap map_article_jour ,  Session session ) throws Exception {
