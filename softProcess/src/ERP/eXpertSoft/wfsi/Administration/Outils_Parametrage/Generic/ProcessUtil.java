@@ -195,8 +195,7 @@ public class ProcessUtil {
 						final String[] lesColunmooo = lesColun.split("\\.");
 						Object object = bean;
 						for (int k = 0; k < lesColunmooo.length; k++) {
-							Field fieldo = object.getClass().getDeclaredField(
-									lesColunmooo[k]);
+							Field fieldo = object.getClass().getDeclaredField(lesColunmooo[k]);
 							fieldo.setAccessible(true);
 							Object obj = fieldo.get(object);
 							object = obj;
@@ -207,31 +206,30 @@ public class ProcessUtil {
 
 						Object object2 = bean2;
 						for (int k = 0; k < lesColunmooo.length; k++) {
-							Field fieldo = object2.getClass().getDeclaredField(
-									lesColunmooo[k]);
+							Field fieldo = object2.getClass().getDeclaredField(lesColunmooo[k]);
 							fieldo.setAccessible(true);
 							Object obj = fieldo.get(object2);
 							object2 = obj;
 
 						}
-						String element11 = String.valueOf(object2)
-								.toLowerCase();
+						String element11 = String.valueOf(object2).toLowerCase();
 						element11 = element11 != null ? element11 : "";
-						return String.valueOf(element1).compareTo(
-								String.valueOf(element11)) * 1;
+						return String.valueOf(element1).compareTo(String.valueOf(element11)) * 1;
 
 					} else {
 						Field field = bean.getClass().getDeclaredField(lesColun);
 						field.setAccessible(true);
+						
 						String element = ((String) String.valueOf(field.get(bean))).toLowerCase();
 						element = element != null ? element : "";
+						
 						Field field2 = bean2.getClass().getDeclaredField(lesColun);
 						field2.setAccessible(true);
-						String element2 = ((String) String.valueOf(field2
-								.get(bean2))).toLowerCase();
+						String element2 = ((String) String.valueOf(field2.get(bean2))).toLowerCase();
+						
 						element2 = element2 != null ? element2 : "";
-						return String.valueOf(element).compareTo(
-								String.valueOf(element2)) * 1;
+						
+						return String.valueOf(element).compareTo(String.valueOf(element2)) * 1;
 
 					}
 

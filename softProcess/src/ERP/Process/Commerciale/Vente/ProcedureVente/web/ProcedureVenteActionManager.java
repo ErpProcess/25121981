@@ -1812,7 +1812,9 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
 					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id in ('"+Fn_Créer+"','"+Fn_Modifier+"','"+Fn_Servir+"')   ");
 				}
 				
-				 
+				if(bs.getFct_id().equals(Fn_Corriger) ){
+					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id not in ('"+Fn_Facturer+"')   ");
+				}
 				 
 				List listDataSrv = serviceProcedureVente.doFetchDatafromServer(searchBean);
 				setObjectValueModel(SEARCH_BEAN, searchBean);
@@ -2060,7 +2062,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	
 	public ModelAndView doCorrigerData(ProcedureVenteBean beanUpBean, FournitureVenteBean    fVenteBean , ServiceBean    service) {	 
 	 	try {
-	        serviceProcedureVente.doUpdateRowData(beanUpBean); 
+	        serviceProcedureVente.doCorrigerProcedureVente(beanUpBean); 
 			update_row_from_list(LIST_DATA, beanUpBean); 
 	        throwNewException("mod01");
 	 	} catch (Exception e) {

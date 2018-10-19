@@ -42,6 +42,8 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 		          
 		          if (i$_ACT_SELECT_ROW)            return      doSelectDetailleRow();
 		          
+		          if (i$_ACT_AJAX_FETCH)            return      doFetchData(beanVente);
+		          
 		          if (i$_ACT_RESET_FORM)            return      doResetFormVente();   
 		           
 		          if (i$_ACT_DELETE_ROW )           return      doDelete_row_Editable(); 
@@ -81,7 +83,7 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
                  
                   if (i$_ACT_RETOUR_LIST_SERVIR)    return      doRetourToList_SERVIR();
 		          
-		          if (i$_ACT_AJAX_FETCH)            return      doFetchData(beanVente);
+		      
 		          
 		     
 		          

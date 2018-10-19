@@ -99,6 +99,14 @@ public class ProcedureVenteService  extends GenericWeb  {
 	}
 	
 	@Transactional
+	public Boolean  doCorrigerProcedureVente(ProcedureVenteBean updateBean)  throws Exception {
+			 return  daoProcedureVente.doCorrigerProcedureVente(updateBean);
+	}
+	
+	
+	
+	
+	@Transactional
 	public Boolean  doConfirmRowData(ProcedureVenteBean updateBean, FournitureVenteBean    fVenteBean , ServiceBean    service)  throws Exception {
 		 boolean result = false;
 		 try {
