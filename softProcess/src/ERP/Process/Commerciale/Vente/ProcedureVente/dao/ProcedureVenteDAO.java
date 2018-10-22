@@ -20,6 +20,7 @@ import ERP.Process.Commerciale.Stock.DocumentLot.service.DocumentLotService;
 import ERP.Process.Commerciale.Stock.MouvementStock.model.MouvementSerieBean;
 import ERP.Process.Commerciale.Stock.MouvementStock.service.MouvementStockService;
 import ERP.Process.Commerciale.Stock.Stock_article.dao.Stock_articleDAO;
+import ERP.Process.Commerciale.Stock.Stock_article.model.IncidentStock_articleBean;
 import ERP.Process.Commerciale.Stock.Stock_article.model.MouvementStockBean;
 import ERP.Process.Commerciale.Stock.Stock_article.model.Stock_articleBean;
 import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
@@ -34,7 +35,9 @@ import ERP.Process.Commerciale.Vente.ProcedureVente.model.DeriverOperationVente;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.DetProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.template.ProcedureVenteTemplate;
+import ERP.Process.Commerciale.Vente.RetourVente.model.DetRetourVenteBean;
 import ERP.Process.Commerciale.Vente.RetourVente.model.Incident_det_retour_venteBean;
+import ERP.Process.Commerciale.Vente.RetourVente.model.RetourVenteBean;
 import ERP.Process.Commerciale.Vente.Service.model.DetServiceBean;
 import ERP.Process.Commerciale.Vente.Service.model.ServiceBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericActionBean;
@@ -531,6 +534,9 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 	}
 	
 	
+	
+	 
+	 
 	private boolean TraitementCorrectionVenteArticleMarchandise(  ProcedureVenteBean beanUp, Session session) throws Exception {
 		
 		   ProcedureVenteBean beanUpdate=(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
@@ -538,12 +544,11 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 		   boolean  sup=ProcessDate.isStrictementSuperieur(beanUpdate.getVente_date(), BDateTime.getDateActuel());
 		   if(sup)
 		    	throwNewException(" Date vente "+ProcessDate.getStringFormatDate(beanUpdate.getVente_date())+"Sup a date system");
-		    
-		    
-		    
-		   List  listmvtLotArticle   = doGetLotArtcicleDejaSauvgarderByVenteId(beanUpdate);
-		   traitement_Correction_lot_generic(beanUpdate,listmvtLotArticle,session);
-		    
+		
+		   List <DetProcedureVenteBean> listOfmyDataClone=(List) getObjectValueModel(ProcedureVenteTemplate.LIST_EDITABLE_VENTE_CLONE);
+		   
+		  
+		  
 		    
 		    
 		   List <DetProcedureVenteBean> listOfmyData=(List) getObjectValueModel(ProcedureVenteTemplate.LIST_EDITABLE_VENTE);
@@ -560,6 +565,8 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 		       list_lot_article   = doGetLot_artcicle(beanUpdate,chaine);
 		       map_resultat_stock = doGetStock_artcicle(beanUpdate,chaine);
 		     }
+		   
+		   traitement_Correction_lot_generic(beanUpdate,listOfmyDataClone,map_resultat_stock,session);
 		
 		    for (int i = 0; i < listOfmyData.size(); i++) {
 				DetProcedureVenteBean detBean  = (DetProcedureVenteBean) listOfmyData.get(i);
@@ -773,10 +780,11 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						 
 						 stock.setSolde_vente_tva(ProcessFormatNbr.FormatDouble_ParameterChiffre(tot_Stock_Mnt_tva_vente,pattern));
 						 stock.setSolde_vente_ht(ProcessFormatNbr.FormatDouble_ParameterChiffre( tot_Stock_Mnt_ht_vente,pattern));
-						 
+						 stock.setCout_unitaire_moyen_pondere(prix_unit_moyen_pond);
 						 
 						 stock.getPk().setFkCode_barre(detail_Bean.getPk().getFkcode_barre());
 						 stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
+						 stock.setCout_unitaire_moyen_pondere(prix_unit_moyen_pond);
 						 stock.setDevise(stock.getDevise());
 						 stock.setDeviseVente(detail_Bean.getDevise());
 						 session.saveOrUpdate(stock);
@@ -798,6 +806,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						 Newstock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
 						 Newstock.setDevise(stock.getDevise());
 						 Newstock.setDeviseVente(detail_Bean.getDevise());
+						 Newstock.setCout_unitaire_moyen_pondere(prix_unit_moyen_pond);
 						 session.saveOrUpdate(Newstock);
 					 }
 					 
@@ -991,17 +1000,12 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 	}
 	
 	
-	private HashMap  traitement_Correction_lot_generic(ProcedureVenteBean beanUpdate  , List list_detaille_lot_article, Session session  ) throws Exception {
-		Boolean  resultat=false;
-		String   retournErreur="";
-		HashMap  mapRes= new HashMap();
+	private void  traitement_Correction_lot_generic(ProcedureVenteBean beanUpdate ,     List <DetProcedureVenteBean> listOfmyDataClone ,  HashMap  map_article_jour, Session session  ) throws Exception {
+	 
 		 try {
-			 
-		 
-				
-				for (int k = 0; k < list_detaille_lot_article.size(); k++) {
-					
-					     MouvementSerieBean  	mvtSeriBean =(MouvementSerieBean) list_detaille_lot_article.get(k);
+			   List  listmvtLotArticle   = doGetLotArtcicleDejaSauvgarderByVenteId(beanUpdate);
+				for (int k = 0; k < listmvtLotArticle.size(); k++) {
+					     MouvementSerieBean  	mvtSeriBean =(MouvementSerieBean) listmvtLotArticle.get(k);
 				    	 Double Qte= ProcessFormatNbr.FormatDouble_ParameterChiffre(mvtSeriBean.getQuantite_operation(),beanUpdate.getDevise().getChiffre_pattern()) ;
 				    	 SerieArticletBean  serie=mvtSeriBean.getPk().getSerieBean();
 				    	 Double qteserie= ProcessFormatNbr.FormatDouble_ParameterChiffre(serie.getQuantite(),beanUpdate.getDevise().getChiffre_pattern()) ; 
@@ -1011,13 +1015,111 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				    	 session.update(serie); 
 				    	 session.delete(mvtSeriBean);
 				 } 
-				 
+		
+				   for (int i = 0; i < listOfmyDataClone.size(); i++) {
+					   
+				   
+						 DetProcedureVenteBean detail_Bean  = (DetProcedureVenteBean) listOfmyDataClone.get(i);
+						
+						 String date_Retvente =  ProcessDate.getStringFormatDate(beanUpdate.getVente_date()); 
+					     String ref_article_vente            = detail_Bean.getPk().getFkcode_barre().getPk().getCode_barre();
+						 Stock_articleBean stock             =  new Stock_articleBean();
+						
+					     String key_trait =""+
+					     detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
+					     detail_Bean.getPk().getFkcode_barre().getPk().getCode_barre()+"§"+
+						 beanUpdate.getDepot().getDepot_id()+"§"+
+						 detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+						 detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
+					     Double prix_unit_moyen_pond = new Double(0);
+					 
+						 if(map_article_jour.get(key_trait)==null) {
+						 
+							 
+						 }else{
+							  
+							                   stock                 = (Stock_articleBean)map_article_jour.get(key_trait);
+							     prix_unit_moyen_pond                = stock.getCout_unitaire_moyen_pondere()!=null?stock.getCout_unitaire_moyen_pondere(): new Double(0);             
+								 String  date_stock                  = ProcessDate.getStringFormatDate(stock.getPk().getDate_stock());
+								 Double  Vqte_R_vente                = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getQuantite());
+								 Double  Vmnt_ht__Retvente           = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getMontant_ht_vente());
+								 Double  Vmnt_tva_Retvente           = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getMontant_tva_vente());
+							 
+							 
+							 
+								 Double  Sqte_Stock                  = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_stock());
+								 Double  getSolde_achat_ht           = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_achat_ht());
+								 Double  getSolde_achat_tva          = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_achat_tva());
+								 Double  getSolde_vente_ht           = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_ht());
+								 Double  getSolde_vente_tva          = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_tva());
+							 
+						
+							 
+								 Double sold_stock_jr                = ProcessNumber.addition(Sqte_Stock , Vqte_R_vente );
+							 
+							     
+								 Double NewgetSolde_vente_ht     = ProcessNumber.SOUSTRACTION(getSolde_vente_ht   , Vmnt_ht__Retvente);
+								 Double NewgetSolde_vente_tva    = ProcessNumber.SOUSTRACTION(getSolde_vente_tva, Vmnt_tva_Retvente);
+								 stock.setSolde_vente_ht(NewgetSolde_vente_ht);
+								 stock.setSolde_vente_tva(NewgetSolde_vente_tva);
+								 stock.setSolde_stock   ( ProcessFormatNbr.FormatDouble_Troischiffre(sold_stock_jr) );
+								 stock.getPk().setFkCode_barre(detail_Bean.getPk().getFkcode_barre());
+								 stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
+								 String stock_article_id="";
+								 
+								 if(date_Retvente.equals(date_stock)){
+									 session.update(stock);
+								 }else{
+									 
+									 Stock_articleBean new_stock             =  new Stock_articleBean();
+									 new_stock.getPk().setDate_stock(beanUpdate.getVente_date());
+									 new_stock.setQuantite_recept(null);
+									 new_stock.setQuantite_vendu(null);
+									 new_stock.setMnt_ht_recept(null);
+									 new_stock.setMnt_ht_vente(null);
+									 new_stock.setMnt_tva_recept(null);
+									 new_stock.setMnt_tva_vente(null);
+									 new_stock.setCout_unitaire_moyen_pondere(prix_unit_moyen_pond);
+									 new_stock.setDevise(stock.getDevise());
+									 new_stock.setDeviseVente(detail_Bean.getDevise());
+								     daoNumSequentiel.getNumSeqSimple(new_stock,"stock_article_id",session);
+									 session.save(new_stock);
+								 }
+							 
+								 
+								 String ligne="";
+								 
+									 ligne="  ,bean.solde_stock = bean.solde_stock + "+ProcessFormatNbr.FormatDouble_Troischiffre(Vqte_R_vente)+"  ";
+								 
+									 
+									 
+									 String qString=""+
+									 "   UPDATE  Stock_articleBean  bean    set   bean.solde_vente_tva = bean.solde_vente_tva - "+ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_Retvente)+"  , " +
+									 
+									 "                                            bean.solde_vente_ht = bean.solde_vente_ht - "+ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_ht__Retvente)+"    " +
+									 "                      "+ligne+"                        " +
+									 
+								 		"                where   bean.pk.depot.depot_id="+beanUpdate.getDepot().getDepot_id()+"     "+
+								 		"                 AND    bean.pk.fkCode_barre.pk.code_barre='"+detail_Bean.getPk().getFkcode_barre().getPk().getCode_barre()+"'  "+
+								 		"                 AND    bean.pk.fkCode_barre.pk.ar_bean.pk_article.ar_id='"+detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"'  "+
+								 		"                 AND    bean.pk.fkCode_barre.pk.ar_bean.pk_article.etabBean.pk_etab.etab_id='"+detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"'  "+
+								 		"                 AND    bean.pk.fkCode_barre.pk.ar_bean.pk_article.etabBean.pk_etab.soc_bean.soc_id='"+detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"'  "+
+								 		"                 AND    bean.pk.date_stock > '"+date_Retvente+"'  ";
+								 		 
+								 		  
+									  session.createQuery(qString).executeUpdate();	
+ 
+						 }
+			 }
+								 
+								  
+		
+				
 		 } catch (Exception e) {  
 		     throw e;  
 		 } 
-			mapRes.put("retournErreur", "");
-			mapRes.put("retour", resultat);
-			return mapRes;
+		 
+		 
 	}
 
 	private HashMap  traitement_for_lot_generic(ProcedureVenteBean beanUpdate,DetProcedureVenteBean detBean, List list_lot_article, Session session  ) throws Exception {
