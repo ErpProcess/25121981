@@ -43,7 +43,7 @@ public class ProcessFormatNbr  extends GenericWeb  {
 		
     	
 		try{
-			  BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
+			 
 			  if(decimal==null)decimal=new Double(0);
 			 
 		      DecimalFormat decimForm=new DecimalFormat(pattern);

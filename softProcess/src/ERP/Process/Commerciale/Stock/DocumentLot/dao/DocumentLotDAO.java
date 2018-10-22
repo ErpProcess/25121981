@@ -120,11 +120,11 @@ public class DocumentLotDAO extends  GenericWeb    {
 		 			
 			     String requette="   SELECT  bean  FROM    MouvementSerieBean    bean    WHERE     1=1       ";
 			 
-				  if( !StringUtils.isEmpty(beanSearch.getCondition_list_article()) ) 
-					   requette+=""+beanSearch.getCondition_list_article();
+				 if( !StringUtils.isEmpty(beanSearch.getDetaille_serie()) ) 
+					   requette+=""+beanSearch.getDetaille_serie();
 			 
-				    lisf= session.createQuery(requette).list();
-					commitTransaction(session);
+				 lisf= session.createQuery(requette).list();
+				 commitTransaction(session);
 					
 			 } catch (Exception e) {  
 			     if (sessionIsTrue(session)) 
