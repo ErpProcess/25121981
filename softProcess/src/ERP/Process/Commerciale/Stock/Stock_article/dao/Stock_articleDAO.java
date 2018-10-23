@@ -89,24 +89,17 @@ public class Stock_articleDAO extends  GenericWeb    {
 			if (beanSearch.getDate_stock2() != null)
 				requette += "   AND   bean.pk.date_stock  <= '"+ProcessDate.getStringFormatDate(beanSearch.getDate_stock2()) + "'        ";
 
-			if (!StringUtils.isEmpty(beanSearch.getPk().getFkCode_barre()
-					.getPk().getAr_bean().getPk_article().getAr_id()))
+			if (!StringUtils.isEmpty(beanSearch.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()))
 				requette += "   AND   bean.pk.fkCode_barre.pk.ar_bean.pk_article.ar_id ='"+ beanSearch.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"'        ";
 
 			if (!StringUtils.isEmpty(beanSearch.getPk().getFkCode_barre()
 					.getPk().getCode_barre()))
-				requette += "   AND   bean.pk.fkCode_barre.pk.code_barre = '"
-						+ beanSearch.getPk().getFkCode_barre().getPk()
-								.getCode_barre() + "'        ";
+				requette += "   AND   bean.pk.fkCode_barre.pk.code_barre = '"+ beanSearch.getPk().getFkCode_barre().getPk().getCode_barre() + "'        ";
 
 			if ((beanSearch.getPk().getDepot().getDepot_id() != null))
-				requette += "   AND   bean.pk.depot.depot_id = "
-						+ beanSearch.getPk().getDepot().getDepot_id()
-						+ "        ";
+				requette += "   AND   bean.pk.depot.depot_id = "+beanSearch.getPk().getDepot().getDepot_id()+"        ";
 
-			// requette+=" AND
-			// bean.pk.depot.fk_etab_Bean.pk_etab.soc_bean.soc_id =
-			// "+bs.getSoc_id()+" ";
+		 
 
 			if (!StringUtils.isEmpty(beanSearch.getCondition_max_date_stock()))
 				requette += "   " + beanSearch.getCondition_max_date_stock()
@@ -116,12 +109,10 @@ public class Stock_articleDAO extends  GenericWeb    {
 				requette += "   " + beanSearch.getCondition_list_article()
 						+ "        ";
 
-			if ((beanSearch.getSolde_stock() != null))
-				requette += "   AND   bean.solde_stock = '"
-						+ beanSearch.getSolde_stock() + "'        ";
+		    if ((beanSearch.getSolde_stock() != null))
+				requette += "   AND   bean.solde_stock = '"+ beanSearch.getSolde_stock() + "'        ";
 
-			requette += "   AND   bean.pk.depot.fk_etab_Bean.pk_etab.soc_bean.soc_id='"
-					+ bs.getSoc_id() + "'";
+			requette += "   AND   bean.pk.depot.fk_etab_Bean.pk_etab.soc_bean.soc_id='"+ bs.getSoc_id() + "'";
 
 			requette += "   ORDER BY  date(bean.pk.date_stock )   ASC      ";
 
