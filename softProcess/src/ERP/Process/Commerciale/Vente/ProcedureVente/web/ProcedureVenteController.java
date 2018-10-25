@@ -83,11 +83,6 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
                  
                   if (i$_ACT_RETOUR_LIST_SERVIR)    return      doRetourToList_SERVIR();
 		          
-		      
-		          
-		     
-		          
-		          
 		          
 		          if (ACT_NAVIGATE)                 return      getViewConsult_Pdf_ex(FORM_VIEW);
 		          
@@ -120,13 +115,11 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 		    	  if (i$_ACT_EXPORT_DETAILLE)       return      doExportXls_detaille();
 		    	  
 		    	  if (i$_ACT_CONFIRM)               return      doConfirmData(beanVente,fVenteBean,service);
-		    
-		          
 		      
 		            
-		          if (i$_ACT_CALCUL_TOTAL)             return      doCalculerTotal(beanVente);
+		          if (i$_ACT_CALCUL_TOTAL)             return   doCalculerTotal(beanVente);
 		          
-		          if (i$_ACT_CALCUL_TOTAL_FOURNITURE)  return      doCalculerTotalFourniture();
+		          if (i$_ACT_CALCUL_TOTAL_FOURNITURE)  return   doCalculerTotalFourniture();
 		    	  
 		          
 		    	  

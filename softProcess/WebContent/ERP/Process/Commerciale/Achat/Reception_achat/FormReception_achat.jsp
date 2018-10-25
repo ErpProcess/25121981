@@ -328,7 +328,7 @@ config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
 		      
 		      <td ><label>Devise</label></td>  
 		      <td     >   
-		        <script  >$(function() {loadSelectAjax("devX","list_devise","dev_id","dev_libelle","${detailBean.devise.dev_id}",true); })</script>
+		        <script  >$(function() {loadSelectAjax("devX","list_devise","dev_id","dev_libelle","${detailBean.devise.dev_id}",false); })</script>
 		        <select   required   id="devX"  name="devise.dev_id"   style="width: 180px;"  ></select>
 		                  
 		      </td>  

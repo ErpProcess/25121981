@@ -65,7 +65,7 @@ $("#myformToServeur").submit();
 		      </td> 
 		      <td width="10%"><label>Devise</label></td>  
 		      <td width="40%"  >
- 				<script  >$(function() {loadSelectAjax("devX","list_devise","dev_id","dev_libelle","${detailBean.devise.dev_id}",true); })</script>
+ 				<script  >$(function() {loadSelectAjax("devX","list_devise","dev_id","dev_libelle","${detailBean.devise.dev_id}",false); })</script>
 		        <select   required   id="devX"  name="devise.dev_id"   style="width: 180px;"  ></select> 
 		      </td> 
 		    </tr>

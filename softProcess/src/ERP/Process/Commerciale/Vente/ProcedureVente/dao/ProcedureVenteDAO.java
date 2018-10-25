@@ -555,14 +555,13 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 		   }
 		   List     list_lot_article   = new ArrayList();
 		   HashMap  map_resultat_stock = new HashMap();
-		   if(chaine.length()>0){
+		    if(chaine.length()>0){
 			   chaine=chaine.substring(0, chaine.length()-1);
 		       list_lot_article   = doGetLot_artcicle(beanUpdate,chaine);
 		       map_resultat_stock = doGetStock_artcicle(beanUpdate,chaine);
 		     }
-		   traitementCorrectionLotGeneric(beanUpdate,session);
-		   traitementCorrectionStockArticleMarchandis(beanUpdate,listOfmyDataClone,session);
-		
+		    traitementCorrectionLotGeneric(beanUpdate,session);
+		    traitementCorrectionStockArticleMarchandis(beanUpdate,listOfmyDataClone,session);
 		    for (int i = 0; i < listOfmyData.size(); i++) {
 				DetProcedureVenteBean detBean  = (DetProcedureVenteBean) listOfmyData.get(i);
 				
@@ -674,11 +673,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 					   
 				   
 						 DetProcedureVenteBean detail_Bean  = (DetProcedureVenteBean) listOfmyDataClone.get(i);
-						
 						 String date_vente =  ProcessDate.getStringFormatDate(beanUpdate.getVente_date()); 
-					  
-					 
-						
 					     String keyTrait =""+
 					     detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
 					     detail_Bean.getPk().getFkcode_barre().getPk().getCode_barre()+"§"+
@@ -1504,19 +1499,16 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			}
 			session.flush();
 			session.clear();
-			for (DetProcedureVenteBean bxe:listInsert) {
-				bxe.getPk().setVente(beanUpdate);
-				session.save(bxe);
+			for (DetProcedureVenteBean detPbxe:listInsert) {
+				detPbxe.getPk().setVente(beanUpdate);
+				session.save(detPbxe);
 			}
 			
-			 result  = TraitementCorrectionVenteArticleMarchandise(beanUpdate,session);
-				List <DetFournitureVenteBean> listOfmyData=(List) getObjectValueModel(ProcedureVenteTemplate.LIST_EDITABLE_FOURNITURE_VENTE);
-				if(listOfmyData!=null  &&  listOfmyData.size()>0){
-					TraitementCorrectionFournitureVente(listOfmyData,beanUpdate,session);
-				}
-				           
-				 result = true;
-				 
+			TraitementCorrectionVenteArticleMarchandise(beanUpdate,session);
+			  List <DetFournitureVenteBean> listOfmyDataFourniture=(List) getObjectValueModel(ProcedureVenteTemplate.LIST_EDITABLE_FOURNITURE_VENTE);
+			    if(listOfmyDataFourniture!=null  &&  listOfmyDataFourniture.size()>0){
+					TraitementCorrectionFournitureVente(listOfmyDataFourniture,beanUpdate,session);
+			    }
 			ProcedureVenteBean beanTotal =(ProcedureVenteBean) getObjectValueModel(ProcedureVenteTemplate.BEAN_TOTAL);
 			beanUpdate.setVente_remise(beanTotal.getVente_remise());
 			beanUpdate.setVente_mnt_ht(beanTotal.getVente_mnt_ht());
