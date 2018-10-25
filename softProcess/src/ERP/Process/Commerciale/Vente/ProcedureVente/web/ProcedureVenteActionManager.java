@@ -2299,22 +2299,8 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			
 			
 			
-			
-			 
-			
-			
-			
 			if (bs.getFct_id().equals(Fn_Conserver))
 				return getViewValider(FORM_VIEW);
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			
 			if (bs.getFct_id().equals(Fn_Servir)){
@@ -2970,7 +2956,8 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			Double getMontant_vente_recu    = detailBean.getMontant_vente_recu()==null?new Double(0):detailBean.getMontant_vente_recu();
 			
 			if(bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Servir) ||  bs.getFct_id().equals(Fn_Confirmer) 
-					|| bs.getFct_id().equals(Fn_Modifier)  ||  bs.getFct_id().equals(Fn_Facturer)  ){
+					|| bs.getFct_id().equals(Fn_Modifier)  ||  bs.getFct_id().equals(Fn_Facturer)   ||  bs.getFct_id().equals(Fn_Corriger)   ){
+				
 				 List_detaille=(List<DetProcedureVenteBean>) getObjectValueModel(LIST_EDITABLE_VENTE);
 				 if( detailBean.getDevise().getDev_id().intValue()==191  ||  detailBean.getDevise().getDev_id().intValue()==192   ){
 						pattern ="0.00";
