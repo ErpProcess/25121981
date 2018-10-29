@@ -440,7 +440,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		    
 		    PdfPTable tableTopHeader3 = new PdfPTable(100);
 		    tableTopHeader3.setWidthPercentage(85);
-		    PdfPCell cellSummary = new PdfPCell(new Phrase( " 2000 "+""+Jsoup.parse("كلغ").body().text()+"                        "+denBean.getFact_ref_id(),arialuniArab));
+		    PdfPCell cellSummary = new PdfPCell(new Phrase( denBean.getObservation()+""+""+Jsoup.parse("كلغ").body().text()+"                        "+denBean.getFact_ref_id(),arialuniArab));
 	        cellSummary.setHorizontalAlignment(Element.ALIGN_RIGHT);
 	        cellSummary.setPaddingBottom(3);
 	        cellSummary.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);

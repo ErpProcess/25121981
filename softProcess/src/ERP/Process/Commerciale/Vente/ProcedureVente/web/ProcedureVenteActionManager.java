@@ -660,6 +660,7 @@ public   ModelAndView doActualiser_GRID( ProcedureVenteBean bean ) throws Except
 		
 		try {
  			List listOData=(List) getObjectValueModel(LIST_EDITABLE_VENTE);
+ 			HashMap  map_deriver_vente  =(HashMap) getObjectValueModel(MAP_DERIVER_VENTE);
 			JsonObject data = new JsonObject();
 			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 			String pattern ="0.000";
@@ -697,8 +698,25 @@ public   ModelAndView doActualiser_GRID( ProcedureVenteBean bean ) throws Except
 		    		
 		    		
 		    		Double priUnitvente=ProcessFormatNbr.FormatDouble_ParameterChiffre(ss.getTarif_unit_vente(),pattern);
-		    		  
 		    		
+		    		DeriverUnite  drvUnite=newBean.getPk().getFkcode_barre().getPk().getAr_bean().getUnitBean().getDrv();
+		    		newBean.setUnite(newBean.getPk().getFkcode_barre().getPk().getAr_bean().getUnitBean().getUnite_lib());
+		    		if(drvUnite!=null) {
+		    			List <DetDeriverUnite> listDrv = serviceUnite.doFetchDetDeriverUniteByDrvId(drvUnite.getDrv_id())  ;
+		    			for (int r = 0; r < listDrv.size();r++) {
+		    				DetDeriverUnite deUnite = listDrv.get(r);
+		    				DeriverOperationVente dVente = new DeriverOperationVente();
+		    				Double qteOpe=ProcessNumber.doMath(newBean.getQuantite(), deUnite.getDrv_coef(), deUnite.getDrv_oper().charAt(0));
+		    				dVente.setDrv_oper(deUnite.getDrv_oper());
+		    				dVente.setDrv_coef(deUnite.getDrv_coef());
+		    				dVente.setFkcode_barre(deUnite.getFkcode_barre());
+		    				dVente.setQuantite(qteOpe);
+		    				map_deriver_vente.put(newBean.getPk().getFkcode_barre().getPk().getCode_barre(), dVente);
+		    				newBean.setUnite(newBean.getPk().getFkcode_barre().getPk().getAr_bean().getUnitBean().getUnite_lib()+":"+ qteOpe);
+						}
+		    				
+		    		} 
+		    		 
 		    		
 		    		/*****************************************Prix Unit Brute reel********************************************/
 		    		
@@ -1181,8 +1199,9 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	     
 	    		beanLigne.setTarif(ss);
 	    		beanLigne.setQuantite_en_stock(quantite_en_stock);
+	    		
 	    		DeriverUnite  drvUnite=cBean.getPk().getAr_bean().getUnitBean().getDrv();
-	    		 
+	    		beanLigne.setUnite(cBean.getPk().getAr_bean().getUnitBean().getUnite_lib());
 	    		if(drvUnite!=null) {
 	    			List <DetDeriverUnite> listDrv = serviceUnite.doFetchDetDeriverUniteByDrvId(drvUnite.getDrv_id())  ;
 	    			for (int r = 0; r < listDrv.size();r++) {
@@ -1194,10 +1213,10 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	    				dVente.setFkcode_barre(deUnite.getFkcode_barre());
 	    				dVente.setQuantite(qteOpe);
 	    				map_deriver_vente.put(detailBean.getCode_barreX(), dVente);
-	    				cBean.getPk().getAr_bean().getUnitBean().setUnite_lib(cBean.getPk().getAr_bean().getUnitBean().getUnite_lib()+":"+ qteOpe);
+	    				beanLigne.setUnite(cBean.getPk().getAr_bean().getUnitBean().getUnite_lib()+":"+ qteOpe);
 					}
 	    				
-	    		}
+	    		} 
 	    		
 	    	
 	    		/*****************************************le cout ********************************************/
@@ -2068,8 +2087,6 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	
 	public ModelAndView doCorrigerData(ProcedureVenteBean beanUpBean, FournitureVenteBean    fVenteBean , ServiceBean    service) {	 
 	 	try {
-	 	    BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-			bs.setFct_id(Fn_Confirmer);
 	        serviceProcedureVente.doCorrigerProcedureVente(beanUpBean,fVenteBean,service); 
 			update_row_from_list(LIST_DATA, beanUpBean); 
 	        throwNewException("mod01");
@@ -2951,7 +2968,9 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		
 		try {
 			ProcedureVenteBean   rowBean  = (ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
+		 
 			List <DetProcedureVenteBean >List_detaille= new ArrayList<DetProcedureVenteBean>();
+			HashMap  map_deriver_vente  =(HashMap) getObjectValueModel(MAP_DERIVER_VENTE);
 			BeanSession bs                =(BeanSession)getObjectValueModel(BEAN_SESSION);
 			Double remise_ala_caisse    			  =  new Double(0);
 			Double totalre_mise          			  =  new Double(0);
@@ -2960,19 +2979,22 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			Double avance                   = new Double(0);
 			Double getTaux_remise_alacaisse = detailBean.getTaux_remise_alacaisse()==null?new Double(0):detailBean.getTaux_remise_alacaisse();
 			Double getAvance_montant_vente  = detailBean.getAvance_montant_vente()==null?new Double(0):detailBean.getAvance_montant_vente();
-			 
 			Double getMontant_vente_recu    = detailBean.getMontant_vente_recu()==null?new Double(0):detailBean.getMontant_vente_recu();
 			
-			if(bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Servir) ||  bs.getFct_id().equals(Fn_Confirmer) 
+			if(bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Servir)  
 					|| bs.getFct_id().equals(Fn_Modifier)  ||  bs.getFct_id().equals(Fn_Facturer)   ||  bs.getFct_id().equals(Fn_Corriger)   ){
 				
 				 List_detaille=(List<DetProcedureVenteBean>) getObjectValueModel(LIST_EDITABLE_VENTE);
-				 if( detailBean.getDevise().getDev_id().intValue()==191  ||  detailBean.getDevise().getDev_id().intValue()==192   ){
+				 
+				
+				 
+				 if( detailBean.getDevise().getDev_id().intValue()==191  ||   detailBean.getDevise().getDev_id().intValue()==192   ){
 						pattern ="0.00";
-				} 
+				 } 
 				 avance                   = ProcessFormatNbr.FormatDouble_ParameterChiffre(getAvance_montant_vente,pattern);
 				 setObjectValueModel(FORM_BEAN,detailBean);
 			}else{
+				
 				if( rowBean.getDevise().getDev_id().intValue()==191  ||  rowBean.getDevise().getDev_id().intValue()==192   ){
 					pattern ="0.00";
 				} 
@@ -3009,6 +3031,30 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	    		Double	Prixcout          = cout==null?new Double(0):cout;
 	    		Double le_cout            = ProcessNumber.PRODUIT(Prixcout, qte);
 	    		le_cout=ProcessFormatNbr.FormatDouble_ParameterChiffre(le_cout,pattern);
+	    		
+	    		
+	    		DeriverUnite  drvUnite=beanLigne.getPk().getFkcode_barre().getPk().getAr_bean().getUnitBean().getDrv();
+	    		beanLigne.setUnite(beanLigne.getPk().getFkcode_barre().getPk().getAr_bean().getUnitBean().getUnite_lib());
+	    		
+	    		if(drvUnite!=null) {
+	    			List <DetDeriverUnite> listDrv = serviceUnite.doFetchDetDeriverUniteByDrvId(drvUnite.getDrv_id())  ;
+	    			for (int r = 0; r < listDrv.size();r++) {
+	    				DetDeriverUnite deUnite = listDrv.get(r);
+	    				DeriverOperationVente dVente = new DeriverOperationVente();
+	    				Double qteOpe=ProcessNumber.doMath(beanLigne.getQuantite(), deUnite.getDrv_coef(), deUnite.getDrv_oper().charAt(0));
+	    				dVente.setDrv_oper(deUnite.getDrv_oper());
+	    				dVente.setDrv_coef(deUnite.getDrv_coef());
+	    				dVente.setFkcode_barre(deUnite.getFkcode_barre());
+	    				dVente.setQuantite(qteOpe);
+	    				map_deriver_vente.put(beanLigne.getPk().getFkcode_barre().getPk().getCode_barre(), dVente);
+	    				beanLigne.setUnite(beanLigne.getPk().getFkcode_barre().getPk().getAr_bean().getUnitBean().getUnite_lib()+":"+ qteOpe);
+					}
+	    				
+	    		} 
+	    		
+
+	    		 
+	    		
 	    		/*****************************************  setInfo  ********************************************/
 	    		Double priUnitvente=ProcessFormatNbr.FormatDouble_ParameterChiffre(beanLigne.getTarif().getTarif_unit_vente(),pattern);
 	    		/*****************************************Prix Unit Brute reel********************************************/

@@ -33,7 +33,10 @@ public class UniteDAO extends  GenericWeb    {
 	
 	@SuppressWarnings("unchecked")
 	public List<DetDeriverUnite> doFetchDetDeriverUniteByDrvId(Integer drv_id) throws Exception {
-			return   hibernateTemplate.find("select  bean   FROM    DetDeriverUnite    bean    WHERE     bean.drv.drv_id="+drv_id+"  ");
+		     if(drv_id!=null)
+			return   hibernateTemplate.find("select  bean   FROM    DetDeriverUnite    bean    WHERE      bean.drv.drv_id="+drv_id+"   ");
+		     else
+		    return   hibernateTemplate.find("select  bean   FROM    DetDeriverUnite    bean      WHERE   1=1      ");
 	}
 	
 	

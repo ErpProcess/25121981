@@ -1563,8 +1563,6 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				session.delete(beArticle.getMvt_stock());
 				if(beArticle.getDrv()!=null)
 				session.delete(beArticle.getDrv());
-				
-					
 			}
 			for (DetFournitureVenteBean beanFour:listOriginFrour) {
 				fournitureVenteBean =(FournitureVenteBean) ProcessUtil.cloneObject(beanFour.getFourniture()) ;
@@ -1579,9 +1577,29 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			session.flush();
 			session.clear();
 			
+			HashMap  map_deriver_vente  =(HashMap) getObjectValueModel(ProcedureVenteTemplate.MAP_DERIVER_VENTE);
+			if( map_deriver_vente!=null   &&  map_deriver_vente.size() >0 ) {
+				Set setMap_deriver_vente=map_deriver_vente.keySet();
+				for (Iterator iter = setMap_deriver_vente.iterator(); iter.hasNext();) {
+					String codeBarr = (String) iter.next();
+					DeriverOperationVente dVente = (DeriverOperationVente) map_deriver_vente.get(codeBarr);
+					if(dVente!=null) {
+						this.setBeanTrace(dVente);
+						session.save(dVente);
+					}
+				}
+			}
+			
+			
 			for (DetProcedureVenteBean bxe:listInsert) {
 				bxe.getPk().setVente(beanUpdate);
 				bxe.setMvt_stock(null);
+				if( map_deriver_vente!=null   &&  map_deriver_vente.size() >0 ) {
+					DeriverOperationVente dVente = (DeriverOperationVente) map_deriver_vente.get(bxe.getPk().getFkcode_barre().getPk().getCode_barre());
+					if(dVente!=null) {
+						bxe.setDrv(dVente);
+					}
+				}
 				session.save(bxe);
 			}
 			
@@ -1602,6 +1620,9 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			beanUpdate.setVente_mnt_total(beanTotal.getVente_mnt_total());
 			beanUpdate.setMarge_benefice_vente(beanTotal.getMarge_benefice_vente());
 			session.update(beanUpdate);
+			session.createQuery( " UPDATE  ProcedureVenteBean b  set      b.modeBean.fct_id="+GenericActionBean.Fn_Modifier+"   " +
+					"      where   b.vente_id='"+beanUpdate.getVente_id()+"' ").executeUpdate();
+			
 			saveTrace(beanUpdate);
 			result=true;
 			commitTransaction(session);
@@ -1819,7 +1840,7 @@ public Boolean doSaveFacture( ProcedureVenteBean detailBean, List  liste_detaill
 			
 			 if(  beanDelete.getCommande()!=null &&     !StringUtils.isEmpty(beanDelete.getCommande().getCmd_id()))
 				 session.createQuery(" UPDATE  CommandeclientBean b  set  b.modeBean.fct_id="+GenericActionBean.Fn_Contremander+"  " +
-				 		" where   b.cmd_id='"+beanDelete.getCommande().getCmd_id()+"'   ").executeUpdate();
+						 		     " where   b.cmd_id='"+beanDelete.getCommande().getCmd_id()+"'   ").executeUpdate();
 			 
 			 
 			 
