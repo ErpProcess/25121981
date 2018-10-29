@@ -84,59 +84,34 @@ public class ProcedureVenteService  extends GenericWeb  {
 	}
 	@Transactional
 	public Boolean  doUpdateRowData(ProcedureVenteBean updateBean)  throws Exception {
-		 boolean result = false;
 		 try {
-		if(daoProcedureVente.doUpdateProcedureVente(updateBean)){
-		    result = true;
-		       }else{
-		    	result = false;  
-		     }
+			 return daoProcedureVente.doUpdateProcedureVente(updateBean); 
 		 } catch (Exception e) { 
-			 result = false;
 			 throw e;
 		}
-	 return result; 
+	
 	}
 	
 	@Transactional
-	public Boolean  doCorrigerProcedureVente(ProcedureVenteBean updateBean)  throws Exception {
-			 return  daoProcedureVente.doCorrigerProcedureVente(updateBean);
+	public void  doCorrigerProcedureVente(ProcedureVenteBean updateBean, FournitureVenteBean    fVenteBean , ServiceBean    service)  throws Exception {
+			   daoProcedureVente.doCorrigerProcedureVente(updateBean) ;
+			   daoProcedureVente.doUpdateProcedureVente(updateBean); 
+			   daoProcedureVente.doConfirmerVente_article(updateBean,fVenteBean,service);
 	}
 	
 	
 	
 	
 	@Transactional
-	public Boolean  doConfirmRowData(ProcedureVenteBean updateBean, FournitureVenteBean    fVenteBean , ServiceBean    service)  throws Exception {
-		 boolean result = false;
-		 try {
-		if(daoProcedureVente.doConfirmerVente_article(updateBean,fVenteBean,service)){
-		    result = true;
-		       }else{
-		    	result = false;  
-		     }
-		 } catch (Exception e) { 
-			 result = false;
-			 throw e;
-		}
-	 return result; 
+	public void  doConfirmRowData(ProcedureVenteBean updateBean, FournitureVenteBean    fVenteBean , ServiceBean    service)  throws Exception {
+		 daoProcedureVente.doConfirmerVente_article(updateBean,fVenteBean,service);
 	}
 	
 	
 	@Transactional
-	public Boolean doDeleteRowData(ProcedureVenteBean deleteBean) throws Exception {
-		 boolean result = false;
-		 try {
-		    if(daoProcedureVente.doDeleteProcedureVente(deleteBean)){
-		        result = true;
-		      }else{
-		    	result = false;  
-		     }
-		 } catch (Exception e) { 
-			 result = false;
-			 throw e;
-		}
-   return result; 
+	public void doDeleteRowData(ProcedureVenteBean deleteBean) throws Exception {
+		   daoProcedureVente.doCorrigerProcedureVente(deleteBean) ;
+		   daoProcedureVente.doDeleteProcedureVente(deleteBean) ;
 	}
 
 

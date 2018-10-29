@@ -149,4 +149,43 @@ public class DynamicClass {
 			throw e;
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Object castDynamicClassObjectV2(String className, Object value) throws Exception {
+		Class<?> dynamicClass;
+		try {
+			  if(value== null) return "";
+              if(className.equals("java.sql.Date")  || className.equals("java.util.Date") ){
+            	  
+            	  DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+            	  String cunvertCurrentDate=(String)String.valueOf(new SimpleDateFormat("dd/MM/yyyy").format(value));
+            	  Date date = new Date();
+            	  date = df.parse(cunvertCurrentDate);
+            	  
+			  return  new SimpleDateFormat("dd/MM/yyyy").format(value) ;
+				 
+              }else if( className.equals("java.lang.Double")  ){
+            	  
+            	  Double uuu=(Double) value;
+            	  return value==null?"":uuu;
+            	  
+              }else if( className.equals("java.math.BigDecimal")  ){
+            	  
+            	  BigDecimal uuu=(BigDecimal) value;
+            	  return value==null?"":uuu;
+            	  
+              }else if(className.equals("java.lang.Integer")){	
+            	  Integer uuu=(Integer) value;
+            	  return value==null?"":uuu;
+            	  
+			  }else{
+				 dynamicClass = Class.forName(className); 
+				 Constructor<?> cons = (Constructor<?>) dynamicClass.getConstructor(new Class<?>[] { String.class });
+				 Object object = (Object) cons.newInstance(new Object[] { String.valueOf(value) });
+				 return object;
+			 }
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 }

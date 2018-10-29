@@ -21,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.metadata.GenericTableMetaDataProvider;
 import org.springframework.web.servlet.ModelAndView;
 
 import ERP.Process.Commerciale.Article.model.ClientArticleBean;
@@ -207,8 +208,11 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 			 doLoadingLibelleOtherSModule(CommandeclientTemplate.ID_SOUS_MODULE);
 			 setObjectValueModel("list-"+getObjectValueModel(ENTITES), getObjectValueModel("list-"+ID_SOUS_MODULE));
 			 setObjectValueModel(LIST_PDF_EXCEL,getObjectValueModel("list-"+ID_SOUS_MODULE)) ;
-			 setObjectValueModel("list_devise", serviceDevise.doFetchDatafromServer(new DeviseBean()));
-			   
+			 List list_devise=serviceDevise.doFetchDatafromServer(new DeviseBean());
+			 setObjectValueModel("list_devise", list_devise);
+			 
+		     HashMap  map_devise=ProcessUtil.getHashMap_code_bean(list_devise, "dev_id");
+		     setObjectValueModel("map_devise", map_devise);
 			
 			 
 			 List list_des_tva= serviceTVA.doFetchDatafromServer(TVABean.class.newInstance());
@@ -1801,7 +1805,7 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
 			try {
 				
 				BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-				if(bs.getFct_id().equals(Fn_Modifier) || bs.getFct_id().equals(Fn_Supprimer) ){
+				if(bs.getFct_id().equals(Fn_Modifier)  ){
 					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id in ('"+Fn_Créer+"','"+Fn_Modifier+"','"+Fn_Servir+"')   ");
 				}
 				if(bs.getFct_id().equals(Fn_Confirmer) ){
@@ -1813,6 +1817,10 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
 				}
 				
 				if(bs.getFct_id().equals(Fn_Corriger) ){
+					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id in ('"+Fn_Confirmer+"')   ");
+				}
+				
+				if(bs.getFct_id().equals(Fn_Supprimer) ){
 					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id not in ('"+Fn_Facturer+"')   ");
 				}
 				 
@@ -1998,8 +2006,6 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	    ProcedureVenteBean  detailBean=	(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
 	    ServiceBean  srvBean=	(ServiceBean) getObjectValueModel("detailSrvBean");
 	    FournitureVenteBean  frnBean=	(FournitureVenteBean) getObjectValueModel("detailFrnBean");
-	    BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-		bs.setFct_id(Fn_Confirmer);
 	    serviceProcedureVente.doConfirmRowData(detailBean,frnBean,srvBean); 
 	    ProcedureVenteBean  devBean = (ProcedureVenteBean) getObjectValueModel("beanInito");
 		setObjectValueModel(FORM_BEAN, devBean);
@@ -2062,7 +2068,9 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	
 	public ModelAndView doCorrigerData(ProcedureVenteBean beanUpBean, FournitureVenteBean    fVenteBean , ServiceBean    service) {	 
 	 	try {
-	        serviceProcedureVente.doCorrigerProcedureVente(beanUpBean); 
+	 	    BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+			bs.setFct_id(Fn_Confirmer);
+	        serviceProcedureVente.doCorrigerProcedureVente(beanUpBean,fVenteBean,service); 
 			update_row_from_list(LIST_DATA, beanUpBean); 
 	        throwNewException("mod01");
 	 	} catch (Exception e) {
@@ -2088,9 +2096,9 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	public ModelAndView doDeleteData(ProcedureVenteBean beanDelBean) {
 	    try {
 	    	ProcedureVenteBean beanDean =(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
-	     serviceProcedureVente.doDeleteRowData(beanDean);
-				    remove_row_from_list(LIST_DATA);
-				    removeObjectModel(FORM_BEAN);
+	        serviceProcedureVente.doDeleteRowData(beanDean);
+			remove_row_from_list(LIST_DATA);
+			removeObjectModel(FORM_BEAN);
 	     throwNewException("sup01");
 	       } catch (Exception e) {
 	       displayException(e);
