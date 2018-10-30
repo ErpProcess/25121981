@@ -66,30 +66,14 @@ public class ProcedureVenteService  extends GenericWeb  {
 	
 	
 	@Transactional
-	public Boolean doCreateRowData(ProcedureVenteBean detailBean, FournitureVenteBean    fVenteBean , ServiceBean    service) throws Exception {
-		 boolean result = false;
-		 try {
-			 
-		       daoNumSequentiel.getNumSeqSimple(detailBean,"vente_id");
-		       if(daoProcedureVente.doSaveProcedureVente(detailBean,fVenteBean,service)){
-		       result = true;
-		       }else{
-		    	result = false;  
-		       }
-		 } catch (Exception e) { 
-			 result = false;
-			 throw e;
-		}
-		return result; 
+	public void doCreateRowData(ProcedureVenteBean detailBean, FournitureVenteBean    fVenteBean , ServiceBean    service) throws Exception {
+		  daoNumSequentiel.getNumSeqSimple(detailBean,"vente_id");
+	      daoProcedureVente.doSaveProcedureVente(detailBean,fVenteBean,service);
 	}
-	@Transactional
-	public Boolean  doUpdateRowData(ProcedureVenteBean updateBean)  throws Exception {
-		 try {
-			 return daoProcedureVente.doUpdateProcedureVente(updateBean); 
-		 } catch (Exception e) { 
-			 throw e;
-		}
 	
+	@Transactional
+	public void  doUpdateRowData(ProcedureVenteBean updateBean)  throws Exception {
+		daoProcedureVente.doUpdateProcedureVente(updateBean); 
 	}
 	
 	@Transactional

@@ -72,7 +72,7 @@ mapEditableGen = {            "otab"   :oTable,
 										   {      "sName": "quantite"           ,   "bSortable": true       , "sWidth": "5%"        ,"mRender": function( data, type, full){  
 										          return '<input   type="number"      style="width:70px;"     id=quantite'+full[0]+'       name=quantite        value="'+data+'"       onblur=doEnvoiDataV2(this,"'+full[2]+'")     nextElement="quantite'+full[12]+'"     >'; }},   
 										  
-										   {      "sName": "pk.fkcode_barre.pk.ar_bean.unitBean.unite_lib"   ,"sWidth": "5%"     ,"bSearchable": true },
+										   {      "sName": "unite"   ,"sWidth": "5%"     ,"bSearchable": true },
 										    
 										   {      "sTitle":"TVA" , "sName": "tarif.tvaBean.tva_libelle"  ,"sClass" : "alignCenter"  ,"sWidth": "5%"   , "bSortable": true ,"bVisible": true  },           
 										           

@@ -89,7 +89,7 @@ mapEditableGen = {             "otab"   :oTable,
 										                 
 										   {      "sName": "quantite"                             , "sWidth": "5%"     ,"bSearchable": true  , "bSortable": true   },   
 										  
-										   {      "sName": "pk.fkcode_barre.pk.ar_bean.unitBean.unite_lib"       ,"sWidth": "5%"     ,"bSearchable": true },
+										   {      "sName": "unite"       ,"sWidth": "5%"     ,"bSearchable": true },
 										   
 										  // {      "sTitle":"Méthode"    , "sName": "methode_s"   ,"sWidth": "5%"    ,"sClass" : "alignRight"       , "bSortable": "true" 
 	                                       //       , "mRender": function (data, type, full) {  return '<a  href=javascript:migaX("'+full[2]+'")   >'+data+'</a>';}  ,"bVisible": true   },     

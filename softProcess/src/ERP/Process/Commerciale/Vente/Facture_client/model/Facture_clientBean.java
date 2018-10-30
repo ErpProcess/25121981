@@ -95,6 +95,9 @@ public class Facture_clientBean extends GenericBean {
 	
 	@Column
 	private Date fact_date_edition;
+	
+	@Column
+	private String observation="" ;
 
  
 	@Transient
@@ -443,6 +446,14 @@ public class Facture_clientBean extends GenericBean {
 
 	public void setModReg(ModeReglementBean modReg) {
 		this.modReg = modReg;
+	}
+
+	public String getObservation() {
+		return observation;
+	}
+
+	public void setObservation(String observation) {
+		this.observation = observation;
 	}
 
 	 

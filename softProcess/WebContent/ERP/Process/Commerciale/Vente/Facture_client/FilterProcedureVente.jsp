@@ -6,8 +6,7 @@ width_tabbJQuey="100%";
 contenu_toolbarJQuey="";
  
 $(document).ready(function () {
-LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle","btValidx","list_depot_facture","250","100");
-LoadAutoCompletAjax_with_marGin("clt_id"  ,"clt_lib","depot_id","list_client_for_facture","250","100");
+LoadAutoCompletAjax_with_marGin("clt_id"  ,"clt_lib","","list_client_for_facture","250","100");
 $('#ProcedureVente-Grid tbody tr').live('dblclick', function () {
       
 		      var aData = otab_otra.fnGetData( this );
@@ -158,13 +157,7 @@ oTable.fnDestroy();
    <input id="clt_lib" name="client.clt_lib"        type="text"    size="30"          value="${searchBean.client.clt_lib}"          nextElement="depot_id"                   required  />
   </td>  
    </tr>   
-   <tr>  
-   <td  ><label>${depot_id}</label></td>  
-   <td    >  
-   <input id="depot_id" name="depot.depot_id"     type="text"    size="10"       maxlength="10"        value="${searchBean.depot.depot_id}"    nextElement="btValidx"                       />  
-   <input id="depot_libelle" name="depot.depot_libelle"     type="text"    size="30"       maxlength="10"        value="${searchBean.depot.depot_libelle}"    nextElement="btValidx"         />  
-  </td>  
-   </tr>   
+   
  </table>   
 </ext:panel>
 <ext:panel    title="${nameList}"  id="RET_GRID"   border="false"   bodyStyle="background: none;"   style="display:none;"        >

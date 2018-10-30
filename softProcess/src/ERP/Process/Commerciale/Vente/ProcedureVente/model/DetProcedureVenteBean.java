@@ -46,6 +46,18 @@ public class DetProcedureVenteBean extends GenericBean {
 	private String				nature_produit		= "";
 	
 	
+	public String getUnite() {
+		return unite;
+	}
+
+	public void setUnite(String unite) {
+		this.unite = unite;
+	}
+
+
+
+	@Transient
+	private String				unite		= "";
 	
 	
 	@Column
