@@ -222,7 +222,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 			PdfPTable tableTopHeader = new PdfPTable(100);
 			tableTopHeader.setWidthPercentage(poucentage);
 		    BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-		    BaseFont bf = BaseFont.createFont("c://windows/fonts/arialuni.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+		    BaseFont bf = BaseFont.createFont("E://Fonts/ARIALUNI.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 			Font arialuniArab = new Font(bf, 10);
 		    
 			  
@@ -435,12 +435,10 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		    cell.setBorder(cell.NO_BORDER);
 		    tableTopHeader2.addCell(cell);
-		    
-		    
-		    
+	
 		    PdfPTable tableTopHeader3 = new PdfPTable(100);
 		    tableTopHeader3.setWidthPercentage(85);
-		    PdfPCell cellSummary = new PdfPCell(new Phrase( " 2000 "+""+Jsoup.parse("كلغ").body().text()+"                        "+denBean.getFact_ref_id(),arialuniArab));
+		    PdfPCell cellSummary = new PdfPCell(new Phrase( denBean.getObservation()+""+""+Jsoup.parse("كلغ").body().text()+"                        "+denBean.getFact_ref_id(),arialuniArab));
 	        cellSummary.setHorizontalAlignment(Element.ALIGN_RIGHT);
 	        cellSummary.setPaddingBottom(3);
 	        cellSummary.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
