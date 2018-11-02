@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+ 
 import org.springframework.stereotype.Repository;
 
 import ERP.Process.Commerciale.Achat.Reception_achat.model.Det_reception_achatBean;
@@ -26,7 +26,7 @@ import ERP.Process.Commerciale.Stock.Stock_article.model.Stock_articleBean;
 import ERP.Process.Commerciale.Tarification.dao.TarificationDAO;
 import ERP.Process.Commerciale.Tarification.model.TarificationBean;
 import ERP.Process.Commerciale.TarificationLot.model.TarificationLotBean;
-import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
+ 
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericActionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
@@ -78,11 +78,7 @@ public class Reception_achatDAO extends GenericWeb {
 		this.daoNumSequentiel = daoNumSequentiel;
 	}
 	
-	private HibernateTemplate hibernateTemplate;
-	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		hibernateTemplate = new HibernateTemplate(sessionFactory);
-	}
+	 
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -93,9 +89,14 @@ public class Reception_achatDAO extends GenericWeb {
 	@SuppressWarnings("unchecked")
 	public List<Reception_achatBean> doFindListReception_achat( Reception_achatBean beanSearch) throws Exception {
 		
-		   String requette = " select  bean   FROM    Reception_achatBean    bean    WHERE     1=1       ";
+	Session session =  openSessionHibernate(sessionFactory);
 		
-		  
+		List<Reception_achatBean>   lisf = new ArrayList<Reception_achatBean>();
+		try {
+			
+			
+		 
+		   String requette = " select  bean   FROM    Reception_achatBean    bean    WHERE     1=1       ";
 		    
 		if (beanSearch.getAchat_date() != null) 
 		    	requette += "   AND  bean.achat_date >= '"+ProcessDate.getStringFormatDate(beanSearch.getAchat_date())+"'        ";
@@ -128,19 +129,43 @@ public class Reception_achatDAO extends GenericWeb {
 		
 		    requette +=this.setSocieteEtabFetch(beanSearch,"bean.fk_etab_Bean", false);
 		
-		 
-		return hibernateTemplate.find(requette);
+	  lisf= session.createQuery(requette).list();
+			   commitTransaction(session);
+	 } catch (Exception e) {  
+	     if (sessionIsTrue(session)) 
+	    	 rollbackTransaction(session) ;
+	     throw e;  
+	 } finally {  
+		 session.close();  
+	 }  
+	 return  lisf;
+	 
+	 
 	}
 	
 	
 	@SuppressWarnings("unchecked")
 	public List<Det_reception_achatBean> doFindList_detail_Reception_achat( Reception_achatBean beanSearch) throws Exception {
 		
-		   String requette = " select  bean   FROM    Det_reception_achatBean    bean    WHERE    " +
-		   		"     bean.pk.recepBean.achat_id='"+beanSearch.getAchat_id()+"' ";
-		 
-		
-		return hibernateTemplate.find(requette);
+		Session session = openSessionHibernate(sessionFactory);
+
+		List<Det_reception_achatBean> lisf = new ArrayList<Det_reception_achatBean>();
+		try {
+
+			String requette = " select  bean   FROM    Det_reception_achatBean    bean    WHERE    "
+					+ "     bean.pk.recepBean.achat_id='" + beanSearch.getAchat_id() + "' ";
+
+			lisf = session.createQuery(requette).list();
+			commitTransaction(session);
+		} catch (Exception e) {
+			if (sessionIsTrue(session))
+				rollbackTransaction(session);
+			throw e;
+		} finally {
+			session.close();
+		}
+		return lisf;
+ 
 	}
 
 	public Boolean doSaveReception_achat(Reception_achatBean beanSave) throws Exception {
@@ -360,18 +385,20 @@ public class Reception_achatDAO extends GenericWeb {
 		 
 		
 		boolean result = false;
+		Session session =   openSessionHibernate(sessionFactory) ;
 		try {
+			
 			 BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
 			 List list_recep_clone = (List) getObjectValueModel(Reception_achatTemplate.LIST_EDITABLE_RECEP_ACHAT_CLONE );
 			 for (int i = 0; i < list_recep_clone.size(); i++) {
 				Det_reception_achatBean det_reception_achatBean =(Det_reception_achatBean) list_recep_clone.get(i);
-				this.hibernateTemplate.delete(det_reception_achatBean);
+				session.delete(det_reception_achatBean);
 				if(det_reception_achatBean.getMvt_stock()!=null)
-				 this.hibernateTemplate.delete(det_reception_achatBean.getMvt_stock());
+					session.delete(det_reception_achatBean.getMvt_stock());
 			}
 			 
-			 this.hibernateTemplate.flush();
-		     this.hibernateTemplate.clear();
+			 session.flush();
+			 session.clear();
 			 List listOfmyData     = (List) getObjectValueModel(Reception_achatTemplate.LIST_EDITABLE_RECEP_ACHAT);
 			 Reception_achatBean  beanReCEP=(Reception_achatBean) getObjectValueModel(FORM_BEAN);
 			 boolean result_detaille = false;
@@ -381,7 +408,7 @@ public class Reception_achatDAO extends GenericWeb {
 					if( detBean.getQuantite()==0 ||  detBean.getQuantite()<0) { continue;}
 					detBean.getPk().setRecepBean(beanUpdate);
 					detBean.setMvt_stock(null);
-					this.hibernateTemplate.save(detBean);
+					session.save(detBean);
 					result_detaille=true;
 				}
 			  if(!result_detaille)throwNewException("err_inser_deaill");	
@@ -393,21 +420,20 @@ public class Reception_achatDAO extends GenericWeb {
 				 beanUpdate.setFrsBean(beanUpdate.getDem_achat().getFrsBean());
 				 beanUpdate.setDemande_id(beanReCEP.getDem_achat().getDem_achat_id());
 			  }
-			 this.hibernateTemplate.saveOrUpdate(beanUpdate);
+			 session.saveOrUpdate(beanUpdate);
 			 this.saveTraceVersion1(beanUpdate, Reception_achatTemplate.MapfieldBean, Reception_achatTemplate.id_entite_achat, Reception_achatTemplate.entites);
-			 result = true;
+				result=true;
+				commitTransaction(session);
+			 } catch (Exception e) {  
+				 result = false;
+			     if (sessionIsTrue(session)) 
+			    	 rollbackTransaction(session) ;
+			     throw e;  
+			 } finally {  
+				 session.close();  
+			 }  
+		    return result;
 		 
-		} catch (Exception ex) {
-			result = false;
-			this.hibernateTemplate.clear();
-			throw ex;
-		}
-		return result;
-		
-		
-		
-		
-		
 		
 		
 	}
@@ -846,7 +872,7 @@ public class Reception_achatDAO extends GenericWeb {
 		     
 		     
 			this.setUpdateValueFieldTraceOject(beanUpdate);
-			this.hibernateTemplate.saveOrUpdate(beanUpdate);
+			session.saveOrUpdate(beanUpdate);
 			this.saveTraceVersion1(beanUpdate, Reception_achatTemplate.MapfieldBean, Reception_achatTemplate.id_entite_achat, Reception_achatTemplate.entites);
 			 
 			 
@@ -938,7 +964,7 @@ public class Reception_achatDAO extends GenericWeb {
 					beanSerie.setDepot(beanUpdate.getPk().getDepot());
 					beanSerie.setObservation(detBean.getObservation());
 					beanSerie.setEtat_serie("cree");
-					this.hibernateTemplate.save(beanSerie);
+					session.save(beanSerie);
 					
 					
 					
@@ -962,7 +988,7 @@ public class Reception_achatDAO extends GenericWeb {
 					beanSerie.setDate_trf(detBean.getDate_trf());
 					
 					
-					 this.hibernateTemplate.save(mvtBean);
+					 session.save(mvtBean);
 					 
 					 
 					 Stock_articleBean    stock = new Stock_articleBean();
@@ -981,21 +1007,21 @@ public class Reception_achatDAO extends GenericWeb {
 					 stock.setMnt_ht_entre(detBean.getPk().getMontant_ht_achat());
 					 stock.getEta().getPk_etab().setEtab_id(bs.getEtab_id());
 					 stock.getEta().getPk_etab().getSoc_bean().setSoc_id(bs.getSoc_id());
-					 this.hibernateTemplate.save(stock);	 
+					 session.save(stock);	 
 					
 					
 					
 				 
 				}
 		       if( !StringUtils.isBlank( beanUpdate.getDemande_id()) )
-				this.hibernateTemplate.bulkUpdate(" UPDATE  Demande_achatBean b  set  b.modeBean.fct_id="+bs.getFct_id()+"   where   b.dem_achat_id='"+beanUpdate.getDemande_id()+"' ");
+				session.bulkUpdate(" UPDATE  Demande_achatBean b  set  b.modeBean.fct_id="+bs.getFct_id()+"   where   b.dem_achat_id='"+beanUpdate.getDemande_id()+"' ");
 		     
 			 result = true;
 		 
 			 
 		} catch (Exception ex) {
 			result = false;
-			this.hibernateTemplate.clear();
+			session.clear();
 			throw ex;
 		}*/
 		return result;
@@ -1003,8 +1029,10 @@ public class Reception_achatDAO extends GenericWeb {
      
      
      public Boolean doExcuterTransactionForAchat(Reception_achatBean beanUpda) throws Exception {
- 		boolean result = false;
- 		try {
+    		boolean result = false;
+    		Session session =  openSessionHibernate(sessionFactory);
+    		
+    		try {
  			 Reception_achatBean  beanAnnul= (Reception_achatBean) getObjectValueModel(FORM_BEAN);
  			 
  			 this.setUpdateValueFieldTraceOject(beanAnnul);
@@ -1015,27 +1043,33 @@ public class Reception_achatDAO extends GenericWeb {
  			 beanAnnul.getModeBean().setFct_libelle("Modifier");
  			}
  			 
- 			 this.hibernateTemplate.update(beanAnnul);
+ 			 session.update(beanAnnul);
  			 this.saveTrace(beanAnnul );
- 			 result = true;
- 		} catch (Exception ex) {
- 			result = false;
- 			this.hibernateTemplate.clear();
- 			throw ex;
- 		}
- 		return result;
+ 			result=true;
+			commitTransaction(session);
+		 } catch (Exception e) {  
+			 result = false;
+		     if (sessionIsTrue(session)) 
+		    	 rollbackTransaction(session) ;
+		     throw e;  
+		 } finally {  
+			 session.close();  
+		 }  
+	    return result;
  	}
      
      public Boolean doTransfererReception_achat(Reception_achatBean beanUpdate) throws Exception {
-  		boolean result = false;
-  		try {
+    		boolean result = false;
+    		Session session =  openSessionHibernate(sessionFactory);
+    		
+    		try {
   			 this.setUpdateValueFieldTraceOject(beanUpdate);
-  			 this.hibernateTemplate.saveOrUpdate(beanUpdate);
+  			 session.saveOrUpdate(beanUpdate);
   			 this.saveTraceVersion1(beanUpdate, Reception_achatTemplate.MapfieldBean, Reception_achatTemplate.id_entite_achat, Reception_achatTemplate.entites);
   			 result = true;
   		} catch (Exception ex) {
   			result = false;
-  			this.hibernateTemplate.clear();
+  			session.clear();
   			throw ex;
   		}
   		return result;
@@ -1046,29 +1080,35 @@ public class Reception_achatDAO extends GenericWeb {
 	public Boolean doDeleteReception_achat(Reception_achatBean beanDelete)
 			throws Exception {
 		boolean result = false;
+		Session session =  openSessionHibernate(sessionFactory);
+		
 		try {
 			 List <Det_reception_achatBean>List_det_recep_achat= (List<Det_reception_achatBean>) getObjectValueModel(Reception_achatTemplate.LIST_EDITABLE_RECEP_ACHAT);
 			 for (int i = 0; i < List_det_recep_achat.size(); i++) {
 					Det_reception_achatBean det_reception_achatBean =(Det_reception_achatBean) List_det_recep_achat.get(i);
-					this.hibernateTemplate.delete(det_reception_achatBean);
+					session.delete(det_reception_achatBean);
 					if(det_reception_achatBean.getMvt_stock()!=null)
-					 this.hibernateTemplate.delete(det_reception_achatBean.getMvt_stock());
+					 session.delete(det_reception_achatBean.getMvt_stock());
 				}
 			 this.saveTraceVersion_Master_detailles(List_det_recep_achat, Reception_achatTemplate.MapfieldBean_detaille, Reception_achatTemplate.id_entite_det_achat, Reception_achatTemplate.entites_detaille);
-			 hibernateTemplate.flush();
-			 hibernateTemplate.delete(beanDelete);
+			 session.flush();
+			 session.delete(beanDelete);
 			 this.saveTrace(beanDelete);
 			 if(  beanDelete.getDem_achat()!=null &&     !StringUtils.isEmpty(beanDelete.getDem_achat().getDem_achat_id()))
-					this.hibernateTemplate.bulkUpdate(" UPDATE  Demande_achatBean b  set  b.modeBean.fct_id="+GenericActionBean.Fn_Contremander+"   where   b.dem_achat_id='"+beanDelete.getDem_achat().getDem_achat_id()+"'   ");
+			 session.createQuery(" UPDATE  Demande_achatBean b  set  b.modeBean.fct_id="+GenericActionBean.Fn_Contremander+"  "
+				 		+ "  where   b.dem_achat_id='"+beanDelete.getDem_achat().getDem_achat_id()+"'   ").executeUpdate();
 			 
 			
-			result = true;
-			
-		} catch (Exception ex) {
-			result = false;
-			this.hibernateTemplate.clear();
-			throw ex;
-		}
-		return result;
+				result=true;
+				commitTransaction(session);
+			 } catch (Exception e) {  
+				 result = false; 
+			     if (sessionIsTrue(session)) 
+			    	 rollbackTransaction(session) ;
+			     throw e;  
+			 } finally {  
+				 session.close();  
+			 }  
+		    return result;
 	}
 }
