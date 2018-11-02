@@ -1,6 +1,7 @@
 package ERP.Process.Commerciale.Achat.Reception_achat.dao;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import ERP.Process.Commerciale.Stock.Stock_article.model.Stock_articleBean;
 import ERP.Process.Commerciale.Tarification.dao.TarificationDAO;
 import ERP.Process.Commerciale.Tarification.model.TarificationBean;
 import ERP.Process.Commerciale.TarificationLot.model.TarificationLotBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericActionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
@@ -181,6 +183,176 @@ public class Reception_achatDAO extends GenericWeb {
 		 }  
 		return result;
 	}
+	
+	
+	public Boolean doCorrigerAchatArticle(Reception_achatBean beanUpdate)  throws Exception { 
+	    boolean result=false; 
+	    Session session =  openSessionHibernate(sessionFactory);
+		try {
+			TraitementCorrectionVenteArticle(beanUpdate,session);
+			session.createQuery( " UPDATE  Reception_achatBean b  set      b.modeBean.fct_id="+GenericActionBean.Fn_Modifier+"   " +
+							"      where   b.achat_id='"+beanUpdate.getAchat_id()+"' ").executeUpdate();
+			result=true;
+			commitTransaction(session);
+		 } catch (Exception e) {  
+			 result = false;
+		     if (sessionIsTrue(session)) 
+		    	 rollbackTransaction(session) ;
+		     throw e;  
+		 } finally {  
+			 session.close();  
+		 }  
+	    return result;
+	}
+	
+	private void TraitementCorrectionVenteArticle(  Reception_achatBean beanUp, Session session) throws Exception {
+		
+		Reception_achatBean beanUpdate=(Reception_achatBean) getObjectValueModel(FORM_BEAN);
+		   List <Det_reception_achatBean> listOfmyDataClone=(List) getObjectValueModel(Reception_achatTemplate.LIST_EDITABLE_RECEP_ACHAT_CLONE);
+		   if(listOfmyDataClone!=null &&  listOfmyDataClone.size()>0) {
+		   traitementCorrectionLotGeneric(beanUpdate,session);
+		   traitementCorrectionStockArticleMarchandis(beanUpdate,listOfmyDataClone,session);
+		   }
+	 
+	}
+	
+	public   List doGetLotArtcicleDejaSauvgarderByVenteId(String  document_com_id  ) throws Exception {
+		 
+		List list_lot_article = new ArrayList();
+		 try {
+			   SerieArticletBean  beanSerie= new SerieArticletBean();
+			   beanSerie.setDetaille_serie("   AND   bean.pk.document_com_id ='"+document_com_id+"'    ");
+			   list_lot_article=serviceDocumentLot.doFetch_detailleLotfromServer(beanSerie);
+			  
+		} catch (Exception e) {
+			throw e;
+		}
+		return list_lot_article;
+	}
+	
+	private void  traitementCorrectionLotGeneric(Reception_achatBean  beanUpdate , Session session  ) throws Exception {
+		 
+		 try {
+			   List  listmvtLotArticle   = doGetLotArtcicleDejaSauvgarderByVenteId(beanUpdate.getAchat_id());
+				for (int k = 0; k < listmvtLotArticle.size(); k++) {
+					     MouvementSerieBean  	mvtSeriBean =(MouvementSerieBean) listmvtLotArticle.get(k);
+//					     HashMap  mapDevise= (HashMap) getObjectValueModel("map_devise");
+//					     DeviseBean devise =(DeviseBean) mapDevise.get( String.valueOf(beanUpdate.getDevise().getDev_id()) );
+//				    	 Double Qte= ProcessFormatNbr.FormatDouble_ParameterChiffre(mvtSeriBean.getQuantite_operation(),devise.getChiffre_pattern()) ;
+//				    	 SerieArticletBean  serie=mvtSeriBean.getPk().getSerieBean();
+//				    	 Double qteserie= ProcessFormatNbr.FormatDouble_ParameterChiffre(serie.getQuantite(),devise.getChiffre_pattern()) ; 
+//				    	 Double qtTotal= ProcessNumber.addition(qteserie, Qte);
+//				    	 serie.setQuantite(ProcessFormatNbr.FormatDouble_ParameterChiffre(qtTotal, devise.getChiffre_pattern())); 
+//				    	 serie.getEtat().setData_id("mod");
+				    	 session.delete(mvtSeriBean);
+				    	 session.delete(mvtSeriBean.getPk().getSerieBean());
+				 } 
+				
+		 } catch (Exception e) {  
+		     throw e;  
+		 } 
+		 
+		 
+	}
+	
+	private void traitementCorrectionStockArticleMarchandis(Reception_achatBean beanUpdate,   List <Det_reception_achatBean> listOfmyDataClone,  Session session ) throws Exception {
+		 HashMap  map_article_jour= new HashMap();
+		 try {
+				Stock_articleBean beanMvtJourStock= new Stock_articleBean();
+				String res=  "   AND  bean.pk.depot.depot_id ="+beanUpdate.getDepot().getDepot_id()+"     " +
+				             "   AND  bean.pk.date_stock  ='"+ProcessDate.getStringFormatDate(beanUpdate.getAchat_date())+"'   " ;
+				beanMvtJourStock.setCondition_max_date_stock( res ); 
+			    List lisStock_max_date_article = daoStock_article.doFindListStock_article(beanMvtJourStock);
+			    for (int i = 0; i < lisStock_max_date_article.size(); i++) {
+						Stock_articleBean sBean= (Stock_articleBean) lisStock_max_date_article.get(i);
+						String key_max_jour =
+							sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
+						    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"§"+
+						    sBean.getPk().getDepot().getDepot_id()+"§"+
+						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
+						map_article_jour.put(key_max_jour, sBean);
+				}
+			    
+				   for (int i = 0; i < listOfmyDataClone.size(); i++) {
+					   
+				   
+					     Det_reception_achatBean detail_Bean  = (Det_reception_achatBean) listOfmyDataClone.get(i);
+						 String date_reception =  ProcessDate.getStringFormatDate(beanUpdate.getAchat_date()); 
+					     String keyTrait =""+
+					     detail_Bean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
+					     detail_Bean.getPk().getFkCode_barre().getPk().getCode_barre()+"§"+
+						 beanUpdate.getDepot().getDepot_id()+"§"+
+						 detail_Bean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+						 detail_Bean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
+					     Double prix_unit_moyen_pond = new Double(0);
+					 
+						 if(map_article_jour.get(keyTrait)==null) {
+						 
+							 continue;
+						 }else{
+							  
+							     Stock_articleBean stock          = (Stock_articleBean)map_article_jour.get(keyTrait);
+							     prix_unit_moyen_pond             = stock.getCout_unitaire_moyen_pondere()!=null?stock.getCout_unitaire_moyen_pondere(): new Double(0);             
+
+								 Double  Vqte_reception          = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getQuantite());
+								 
+							 
+								 
+								 
+								 Double    Vmnt_ht__recept        = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getMontant_ht_achat());
+								 Double    Vmnt_tva_recept      = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getMontant_tva_achat());
+								 
+								 Double  qte_Stock               = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_stock());
+								 
+								 Double  qte_entre_stock          = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getQuantite_recept());
+								 
+								 Double  getSolde_vente_ht        = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_ht());
+								 Double  getSolde_vente_tva       = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_tva());
+								 
+								 Double  sold_stock_jr            = ProcessNumber.SOUSTRACTION(qte_Stock , Vqte_reception );
+								 Double  sold_entre_stock         = ProcessNumber.SOUSTRACTION(qte_entre_stock , Vqte_reception );
+								 
+								 Double  NewgetSolde_achat_ht     = ProcessNumber.SOUSTRACTION(getSolde_vente_ht   , Vmnt_ht__recept);
+								 Double  NewgetSolde_achat_tva    = ProcessNumber.SOUSTRACTION(getSolde_vente_tva, Vmnt_tva_recept);
+								 
+								 stock.setSolde_vente_ht(NewgetSolde_achat_ht);
+								 stock.setSolde_vente_tva(NewgetSolde_achat_tva);
+								 stock.setSolde_stock ( ProcessFormatNbr.FormatDouble_Troischiffre(sold_stock_jr) );
+								 stock.setQuantite_recept(ProcessFormatNbr.FormatDouble_Troischiffre(sold_entre_stock));
+								 
+								 stock.getPk().setFkCode_barre(detail_Bean.getPk().getFkCode_barre());
+								 stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
+								 session.update(stock);
+					 
+								  
+								 
+									  
+									  
+									  String qString=""+
+												 "   UPDATE  Stock_articleBean  bean    set   bean.solde_stock = bean.solde_stock - "+ProcessFormatNbr.FormatDouble_Troischiffre(Vqte_reception)+",  " +
+												 "                                            bean.solde_achat_tva = bean.solde_achat_tva - "+ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_recept)+",  " +
+												 "                                            bean.solde_achat_ht = bean.solde_achat_ht - "+ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_ht__recept)+"  " +
+											 		"                where   bean.pk.depot.depot_id="+beanUpdate.getDepot().getDepot_id()+"     "+
+											 		//"               AND    bean.fk_etab_Bean.pk_etab.etab_id='"+bs.getEtab_id()+"'  "+
+											 		//"               AND    bean.fk_etab_Bean.pk_etab.soc_bean.soc_id='"+bs.getSoc_id()+"'  "+
+											 		"                 AND    bean.pk.fkCode_barre.pk.code_barre='"+detail_Bean.getPk().getFkCode_barre().getPk().getCode_barre()+"'  "+
+											 		"                 AND    bean.pk.fkCode_barre.pk.ar_bean.pk_article.ar_id='"+detail_Bean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"'  "+
+											 		"                 AND    bean.pk.fkCode_barre.pk.ar_bean.pk_article.etabBean.pk_etab.etab_id='"+detail_Bean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"'  "+
+											 		"                 AND    bean.pk.fkCode_barre.pk.ar_bean.pk_article.etabBean.pk_etab.soc_bean.soc_id='"+detail_Bean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"'  "+
+											 		"                 AND    bean.pk.date_stock > '"+date_reception+"'  ";
+											 		 
+											 		 
+												 session.createQuery(qString).executeUpdate();
+
+						 }
+			 }	    
+			    
+			
+		} catch (Exception e) {
+			 throw e;
+		}
+	}
 
 	public Boolean doUpdateReception_achat(Reception_achatBean beanUpdate) throws Exception {
 	 
@@ -191,21 +363,24 @@ public class Reception_achatDAO extends GenericWeb {
 		try {
 			 BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
 			 List list_recep_clone = (List) getObjectValueModel(Reception_achatTemplate.LIST_EDITABLE_RECEP_ACHAT_CLONE );
-			 this.hibernateTemplate.deleteAll(list_recep_clone);
+			 for (int i = 0; i < list_recep_clone.size(); i++) {
+				Det_reception_achatBean det_reception_achatBean =(Det_reception_achatBean) list_recep_clone.get(i);
+				this.hibernateTemplate.delete(det_reception_achatBean);
+				if(det_reception_achatBean.getMvt_stock()!=null)
+				 this.hibernateTemplate.delete(det_reception_achatBean.getMvt_stock());
+			}
+			 
 			 this.hibernateTemplate.flush();
 		     this.hibernateTemplate.clear();
 			 List listOfmyData     = (List) getObjectValueModel(Reception_achatTemplate.LIST_EDITABLE_RECEP_ACHAT);
 			 Reception_achatBean  beanReCEP=(Reception_achatBean) getObjectValueModel(FORM_BEAN);
-			 
-			 
-			
-			 
 			 boolean result_detaille = false;
 				for (int i = 0; i < listOfmyData.size(); i++) {
 					Det_reception_achatBean detBean=(Det_reception_achatBean) listOfmyData.get(i);
 				    if( detBean.getQuantite()==null) { continue; }
 					if( detBean.getQuantite()==0 ||  detBean.getQuantite()<0) { continue;}
 					detBean.getPk().setRecepBean(beanUpdate);
+					detBean.setMvt_stock(null);
 					this.hibernateTemplate.save(detBean);
 					result_detaille=true;
 				}
@@ -293,7 +468,6 @@ public class Reception_achatDAO extends GenericWeb {
 				  for(Det_reception_achatBean beanRecep:listOfmyData){
 					 chaine=chaine+"'"+beanRecep.getPk().getFkCode_barre().getPk().getCode_barre()+"',";
 				  }
-			 
 			      chaine=StringUtils.isEmpty(chaine)?"":chaine.substring(0, chaine.length()-1);
 			      
 			      if(StringUtils.isEmpty(chaine))
@@ -317,8 +491,12 @@ public class Reception_achatDAO extends GenericWeb {
 				 this.setUpdateValueFieldTraceOject(beanUpdate);
 				 session.saveOrUpdate(beanUpdate);
 				 saveTrace(beanUpdate);
+				 
+				 session.createQuery( " UPDATE  Reception_achatBean b  set      b.modeBean.fct_id="+GenericActionBean.Fn_Confirmer+"   " +
+							"      where   b.achat_id='"+beanUpdate.getAchat_id()+"' ").executeUpdate();
+				 
 		         if( !StringUtils.isBlank( beanUpdate.getDem_achat().getDem_achat_id()) )
-		        	 session.createQuery( " UPDATE  Demande_achatBean b  set  b.modeBean.fct_id="+bs.getFct_id()+"   where  " +
+		        	 session.createQuery( " UPDATE  Demande_achatBean b  set  b.modeBean.fct_id="+GenericActionBean.Fn_Confirmer+"    where  " +
 		        	 		"  b.dem_achat_id='"+beanUpdate.getDemande_id()+"' ").executeUpdate();
 		     
 			  result = true;
@@ -869,11 +1047,13 @@ public class Reception_achatDAO extends GenericWeb {
 			throws Exception {
 		boolean result = false;
 		try {
-			
-		 
-			         
 			 List <Det_reception_achatBean>List_det_recep_achat= (List<Det_reception_achatBean>) getObjectValueModel(Reception_achatTemplate.LIST_EDITABLE_RECEP_ACHAT);
-			 hibernateTemplate.deleteAll(List_det_recep_achat);
+			 for (int i = 0; i < List_det_recep_achat.size(); i++) {
+					Det_reception_achatBean det_reception_achatBean =(Det_reception_achatBean) List_det_recep_achat.get(i);
+					this.hibernateTemplate.delete(det_reception_achatBean);
+					if(det_reception_achatBean.getMvt_stock()!=null)
+					 this.hibernateTemplate.delete(det_reception_achatBean.getMvt_stock());
+				}
 			 this.saveTraceVersion_Master_detailles(List_det_recep_achat, Reception_achatTemplate.MapfieldBean_detaille, Reception_achatTemplate.id_entite_det_achat, Reception_achatTemplate.entites_detaille);
 			 hibernateTemplate.flush();
 			 hibernateTemplate.delete(beanDelete);

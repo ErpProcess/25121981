@@ -171,8 +171,14 @@ public class Reception_achatActionManager extends Reception_achatTemplate {
 			 
 			 setObjectValueModel(LIST_EDITABLE_RECEP_ACHAT      , new ArrayList<Det_reception_achatBean>());
 			 setObjectValueModel(HASHMAP_FRS, ProcessUtil.getHashMap_code_bean(listfournisseur, "frs_id"));
-			 DeviseBean dBean = new DeviseBean();
-			 setObjectValueModel("list_devise", serviceDevise.doFetchDatafromServer(dBean));
+			 
+			 
+			 List list_devise=serviceDevise.doFetchDatafromServer(new DeviseBean());
+			 setObjectValueModel("list_devise", list_devise);
+			 
+		     HashMap  map_devise=ProcessUtil.getHashMap_code_bean(list_devise, "dev_id");
+		     setObjectValueModel("map_devise", map_devise);
+			 
 			 
 			 setObjectValueModel("PDF_IS_CMD", "NON");
 			 doLoadingLibelleOtherSModule("57");
@@ -575,7 +581,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			}
 				
 			if(bs.getFct_id().equals(Fn_Supprimer)   ){
-				searchBean.setCondition_etat_achat("  AND  bean.modeBean.fct_id  in ('"+Fn_Servir+"',  '"+Fn_Créer+"','"+Fn_Nouveau+"','"+Fn_Modifier+"','"+Fn_Annuler+"' )   ");
+				searchBean.setCondition_etat_achat("  AND  bean.modeBean.fct_id  not in ('"+Fn_Facturer+"' )   ");
 			}
 			
 			if(bs.getFct_id().equals(Fn_Modifier) ){
@@ -618,7 +624,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			 }
 			 
 			 if( bs.getFct_id().equals(Fn_Corriger)   ){
-				 searchBean.setCondition_etat_achat("    AND  bean.modeBean.fct_id not in ('"+Fn_Facturer+"','"+Fn_Annuler+"' )   ");
+				 searchBean.setCondition_etat_achat("    AND  bean.modeBean.fct_id   in ('"+Fn_Confirmer+"'  )   ");
 			  }
 			 
 			 
@@ -692,7 +698,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 	public ModelAndView doCalculer_Total() throws Exception {
 		
 		try {
-			Reception_achatBean rowBean = (Reception_achatBean) getObjectValueModel(FORM_BEAN);
+			 Reception_achatBean rowBean = (Reception_achatBean) getObjectValueModel(FORM_BEAN);
 			
 			 
 			 List <Det_reception_achatBean>List_det_recep_achat= new ArrayList<Det_reception_achatBean>();
@@ -842,8 +848,6 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 				 
 				 if (bs.getFct_id().equals(Fn_Confirmer)){ 
 						Reception_achatBean   achatBean=  new Reception_achatBean();
-						String req="";
-						
 						achatBean.setCondition_etat_achat(" " +
 						 		" AND  bean.modeBean.fct_id in ('"+Fn_Servir+"','"+Fn_Créer+"','"+Fn_Modifier+"','"+Fn_Transférer+"','"+Fn_Contremander+"')  " +
 						 		" AND  bean.achat_date < '"+ProcessDate.getStringFormatDate(rowBeans.getAchat_date())+"' ");
@@ -851,72 +855,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 						if(list!= null  &&    list.size()>0){
 							//throwNewException(" il existe des vente non encore confirmer a une date inférieur a :"+ProcessDate.getStringFormatDate(rowBeans.getAchat_date()));
 						}
-					 }
-				 
-				 
-				 
-				 if( !demandeId.equals("") && bs.getFct_id().equals(Fn_Modifier) ){
-					 
-					/* Demande_achatBean demModif=new Demande_achatBean();
-					 demModif.setDem_achat_id(demandeId);
-					 List<Det_demande_AchatBean>  list_detail_modif=serviceDemande_Achat.dofetch_detaille_demande_achat((Demande_achatBean) demModif);
-					 HashMap  map_demande=getHashMap_code_bean(list_detail_modif, "pk_det_dem_achat.fkCode_barre.pk.code_barre");
-					 Set s_map_demande=map_demande.keySet();*/
-					 
-					 
-					 
-					 /*for (Iterator iterat = s_map_demande.iterator(); iterat.hasNext();) {
-						 
-						    String code                     = (String) iterat.next();
-						    Det_reception_achatBean beanrecp= (Det_reception_achatBean) map_reception.get(code);
-						    
-						  if(beanrecp==null){
-						    	
-							   Det_reception_achatBean bean_recp= new Det_reception_achatBean();
-							   Det_demande_AchatBean   bean_dem_achat=(Det_demande_AchatBean) map_demande.get(code);
-							   rowBeans.setDem_achat(bean_dem_achat.getPk_det_dem_achat().getDem_achatBean());
-							   bean_recp.getPk().setRecepBean(rowBeans);
-							   bean_recp.setQuantite_demander(bean_dem_achat.getQuantite());
-							   bean_recp.getPk().setFkCode_barre(bean_dem_achat.getPk_det_dem_achat().getFkCode_barre());
-							    
-							   HashMap  mapTarification=(HashMap) getObjectValueModel(MAP_TARIFICATION);
-							   TarificationPrtvArticleBean  ss  =(TarificationPrtvArticleBean) mapTarification.get(bean_dem_achat.getPk_det_dem_achat().getFkCode_barre().getPk().getCode_barre());
-						    	 if(ss!=null){
-						    		 
-						    		Double priUnitachat=ProcessFormatNbr.FormatDouble_Troischiffre(ss.getTarif_unit_article());
-						    		Double qte=bean_dem_achat.getQuantite();
-						    		Double montant_ht_achat=ProcessNumber.PRODUIT(priUnitachat, qte);
-						    		       montant_ht_achat=ProcessFormatNbr.FormatDouble_Troischiffre(montant_ht_achat);
-						    		       bean_recp.setMontant_ht_achat(montant_ht_achat);
-						    		Double montant_tva_achat=ProcessNumber.Pourcentage(montant_ht_achat, ss.getTvaBean().getTva_value());
-						    		       montant_tva_achat=ProcessFormatNbr.FormatDouble_Troischiffre(montant_tva_achat);
-						    		       bean_recp.setMontant_tva_achat(montant_tva_achat);
-						    		       List_det_recep_achat.add(bean_recp);
-						    		       mapTeste.put(code, "existe_Se_code");
-						    	    }else{
-						    	    	elmentSansTArif_modifier=elmentSansTArif_modifier+""+bean_dem_achat.getPk_det_dem_achat().getFkCode_barre().getPk().getCode_barre()+" / "+
-						    		bean_dem_achat.getPk_det_dem_achat().getFkCode_barre().getDesignation_libelle()+" <br> ";
-						    	    }
-						  }else{
-							  mapTeste.put(code, "existe_Se_code");
-							  List_det_recep_achat.add(beanrecp);
-						  }
-					  } // Fin Boucle Demande achat - avec reception -modification
-					 */
-					 
-					/* Set s_map_rec=map_reception.keySet();
-					 for (Iterator it_recep = s_map_rec.iterator(); it_recep.hasNext();) {
-						String key = (String) it_recep.next();
-						Det_reception_achatBean  beanrecep=  (Det_reception_achatBean) map_reception.get(key);
-						String  sssss=(String) mapTeste.get(key);
-						if(sssss==null){
-							 List_det_recep_achat.add(beanrecep);
-						}
-					}*/
-					 
-				 }// Fin Teste si  --- demande achat avec reception --  Mode Modifier
-				 
-				 else{}
+					 } 
 			}
 				 
 				 
@@ -1256,15 +1195,9 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		}
 		
 		if(retour) {
-			
-			 
 			return getViewAdd_Commit(FORM_SERVIR_DEMANDE_ACHAT);
-			
-		
 		}else{  
-			
 			return getViewServir_demande(FORM_SERVIR_DEMANDE_ACHAT );}
-		 
 		}
 	
 
@@ -1282,9 +1215,11 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 	
 	public ModelAndView doCorrigerData(Reception_achatBean beanUpBean) {
 		try {
-			serviceReception_achat.doUpdateRowData(beanUpBean);
-			update_row_from_list(LIST_DATA, beanUpBean);
-			throwNewException("mod01");
+			serviceReception_achat.doCorrigerRowData(beanUpBean);
+			remove_row_from_list(LIST_DATA);
+			removeObjectModel(FORM_BEAN);
+			removeObjectModel(SEARCH_BEAN);
+			throwNewException("validaTion Ok !");
 		} catch (Exception e) {
 			displayException(e);
 		}
@@ -1306,8 +1241,6 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 	
 	public ModelAndView doCommitData(Reception_achatBean beanUpBean) {
 		try {
-			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-			bs.setFct_id(Fn_Confirmer);
 			serviceReception_achat.doStockRowData(beanUpBean);
 			Reception_achatBean rBeanS = new Reception_achatBean();
 			rBeanS.setAchat_date(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()));

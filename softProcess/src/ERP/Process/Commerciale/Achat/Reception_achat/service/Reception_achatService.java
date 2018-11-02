@@ -39,9 +39,7 @@ public class Reception_achatService  extends GenericWeb  {
 	
 	@Transactional(readOnly=true)
 	public List<Det_reception_achatBean> doFetchDeatil_reception_fromServer(Reception_achatBean beanSearch) throws Exception {
-		
 		List <Det_reception_achatBean >listDataSrv =daoReception_achat.doFindList_detail_Reception_achat(beanSearch);
-		 
 		return listDataSrv;
 	}
 	
@@ -52,7 +50,7 @@ public class Reception_achatService  extends GenericWeb  {
 	public Boolean doCreateRowData(Reception_achatBean insertBean) throws Exception {
 		 boolean result = false;
 		 try {
-			      daoNumSequentiel.getNumSeqSimple(insertBean,"achat_id");
+			     daoNumSequentiel.getNumSeqSimple(insertBean,"achat_id");
 		       if(daoReception_achat.doSaveReception_achat(insertBean)){
 		       result = true;
 		       }else{
@@ -65,19 +63,15 @@ public class Reception_achatService  extends GenericWeb  {
 		return result; 
 	}
 	@Transactional
-	public Boolean  doUpdateRowData(Reception_achatBean updateBean)  throws Exception {
-		 boolean result = false;
-		 try {
-		if(daoReception_achat.doUpdateReception_achat(updateBean)){
-		    result = true;
-		       }else{
-		    	result = false;  
-		     }
-		 } catch (Exception e) { 
-			 result = false;
-			 throw e;
-		}
-	 return result; 
+	public void  doUpdateRowData(Reception_achatBean updateBean)  throws Exception {
+	   daoReception_achat.doUpdateReception_achat(updateBean) ; 
+	}
+	
+	@Transactional
+	public void  doCorrigerRowData(Reception_achatBean updateBean)  throws Exception {
+	   daoReception_achat.doCorrigerAchatArticle(updateBean);
+	   daoReception_achat.doUpdateReception_achat(updateBean) ; 
+	   daoReception_achat.doValiderReception_article(updateBean) ; 
 	}
 	
 	@Transactional
@@ -86,51 +80,19 @@ public class Reception_achatService  extends GenericWeb  {
 	}
 	
 	@Transactional
-	public Boolean  doAnnulerRowData(Reception_achatBean updateBean)  throws Exception {
-		 boolean result = false;
-		 try {
-		if(daoReception_achat.doExcuterTransactionForAchat(updateBean)){
-		    result = true;
-		       }else{
-		    	result = false;  
-		     }
-		 } catch (Exception e) { 
-			 result = false;
-			 throw e;
-		}
-	 return result; 
+	public void  doAnnulerRowData(Reception_achatBean updateBean)  throws Exception {
+		  daoReception_achat.doExcuterTransactionForAchat(updateBean) ;
 	}
 	
 	@Transactional
-	public Boolean  doTransfererRowData(Reception_achatBean updateBean)  throws Exception {
-		 boolean result = false;
-		 try {
-		if(daoReception_achat.doExcuterTransactionForAchat(updateBean)){
-		    result = true;
-		       }else{
-		    	result = false;  
-		     }
-		 } catch (Exception e) { 
-			 result = false;
-			 throw e;
-		}
-	 return result; 
+	public void  doTransfererRowData(Reception_achatBean updateBean)  throws Exception {
+		daoReception_achat.doExcuterTransactionForAchat(updateBean);
 	}
 	
 	
 	@Transactional
-	public Boolean doDeleteRowData(Reception_achatBean deleteBean) throws Exception {
-		 boolean result = false;
-		 try {
-		    if(daoReception_achat.doDeleteReception_achat(deleteBean)){
-		        result = true;
-		      }else{
-		    	result = false;  
-		     }
-		 } catch (Exception e) { 
-			 result = false;
-			 throw e;
-		}
-   return result; 
+	public void doDeleteRowData(Reception_achatBean deleteBean) throws Exception {
+		daoReception_achat.doCorrigerAchatArticle(deleteBean);
+		daoReception_achat.doDeleteReception_achat(deleteBean);
 	}
 }

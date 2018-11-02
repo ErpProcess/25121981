@@ -313,11 +313,13 @@ public class Facture_clientDAO extends  GenericWeb    {
 		try {
 			Facture_clientBean   beandelfact = (Facture_clientBean) getObjectValueModel(FORM_BEAN);
 
-			List<Det_Fact_ClientBean> List_det       = (List<Det_Fact_ClientBean>)  getObjectValueModel(Facture_clientTemplate.LIST_DATA_DET_FACT);
+			List<Det_Fact_ClientBean> list_det       = (List<Det_Fact_ClientBean>)  getObjectValueModel(Facture_clientTemplate.LIST_DATA_DET_FACT);
 			
 			List<MvtVente_articleBean> List_det_mvt  = (List<MvtVente_articleBean>) getObjectValueModel(Facture_clientTemplate.LIST_DATA_DET_FACT_MVT_VENTE);
-			for (int i = 0; i < List_det.size(); i++) {
-				Det_Fact_ClientBean detFacture=(Det_Fact_ClientBean) List_det.get(i);
+			
+			if(list_det!=null  &&  list_det.size()>0)
+			for (int i = 0; i < list_det.size(); i++) {
+				Det_Fact_ClientBean detFacture=(Det_Fact_ClientBean) list_det.get(i);
 					      String   requette2  =" select  bean   FROM    Detail_mvt_vente_articleBean    bean    WHERE     1=1       ";
 					      requette2+="   AND   bean.pk.mvt_vente.mvt_vente_id = '"+detFacture.getPk().getMvtVente().getMvt_vente_id()+"'        ";    
 						   List <Detail_mvt_vente_articleBean> lisf= session.createQuery(requette2).list();
@@ -330,21 +332,27 @@ public class Facture_clientDAO extends  GenericWeb    {
 							   session.delete(detMvtVenteBean);
 							   
 				}
-						   
-			     session.delete(detFacture);
-			     session.flush();
-			     session.clear();
-			     session.delete(detFacture.getPk().getMvtVente());
+				
+			    if(list_det!=null  &&  list_det.size()>0) {
+			    	 session.delete(detFacture);
+				     session.flush();
+				     session.clear();
+				     session.delete(detFacture.getPk().getMvtVente());
+			    }
+			    
 				
 			}
 			
 			 
 			
-			 
-			saveTraceVersion_Master_detailles(List_det,
-					  Facture_clientTemplate.MapfieldBean_detaille,
-					  Facture_clientTemplate.id_entite_detaille,
-					  Facture_clientTemplate.entite_detaille);
+			if(list_det!=null  &&  list_det.size()>0) {	 
+				
+				saveTraceVersion_Master_detailles(list_det,
+						  Facture_clientTemplate.MapfieldBean_detaille,
+						  Facture_clientTemplate.id_entite_detaille,
+						  Facture_clientTemplate.entite_detaille);
+			}
+			
 			session.delete(beandelfact);
 			saveTrace(beandelfact);
 			result = true;
