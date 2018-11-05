@@ -242,8 +242,8 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			//this.saveTraceVersion_Master_detailles(listOfmyData, ProcedureVenteTemplate.MapfieldBean_detaille, ProcedureVenteTemplate.id_entite_detaille, ProcedureVenteTemplate.entite_detaille);
 			 
 			if( !StringUtils.isBlank( beanSave.getCommande().getCmd_id()) )
-			  session.createQuery(" UPDATE  CommandeclientBean b  set  b.modeBean.fct_id="+bs.getFct_id()+"  " +
-			  		" where   b.cmd_id='"+beanSave.getCommande().getCmd_id()+"' ").executeUpdate();
+			  session.createQuery("   UPDATE  CommandeclientBean b  set  b.modeBean.fct_id="+bs.getFct_id()+"  " +
+			  		"                 where   b.cmd_id='"+beanSave.getCommande().getCmd_id()+"' ").executeUpdate();
 			
 			TraitementVenteAvecFourniture(fVenteBean,beanSave,session);
 			TraitementVenteAvecPrestation(service,beanSave, session);
@@ -1591,7 +1591,11 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			}
 			
 			
+			
+		 
+			
 			for (DetProcedureVenteBean bxe:listInsert) {
+				
 				bxe.getPk().setVente(beanUpdate);
 				bxe.setMvt_stock(null);
 				if( map_deriver_vente!=null   &&  map_deriver_vente.size() >0 ) {
@@ -1604,14 +1608,20 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			}
 			
 			for (DetFournitureVenteBean detfourn:listInsertFour) {
+				if( detfourn.getQuantite()==null) { continue; }
+				if( detfourn.getQuantite().doubleValue()==0 ||  detfourn.getQuantite().doubleValue()<0) { continue;}
 				detfourn.setFourniture(fournitureVenteBean);
-				detfourn.setMvt_stock(null);
+				detfourn.setIsVente(false);
 				session.save(detfourn);
 			}
 			
 			for (DetServiceBean detService:listInsertService) {
+				if( detService.getQuantite()==null) { continue; }
+				if( detService.getQuantite().doubleValue()==0 ||  detService.getQuantite().doubleValue()<0) { continue;}
 				detService.setService(serviceBean);
+				detService.setIsVente(false);
 				session.save(detService);
+				
 			}
 			ProcedureVenteBean beanTotal =(ProcedureVenteBean) getObjectValueModel(ProcedureVenteTemplate.BEAN_TOTAL);
 			beanUpdate.setVente_remise(beanTotal.getVente_remise());
