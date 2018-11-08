@@ -222,10 +222,10 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 			PdfPTable tableTopHeader = new PdfPTable(100);
 			tableTopHeader.setWidthPercentage(poucentage);
 		    BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-		    BaseFont bf = BaseFont.createFont("D://Fonts/ARIALUNI.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+		    BaseFont bf = BaseFont.createFont("C://Fonts/ARIALUNI.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 			Font arialuniArab = new Font(bf, 10);
 		    
-			  
+			 
             SocieteBean ste=bs.getSociete();
 		    
 		    JSONObject societeObj = new JSONObject(ste.getData_societe_langue());

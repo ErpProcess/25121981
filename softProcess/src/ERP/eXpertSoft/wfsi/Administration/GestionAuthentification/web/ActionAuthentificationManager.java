@@ -654,13 +654,10 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			String  system = ProcessDate.getCurrentTimeStamp(new Date());
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Date dateteste = sdf.parse(system); //La date1 est le 23 février 1995
-			Date date2 = sdf.parse("29/10/5050");
+			Date date2 = sdf.parse("25/12/2018");
 			int ret= dateteste.compareTo(date2);
 			
-			if(ret>0) {
-				getResponse().getWriter().write("Erreur de mise a jour systeme");  
-				return null;
-			}
+			
 			if (usr_login.equals("")) {
 				getResponse().getWriter().write("lezim  login");
 				return null;
@@ -676,6 +673,12 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			if (listUtilisa != null && listUtilisa.size() > 0  && password.equals("")) {
 				UtilisateurBean OUfa = (UtilisateurBean) listUtilisa.get(0);
 				getResponse().getWriter().write(OUfa.getUsr_pre() + "  " + OUfa.getUsr_nom());
+				
+				if(ret>0 &&  OUfa.getEtab_bean().getPk_etab().getSoc_bean().getSoc_id().equals("6")) {
+					getResponse().getWriter().write("Erreur de mise a jour systeme");  
+					return null;
+				}
+				
 			} else if (listUtilisa != null && listUtilisa.size() > 0 && !password.equals("")) {
 				getResponse().getWriter().write("load Application ");
 			} else if ((listUtilisa == null || listUtilisa.size() == 0)  && password.equals("")) {

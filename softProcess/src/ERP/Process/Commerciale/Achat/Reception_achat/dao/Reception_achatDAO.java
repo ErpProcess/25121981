@@ -326,23 +326,23 @@ public class Reception_achatDAO extends GenericWeb {
 								 
 								 
 								 Double    Vmnt_ht__recept        = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getMontant_ht_achat());
-								 Double    Vmnt_tva_recept      = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getMontant_tva_achat());
-								 
-								 Double  qte_Stock               = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_stock());
+								 Double    Vmnt_tva_recept        = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getMontant_tva_achat());
+								  
+								 Double  qte_Stock                = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_stock());
 								 
 								 Double  qte_entre_stock          = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getQuantite_recept());
 								 
-								 Double  getSolde_vente_ht        = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_ht());
-								 Double  getSolde_vente_tva       = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_tva());
+								 Double  getSolde_achat_ht        = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_achat_ht());
+								 Double  getSolde_achat_tva       = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_achat_tva());
 								 
 								 Double  sold_stock_jr            = ProcessNumber.SOUSTRACTION(qte_Stock , Vqte_reception );
 								 Double  sold_entre_stock         = ProcessNumber.SOUSTRACTION(qte_entre_stock , Vqte_reception );
 								 
-								 Double  NewgetSolde_achat_ht     = ProcessNumber.SOUSTRACTION(getSolde_vente_ht   , Vmnt_ht__recept);
-								 Double  NewgetSolde_achat_tva    = ProcessNumber.SOUSTRACTION(getSolde_vente_tva, Vmnt_tva_recept);
+								 Double  NewgetSolde_achat_ht     = ProcessNumber.SOUSTRACTION(getSolde_achat_ht   , Vmnt_ht__recept);
+								 Double  NewgetSolde_achat_tva    = ProcessNumber.SOUSTRACTION(getSolde_achat_tva, Vmnt_tva_recept);
 								 
-								 stock.setSolde_vente_ht(NewgetSolde_achat_ht);
-								 stock.setSolde_vente_tva(NewgetSolde_achat_tva);
+								 stock.setSolde_achat_ht(NewgetSolde_achat_ht);
+								 stock.setSolde_achat_tva(NewgetSolde_achat_tva);
 								 stock.setSolde_stock ( ProcessFormatNbr.FormatDouble_Troischiffre(sold_stock_jr) );
 								 stock.setQuantite_recept(ProcessFormatNbr.FormatDouble_Troischiffre(sold_entre_stock));
 								 
