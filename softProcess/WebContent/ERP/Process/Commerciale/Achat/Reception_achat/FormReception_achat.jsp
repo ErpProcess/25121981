@@ -14,26 +14,7 @@ $(document).ready(function (){
 LoadAutoCompletAjax_with_marGin("pk.code_barre","designation_libelle","quantite","list_article_recp_achat","400","500");
 //LoadOtherAutocompletesAjax("pk.code_barre","i$_ACT_LOAD_LOT_ARTICLE","num_lot","date_peremption","quantite");
 });
-
-/* 
-function loadLesListeCorrlee(objeJson){
-      for ( var q=0  ; q<objeJson.aaData.length ; q++ ) {
- 		  var inde=objeJson.aaData[q][2];
- 		  var idInputcode_barre=objeJson.aaData[q][2];
- 		  var idInputnum_lot="num_lot"+inde;
-          var idInputdate_peremption="date_peremption"+inde;
-          var idInputquantite="pk.quantite"+inde;
-          LoadOtherAutocompletesAjax_grid(idInputcode_barre,"i$_ACT_LOAD_LOT_ARTICLE",idInputnum_lot,idInputdate_peremption,"num_lot","date_peremption",idInputquantite,false);
-      }    
-}*/
-
-
-
-
 $(document).ready(function () {
-
- 
-
  if("${bs.fct_id}"=="3"){
  
     $("#tblData").find("select:not([libre])").attr("disabled",true);
@@ -88,6 +69,9 @@ $(document).ready(function () {
 	                                            ]
  
                                };
+ 
+ 
+ 
 
 function ADD(){
 
@@ -124,9 +108,7 @@ function ADD(){
 	                'quantite':$('#quantite').val()},
 	                dataType: 'text', 
 	                success: function(data){
-LoadDataEditable_AUTO_height( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
- config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
-                    
+	                otab_otra.fnAdjustColumnSizing();
 	               $('input[id="pk.code_barre"]').val('');
 	               $('input[id="date_utilisationx"]').val('');
 	               $('input[id="date_peremptionx"]').val('');
@@ -150,8 +132,7 @@ function Delete_ROW(){
 	               data:'HiddenAction=i$_ACT_DELETE_ROW',
 	               dataType: 'text', 
 	               success: function(data){
-	                LoadDataEditable_AUTO_height( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
- config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
+	            	   otab_otra.fnAdjustColumnSizing();
                       },
                    error: function (request, status, error) {
                          alert(request.responseText);
@@ -172,8 +153,7 @@ function doCheked_unCheked(element){
 	               dataType: 'text', 
 	               success: function(data){
 	             
-				   LoadDataEditable_AUTO_height( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
-				   config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
+	            	   otab_otra.fnAdjustColumnSizing();
 	               
 	               
 	               
@@ -205,7 +185,7 @@ function doCheked_unCheked(element){
 	      }
 	      
 	   });
- 
+       otab_otra.fnAdjustColumnSizing();
  } 
  
   

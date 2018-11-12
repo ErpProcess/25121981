@@ -8,17 +8,16 @@
    
   
  
-  {   "sName": "quantite_recept"              ,"sWidth": "7%"   , "bSortable": "true" ,"sClass" : "alignCenter"  }, 
-  {   "sName": "mnt_ttc_recept"                ,"sWidth": "10%"   , "bSortable": "true" ,"sClass" : "alignRight"  ,
+  {   "sName": "quantite_recept"               ,"sWidth": "7%"    , "bSortable": "true"  ,"sClass" : "alignCenter"  }, 
+  {   "sName": "mnt_ttc_recept"                ,"sWidth": "10%"   , "bSortable": "true"  ,"sClass" : "alignRight"  ,
   "mRender": function (data, type, full) {   if( full[3]=="191"  ||  full[3]=="192") return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },
   
    
-  {   "sName": "quantite_vendu"               ,"sWidth": "7%"   , "bSortable": "true"  ,"sClass" : "alignCenter"  },   
-  {   "sName": "mnt_ttc_vendu"                 ,"sWidth": "10%"   , "bSortable": "true" ,"sClass" : "alignRight"  ,
-"mRender": function (data, type, full) {   if( full[3]=="191"  ||  full[3]=="192") return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },
+  {   "sName": "quantite_vendu"                ,"sWidth": "7%"    , "bSortable": "true"  ,"sClass" : "alignCenter"  },   
+  {   "sName": "mnt_ttc_vendu"                 ,"sWidth": "10%"   , "bSortable": "true"  ,"sClass" : "alignRight"  ,
+  "mRender": function (data, type, full) {   if( full[3]=="191"  ||  full[3]=="192") return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },
   
-  {   "sName": "cout_unitaire_moyen_pondere"                  ,"sWidth": "5%"   , "bSortable": "true"  ,"sClass" : "alignCenter" },  
-  {   "sName": "solde_stock_valeur"                  ,"sWidth": "5%"   , "bSortable": "true"  ,"sClass" : "alignCenter" },  
+  {   "sName": "cout_unitaire_moyen_pondere"                  ,"sWidth": "5%"   , "bSortable": "true"  ,"sClass" : "alignCenter" },   
   {   "sName": "solde_stock"                  ,"sWidth": "5%"   , "bSortable": "true"  ,"sClass" : "alignCenter" },  
   
   
@@ -37,7 +36,7 @@ var dataGridConfig_width="130%";
                 
                 <th colspan="2" align="center"> Entrer </th>
                 <th colspan="2" align="center"> sortie</th>
-                <th colspan="3" align="center"  >Stock</th>
+                <th colspan="2" align="center"  >Stock</th>
                 
             </tr>
             
@@ -48,7 +47,6 @@ var dataGridConfig_width="130%";
                 <th align="center" >Montant TTC</th>
                 
                 <th align="center" >CUMP</th>
-                <th align="center" >Montant</th>
                 <th align="center" >Valeur</th>
             </tr>
             

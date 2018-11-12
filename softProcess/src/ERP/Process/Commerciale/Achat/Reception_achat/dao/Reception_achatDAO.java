@@ -232,7 +232,7 @@ public class Reception_achatDAO extends GenericWeb {
 	
 	private void TraitementCorrectionVenteArticle(  Reception_achatBean beanUp, Session session) throws Exception {
 		
-		Reception_achatBean beanUpdate=(Reception_achatBean) getObjectValueModel(FORM_BEAN);
+		   Reception_achatBean beanUpdate=(Reception_achatBean) getObjectValueModel(ORIGINAL_FORM_BEAN);
 		   List <Det_reception_achatBean> listOfmyDataClone=(List) getObjectValueModel(Reception_achatTemplate.LIST_EDITABLE_RECEP_ACHAT_CLONE);
 		   if(listOfmyDataClone!=null &&  listOfmyDataClone.size()>0) {
 		   traitementCorrectionLotGeneric(beanUpdate,session);
@@ -296,7 +296,7 @@ public class Reception_achatDAO extends GenericWeb {
 						    sBean.getPk().getDepot().getDepot_id()+"§"+
 						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
 						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
-						map_article_jour.put(key_max_jour, sBean);
+						    map_article_jour.put(key_max_jour, sBean);
 				}
 			    
 				   for (int i = 0; i < listOfmyDataClone.size(); i++) {
@@ -319,45 +319,45 @@ public class Reception_achatDAO extends GenericWeb {
 							  
 							     Stock_articleBean stock          = (Stock_articleBean)map_article_jour.get(keyTrait);
 							     prix_unit_moyen_pond             = stock.getCout_unitaire_moyen_pondere()!=null?stock.getCout_unitaire_moyen_pondere(): new Double(0);             
-
-								 Double  Vqte_reception          = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getQuantite());
-								 
-							 
-								 
-								 
-								 Double    Vmnt_ht__recept        = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getMontant_ht_achat());
-								 Double    Vmnt_tva_recept        = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getMontant_tva_achat());
+								 Double  qteReception             = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getQuantite());
+								 Double  Vmnt_ht__recept          = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getMontant_ht_achat());
+								 Double  Vmnt_tva_recept          = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getMontant_tva_achat());
 								  
-								 Double  qte_Stock                = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_stock());
 								 
-								 Double  qte_entre_stock          = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getQuantite_recept());
+								 Double  qteStock                 = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_stock());
+								 Double  qteEntreStock            = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getQuantite_recept());
+								 Double  solde_achat_ht           = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_achat_ht());
+								 Double  solde_achat_tva          = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_achat_tva());
 								 
-								 Double  getSolde_achat_ht        = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_achat_ht());
-								 Double  getSolde_achat_tva       = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_achat_tva());
+								 Double  m_recep_ht               = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getMnt_ht_recept());
+								 Double  m_recep_tva              = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getMnt_tva_recept());
 								 
-								 Double  sold_stock_jr            = ProcessNumber.SOUSTRACTION(qte_Stock , Vqte_reception );
-								 Double  sold_entre_stock         = ProcessNumber.SOUSTRACTION(qte_entre_stock , Vqte_reception );
+								 Double  sold_stock_jr            = ProcessNumber.SOUSTRACTION(qteStock , qteReception );
+								 Double  sold_entre_stock         = ProcessNumber.SOUSTRACTION(qteEntreStock , qteReception );
 								 
-								 Double  NewgetSolde_achat_ht     = ProcessNumber.SOUSTRACTION(getSolde_achat_ht   , Vmnt_ht__recept);
-								 Double  NewgetSolde_achat_tva    = ProcessNumber.SOUSTRACTION(getSolde_achat_tva, Vmnt_tva_recept);
+								 Double  newSolde_achat_ht        = ProcessNumber.SOUSTRACTION(solde_achat_ht   , Vmnt_ht__recept);
+								 Double  newSolde_achat_tva       = ProcessNumber.SOUSTRACTION(solde_achat_tva, Vmnt_tva_recept);
 								 
-								 stock.setSolde_achat_ht(NewgetSolde_achat_ht);
-								 stock.setSolde_achat_tva(NewgetSolde_achat_tva);
+								 Double  newMnt_achat_ht          = ProcessNumber.SOUSTRACTION(m_recep_ht   , Vmnt_ht__recept);
+								 Double  newMnt_achat_tva         = ProcessNumber.SOUSTRACTION(m_recep_tva, Vmnt_tva_recept);
+								 
+								 
 								 stock.setSolde_stock ( ProcessFormatNbr.FormatDouble_Troischiffre(sold_stock_jr) );
 								 stock.setQuantite_recept(ProcessFormatNbr.FormatDouble_Troischiffre(sold_entre_stock));
-								 
 								 stock.getPk().setFkCode_barre(detail_Bean.getPk().getFkCode_barre());
 								 stock.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
-								 session.update(stock);
-					 
 								  
+								 stock.setMnt_tva_recept(ProcessFormatNbr.FormatDouble_Troischiffre(newMnt_achat_tva));
+								 stock.setMnt_ht_recept (ProcessFormatNbr.FormatDouble_Troischiffre(newMnt_achat_ht));
 								 
+								 stock.setSolde_achat_tva(ProcessFormatNbr.FormatDouble_Troischiffre(newSolde_achat_tva));
+								 stock.setSolde_achat_ht(ProcessFormatNbr.FormatDouble_Troischiffre( newSolde_achat_ht));
+								 session.update(stock);
 									  
-									  
-									  String qString=""+
-												 "   UPDATE  Stock_articleBean  bean    set   bean.solde_stock = bean.solde_stock - "+ProcessFormatNbr.FormatDouble_Troischiffre(Vqte_reception)+",  " +
+								 String qString=""+
+												 "   UPDATE  Stock_articleBean  bean    set   bean.solde_stock = bean.solde_stock - "+ProcessFormatNbr.FormatDouble_Troischiffre(qteReception)+",  " +
 												 "                                            bean.solde_achat_tva = bean.solde_achat_tva - "+ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_recept)+",  " +
-												 "                                            bean.solde_achat_ht = bean.solde_achat_ht - "+ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_ht__recept)+"  " +
+												 "                                            bean.solde_achat_ht  = bean.solde_achat_ht - "+ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_ht__recept)+"  " +
 											 		"                where   bean.pk.depot.depot_id="+beanUpdate.getDepot().getDepot_id()+"     "+
 											 		//"               AND    bean.fk_etab_Bean.pk_etab.etab_id='"+bs.getEtab_id()+"'  "+
 											 		//"               AND    bean.fk_etab_Bean.pk_etab.soc_bean.soc_id='"+bs.getSoc_id()+"'  "+
@@ -368,7 +368,7 @@ public class Reception_achatDAO extends GenericWeb {
 											 		"                 AND    bean.pk.date_stock > '"+date_reception+"'  ";
 											 		 
 											 		 
-												 session.createQuery(qString).executeUpdate();
+						        session.createQuery(qString).executeUpdate();
 
 						 }
 			 }	    
@@ -741,7 +741,7 @@ public class Reception_achatDAO extends GenericWeb {
 							 
 					  }else{
 						  
-						  Stock_articleBean stockNew = new  Stock_articleBean();
+						 Stock_articleBean stockNew = new  Stock_articleBean();
 						 daoNumSequentiel.getNumSeqSimple(stockNew,"stock_article_id",session);
 						 stockNew.getPk().setDate_stock(beanUpdate.getAchat_date());
 						 stockNew.setSolde_stock    ( ProcessFormatNbr.FormatDouble_Troischiffre(sold_stock_jr) );
@@ -751,12 +751,9 @@ public class Reception_achatDAO extends GenericWeb {
 						 stockNew.setSolde_achat_tva(ProcessFormatNbr.FormatDouble_Troischiffre(Vmnt_tva_recept));
 						 stockNew.setSolde_achat_ht(ProcessFormatNbr.FormatDouble_Troischiffre( Vmnt_ht__recept));
 						 stockNew.setCout_unitaire_moyen_pondere(ProcessFormatNbr.FormatDouble_ParameterChiffre(detBean.getTarif().getTarif_unit_ttc(), detBean.getTarif().getDevise().getChiffre_pattern()));
-						  
 						 stockNew.getPk().setFkCode_barre(detBean.getPk().getFkCode_barre());
 						 stockNew.getPk().getDepot().setDepot_id(beanUpdate.getDepot().getDepot_id());
 						 stockNew.setDevise(detBean.getTarif().getDevise());
-						 //stock.getFk_etab_Bean().getPk_etab().setEtab_id(bs.getEtab_id());
-						 //stock.getFk_etab_Bean().getPk_etab().getSoc_bean().setSoc_id(bs.getSoc_id());
 					     session.saveOrUpdate(stockNew);
 					  }
 					  MouvementStockBean  mvtStock        = new MouvementStockBean(); 
@@ -797,235 +794,7 @@ public class Reception_achatDAO extends GenericWeb {
 		}
 		
 	}
-     public Boolean doValiderReception_achat(Reception_achatBean beanUpd) throws Exception {
-    	 
-		boolean result = false;
-		/*
-		try {
-			
-			 BeanSession bs =(BeanSession)getObjectValueModel(SESSION_BEAN);
-			 Reception_achatBean beanUpdate=(Reception_achatBean) getObjectValueModel(FORM_BEAN);
-			 List <Det_reception_achatBean> listOfmyData=(List) getObjectValueModel(Reception_achatTemplate.LIST_EDITABLE_RECEP_ACHAT);
-			 String chaine="";
-			 
-			 HashMap  mapArticleLot = new HashMap();
-			 for(Det_reception_achatBean beanRecep:listOfmyData){
-				 chaine=chaine+"'"+beanRecep.getPk().getFkCode_barre().getPk().getCode_barre()+"',";
-				 
-				 String KEY=beanRecep.getPk().getFkCode_barre().getPk().getCode_barre()+"§"+"";//beanRecep.getPk().gets
-				 if( mapArticleLot.get(KEY)==null){
-				     mapArticleLot.put(KEY, beanRecep);
-				 }
-				 
-			 }
-			 chaine=StringUtils.isEmpty(chaine)?"":chaine.substring(0, chaine.length()-1);
-			 if(StringUtils.isEmpty(chaine))throwNewException("List Détaille Vide");
-			
-			
-			 InventaireBean beanSearch= new InventaireBean();
-		     String condition_Select_dateMax_Inventaire="   "+
-		     "      AND    bean.pk.inventaire.pk.depot_stocks.depot_id="+beanUpdate.getPk().getDepot().getDepot_id()+""+
-		     "      AND    bean.pk.fkCode_barre.pk.code_barre in ( "+  chaine + ")   "+
-		     
-		     "      AND    bean.pk.inventaire.pk.inv_date in ( select  max( bhk.pk.inventaire.pk.inv_date ) from  DetInventaireBean bhk    " +
-		     "      where  bhk.pk.inventaire.pk.inv_date<='"+ProcessDate.getStringFormatDate(beanUpdate.getPk().getAchat_date())+"'        " +
-		     "      AND    bhk.pk.inventaire.pk.depot_stocks.depot_id="+beanUpdate.getPk().getDepot().getDepot_id()+"      )               ";
-		     beanSearch.setCondition_Select_dateMax_Inventaire(condition_Select_dateMax_Inventaire);
-		    
-		       
-		     List<DetInventaireBean> list_det_invenTaire=daoInventaire.doFindList_det_Inventaire(beanSearch); 
-		    
-		     HashMap  mapArticleLotInven = new HashMap();
-		     if(list_det_invenTaire!=null &&  list_det_invenTaire.size()>0){
-		    	 for (int i = 0; i < list_det_invenTaire.size(); i++) {
-		    		 DetInventaireBean detInven=list_det_invenTaire.get(i);
-		    		 
-		    		 
-		    		 if( detInven.getPk().getInventaire().getModeBean().getFct_id()!= null  &&
-		    				 String.valueOf(detInven.getPk().getInventaire().getModeBean().getFct_id()).equals(GenericActionBean.Fn_Valider)){
-		    			 
-			    		 String KEY2=detInven.getPk().getFkCode_barre().getPk().getCode_barre()+"$"+detInven.getPk().getLot().getNum_lot();
-			    		 if( mapArticleLotInven.get(KEY2)==null){
-			    			 mapArticleLotInven.put(KEY2, "existe");
-			    			
-			    		 }
-		    		 }
-		    		 
-				 }
-		    	 String erruer="";
-		    	 Set s_mapArticleLot= mapArticleLot.keySet();
-		    	 for (Iterator iter = s_mapArticleLot.iterator(); iter.hasNext();) {
-					  String object = (String) iter.next();
-						 if( mapArticleLotInven.get(object)==null){
-							 Det_reception_achatBean  beaREcp= (Det_reception_achatBean) mapArticleLot.get(object);
-							  erruer=erruer+""+beaREcp.getPk().getFkCode_barre().getDesignation_libelle()+"<br>";
-						 }
-					
-				}
-		    	 if(  mapArticleLotInven.size()==0) throwNewException(" Manque Inventaire ");
-		    	 if(erruer.length()>0  )  throwNewException(" Manque Inventaire pour ces articles :<br>"+erruer);
-			 
-		       }else{
-			      throwNewException(" Manque Inventaire ");
-		         } 
-		     
-		     
-		     
-			this.setUpdateValueFieldTraceOject(beanUpdate);
-			session.saveOrUpdate(beanUpdate);
-			this.saveTraceVersion1(beanUpdate, Reception_achatTemplate.MapfieldBean, Reception_achatTemplate.id_entite_achat, Reception_achatTemplate.entites);
-			 
-			 
-			
-			Stock_articleBean beanSBean= new Stock_articleBean();
-			beanSBean.getPk().setDate_stock(beanUpdate.getPk().getAchat_date());
-			beanSBean.setDate_stock2(beanUpdate.getPk().getAchat_date());
-			
-			beanSBean.setCondition_list_article("   AND    bean.pk.fkCode_barre.pk.code_barre in ( "+  chaine + ")     ");
-			List lisStock_article = daoStock_article.doFindListStock_article(beanSBean);
-			
-			HashMap  map_article_jour_courant=  new HashMap();
-			
-			for (int i = 0; i < lisStock_article.size(); i++) {
-				Stock_articleBean sBean= (Stock_articleBean) lisStock_article.get(i);
-				String key =
-					ProcessDate.getStringFormatDate(sBean.getPk().getDate_stock())+"$"+
-					sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"$"+  
-				    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"$"+
-				    sBean.getPk().getSerie().getNum_serie()+"$"+
-				    sBean.getPk().getDepot().getDepot_id()+"$"+
-				    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"$"+
-				    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
-				map_article_jour_courant.put(key, sBean);
-			}
-			
-			
-			HashMap  map_article_jour_uterieur=  new HashMap();
-			Stock_articleBean beanMvtJour_avant= new Stock_articleBean();
-			if(map_article_jour_courant==null ||  map_article_jour_courant.size()==0){
-				
-				beanMvtJour_avant.setCondition_max_date_stock(  "    " +
-				 "      AND    bean.pk.date_stock  in  ( select  max( beaK.pk.date_stock ) from  Stock_articleBean beaK    " +
-			     "      where  beaK.pk.date_stock <  '"+ProcessDate.getStringFormatDate(beanUpdate.getPk().getAchat_date())+"'        " +
-			     "      AND    beaK.pk.depot.depot_id="+beanUpdate.getPk().getDepot().getDepot_id()+"      )               "); 
-				beanMvtJour_avant.setCondition_list_article("     AND    bean.pk.fkCode_barre.pk.code_barre in ( "+  chaine + ")     ");
-				
-				List lisStock_max_date_article = daoStock_article.doFindListStock_article(beanMvtJour_avant);
-				for (int i = 0; i < lisStock_max_date_article.size(); i++) {
-					Stock_articleBean sBean= (Stock_articleBean) lisStock_max_date_article.get(i);
-					String key_max_jour =
-					 
-						sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"$"+  
-					    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"$"+
-					    sBean.getPk().getSerie().getNum_serie()+"$"+
-					    sBean.getPk().getDepot().getDepot_id()+"$"+
-					    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"$"+
-					    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
-					    map_article_jour_uterieur.put(key_max_jour, sBean);
-				}
-				
-			}
-			
-			
-			
-			
-			 
-			 
-			    
-			 
-				for (int i = 0; i < listOfmyData.size(); i++) {
-					
-					Det_reception_achatBean detBean  = (Det_reception_achatBean) listOfmyData.get(i);
-					
-					detBean.getPk().setRecepBean(beanUpdate);
-					detBean.getPk().getNature_mvt().setNature_mvt_id("ac");
-					
-					SerieArticletBean  beanSerie=  new SerieArticletBean();
-					
-					beanSerie.setNum_serie("");
-					beanSerie.setMvt_com_id(beanUpdate.getPk().getAchat_id());
-					beanSerie.setDate_mvt(beanUpdate.getPk().getAchat_date());
-					beanSerie.setFkCode_barre(detBean.getPk().getFkCode_barre());
-					beanSerie.getNature_mvt().setNature_mvt_id("ac");
-					beanSerie.setMontant_tva_achat(detBean.getPk().getMontant_tva_achat());
-					beanSerie.setMontant_tva_achat(detBean.getPk().getMontant_ht_achat());
-					beanSerie.setQuantite(new Double(detBean.getPk().getQuantite()));
-					beanSerie.getFk_etab_Bean().getPk_etab().setEtab_id(bs.getEtab_id());
-					beanSerie.getFk_etab_Bean().getPk_etab().getSoc_bean().setSoc_id(bs.getSoc_id());
-					beanSerie.setTvaBean(detBean.getTvaBean());
-					beanSerie.setUnitBean(detBean.getUnitBean());
-					beanSerie.setDate_fabrication(detBean.getDate_fabrication());
-					beanSerie.setDate_utilisation(detBean.getDate_utilisation());
-					beanSerie.setDate_peremption(detBean.getDate_peremption());
-					beanSerie.setTyp_trfBean(detBean.getTyp_trfBean());
-					beanSerie.setDate_trf(detBean.getDate_trf());
-					beanSerie.setPrix_unit_achat(detBean.getPrix_unit_achat());
-					beanSerie.setPrix_unit_vente(detBean.getPrix_unit_vente());
-					beanSerie.setDepot(beanUpdate.getPk().getDepot());
-					beanSerie.setObservation(detBean.getObservation());
-					beanSerie.setEtat_serie("cree");
-					session.save(beanSerie);
-					
-					
-					
-					MouvementSerieBean  mvtBean = new MouvementSerieBean();
-					mvtBean.getDepot().setDepot_id(beanSerie.getDepot().getDepot_id());
-					mvtBean.getPk().setDate_mvt_stock(beanUpdate.getPk().getAchat_date());
-					mvtBean.getPk().setFkCode_barre(detBean.getPk().getFkCode_barre());
-					mvtBean.getPk().setDocument_com_id(beanUpdate.getPk().getAchat_id());
-					mvtBean.getNat_mvtcom().setNature_mvt_id("ac");
-					mvtBean.setMontant_tva(detBean.getPk().getMontant_tva_achat());
-					mvtBean.setMontant_ht(detBean.getPk().getMontant_ht_achat());
-					 
-					mvtBean.getPk().setSerieBean(beanSerie);
-					mvtBean.getEta().getPk_etab().setEtab_id(bs.getEtab_id());
-					mvtBean.getEta().getPk_etab().getSoc_bean().setSoc_id(bs.getSoc_id());
-					mvtBean.setQuantite_enter(detBean.getPk().getQuantite());
-					mvtBean.setQuantite_restante(detBean.getPk().getQuantite());
-					mvtBean.setPrix_unit_achat(detBean.getPrix_unit_achat());
-					mvtBean.setPrix_unit_vente(detBean.getPrix_unit_vente());
-					beanSerie.setTyp_trfBean(detBean.getTyp_trfBean());
-					beanSerie.setDate_trf(detBean.getDate_trf());
-					
-					
-					 session.save(mvtBean);
-					 
-					 
-					 Stock_articleBean    stock = new Stock_articleBean();
-					 stock.setSolde_stock( ProcessFormatNbr.FormatDouble_Troischiffre(detBean.getPk().getQuantite()) );
-					 stock.getPk().setDate_stock(beanUpdate.getPk().getAchat_date());
-					 stock.getPk().setFkCode_barre(detBean.getPk().getFkCode_barre());
-					 stock.getPk().getDepot().setDepot_id(beanUpdate.getPk().getDepot().getDepot_id());
-					 stock.getPk().setSerie(beanSerie);
-					 stock.setQuantite_entri(detBean.getPk().getQuantite());
-					 stock.setDate_trf(detBean.getDate_trf());
-					 stock.getTyp_trfBean().setType_trf_id(detBean.getTyp_trfBean().getType_trf_id());
-					 stock.setTvaBean(detBean.getTvaBean());
-					 stock.setPrix_unit_achat(detBean.getPrix_unit_achat());
-					 stock.setPrix_unit_vente(detBean.getPrix_unit_vente());
-					 stock.setMnt_tva_entre(detBean.getPk().getMontant_tva_achat());
-					 stock.setMnt_ht_entre(detBean.getPk().getMontant_ht_achat());
-					 stock.getEta().getPk_etab().setEtab_id(bs.getEtab_id());
-					 stock.getEta().getPk_etab().getSoc_bean().setSoc_id(bs.getSoc_id());
-					 session.save(stock);	 
-					
-					
-					
-				 
-				}
-		       if( !StringUtils.isBlank( beanUpdate.getDemande_id()) )
-				session.bulkUpdate(" UPDATE  Demande_achatBean b  set  b.modeBean.fct_id="+bs.getFct_id()+"   where   b.dem_achat_id='"+beanUpdate.getDemande_id()+"' ");
-		     
-			 result = true;
-		 
-			 
-		} catch (Exception ex) {
-			result = false;
-			session.clear();
-			throw ex;
-		}*/
-		return result;
-	}
+     
      
      
      public Boolean doExcuterTransactionForAchat(Reception_achatBean beanUpda) throws Exception {

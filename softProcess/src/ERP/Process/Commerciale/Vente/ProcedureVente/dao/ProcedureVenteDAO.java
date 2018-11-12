@@ -295,7 +295,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 		 
 		 List listOfmyDataPrestation=(List) getObjectValueModel( ProcedureVenteTemplate.LIST_EDITABLE_PRESTATION);
 			if(listOfmyDataPrestation!=null &&  listOfmyDataPrestation.size()>0){
-					daoNumSequentiel.getNumSeqSimple(service,"srv_id",session);
+					daoNumSequentiel.getNumSeqSimple(service,"srv_id",session);	 
 					this.setBeanTrace(service);
 					service.setSrv_libelle(beanVente.getVente_libelle());
 					service.setVenteSrv(beanVente);
@@ -650,7 +650,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 							     Stock_articleBean stock          = (Stock_articleBean)map_article_jour.get(keyTrait);
 							     prix_unit_moyen_pond             = stock.getCout_unitaire_moyen_pondere()!=null?stock.getCout_unitaire_moyen_pondere(): new Double(0);             
 								 String  date_stock               = ProcessDate.getStringFormatDate(stock.getPk().getDate_stock());
-								 Double  qte_enDet_vente             = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getQuantite());
+								 Double  qte_enDet_vente          = ProcessFormatNbr.FormatDouble_Troischiffre(detail_Bean.getQuantite());
 								 
 							 
 								 
@@ -660,23 +660,26 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 								 
 								 Double  qte_Stock               = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_stock());
 								 
-								 Double  qte_entre_stock          = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getQuantite_recept());
+								 
 								 Double  qte_Sortie_stock         = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getQuantite_vendu());
 								 
-								 Double  getSolde_achat_ht        = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_achat_ht());
-								 Double  getSolde_achat_tva       = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_achat_tva());
-								 Double  getSolde_vente_ht        = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_ht());
-								 Double  getSolde_vente_tva       = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_tva());
+								 Double  mntStock_ht              = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getMnt_ht_vente());
+								 Double  mntStock_tva             = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getMnt_tva_vente());
+								 
+//								 Double  getSolde_vente_ht        = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_ht());
+//								 Double  getSolde_vente_tva       = ProcessFormatNbr.FormatDouble_Troischiffre(stock.getSolde_vente_tva());
 								 
 								 Double  sold_stock_jr            = ProcessNumber.addition(qte_Stock , qte_enDet_vente );
 								 Double  sold_sortie_stock        = ProcessNumber.SOUSTRACTION(qte_Sortie_stock , qte_enDet_vente );
 								 
-								 Double  NewgetSolde_vente_ht     = ProcessNumber.SOUSTRACTION(getSolde_vente_ht   , Vmnt_ht__Retvente);
-								 Double  NewgetSolde_vente_tva    = ProcessNumber.SOUSTRACTION(getSolde_vente_tva, Vmnt_tva_Retvente);
+								 Double  Newgetmnt_vente_ht     = ProcessNumber.SOUSTRACTION(mntStock_ht   , Vmnt_ht__Retvente);
+								 Double  Newgetmnt_vente_tva    = ProcessNumber.SOUSTRACTION(mntStock_tva, Vmnt_tva_Retvente);
 								 
-								 stock.setSolde_vente_ht(NewgetSolde_vente_ht);
 								 
-								 stock.setSolde_vente_tva(NewgetSolde_vente_tva);
+								 
+								 stock.setMnt_tva_vente(ProcessFormatNbr.FormatDouble_Troischiffre(Newgetmnt_vente_tva));
+								 stock.setMnt_ht_vente (ProcessFormatNbr.FormatDouble_Troischiffre( Newgetmnt_vente_ht));
+								 
 								 stock.setSolde_stock ( ProcessFormatNbr.FormatDouble_Troischiffre(sold_stock_jr) );
 								 stock.setQuantite_vendu(ProcessFormatNbr.FormatDouble_Troischiffre(sold_sortie_stock));
 								 
@@ -1558,6 +1561,9 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			
 			this.setUpdateValueFieldTraceOject(beanUpdate);
 			for (DetProcedureVenteBean beArticle:listOrigin) {
+				fournitureVenteBean.setVenteFrn(beanUpdate);
+				serviceBean.setVenteSrv(beanUpdate);
+				
 				session.delete(beArticle);
 				if(beArticle.getMvt_stock()!=null)
 				session.delete(beArticle.getMvt_stock());
@@ -1610,14 +1616,39 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			for (DetFournitureVenteBean detfourn:listInsertFour) {
 				if( detfourn.getQuantite()==null) { continue; }
 				if( detfourn.getQuantite().doubleValue()==0 ||  detfourn.getQuantite().doubleValue()<0) { continue;}
+				
+				if( StringUtils.isBlank(fournitureVenteBean.getFrn_ve_id()) ) {
+					daoNumSequentiel.getNumSeqSimple(fournitureVenteBean,"frn_ve_id",session);
+					this.setBeanTrace(fournitureVenteBean);
+					fournitureVenteBean.setFrn_ve_libelle(beanUpdate.getVente_libelle());
+					fournitureVenteBean.setVenteFrn(beanUpdate);
+					fournitureVenteBean.setClient(beanUpdate.getClient());
+					fournitureVenteBean.setFrn_ve_date(beanUpdate.getVente_date());
+					fournitureVenteBean.setDepot(beanUpdate.getDepot());
+					session.save(fournitureVenteBean);
+				}
+				
 				detfourn.setFourniture(fournitureVenteBean);
 				detfourn.setIsVente(false);
+				detfourn.setMvt_stock(null);
 				session.save(detfourn);
 			}
 			
 			for (DetServiceBean detService:listInsertService) {
 				if( detService.getQuantite()==null) { continue; }
 				if( detService.getQuantite().doubleValue()==0 ||  detService.getQuantite().doubleValue()<0) { continue;}
+				
+				if( StringUtils.isBlank(serviceBean.getSrv_id()) ) {
+					daoNumSequentiel.getNumSeqSimple(serviceBean,"srv_id",session);	
+					this.setBeanTrace(serviceBean);
+					serviceBean.setSrv_libelle(beanUpdate.getVente_libelle());
+					serviceBean.setVenteSrv(beanUpdate);
+					serviceBean.setClient(beanUpdate.getClient());
+					serviceBean.setSrv_date(beanUpdate.getVente_date());
+					serviceBean.setDepot(beanUpdate.getDepot());
+					session.save(serviceBean);
+				}
+				
 				detService.setService(serviceBean);
 				detService.setIsVente(false);
 				session.save(detService);

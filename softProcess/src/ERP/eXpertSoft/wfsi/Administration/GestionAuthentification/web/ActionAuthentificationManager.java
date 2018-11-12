@@ -3,10 +3,6 @@ package ERP.eXpertSoft.wfsi.Administration.GestionAuthentification.web;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.security.Key;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,7 +20,6 @@ import java.util.Vector;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,6 +58,8 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 	 
 	private static final long serialVersionUID = 3282043070569343942L;
 	private static final String NAME_PROJECT = "softProcess";
+	
+	private static  String DATE_LIMIT = "25/11/2018";
 	
 	
 	
@@ -213,10 +210,25 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			 
 			List list = utilisateurService.dofetchDatafromServer(utilisateur);
 			
+			
+			String  system = ProcessDate.getCurrentTimeStamp(new Date());
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date dateteste = sdf.parse(system); //La date1 est le 23 février 1995
+			Date date2 = sdf.parse(DATE_LIMIT);
+			int ret= dateteste.compareTo(date2);
+			
+			
+			
 			UtilisateurBean utilBean = new UtilisateurBean();
 			if (list == null || list.size() == 0)
 				throw new Exception("Vérifier Mot de Passe");
+			
 			utilBean = (UtilisateurBean) list.get(0);
+			
+			if(ret>0 &&  utilBean.getEtab_bean().getPk_etab().getSoc_bean().getSoc_id().equals("6")) {
+				throw new Exception("Erreur de mise a jour systeme");
+			}
+			
 			GlibelleBean bsreash = new GlibelleBean();
 			IdLiblleBean bea = new IdLiblleBean();
 			String varLangue=bs.getLang_id()!=null && !bs.getLang_id().equals("")?bs.getLang_id():"fr";
@@ -654,7 +666,7 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			String  system = ProcessDate.getCurrentTimeStamp(new Date());
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			Date dateteste = sdf.parse(system); //La date1 est le 23 février 1995
-			Date date2 = sdf.parse("25/12/2018");
+			Date date2 = sdf.parse(DATE_LIMIT);
 			int ret= dateteste.compareTo(date2);
 			
 			
@@ -672,11 +684,11 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 
 			if (listUtilisa != null && listUtilisa.size() > 0  && password.equals("")) {
 				UtilisateurBean OUfa = (UtilisateurBean) listUtilisa.get(0);
-				getResponse().getWriter().write(OUfa.getUsr_pre() + "  " + OUfa.getUsr_nom());
 				
 				if(ret>0 &&  OUfa.getEtab_bean().getPk_etab().getSoc_bean().getSoc_id().equals("6")) {
 					getResponse().getWriter().write("Erreur de mise a jour systeme");  
-					return null;
+				}else {
+					getResponse().getWriter().write(OUfa.getUsr_pre() + "  " + OUfa.getUsr_nom());
 				}
 				
 			} else if (listUtilisa != null && listUtilisa.size() > 0 && !password.equals("")) {

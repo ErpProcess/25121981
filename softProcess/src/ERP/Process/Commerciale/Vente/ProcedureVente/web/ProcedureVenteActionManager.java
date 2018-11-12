@@ -1776,6 +1776,47 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
 	
 	
 	@SuppressWarnings("unchecked")
+	public   ModelAndView doDeleteRowService( ) throws Exception{
+		
+		try {
+			List listOfmyData=(List) getObjectValueModel(LIST_EDITABLE_PRESTATION);
+			int sizefinal=listOfmyData.size();
+			boolean  del=false;
+			for (int i = 0; i < sizefinal; i++) {
+				DetServiceBean   newBean= (DetServiceBean) listOfmyData.get(i);
+				if(newBean.getTo_check()!=null  &&  newBean.getTo_check().equals("checked")){
+					listOfmyData.remove(i);
+					sizefinal--;
+					i--;
+					del=true;
+				}
+			}
+			if(!del) throw new Exception ((String) getObjectValueModel("_cochezAumoin"));
+			HashMap  mapd=ProcessUtil.getHashMap_code_bean(listOfmyData, "fkcode_barre.pk.code_barre");
+			List list_article_achatOrigine =(List) getObjectValueModel(LIST_EDITABLE_PRESTATION_CLONE);
+			List list_article_achatGrid = new ArrayList();
+			List list_article_dem_achat = new ArrayList();
+			for (int i = 0; i < list_article_achatOrigine.size(); i++) {
+				Code_barreBean    bean  =(Code_barreBean) list_article_achatOrigine.get(i);
+				if(mapd.get(bean.getPk().getCode_barre())==null){
+					list_article_achatGrid.add(bean);
+					list_article_dem_achat.add(bean);
+				}
+				
+			}
+			setObjectValueModel(LIST_ARTICLE_VENTE_SERVICE_GRID,list_article_achatGrid);
+			setObjectValueModel(LIST_ARTICLE_VENTE_SERVICE,list_article_dem_achat);
+			getResponse().setContentType("text");
+			} catch (Exception e) {
+					getResponse().setContentType(HTML_CONTENT_TYPE);
+					PrintWriter out = getResponse().getWriter();
+					out.println(e.getMessage());
+				    out.close();
+			}
+			return null;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public   ModelAndView doDeleteRowFourniture( ) throws Exception{
 		
 		try {
@@ -1791,9 +1832,6 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
 					del=true;
 				}
 			}
-			
-			
-			
 			if(!del) throw new Exception ((String) getObjectValueModel("_cochezAumoin"));
 			HashMap  mapd=ProcessUtil.getHashMap_code_bean(listOfmyData, "pk.fkcode_barre.pk.code_barre");
 			List list_article_achatOrigine =(List) getObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE_CLONE);
@@ -1818,6 +1856,9 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
 			}
 			return null;
 	}
+	
+	
+	
 	
 	@SuppressWarnings("unchecked") 
 	public ModelAndView doFetchData(ProcedureVenteBean searchBean)throws Throwable {

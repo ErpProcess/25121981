@@ -2,10 +2,10 @@
 <script type="text/javascript">
 height_tabbJQuey="auto";
 width_tabbJQuey="100%";
-var  contenu_toolbarJQuey2    ='<b><input  id="b2" type="button"  value="+"    onclick="ADD_Fourniture()"   style="font-size: 16px;width: 40px;text-align:center;" >&nbsp;&nbsp;&nbsp;<input  type="button"  value="-"       onclick="Delete_ROW_Fourniture()"                  style="font-size: 16px;width: 40px;"  ></b>';
+var  contenu_toolbarJQuey2    ='<b><input  id="b2" type="button"  value="+"    onclick="ADD_Fourniture()"   style="font-size: 16px;width: 40px;text-align:center;" >&nbsp;&nbsp;&nbsp;<input  type="button"  value="-"       onclick="Delete_ROW_Fourniture()"  style="font-size: 16px;width: 40px;"  ></b>';
 var  config_header_foot_tableJQuey2 ='<"ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix"lf<"toolbar_fourniture">r>t<"ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix"ip>';
 
-var  contenu_toolbarJQuey3    ='<b><input  id="b2" type="button"  value="+"    onclick="ADD_Prestation()"  style="font-size: 16px;width: 40px;text-align:center;" >&nbsp;&nbsp;&nbsp;<input  type="button"  value="-"                         style="font-size: 16px;width: 40px;"  ></b>';
+var  contenu_toolbarJQuey3    ='<b><input  id="b2" type="button"  value="+"    onclick="ADD_Prestation()"  style="font-size: 16px;width: 40px;text-align:center;" >&nbsp;&nbsp;&nbsp;<input  type="button"  value="-"        onclick="Delete_ROW_Service()"     style="font-size: 16px;width: 40px;"  ></b>';
 var  config_header_foot_tableJQuey3 ='<"ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix"lf<"toolbar_Service">r>t<"ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix"ip>';
 
 </script>
@@ -251,7 +251,7 @@ function ADD_Fourniture(){
 
 
 
- function Delete_ROW_Fourniture(){
+ function Delete_ROW_Fourniture(){  
  
    jQuery.ajax({ type: 'POST',  
 	               url: '${tmlx.urlAjax}', 
@@ -267,6 +267,24 @@ function ADD_Fourniture(){
     
  }
 
+ function Delete_ROW_Service(){ 
+	 
+	   jQuery.ajax({ type: 'POST',  
+		               url: '${tmlx.urlAjax}', 
+		               data:'HiddenAction=i$_ACT_DELETE_ROW_SERVICE',
+		               dataType: 'text', 
+		               success: function(data){
+		            	   otab_otraPrestation.fnAdjustColumnSizing();
+	                      },
+	                   error: function (request, status, error) {
+	                         alert(request.responseText);
+	                   } 
+	    });
+	    
+	 }
+ 
+ 
+ 
 function Delete_ROW(){
  
   jQuery.ajax({ type: 'POST',  

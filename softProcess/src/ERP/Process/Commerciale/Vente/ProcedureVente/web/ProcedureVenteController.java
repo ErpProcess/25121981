@@ -50,6 +50,9 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 		          
 		          if (i$_ACT_DELETE_ROW_FOURNIURE ) return      doDeleteRowFourniture(); 
 		          
+		          if (i$_ACT_DELETE_ROW_SERVICE )   return      doDeleteRowService(); 
+		          
+		          
 		          if (i$_ACT_ADD_ROW )              return      doAdd_row_Editable(beanVente); 
 
 	              if (i$_ACT_ADD_ROW_FOURNIURE )    return      doAdd_row_Fourniture(beanVente);

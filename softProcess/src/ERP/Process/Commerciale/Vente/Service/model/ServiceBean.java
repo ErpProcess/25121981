@@ -37,7 +37,7 @@ public class ServiceBean extends GenericBean {
 	
 	@ManyToOne
 	@JoinColumn(name = "vente_id", insertable = true, updatable = true)
-	private ProcedureVenteBean venteSrv = new ProcedureVenteBean();
+	private ProcedureVenteBean venteSrv ;
 	
 	
 	@Column
