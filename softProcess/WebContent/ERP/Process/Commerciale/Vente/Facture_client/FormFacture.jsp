@@ -69,8 +69,8 @@ $(document).ready(function (){
           <td width="11%"><label>${fact_id}</label></td>
           <td    >
           <input id="fact_clt_id" name="fact_clt_id"     libre   readonly="readonly"     type="text"      size="20"       maxlength="25"        value="${detailBean.fact_clt_id}"    nextElement="clt_id"              />
-           <label style="padding-left: 15px;">code</label>
-          <input id="fact_ref_id" name="fact_ref_id"    type="text"      size="20"   required    maxlength="25"        value="${detailBean.fact_ref_id}"    nextElement="clt_id"              />
+          <label style="padding-left: 15px;display:${bs.soc_id=='6' ? 'block' : 'none'}">code</label>
+          <input id="fact_ref_id" name="fact_ref_id"    type="${bs.soc_id=='6' ? 'text' : 'hidden'}"      size="20"     ${bs.soc_id=='6' ? 'required' : ''}      maxlength="25"    value="${detailBean.fact_ref_id}"    nextElement="clt_id"              />
           </td>
           <td><label>Mode Reg</label></td>
           <td> 

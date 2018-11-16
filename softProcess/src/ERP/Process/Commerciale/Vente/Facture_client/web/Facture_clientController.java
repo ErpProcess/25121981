@@ -31,6 +31,7 @@ public class Facture_clientController  extends Facture_clientActionManager   {
     		
            ModelAndView model=doInitGenericAction(request,response,new Facture_clientTemplate());
            BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+           
                   if (i$_ACT_INIT_SERVLET )         return      doInitServletAction();  
 		         
 		          if (i$_ACT_AJAX_FETCH)            return      doFetchData(detailBean);

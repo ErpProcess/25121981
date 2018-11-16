@@ -180,6 +180,10 @@ public class Facture_clientBean extends GenericBean {
 	@Transient
 	private  String btnPrintCertificat="display:none;";
 	
+	
+	 
+	
+	
 	public String getBtnPrintCertificat() {
 		return btnPrintCertificat;
 	}
