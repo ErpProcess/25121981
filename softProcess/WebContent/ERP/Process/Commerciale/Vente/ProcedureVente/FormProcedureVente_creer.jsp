@@ -45,8 +45,18 @@ function getActionBox(btn){
 }
 
 function control_de_liste(){
+	
 var     retournX = doGenerate_methode_ajaxWithReturn('POST',urls_Generic_def+"?nameList=list_editable_proVente",'i$_ACT_VERIF_LIST','text',false);
-return  retournX ==""?"":"Veillez Remplir le détaille";
+if(retournX=="")  return "";
+
+      retournX = doGenerate_methode_ajaxWithReturn('POST',urls_Generic_def+"?nameList=list_editable_fournitureVente",'i$_ACT_VERIF_LIST','text',false);
+if(retournX=="")  return "";
+
+retournX = doGenerate_methode_ajaxWithReturn('POST',urls_Generic_def+"?nameList=list_editable_prestation",'i$_ACT_VERIF_LIST','text',false);
+if(retournX=="")  return "";
+
+else  return " Veillez Remplir Le détaille de Vente ";
+ 
 }
 
 mapEditableGen = {            "otab"   :oTable,
@@ -148,23 +158,8 @@ function doEnvoiDataV3(element,value_id_de_la_ligne){
 	     data:hashmap,
 	     dataType: 'text', 
 	     success: function(data){ 
-	     
 	         if ( $(element).attr('type')!=undefined  &&   $(element).attr('type')!="checkbox" ) {
-	         
 	         var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_ACTUALISER_TABLE_FOUNITURE','json',false);
-		       $('#'+mapEditableGen2["table"]+' tbody tr').each(function () {
-		          var qsdqsqd   = $(this).find('td:eq(1)').html() ;
-		          var QteNew    = "Qte"+qsdqsqd;
-		          var erreurX   = "erreur"+qsdqsqd;
-			      $(this).find('td:eq(9)').html(json[qsdqsqd]) ;
-			      $(this).find('td:eq(4)').find(':input[type="number"]').eq(0).attr('value',json[QteNew]) ;
-			      var xcvvv=json[erreurX];
-			      xcvvv=xcvvv.trim();
-			      if(   xcvvv  !="" &&  xcvvv.length>0 ){
-			           alertExt("",json[erreurX],"4");
-			      }
-			      
-			   });
 		       otab_otra2.fnAdjustColumnSizing();
 	         }
 	       }
@@ -768,6 +763,7 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th>T.H.T</th>
 						<th></th>
 				    </tr>
+				    
 				 </thead>
 				 </table>
 	         </ext:panel>

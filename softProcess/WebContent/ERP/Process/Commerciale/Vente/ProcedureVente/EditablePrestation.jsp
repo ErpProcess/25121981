@@ -3,6 +3,25 @@
 
 var otab_otraPrestation;  
 var oTablePr;
+
+var mapColCons= [ 
+	   {    "sTitle":"code"    ,   "sName": "fkcode_barre.pk.code_barre"   ,"sWidth": "10%"    }, 
+	         
+	   {     "sTitle":"Libelle"    ,"sName": "fkcode_barre.designation_libelle"   ,"sWidth": "40%"    }, 
+	   
+	   {    "sTitle":"Qte"    ,"sName": "quantite"           ,   "bSortable": true       , "sWidth": "25%"      },   
+	           
+	   {    "sTitle":"Prix U"    , "sName": "tarifVente.tarif_unit_vente"   ,"sWidth": "10%"    ,"sClass" : "alignRight"       , "bSortable": true 
+           , "mRender": function (data, type, full) {return formatNumberJs(data,3);}  ,"bVisible": true   },
+ 
+       {      "sTitle":"Total H T" , "sName": "montant_ht_vente"    ,"sWidth": "10%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
+           ,"mRender": function (data, type, full) {return  formatNumberJs(data,3);  }    }, 
+   
+        {      "sTitle":"Total TTC" , "sName": "montant_ttc_vente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
+           ,"mRender": function (data, type, full) {return  formatNumberJs(data,3);  }    }, 
+   ];
+         
+         
 var mapEditableGenPrs = {      "otab"   :oTablePr,
                                "table"  :"GRID_SAISIE_PRESATATION",
                                "list"   :"list_editable_prestation",
@@ -69,20 +88,7 @@ function doEnvoiDataV4(element,value_id_de_la_ligne){
 	         if ( $(element).attr('type')!=undefined  &&   $(element).attr('type')!="checkbox" ) {
 	         
 	         var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_ACTUALISER_TABLE_PRESTATION','json',false);
-		       $('#'+mapEditableGenPrs["table"]+' tbody tr').each(function () {
-		          var qsdqsqd   = $(this).find('td:eq(1)').html() ;
-		          var QteNew    = "Qte"+qsdqsqd;
-		          var erreurX   = "erreur"+qsdqsqd;
-			      $(this).find('td:eq(9)').html(json[qsdqsqd]) ;
-			      $(this).find('td:eq(4)').find(':input[type="number"]').eq(0).attr('value',json[QteNew]) ;
-			      var xcvvv=json[erreurX];
-			      xcvvv=xcvvv.trim();
-			      if(   xcvvv  !="" &&  xcvvv.length>0 ){
-			           alertExt("",json[erreurX],"4");
-			      }
-			      
-			   });
-		      // otab_otraPrestation.fnAdjustColumnSizing();
+		       otab_otraPrestation.fnAdjustColumnSizing();
 	         }
 	       }
       });      

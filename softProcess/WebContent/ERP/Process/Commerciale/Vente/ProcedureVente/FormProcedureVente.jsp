@@ -399,7 +399,7 @@ config_header_foot_tableJQuey ,"toolbar_es",  contenu_toolbarJQuey  );
 				}
 				
 				function loadMyTabPrestation(myTab){
-					
+					 mapEditableGenPrs["mapCol"]=mapColCons;
 					 LoadDataEditableFromServerPrestation( oTable24, mapEditableGenPrs  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
 							 config_header_foot_tableJQuey   ,"toolbar_Service" ,contenu_toolbarJQuey  );
 
@@ -441,22 +441,8 @@ config_header_foot_tableJQuey ,"toolbar_es",  contenu_toolbarJQuey  );
 </ext:panel>
 
 <ext:panel   id="RET_GRID_PRESTATION"       onActivate="loadMyTabPrestation('RET_GRID_PRESTATION')"      bodyStyle="background: none;"    border="false"  height="400"    hideCollapseTool="true"  title="Prestation"    >
-	         
-	          <table id="GRID_SAISIE_PRESATATION" class="display" width="100%"   >
-			      <thead   >
-					 <tr> 
-						<th></th>
-						<th></th>
-						<th>Référence</th>
-						<th>Désignation</th>
-						<th>Qté</th>
-						<th>P.U.V</th>
-						<th>T.H.T</th>
-						<th></th>
-				    </tr>
-				 </thead>
-				 </table>
-	         </ext:panel>
+	          <table id="GRID_SAISIE_PRESATATION" class="display" width="100%"   > </table>
+	  </ext:panel>
  
 </ext:tabPanel>
 		 
