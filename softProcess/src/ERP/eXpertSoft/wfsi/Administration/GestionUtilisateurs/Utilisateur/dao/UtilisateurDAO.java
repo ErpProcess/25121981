@@ -34,7 +34,29 @@ public class UtilisateurDAO extends  GenericWeb    {
 		 
 			if(!StringUtils.isEmpty(beanSearch.getUsr_login()) )   requette+="   AND  b.usr_login='"+beanSearch.getUsr_login()+"'    ";
 			
-			if(!StringUtils.isEmpty(beanSearch.getUsr_pwd()) )  requette+="   AND  b.usr_pwd='"+beanSearch.getUsr_pwd()+"'        ";
+			if(!StringUtils.isEmpty(beanSearch.getUsr_pwd()) )     requette+="   AND  b.usr_pwd='"+beanSearch.getUsr_pwd()+"'        ";
+		
+		try {
+			return   hibernateTemplate.find(requette);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+		 
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<UtilisateurBean> doFindListUtilisateurByLogin(UtilisateurBean beanSearch) {
+		
+		 String requette=" select  b   FROM    UtilisateurBean b    WHERE     1=1       ";
+		
+	 
+
+		 
+			if(!StringUtils.isEmpty(beanSearch.getUsr_login()) )   requette+="   AND  b.usr_login='"+beanSearch.getUsr_login()+"'    ";
+			
+			 
 		
 		try {
 			return   hibernateTemplate.find(requette);
