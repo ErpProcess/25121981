@@ -237,7 +237,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				session.save(detBean);
 				result_detaille=true;
 			}
-			if(!result_detaille)throwNewException("err_inser_deaill");
+			
 				 
 			//this.saveTraceVersion_Master_detailles(listOfmyData, ProcedureVenteTemplate.MapfieldBean_detaille, ProcedureVenteTemplate.id_entite_detaille, ProcedureVenteTemplate.entite_detaille);
 			 
@@ -245,10 +245,11 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			  session.createQuery("   UPDATE  CommandeclientBean b  set  b.modeBean.fct_id="+bs.getFct_id()+"  " +
 			  		"                 where   b.cmd_id='"+beanSave.getCommande().getCmd_id()+"' ").executeUpdate();
 			
-			TraitementVenteAvecFourniture(fVenteBean,beanSave,session);
-			TraitementVenteAvecPrestation(service,beanSave, session);
+			boolean result_f = TraitementVenteAvecFourniture(fVenteBean,beanSave,session);
+			boolean result_s = TraitementVenteAvecPrestation(service,beanSave, session);
+			if(!result_detaille &&  !result_f  && !result_s)throwNewException("err_inser_deaill");
 			
-			result = true;
+			 result = true;
 			 commitTransaction(session);
 		 } catch (Exception e) {  
 			 result = false;
@@ -266,8 +267,9 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 	}
 	
 	
-	 private void TraitementVenteAvecFourniture(FournitureVenteBean    fVenteBean, ProcedureVenteBean beanVente	,Session session) throws Exception   {
+	 private boolean TraitementVenteAvecFourniture(FournitureVenteBean    fVenteBean, ProcedureVenteBean beanVente	,Session session) throws Exception   {
 		 
+		 boolean insert=false;
 		 List listOfmyData_fourniture=(List) getObjectValueModel( ProcedureVenteTemplate.LIST_EDITABLE_FOURNITURE_VENTE);
 			if(listOfmyData_fourniture!=null &&  listOfmyData_fourniture.size()>0){
 					daoNumSequentiel.getNumSeqSimple(fVenteBean,"frn_ve_id",session);
@@ -285,14 +287,16 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						detBean.setFourniture(fVenteBean);
 						detBean.setIsVente(false);
 						session.save(detBean);
+						insert=true;
 					}
 			 
 			}
+			return insert;
 		
 	}
 	 
- private void TraitementVenteAvecPrestation(ServiceBean    service ,ProcedureVenteBean beanVente	,Session session) throws Exception   {
-		 
+ private boolean TraitementVenteAvecPrestation(ServiceBean    service ,ProcedureVenteBean beanVente	,Session session) throws Exception   {
+	 boolean insert=false;
 		 List listOfmyDataPrestation=(List) getObjectValueModel( ProcedureVenteTemplate.LIST_EDITABLE_PRESTATION);
 			if(listOfmyDataPrestation!=null &&  listOfmyDataPrestation.size()>0){
 					daoNumSequentiel.getNumSeqSimple(service,"srv_id",session);	 
@@ -310,10 +314,11 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						detBean.setService(service);
 						detBean.setIsVente(false);
 						session.save(detBean);
+						insert=true;
 					}
 			 
 			}
-		
+			return insert;
 	}
 
 	public Boolean doConfirmerVente_article(ProcedureVenteBean beanUp, FournitureVenteBean    fVenteBean , ServiceBean    service) throws Exception {

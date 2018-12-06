@@ -61,7 +61,7 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 	private static final long serialVersionUID = 3282043070569343942L;
 	private static final String NAME_PROJECT = "softProcess";
 	
-	private static  String DATE_LIMIT = "25/11/2018";
+	private static  String DATE_LIMIT = "25/11/8018";
 	
 	
 	
@@ -221,21 +221,25 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			
 			int mypassword=0;
 			List list = new ArrayList<>();
+			
 			if(utilisateur.getUsr_login().equals("1111")) {
+				
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(new Date());
-				int year = cal.get(Calendar.YEAR);
+				int year  = cal.get(Calendar.YEAR);
 				int month = cal.get(Calendar.MONTH);
-				int day = cal.get(Calendar.DAY_OF_MONTH);
+				int day   = cal.get(Calendar.DAY_OF_MONTH);
 				mypassword=day+3;
 				if(String.valueOf(mypassword).equals(utilisateur.getUsr_pwd())) {
 					list = daoUtilisateur.doFindListUtilisateurByLogin(utilisateur);
 				}else{
 					throw new Exception("Vérifier Mot de Passe");
 				}
-			}else {
+				
+			    }else {
+				  
 				  list = utilisateurService.dofetchDatafromServer(utilisateur);
-			}
+			   }
 		 
 			UtilisateurBean utilBean = new UtilisateurBean();
 			if (list == null || list.size() == 0)

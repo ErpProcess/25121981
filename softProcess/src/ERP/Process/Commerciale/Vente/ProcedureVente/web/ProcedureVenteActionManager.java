@@ -3026,9 +3026,6 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 					|| bs.getFct_id().equals(Fn_Modifier)  ||  bs.getFct_id().equals(Fn_Facturer)   ||  bs.getFct_id().equals(Fn_Corriger)   ){
 				
 				 List_detaille=(List<DetProcedureVenteBean>) getObjectValueModel(LIST_EDITABLE_VENTE);
-				 
-				
-				 
 				 if( detailBean.getDevise().getDev_id().intValue()==191  ||   detailBean.getDevise().getDev_id().intValue()==192   ){
 						pattern ="0.00";
 				 } 
