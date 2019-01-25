@@ -285,7 +285,6 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						if( detBean.getQuantite()==null) { continue; }
 						if( detBean.getQuantite()==0 ||  detBean.getQuantite()<0) { continue;}
 						detBean.setFourniture(fVenteBean);
-						detBean.setIsVente(false);
 						session.save(detBean);
 						insert=true;
 					}
@@ -312,7 +311,6 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						if( detBean.getQuantite()==null) { continue; }
 						if( detBean.getQuantite()==0 ||  detBean.getQuantite()<0) { continue;}
 						detBean.setService(service);
-						detBean.setIsVente(false);
 						session.save(detBean);
 						insert=true;
 					}

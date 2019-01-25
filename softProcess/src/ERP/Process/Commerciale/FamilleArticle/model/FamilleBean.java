@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -17,6 +18,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import ERP.Process.Commerciale.Stock.DepotStockage.model.DepotStockageBean;
 import ERP.Process.Commerciale.TypeFamille.model.TypeFamilleBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 
 @SuppressWarnings("serial")
 @JsonAutoDetect
@@ -57,7 +59,11 @@ public class FamilleBean  implements Serializable,Cloneable   {
 	@Column
 	private BigDecimal mode_op;
 	 
-
+	@ManyToOne
+    @JoinColumns( {
+				@JoinColumn(name = "etab_id", insertable = true, updatable = true, referencedColumnName = "etab_id"),
+				@JoinColumn(name = "soc_id", insertable = true, updatable = true, referencedColumnName = "soc_id"), })
+	private EtablissementBean fk_etab_Bean = new EtablissementBean();
 	 
 
 	public String getConditionDeSelection() {
@@ -164,6 +170,14 @@ public class FamilleBean  implements Serializable,Cloneable   {
 
 	public void setMode_op(BigDecimal mode_op) {
 		this.mode_op = mode_op;
+	}
+
+	public EtablissementBean getFk_etab_Bean() {
+		return fk_etab_Bean;
+	}
+
+	public void setFk_etab_Bean(EtablissementBean fk_etab_Bean) {
+		this.fk_etab_Bean = fk_etab_Bean;
 	}
 
 	 

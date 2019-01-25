@@ -127,7 +127,7 @@ var mapEditableGen2 = {        "otab"   :oTable23,
 										  
 										 
 										    
-										   {      "sTitle":"TVA" , "sName": "tarifVente.tvaBean.tva_libelle"  ,"sClass" : "alignCenter"  ,"sWidth": "5%"      , "bSortable": true ,"bVisible": true  },           
+										   {      "sTitle":"Mvt" , "sName": "isVente"  ,"sClass" : "alignCenter"  ,"sWidth": "5%"      , "bSortable": true ,"bVisible": true  },           
 										           
 										   {      "sTitle":"Prix U"    , "sName": "tarifVente.tarif_unit_vente"   ,"sWidth": "10%"    ,"sClass" : "alignRight"       , "bSortable": true 
 	                                              , "mRender": function (data, type, full) {return formatNumberJs(data,3);}  ,"bVisible": true   },
@@ -499,6 +499,19 @@ function doExcuteFnAfterGrid( dataSS ){
 		   </tr> 
 		   
 		    <tr>  
+		   <td  ><label>Famille</label></td>  
+		   <td   > 
+		   <script  >  $(function() { loadSelectAjax("fam_idX","listFamArticleOfvente","fam_id","fam_lib","",true);})</script>
+		   <select  id="fam_idX"      name="fam_art.fam_id"           style="width: 180px;"      nextElement="artyp"            ></select>
+		   
+		   </td>  
+		   <td   >&nbsp;</td>
+		   <td   >&nbsp;</td>
+		   <td   >  </td>
+		   <td    > </td>
+		   </tr> 
+		   
+		    <tr>  
 		   <td ><label>devise</label></td>  
 		      <td     >   
 		        <script  >
@@ -628,11 +641,9 @@ function doExcuteFnAfterGrid( dataSS ){
 			    
 			     <script type="text/javascript">
 					function doLoaderDataFooter( nRow,aData, iStart, iEnd){
-					 
 					    var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_CALCUL_TOTAL','json',false);
 					    var	listTva= json.list_tva ;
 					    var	listTotal = json.list_total ;
-					    
 					    $('#vente_remise_alacaisse').val(json.vente_remise_alacaisse);
 					    $('#vente_remise').val(json.vente_remise);
 					    $('#vente_mnt_net_a_payer').val(json.vente_mnt_net_a_payer);
@@ -692,7 +703,7 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th><input   type="text"       id="XnextFocuso"           name="XnextFocuso"   style="width: 95%;"        requiredy ></th>
 						<th ><input  type="number"     id="quantite_stockxc"      name="quantite_stock_fourniture"        style="width: 93%;"             ></th>
 		                <th  colspan="2"><input  type="number"     id="quantiteXx"            name="quantiteFourniture"      min="1"    value="1"    style="width: 93%;"              requiredx ></th>
-						<th></th>
+						<th> <select   id="isVente"  name="isVente"   > <option value="false">Dépense </option>  <option  value="true"  > Vente </option>  </select>   </th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -703,8 +714,8 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th>Désignation</th>
 						<th>Stock</th>
 						<th>Qté</th>
-						 
-						<th>T.V.A</th>
+						<th> </th>
+						<th>Dépense</th>
 						<th>P.U.V</th>
 						<th>T.H.T</th>
 						<th></th>
@@ -745,9 +756,9 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th><input   type="checkbox"   id="Cheked_unCheked1"               name="Cheked_unCheked"      ></th>
 						<th><input   type="text"       id="codeFocusPrestation"    requiredPrestation        name="code_barreService"       style="width: 95%;"        requiredy ></th>
 						<th><input   type="text"       id="XnextFocusPrestation"   requiredPrestation        name="XnextFocusPrestation"    style="width: 95%;"        requiredy ></th>
-		                <th ><input  type="number"     id="quantitePrestation"     requiredPrestation        name="quantiteService"       min="1"    value="1"    style="width: 150px;"              requiredx ></th>
+		                <th><input  type="number"     id="quantitePrestation"     requiredPrestation        name="quantiteService"       min="1"    value="1"    style="width: 150px;"              requiredx ></th>
 						 
-						<th></th>
+						<th><select   id="isVentePrestation"  name="isVentePrestation"   > <option value="false">Dépense </option>  <option  value="true"  > Vente </option>  </select> </th>
 						<th></th>
 						<th></th>
 						<th></th>

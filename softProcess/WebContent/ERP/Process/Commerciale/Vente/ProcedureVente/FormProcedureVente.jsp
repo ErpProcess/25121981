@@ -133,7 +133,7 @@ var mapEditableGen2 = {        "otab"   :oTable23,
 										                 
 										   {      "sName": "quantite"           ,   "bSortable": true       , "sWidth": "5%"       },   
 										    
-										   {      "sTitle":"TVA" , "sName": "tarifVente.tvaBean.tva_libelle"  ,"sClass" : "alignCenter"  ,"sWidth": "5%"      , "bSortable": true ,"bVisible": true  },           
+										   {      "sTitle":"Mvt" , "sName": "isVente"  ,"sClass" : "alignCenter"  ,"sWidth": "5%"      , "bSortable": true ,"bVisible": true  },           
 										           
 										   {      "sTitle":"Prix U"    , "sName": "tarifVente.tarif_unit_vente"   ,"sWidth": "10%"    ,"sClass" : "alignRight"       , "bSortable": true 
 	                                              , "mRender": function (data, type, full) {return formatNumberJs(data,3);}  ,"bVisible": true   },

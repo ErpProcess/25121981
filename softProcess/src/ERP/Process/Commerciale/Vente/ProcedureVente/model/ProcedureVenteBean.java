@@ -102,6 +102,16 @@ public class ProcedureVenteBean extends GenericBean {
 	private String code_barreFurniture="";
 	
 	
+	
+	@Transient
+	private Boolean isVente = false;
+	
+	@Transient
+	private Boolean isVentePrestation = false;
+	
+	
+	
+	
 	@Transient
 	private String code_barreService="";
 	
@@ -192,6 +202,14 @@ public class ProcedureVenteBean extends GenericBean {
 	
 	
 	
+	public Boolean getIsVentePrestation() {
+		return isVentePrestation;
+	}
+
+	public void setIsVentePrestation(Boolean isVentePrestation) {
+		this.isVentePrestation = isVentePrestation;
+	}
+
 	@Column
 	private java.sql.Time time_cre;
 
@@ -650,6 +668,14 @@ public class ProcedureVenteBean extends GenericBean {
 
 	public void setChoixPanel(String choixPanel) {
 		this.choixPanel = choixPanel;
+	}
+
+	public Boolean getIsVente() {
+		return isVente;
+	}
+
+	public void setIsVente(Boolean isVente) {
+		this.isVente = isVente;
 	}
 
 	 

@@ -26,6 +26,8 @@ public class FamilleArticleDAO extends  GenericWeb    {
 			 if( !StringUtils.isEmpty(beanSearch.getConditionDeSelection()) ){
 				 requette+="  "+beanSearch.getConditionDeSelection();
 			 }
+			 requette +=this.setSocieteEtabFetch(beanSearch,"b.fk_etab_Bean", false);
+			  
 			return   hibernateTemplate.find(requette);
 		} catch (Exception ex) {
 			ex.printStackTrace();

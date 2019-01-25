@@ -74,8 +74,9 @@ public class Code_barreActionManager extends Code_barreTemplate {
 			 ArticleBean   articlBeanSearch = new ArticleBean();
 			 
 			 
-			     articlBeanSearch.setCondition_personnalised_list_degre(" IN  ( SELECT  dDef.pkBean.art_Bean.pk_article.ar_id   from  Degre_definitionBean dDef  )       ");
-			     EtablissementBean beanEtab=new EtablissementBean();
+		     articlBeanSearch.setCondition_personnalised_list_degre(" IN  ( SELECT  dDef.pkBean.art_Bean.pk_article.ar_id   from  Degre_definitionBean dDef  where    "
+		     		+ " dDef.pkBean.carac_Bean.carac_id !='Carc$'   )       ");
+			 EtablissementBean beanEtab=new EtablissementBean();
 		        
 		        beanEtab.getPk_etab().setSoc_bean(bs.getSociete());
 		        List   list_des_etab = serviceEtablissement.dofetchDatafromServer(beanEtab);

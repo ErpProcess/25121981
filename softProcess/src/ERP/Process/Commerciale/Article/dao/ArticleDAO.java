@@ -43,7 +43,7 @@ public class ArticleDAO extends  GenericWeb    {
 		Session session =  openSessionHibernate(sessionFactory);
 		List<ArticleBean>   lisf = new ArrayList<ArticleBean>();
 		try {
-		
+			  BeanSession bs    =(BeanSession)getObjectValueModel(BEAN_SESSION);
 		   String requette=" SELECT  b1   FROM    ArticleBean  b1     WHERE     1=1       ";
 		 
 			if( !StringUtils.isEmpty(beanSearch.getPk_article().getAr_id()) )                
@@ -72,11 +72,11 @@ public class ArticleDAO extends  GenericWeb    {
 				requette+="  AND  b1.pk_article.ar_id   "+beanSearch.getCondition_personnalised_list()+"       " +
 						"     ";
 			
-			if( !StringUtils.isEmpty(beanSearch.getPk_article().getEtabBean().getPk_etab().getEtab_id()) )   
-				requette+="  AND  b1.pk_article.etabBean.pk_etab.etab_id='"+beanSearch.getPk_article().getEtabBean().getPk_etab().getEtab_id()+"' ";
+			//if( !StringUtils.isEmpty(beanSearch.getPk_article().getEtabBean().getPk_etab().getEtab_id()) )   
+				requette+="  AND  b1.pk_article.etabBean.pk_etab.etab_id='"+bs.getEtab_id()+"' ";
 			
-			if( !StringUtils.isEmpty(beanSearch.getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()) )   
-				requette+="  AND  b1.pk_article.etabBean.pk_etab.soc_bean.soc_id='"+beanSearch.getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"' ";
+			//if( !StringUtils.isEmpty(beanSearch.getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()) )   
+				requette+="  AND  b1.pk_article.etabBean.pk_etab.soc_bean.soc_id='"+bs.getSoc_id()+"' ";
 		 
 			
 			 lisf= session.createQuery(requette).list();
