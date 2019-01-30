@@ -7,9 +7,10 @@ if("${bs.fct_id}"=="2")  {
 document.getElementById("Tr_arcodbar").style.display="block";
 document.getElementById("Tr_arcodbar_t").style.display="block";
  } 
-
+LoadAutoCompletAjax_with_marGin("clt_id","clt_lib","depot_id","listClientInit","250","100"); 
+LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle",null,"listDepotStockageInit","250","100");  
 });
-
+ 
 
 
 function doAfficherCodeBar(levalde_type){
@@ -193,9 +194,7 @@ function doAfficherCodeBar(levalde_type){
 		           <select  id="mode_choix_prix_venteX"  name="mode.data_id"   readonly       style="width: 200px;"       libre      ></select>   
 		        </td>
 		      </tr>
-		      
-		      
-		        <tr>
+		      <tr>
 		        <td ><label>Tva</label></td>
 		        <td > 
 		        <script  >$(function() {    loadSelectAjax("tva_idXX","list_tvList","tva_id","tva_libelle","${detailBean.tva.tva_id}",false); })</script>
@@ -204,7 +203,35 @@ function doAfficherCodeBar(levalde_type){
 		      </tr>
 		      
 		      
- 
+		      <tr>
+		        <td ><label>Prix_Achat</label></td>
+		        <td > 
+		        <label>HTV</label><input  id="prix_achat"  name="prix_achat"   type="montant3"    value=""              /> <br>
+		        <label>TTC</label><input  id="prix_achatttc"  name="prix_achatttc"   type="montant3"    value=""              /> 
+		        </td>
+		      </tr>
+		      
+		      <tr>
+		        <td ><label>Prix_Vente</label></td>
+		        <td > 
+		         <label>HTV</label><input  id="prix_vente"  name="prix_vente"      type="montant3"     value=""              /><br>
+		         <label>TTC</label><input  id="prix_ventettc"  name="prix_ventettc"   type="montant3"    value=""              />  
+		        </td>
+		      </tr>
+		      
+		       <tr>  
+		   		<td  ><label>Dépôt</label></td>  
+		   		<td    >  
+					   <input id="depot_id"      name="depot_id"       type="text"    size="10"       maxlength="10"        value=""   />  
+					   <input id="depot_libelle" name="depot_libelle"      type="text"    size="30"       maxlength="10"        value=""          />	
+				</td>  
+		       </tr> 
+  				<tr>  
+				   <td ><label>Client</label></td>  
+				   <td  >  
+				    <input id="clt_id" name="clt_id"           type="text"     size="10"             value=""   /> 
+					<input id="clt_lib" name="clt_lib"        type="text"      size="30"             value=""  />		  </td>  
+	           </tr> 
 		      
 		     </table >
       </td> 

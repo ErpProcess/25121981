@@ -166,6 +166,10 @@ public class ArticleActionManager extends ArticleTemplate {
 			}
 			
 			if (bs.getFct_id().equals(Fn_Nouveau)) { 
+				 
+				setObjectValueModel("listDepotStockageInit" , daoDepotStockage.doFindListDepotStockage(DepotStockageBean.class.newInstance()));
+				setObjectValueModel("listClientInit" ,serviceClient.doFetchDatafromServer(ClientBean.class.newInstance()));
+				 
 				
 				return getViewAdd(FORM_VIEW);
 				

@@ -19,9 +19,14 @@ import ERP.Process.Commerciale.Code_barre.model.Code_barreBean;
 import ERP.Process.Commerciale.Code_barre.model.Det_code_barre;
 import ERP.Process.Commerciale.Degre_definition.model.Degre_definitionBean;
 import ERP.Process.Commerciale.DetailCaracteristique.model.DetailCaracteristiqueBean;
+import ERP.Process.Commerciale.GrpTarifPrimitiv.model.GrpTarifPrimitivBean;
+import ERP.Process.Commerciale.Tarification.model.TarificationBean;
+import ERP.Process.Commerciale.TarificationPrtvArticle.model.TarificationPrtvArticleBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.DetProcedureVenteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel.dao.NumSequentielDAO;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BDateTime;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 @Repository
 public class ArticleDAO extends  GenericWeb    {
@@ -237,11 +242,55 @@ public class ArticleDAO extends  GenericWeb    {
 				this.setBeanModeUsrDate(det_code_barre);
 				det_code_barre.setNum_ligne(new Integer(0));
 				session.save(det_code_barre);
+				if(beanSave.getPrix_achat()!=null) {
+					TarificationPrtvArticleBean beanSaveTarifAchat  = new TarificationPrtvArticleBean();
+					daoNumSequentiel.getNumSeqSimple(beanSaveTarifAchat,"tarif_prim_id");
+					beanSaveTarifAchat.setFkCode_barre(bCode_barreBean);
+					beanSaveTarifAchat.setTarif_unit_article(beanSave.getPrix_achat());
+					beanSaveTarifAchat.setTarif_unit_ttc(beanSave.getPrix_achatttc());
+					beanSaveTarifAchat.setDevise(bs.getSociete().getDevise());
+					beanSaveTarifAchat.setTvaBean(beanSave.getTva());
+					beanSaveTarifAchat.setMode_cal(beanSave.getBean_mode_cal());
+					beanSaveTarifAchat.setDate_prim_trf(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()) );
+					beanSaveTarifAchat.getGroupe().setGrp_prim_trf_id( Integer.parseInt(GROUPE_TARIF_ACHAT_STANDAR)   );
+					setBeanTrace(beanSaveTarifAchat);
+					session.save(beanSaveTarifAchat);
+				}
 				
+				if(beanSave.getPrix_vente()!=null) {
+					TarificationBean beanSaveTarifVente = new TarificationBean();
+					daoNumSequentiel.getNumSeqSimple(beanSaveTarifVente,"tarif_vente_id");
+					beanSaveTarifVente.setFkCode_barre(bCode_barreBean);
+					beanSaveTarifVente.setTarif_unit_vente(beanSave.getPrix_vente());
+					beanSaveTarifVente.setTarif_unit_vente_tt(beanSave.getPrix_ventettc());
+					beanSaveTarifVente.setDevise(bs.getSociete().getDevise());
+					beanSaveTarifVente.setTvaBean(beanSave.getTva());
+					beanSaveTarifVente.setBean_cal(beanSave.getBean_mode_cal());
+					beanSaveTarifVente.setDate_trf(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()) );
+					beanSaveTarifVente.getGroupe().setType_trf_id(  Integer.parseInt(GROUPE_TARIF_VENTE_PUBLIC)   );
+					setBeanTrace(beanSaveTarifVente);
+					session.save(beanSaveTarifVente);
+				}
+				
+				if(beanSave.getDepot_id()!=null) {
+					LieuxArticleBean lieuxArticleBean = new LieuxArticleBean();
+					lieuxArticleBean.getPk().setRef(bCode_barreBean);
+					lieuxArticleBean.getPk().getLieu().setDepot_id(beanSave.getDepot_id());
+					setBeanTrace(lieuxArticleBean);
+					session.save(lieuxArticleBean);
+				}
+				
+				if(beanSave.getClt_id()!=null) {
+					ClientArticleBean clientArticleBean = new ClientArticleBean();
+					clientArticleBean.getPk().setRef(bCode_barreBean);
+					clientArticleBean.getPk().getClient().setClt_id(beanSave.getClt_id());
+					setBeanTrace(clientArticleBean);
+					session.save(clientArticleBean);
+				}
 			}
 				
 			//this.saveTraceVersion1(beanSave, ArticleTemplate.Mapfieldtrace, ArticleTemplate.id_entite_Article,ArticleTemplate.entites);
-			result = true;
+			 result = true;
 			 commitTransaction(session);
 		 } catch (Exception e) {  
 			 result = false;

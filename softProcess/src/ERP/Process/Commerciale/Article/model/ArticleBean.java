@@ -106,7 +106,31 @@ public class ArticleBean extends GenericBean {
 	private Date date_prixX;
 	
 	@Transient
+	private Double prix_achat;
+	
+	@Transient
+	private Double prix_vente;
+	
+
+	
+	@Transient
+	private Double prix_achatttc;
+	
+	@Transient
+	private Double prix_ventettc;
+	
+	
+	
+	@Transient
+	private Integer  depot_id;
+	
+	@Transient
+	private String clt_id ;
+	
+	@Transient
 	private Double prix_ar;
+	
+	
 	
 	@Column
 	private Date date_cre;
@@ -416,6 +440,54 @@ public class ArticleBean extends GenericBean {
 
 	public void setChoix(Entite_etat_commercialeBean choix) {
 		this.choix = choix;
+	}
+
+	public Double getPrix_achat() {
+		return prix_achat;
+	}
+
+	public void setPrix_achat(Double prix_achat) {
+		this.prix_achat = prix_achat;
+	}
+
+	public Double getPrix_vente() {
+		return prix_vente;
+	}
+
+	public void setPrix_vente(Double prix_vente) {
+		this.prix_vente = prix_vente;
+	}
+
+	public Integer getDepot_id() {
+		return depot_id;
+	}
+
+	public void setDepot_id(Integer depot_id) {
+		this.depot_id = depot_id;
+	}
+
+	public String getClt_id() {
+		return clt_id;
+	}
+
+	public void setClt_id(String clt_id) {
+		this.clt_id = clt_id;
+	}
+
+	public Double getPrix_achatttc() {
+		return prix_achatttc;
+	}
+
+	public void setPrix_achatttc(Double prix_achatttc) {
+		this.prix_achatttc = prix_achatttc;
+	}
+
+	public Double getPrix_ventettc() {
+		return prix_ventettc;
+	}
+
+	public void setPrix_ventettc(Double prix_ventettc) {
+		this.prix_ventettc = prix_ventettc;
 	}
 
 	 
