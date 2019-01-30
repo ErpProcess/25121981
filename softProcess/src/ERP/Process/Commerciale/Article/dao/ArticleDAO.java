@@ -270,26 +270,28 @@ public class ArticleDAO extends  GenericWeb    {
 					beanSaveTarifVente.setDevise(bs.getSociete().getDevise());
 					beanSaveTarifVente.setTvaBean(beanSave.getTva());
 					beanSaveTarifVente.setBean_cal(beanSave.getBean_mode_cal());
+					beanSaveTarifVente.setDepot(null);
+					beanSaveTarifVente.setTarif_lot(null);
+					beanSaveTarifVente.setNum_serie(null);
+					if(beanSaveTarifVente.getCout()==null)
+					beanSaveTarifVente.setCout(null);
 					beanSaveTarifVente.setDate_trf(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()) );
 					beanSaveTarifVente.getGroupe().setType_trf_id(  Integer.parseInt(GROUPE_TARIF_VENTE_PUBLIC)   );
 					setBeanTrace(beanSaveTarifVente);
 					session.save(beanSaveTarifVente);
 				}
 				
-//				if(beanSave.getDepot_id()!=null) {
-//					LieuxArticleBean lieuxArticleBean = new LieuxArticleBean();
-//					lieuxArticleBean.getPk().setRef(bCode_barreBean);
-//					List listDepotStockageInit=(List) getObjectValueModel("listDepotStockageInit" );
-//					
-//					HashMap  mapDepo=ProcessUtil.getHashMap_code_bean(listDepotStockageInit, "depot_id");
-//					 
-//					lieuxArticleBean.getPk().setLieu((DepotStockageBean) mapDepo.get(String.valueOf(beanSave.getDepot_id())));
-//					  
-//					setBeanTrace(lieuxArticleBean);
-//					session.save(lieuxArticleBean);
-//				}
+				if(beanSave.getDepot_id()!=null) {
+					LieuxArticleBean lieuxArticleBean = new LieuxArticleBean();
+					lieuxArticleBean.getPk().setRef(bCode_barreBean);
+					List listDepotStockageInit=(List) getObjectValueModel("listDepotStockageInit" );
+					HashMap  mapDepo=ProcessUtil.getHashMap_code_bean(listDepotStockageInit, "depot_id");
+					lieuxArticleBean.getPk().setLieu((DepotStockageBean) mapDepo.get(String.valueOf(beanSave.getDepot_id())));
+					setBeanTrace(lieuxArticleBean);
+					session.save(lieuxArticleBean);
+				}
 				
-				if(beanSave.getClt_id()!=null) {
+				if(!StringUtils.isEmpty(beanSave.getClt_id()) ) {
 					ClientArticleBean clientArticleBean = new ClientArticleBean();
 					List listClientInit=(List) getObjectValueModel("listClientInit"  );
 					HashMap  mapClt=ProcessUtil.getHashMap_code_bean(listClientInit, "clt_id");
