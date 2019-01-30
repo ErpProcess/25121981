@@ -184,10 +184,9 @@ public class ArticleActionManager extends ArticleTemplate {
 				return getViewLieux(FORM_VIEW_LIEUX);
 				
 			}else if(bs.getFct_id().equals(Fn_Créer)){
-				 
-				
 				return getViewAdd(FORM_SERVICE);
-				
+			}else if(bs.getFct_id().equals(Fn_charger_file)){
+				return getViewAdd(FORM_LOAD_FILE);
 			} else {
 				return getViewFilterAjax(FILTER_VIEW);
 			}
