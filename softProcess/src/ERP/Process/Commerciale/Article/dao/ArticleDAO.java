@@ -1,5 +1,6 @@
 package ERP.Process.Commerciale.Article.dao;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -20,11 +21,14 @@ import ERP.Process.Commerciale.Code_barre.model.Det_code_barre;
 import ERP.Process.Commerciale.Degre_definition.model.Degre_definitionBean;
 import ERP.Process.Commerciale.DetailCaracteristique.model.DetailCaracteristiqueBean;
 import ERP.Process.Commerciale.GrpTarifPrimitiv.model.GrpTarifPrimitivBean;
+import ERP.Process.Commerciale.Stock.DepotStockage.model.DepotStockageBean;
 import ERP.Process.Commerciale.Tarification.model.TarificationBean;
 import ERP.Process.Commerciale.TarificationPrtvArticle.model.TarificationPrtvArticleBean;
+import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.DetProcedureVenteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel.dao.NumSequentielDAO;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BDateTime;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
@@ -272,18 +276,25 @@ public class ArticleDAO extends  GenericWeb    {
 					session.save(beanSaveTarifVente);
 				}
 				
-				if(beanSave.getDepot_id()!=null) {
-					LieuxArticleBean lieuxArticleBean = new LieuxArticleBean();
-					lieuxArticleBean.getPk().setRef(bCode_barreBean);
-					lieuxArticleBean.getPk().getLieu().setDepot_id(beanSave.getDepot_id());
-					setBeanTrace(lieuxArticleBean);
-					session.save(lieuxArticleBean);
-				}
+//				if(beanSave.getDepot_id()!=null) {
+//					LieuxArticleBean lieuxArticleBean = new LieuxArticleBean();
+//					lieuxArticleBean.getPk().setRef(bCode_barreBean);
+//					List listDepotStockageInit=(List) getObjectValueModel("listDepotStockageInit" );
+//					
+//					HashMap  mapDepo=ProcessUtil.getHashMap_code_bean(listDepotStockageInit, "depot_id");
+//					 
+//					lieuxArticleBean.getPk().setLieu((DepotStockageBean) mapDepo.get(String.valueOf(beanSave.getDepot_id())));
+//					  
+//					setBeanTrace(lieuxArticleBean);
+//					session.save(lieuxArticleBean);
+//				}
 				
 				if(beanSave.getClt_id()!=null) {
 					ClientArticleBean clientArticleBean = new ClientArticleBean();
+					List listClientInit=(List) getObjectValueModel("listClientInit"  );
+					HashMap  mapClt=ProcessUtil.getHashMap_code_bean(listClientInit, "clt_id");
 					clientArticleBean.getPk().setRef(bCode_barreBean);
-					clientArticleBean.getPk().getClient().setClt_id(beanSave.getClt_id());
+					clientArticleBean.getPk().setClient( (ClientBean) mapClt.get(beanSave.getClt_id()) );
 					setBeanTrace(clientArticleBean);
 					session.save(clientArticleBean);
 				}
