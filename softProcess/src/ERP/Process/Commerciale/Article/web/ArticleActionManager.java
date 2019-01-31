@@ -200,6 +200,8 @@ public class ArticleActionManager extends ArticleTemplate {
 			}else if(bs.getFct_id().equals(Fn_Créer)){
 				return getViewAdd(FORM_SERVICE);
 			}else if(bs.getFct_id().equals(Fn_charger_file)){
+				setObjectValueModel("listDepotStockageInit" , daoDepotStockage.doFindListDepotStockage(DepotStockageBean.class.newInstance()));
+				setObjectValueModel("listClientInit" ,serviceClient.doFetchDatafromServer(ClientBean.class.newInstance()));
 				return getViewAdd(FORM_LOAD_FILE);
 			} else {
 				return getViewFilterAjax(FILTER_VIEW);
