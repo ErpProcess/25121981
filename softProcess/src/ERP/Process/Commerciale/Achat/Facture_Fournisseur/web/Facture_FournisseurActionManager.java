@@ -88,7 +88,7 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 		this.serviceReception_achat = serviceReception_achat;
 	}
 
-	 GenericWeb gen = new GenericWeb();
+ 
 	 public ModelAndView uploadFile() throws Exception {
         String  chargement= " Chargment du fichier effectué avec succès  ";
 		try {

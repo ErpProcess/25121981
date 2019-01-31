@@ -14,10 +14,13 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.ejb.criteria.predicate.IsEmptyPredicate;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import ERP.Process.Commerciale.Achat.Facture_Fournisseur.model.FileFactureFournisseur;
 import ERP.Process.Commerciale.Article.model.ArticleBean;
 import ERP.Process.Commerciale.Article.model.ClientArticleBean;
 import ERP.Process.Commerciale.Article.model.LieuxArticleBean;
@@ -46,6 +49,17 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.service.Unite
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.framework_dev.JQuery_datatables_Version1.web.ActionDataTablesManager;
 import ERP.eXpertSoft.wfsi.jqueryoR.datatables.controller.AjaxDataTablesUtility;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class ArticleActionManager extends ArticleTemplate {
 	
@@ -198,6 +212,49 @@ public class ArticleActionManager extends ArticleTemplate {
 
 	}
 	
+	 public ModelAndView uploadFile() throws Exception {
+	        String  chargement= " Chargment du fichier effectué avec succès  ";
+			try {
+				MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) getRequest();
+				MultipartFile multipartFile = multiRequest.getFile("file");
+				 
+				if(multipartFile==null){
+					chargement= " échec de chargment  ";
+					setObjectValueModel("MultipartFile", null);
+				}else{
+					
+				}
+				
+				String mime_content_type = multipartFile.getContentType();
+				String filename = multipartFile.getOriginalFilename();
+				byte[] bytes = multipartFile.getBytes();
+				  InputStream is = new ByteArrayInputStream(bytes);
+			        Workbook book = WorkbookFactory.create(is);
+			       
+			        Sheet sh = book.getSheet("Sheet1");
+			        int starRow = sh.getFirstRowNum();
+			        int endRow = sh.getLastRowNum();
+
+			        for (int i = starRow  ; i <= endRow; i++) {
+			            Cell c  = book.getSheetAt(0).getRow(i).getCell(0);
+			            Cell c1 = book.getSheetAt(0).getRow(i).getCell(1);
+			            Cell c2 = book.getSheetAt(0).getRow(i).getCell(2);
+			            System.out.println(c.toString() + "   "+c1.getNumericCellValue()+"    "+c2.getNumericCellValue());
+			        }  
+
+			        
+				 
+			} catch (Exception e) {
+				chargement= " échec de chargment  ";
+				e.printStackTrace();
+			}
+			getResponse().setContentType("text");
+			getResponse().setHeader("Cache-Control", "no-cache");
+			getResponse().getWriter().write(chargement);
+
+			return null;
+		}
+	 
 	@SuppressWarnings("unchecked")
 	public ModelAndView doFetchlieux_produit(LieuxArticleBean searchBean) throws Exception{
 		try {

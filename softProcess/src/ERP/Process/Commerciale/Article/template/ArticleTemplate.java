@@ -67,7 +67,7 @@ public class ArticleTemplate extends TemplateGeneric {
 	/******************************************************************** View Jsp ********************************************************************/
 	public static String FORM_VIEW = "FormArticle";
 	public static String FORM_SERVICE = "FormService";
-	public static String FORM_LOAD_FILE = "FilterArticle";
+	public static String FORM_LOAD_FILE = "FormLoadFileArticle";
 	
 	
 	public static String FORM_VIEW_MODIFIER = "FormModifierArticle";
@@ -81,6 +81,9 @@ public class ArticleTemplate extends TemplateGeneric {
 	public static String FORM_SITUATION_ARTICLE = "form_situation_article";
 
 	public static boolean i$_ACT_INIT_SERVLET = false;
+	
+	public static boolean i$_ACT_UPLOADER = false;
+	
 	
 	public static boolean i$_ACT_GET_LIEUX = false;
 
