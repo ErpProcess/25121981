@@ -1,6 +1,7 @@
 package ERP.Process.Commerciale.Article.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -317,6 +318,129 @@ public class ArticleDAO extends  GenericWeb    {
 	}
 	
 	
+	public Boolean doSaveArticleFromFile(ArticleBean beanSave,ArticleBean articleBean)throws Exception  {
+		boolean result = false;
+		Session session =  openSessionHibernate(sessionFactory);
+		try {
+			this.setBeanModeUsrDate(beanSave);
+			BeanSession bs      = (BeanSession)getObjectValueModel(BEAN_SESSION);
+			beanSave.getPk_article().getEtabBean().getPk_etab().setSoc_bean(bs.getSociete());
+			daoNumSequentiel.getNumSeqSimple(beanSave,"pk_article.ar_id");
+			beanSave.setAr_libelle(articleBean.getAr_libelle());
+			beanSave.setPrix_achat(articleBean.getPrix_achat());
+			beanSave.setPrix_achatttc(articleBean.getPrix_achatttc());
+			
+			beanSave.setPrix_vente(articleBean.getPrix_vente());
+			beanSave.setPrix_ventettc(articleBean.getPrix_ventettc());
+			beanSave.getBean_artyp().setData_id("UA");
+			
+			session.save(beanSave);
+			if(   beanSave.getBean_artyp().getData_id().equals("UA") ){
+				
+				CaracteristiqueBean   bCar= new CaracteristiqueBean();
+				bCar.setCarac_id("Carc$");
+				DetailCaracteristiqueBean  dBean= new DetailCaracteristiqueBean();
+				dBean.getPk_det_carac().setDet_carac_id(beanSave.getBean_artyp().getData_id());
+				dBean.getPk_det_carac().setBean_carac(bCar);
+				 
+				
+				Degre_definitionBean degBean = new Degre_definitionBean();
+				degBean.getPkBean().setArt_Bean(beanSave);
+				degBean.getPkBean().setCarac_Bean(bCar);
+				this.setBeanModeUsrDate(degBean);
+				session.save(degBean);
+				
+				
+				 
+				Code_barreBean   bCode_barreBean =new Code_barreBean();
+				bCode_barreBean.getPk().setAr_bean(beanSave);
+				bCode_barreBean.getPk().setCode_barre(beanSave.getPk_article().getAr_id());	
+				beanSave.setArcodbar(beanSave.getPk_article().getAr_id());
+				 
+				
+				bCode_barreBean.setDesignation(beanSave.getAr_libelle());//(DESIGNATION_DATA);
+				bCode_barreBean.setDesignation_libelle(beanSave.getAr_libelle());//(DESIGNATION_DATA);
+				this.setBeanModeUsrDate(bCode_barreBean);
+				session.save(bCode_barreBean);
+				
+				
+				Det_code_barre  det_code_barre=  new Det_code_barre();
+				det_code_barre.getPk_det_codBare().setBean_cod_bar(bCode_barreBean);
+				det_code_barre.getPk_det_codBare().setBean_det_carac(dBean);
+				this.setBeanModeUsrDate(det_code_barre);
+				det_code_barre.setNum_ligne(new Integer(0));
+				session.save(det_code_barre);
+				if(beanSave.getPrix_achat()!=null) {
+					TarificationPrtvArticleBean beanSaveTarifAchat  = new TarificationPrtvArticleBean();
+					daoNumSequentiel.getNumSeqSimple(beanSaveTarifAchat,"tarif_prim_id");
+					beanSaveTarifAchat.setFkCode_barre(bCode_barreBean);
+					beanSaveTarifAchat.setTarif_unit_article(beanSave.getPrix_achat());
+					beanSaveTarifAchat.setTarif_unit_ttc(beanSave.getPrix_achatttc());
+					beanSaveTarifAchat.setDevise(bs.getSociete().getDevise());
+					beanSaveTarifAchat.setTvaBean(beanSave.getTva());
+					beanSaveTarifAchat.setMode_cal(beanSave.getBean_mode_cal());
+					beanSaveTarifAchat.setDate_prim_trf(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()) );
+					beanSaveTarifAchat.getGroupe().setGrp_prim_trf_id( Integer.parseInt(GROUPE_TARIF_ACHAT_STANDAR)   );
+					setBeanTrace(beanSaveTarifAchat);
+					session.save(beanSaveTarifAchat);
+				}
+				
+				if(beanSave.getPrix_vente()!=null) {
+					TarificationBean beanSaveTarifVente = new TarificationBean();
+					daoNumSequentiel.getNumSeqSimple(beanSaveTarifVente,"tarif_vente_id");
+					beanSaveTarifVente.setFkCode_barre(bCode_barreBean);
+					beanSaveTarifVente.setTarif_unit_vente(beanSave.getPrix_vente());
+					beanSaveTarifVente.setTarif_unit_vente_tt(beanSave.getPrix_ventettc());
+					beanSaveTarifVente.setDevise(bs.getSociete().getDevise());
+					beanSaveTarifVente.setTvaBean(beanSave.getTva());
+					beanSaveTarifVente.setBean_cal(beanSave.getBean_mode_cal());
+					beanSaveTarifVente.setDepot(null);
+					beanSaveTarifVente.setTarif_lot(null);
+					beanSaveTarifVente.setNum_serie(null);
+					if(beanSaveTarifVente.getCout()==null)
+					beanSaveTarifVente.setCout(null);
+					beanSaveTarifVente.setDate_trf(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()) );
+					beanSaveTarifVente.getGroupe().setType_trf_id(  Integer.parseInt(GROUPE_TARIF_VENTE_PUBLIC)   );
+					setBeanTrace(beanSaveTarifVente);
+					session.save(beanSaveTarifVente);
+				}
+				
+				if(beanSave.getDepot_id()!=null) {
+					LieuxArticleBean lieuxArticleBean = new LieuxArticleBean();
+					lieuxArticleBean.getPk().setRef(bCode_barreBean);
+					List listDepotStockageInit=(List) getObjectValueModel("listDepotStockageInit" );
+					HashMap  mapDepo=ProcessUtil.getHashMap_code_bean(listDepotStockageInit, "depot_id");
+					lieuxArticleBean.getPk().setLieu((DepotStockageBean) mapDepo.get(String.valueOf(beanSave.getDepot_id())));
+					setBeanTrace(lieuxArticleBean);
+					session.save(lieuxArticleBean);
+				}
+				
+				if(!StringUtils.isEmpty(beanSave.getClt_id()) ) {
+					ClientArticleBean clientArticleBean = new ClientArticleBean();
+					List listClientInit=(List) getObjectValueModel("listClientInit"  );
+					HashMap  mapClt=ProcessUtil.getHashMap_code_bean(listClientInit, "clt_id");
+					clientArticleBean.getPk().setRef(bCode_barreBean);
+					clientArticleBean.getPk().setClient( (ClientBean) mapClt.get(beanSave.getClt_id()) );
+					setBeanTrace(clientArticleBean);
+					session.save(clientArticleBean);
+				}
+			}
+				
+			//this.saveTraceVersion1(beanSave, ArticleTemplate.Mapfieldtrace, ArticleTemplate.id_entite_Article,ArticleTemplate.entites);
+			 result = true;
+			 commitTransaction(session);
+			 
+			
+		 } catch (Exception e) {  
+			 result = false;
+		     if (sessionIsTrue(session)) 
+		    	 rollbackTransaction(session) ;
+		     throw e;  
+		 } finally {  
+			 session.close();  
+		 }  
+		return result;
+	}
 	
 	public Boolean doAffect_client_article(  ClientArticleBean detailBean ,List lisf) throws Exception {
 		boolean result = false;

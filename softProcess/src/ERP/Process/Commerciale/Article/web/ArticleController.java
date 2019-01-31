@@ -47,6 +47,8 @@ public class ArticleController extends ArticleActionManager {
 		
 		 
 		if (i$_ACT_ADD)                return doAddData  (detailBean);
+		if (i$_ACT_ADD_BY_FILE)        return doAddDataByFile  (detailBean);
+		 
 		if (i$_ACT_UPDATE)             return doUpdateData(detailBean);
 		if (i$_ACT_UPDATE_SITUATION)   return doUpdateDataSituation(detailBean);
 		if (i$_ACT_DELETE)             return doDeleteData(detailBean);

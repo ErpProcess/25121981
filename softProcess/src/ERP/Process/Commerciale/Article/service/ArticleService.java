@@ -48,23 +48,23 @@ public class ArticleService  extends GenericWeb  {
 	
 	@Transactional
 	public boolean doCreateRowData(ArticleBean insertBean)throws Exception{
-		  boolean result = false;
-		 try {
-			 result=daoArticle.doSaveArticle(insertBean);
-			 result = true;
-		 } catch (Exception e) { 
-			 result = false;
-			 throw e;
+		 return daoArticle.doSaveArticle(insertBean);
+	}
+	
+	@Transactional
+	public boolean doCreateRowDataFromFile(ArticleBean insertBean)throws Exception{
+		List<ArticleBean> listDesArticleLoader   =  (List) getObjectValueModel("listDesArticleLoader" );
+		boolean result = false;
+		for (ArticleBean articleBean : listDesArticleLoader) {
+			daoArticle.doSaveArticleFromFile(insertBean,articleBean);
+			result = true;
 		}
 		 return result;
-		  
 	}
 	
 	@Transactional
 	public boolean doAffectlieuxarticle(List lisf)  throws Exception  {
-			boolean  result=daoArticle.doAffectLieux(lisf);
-		       
-		 return result;
+		 return daoArticle.doAffectLieux(lisf); 
 	}
 	
 	

@@ -1,6 +1,22 @@
 <%@    include file="/Aceuil/esProcess.jsp"     %>
+<style>
+.containerX {
+    with: 400px;
+    height: 300px;
+    border:none;
+    border: 1px solid black;
+}
+
+.menuX {
+    position: absolute;
+    with: 80%;
+    border: 1px solid black;
+    background: #fff;
+    left: 180px
+}
+</style>
 <script type="text/javascript">
-    $(document).ready(function () {  selectOptionvalue("fam_id","${searchBean.fam_art.fam_id}");  })
+
     var files = [];
 	$(document).on("change","#fileLoader",function(event) { files=event.target.files; processUpload();})
 	
@@ -25,7 +41,8 @@
 	        			cache: false,
 	        			timeout: 600000,
 	                    success : function(result) {
-	                        alert(result);
+	                    	 $('.containerX').html(result);
+	                    	 $('.containerX').show().css("top", "400px").animate({top: 50}, 200);
 	                    },
 	                    error : function(result){
 	                        alert(result);
@@ -39,7 +56,19 @@ LoadAutoCompletAjax_with_marGin("clt_id","clt_lib","depot_id","listClientInit","
 LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle",null,"listDepotStockageInit","250","100");  
 });
  
+$(document).ready(function(){
+    $('#btnShow').click(function(){
+    	 $('.menuX').show().css("top", "400px").animate({top: 50}, 200);
+    });
+  
+    $('#btnHide').click(function(){
+        $('.menuX').hide();
+    });
+});
+
+
    </script>
+
  
 <ext:body   >
 
@@ -49,6 +78,19 @@ LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle",null,"listDepotStocka
 <ext:tabPanel   border="false"        id="sdsfgrgrgpll"  activeTab="fr"  >
   
 	  <ext:panel   id="fr"    bodyStyle="background: none;"       border="false"      title="Francais"    > 
+	   <div class='containerX'  style='display: none'  >
+    <button id="btnShow"  >Show</button>
+    <div class='menuX' style='display: none'>
+        <button id="btnHide" style="float: right;">Close</button><br/>
+        Ernst-Heinkel-Strasse 7,<br/>
+        DE-71394 Kernen i.R. Germany<br/>
+        Contact <br/>
+        Telefon: 07151 / 994 64 -0<br/>
+        Fax: 07151 / 994 64 -22<br/>
+        www.herceg.com <br/>
+        email: info@herceg.com <br/>
+    </div>
+</div>
 	   
     <table class="tableStyleContent"  cellpadding="5" cellspacing="10"  id="tblData"  border="0"   >
     
@@ -127,7 +169,7 @@ LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle",null,"listDepotStocka
 		       <tr>
 		        <td width="150px"><label>${etab_id}</label></td>
 		        <td    >
-		        <script >$(function() {   if( "${bs.fct_id}"=="1") { LoadOtherAutocompletesAjax("soc_idXX","i$_ACT_LOAD_ETAB","pk_etab.etab_id","etab_lib","possede_date_peremption");}});</script>
+		        <script >$(function() {     LoadOtherAutocompletesAjax("soc_idXX","i$_ACT_LOAD_ETAB","pk_etab.etab_id","etab_lib","possede_date_peremption"); });</script>
 		        <input idonly  id="pk_etab.etab_id"  name="pk_article.etabBean.pk_etab.etab_id"  size="7"  type="text"  value="${detailBean.pk_article.etabBean.pk_etab.etab_id}"      required   />
 		        <input idonly  id="etab_lib"         name="pk_article.etabBean.etab_lib"   type="text"  size="30"  value="${detailBean.pk_article.etabBean.etab_lib}"                   required />
 		        </td>
@@ -191,24 +233,6 @@ LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle",null,"listDepotStocka
 		        <select  id="tva_idXX"  name="tva.tva_id"           style="width: 200px;"               ></select>   
 		        </td>
 		      </tr>
-		      
-		      
-		      <tr>
-		        <td ><label>Prix_Achat</label></td>
-		        <td > 
-		        <label>HTV</label><input  id="prix_achat"  name="prix_achat"   type="montant3"    value=""              /> <br>
-		        <label>TTC</label><input  id="prix_achatttc"  name="prix_achatttc"   type="montant3"    value=""              /> 
-		        </td>
-		      </tr>
-		      
-		      <tr>
-		        <td ><label>Prix_Vente</label></td>
-		        <td > 
-		         <label>HTV</label><input  id="prix_vente"  name="prix_vente"      type="montant3"     value=""              /><br>
-		         <label>TTC</label><input  id="prix_ventettc"  name="prix_ventettc"   type="montant3"    value=""              />  
-		        </td>
-		      </tr>
-		      
 		       <tr>  
 		   		<td  ><label>Dépôt</label></td>  
 		   		<td    >  

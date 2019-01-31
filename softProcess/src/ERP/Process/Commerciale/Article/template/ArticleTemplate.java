@@ -98,7 +98,7 @@ public class ArticleTemplate extends TemplateGeneric {
 	public static boolean i$_ACT_LOAD_ETAB_P_CLT    = false;
 	public static boolean i$_ACT_LOAD_ARTICLE_CLT    = false;
 	public static boolean i$_ACT_LOAD_REFE_CLT    = false;
-	
+	public static boolean  i$_ACT_ADD_BY_FILE = false;
 	public static boolean i$_ACT_LIEUX_ARTICLE = false;
 	
 	public static boolean i$_ACT_CLT_ARTICLE = false;
@@ -108,7 +108,21 @@ public class ArticleTemplate extends TemplateGeneric {
 	public static boolean i$_ACT_CANCEL_AFFECT = false;
 	public static boolean i$_ACT_CANCEL_AFFECT_CLIENT = false;
 	
- 
+	public static ModelAndView getViewAddByFile(String isPage) {
+		MenuActionBean twebBean = new MenuActionBean();
+		twebBean.setAct_doValid("i$_ACT_ADD_BY_FILE");
+		twebBean.setAct_doReset("i$_ACT_RESET_FORM");
+		twebBean.setAct_doRetour("i$_ACT_RETOUR_TO_HOME");
+		twebBean.setLibelleAction(BTN_ADD);
+		twebBean.setBtAide(FALSE);
+		twebBean.setBtTrace(FALSE);
+		twebBean.setBtValid(FALSE);
+		twebBean.setBtReset(FALSE);
+		twebBean.setBtRetour(FALSE);
+		twebBean.setBtNavigation(FALSE);
+		return Get_Model_ROOT(isPage, twebBean);
+	}
+	
 
 	public static ModelAndView getViewPrix_ar(String isPage) {
 		MenuActionBean twebBean = new MenuActionBean();

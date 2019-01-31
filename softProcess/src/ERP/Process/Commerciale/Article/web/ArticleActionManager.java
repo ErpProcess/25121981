@@ -39,6 +39,8 @@ import ERP.Process.Commerciale.Vente.Client.service.ClientService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Data_entite_simple.service.Data_entite_simpleService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.service.EtablissementService;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.model.SocieteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.service.SocieteService;
@@ -202,7 +204,7 @@ public class ArticleActionManager extends ArticleTemplate {
 			}else if(bs.getFct_id().equals(Fn_charger_file)){
 				setObjectValueModel("listDepotStockageInit" , daoDepotStockage.doFindListDepotStockage(DepotStockageBean.class.newInstance()));
 				setObjectValueModel("listClientInit" ,serviceClient.doFetchDatafromServer(ClientBean.class.newInstance()));
-				return getViewAdd(FORM_LOAD_FILE);
+				return getViewAddByFile(FORM_LOAD_FILE);
 			} else {
 				return getViewFilterAjax(FILTER_VIEW);
 			}
@@ -216,6 +218,7 @@ public class ArticleActionManager extends ArticleTemplate {
 	
 	 public ModelAndView uploadFile() throws Exception {
 	        String  chargement= " Chargment du fichier effectué avec succès  ";
+	        String data="";
 			try {
 				MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) getRequest();
 				MultipartFile multipartFile = multiRequest.getFile("file");
@@ -227,24 +230,40 @@ public class ArticleActionManager extends ArticleTemplate {
 					
 				}
 				
-				String mime_content_type = multipartFile.getContentType();
-				String filename = multipartFile.getOriginalFilename();
-				byte[] bytes = multipartFile.getBytes();
-				  InputStream is = new ByteArrayInputStream(bytes);
+				    String mime_content_type = multipartFile.getContentType();
+				    String filename = multipartFile.getOriginalFilename();
+				    byte[] bytes = multipartFile.getBytes();
+				    InputStream is = new ByteArrayInputStream(bytes);
 			        Workbook book = WorkbookFactory.create(is);
 			       
 			        Sheet sh = book.getSheet("Sheet1");
 			        int starRow = sh.getFirstRowNum();
 			        int endRow = sh.getLastRowNum();
-
+			        List listDesArticleLoader = new ArrayList<>();
 			        for (int i = starRow  ; i <= endRow; i++) {
+			        	ArticleBean arBean = new ArticleBean();
 			            Cell c  = book.getSheetAt(0).getRow(i).getCell(0);
 			            Cell c1 = book.getSheetAt(0).getRow(i).getCell(1);
 			            Cell c2 = book.getSheetAt(0).getRow(i).getCell(2);
-			            System.out.println(c.toString() + "   "+c1.getNumericCellValue()+"    "+c2.getNumericCellValue());
+			            
+			            System.out.println(c.toString() + "   "+c1.getNumericCellValue()/1000+"            "+c2.getNumericCellValue()/1000);
+			            
+			            arBean.setAr_libelle(c.toString().trim());
+			            arBean.setPrix_vente(c1.getNumericCellValue()/1000);
+			            arBean.setPrix_ventettc(c2.getNumericCellValue()/1000);
+			            Double poucentageReduction =ProcessNumber.Pourcentage(c1.getNumericCellValue()/1000, 16);
+			            Double prixAchat =ProcessNumber.SOUSTRACTION(c1.getNumericCellValue()/1000, poucentageReduction);
+			            arBean.setPrix_achat(ProcessFormatNbr.FormatDouble_Troischiffre(prixAchat));
+			            
+			            Double tvaValue =ProcessNumber.Pourcentage(prixAchat, 19);
+			            Double prixAchatttc =ProcessNumber.addition(ProcessFormatNbr.FormatDouble_Troischiffre(tvaValue), ProcessFormatNbr.FormatDouble_Troischiffre(prixAchat));  
+			            arBean.setPrix_achatttc(ProcessFormatNbr.FormatDouble_Troischiffre(prixAchatttc));
+			            data=data+c.toString() + "&nbsp;&nbsp;&nbsp;Achat&nbsp;"+arBean.getPrix_achat()+"&nbsp;&nbsp;&nbsp;&nbsp;"+arBean.getPrix_achatttc()+"<br>";
+			            data=data+"Vente&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ arBean.getPrix_vente()+"&nbsp;&nbsp;&nbsp;&nbsp;"+arBean.getPrix_ventettc()+"<br>";
+			            listDesArticleLoader.add(arBean);
 			        }  
 
-			        
+			        setObjectValueModel("listDesArticleLoader", listDesArticleLoader);
 				 
 			} catch (Exception e) {
 				chargement= " échec de chargment  ";
@@ -252,7 +271,7 @@ public class ArticleActionManager extends ArticleTemplate {
 			}
 			getResponse().setContentType("text");
 			getResponse().setHeader("Cache-Control", "no-cache");
-			getResponse().getWriter().write(chargement);
+			getResponse().getWriter().write(data);
 
 			return null;
 		}
@@ -569,7 +588,46 @@ public class ArticleActionManager extends ArticleTemplate {
 		return getViewAdd(FORM_VIEW);
 	}
 	
-	
+	public ModelAndView doAddDataByFile(ArticleBean detailBean) throws Exception {
+		  BeanSession bs      = (BeanSession)getObjectValueModel(BEAN_SESSION);
+		try {
+			setObjectValueModel(FORM_BEAN, detailBean);
+			detailBean.getBean_sitcod().setData_id("A");
+			
+			
+			 String dataSocieteLng_ar= getRequest().getParameter("dataSocieteLng_ar");
+			 String dataSocieteLng_en= getRequest().getParameter("dataSocieteLng_en");
+			 
+			 JSONObject json        = new JSONObject();
+			 boolean enter=false;
+			 if( !StringUtils.isBlank(dataSocieteLng_ar) ) { enter=true; json.put("ar",  convertStringToHashMap(dataSocieteLng_ar)); }
+			 if( !StringUtils.isBlank(dataSocieteLng_en) ) { enter=true; json.put("en", convertStringToHashMap(dataSocieteLng_en));  }
+			 
+			 if(enter ) { 
+			 String data_societe_langue=json.toString();
+			 detailBean.setData_article_langue(data_societe_langue);
+			 }
+			
+			if(bs.getFct_id().equals("5")){
+				detailBean.getBean_mode_cal().setData_id("coef");
+				detailBean.getCathegorie().setData_id("srv");
+				detailBean.getUnitBean().setUnite_id(97);
+				detailBean.getMode().setData_id("pd");
+				detailBean.getChoix().setData_id("arb");
+			}
+			
+			if(serviceArticle.doCreateRowDataFromFile(detailBean)){
+			removeObjectModel(FORM_BEAN); 
+			throwNewException("ins01");
+			} 
+	     	}catch(Exception e){
+	     		displayException(e);
+		    } 
+	     	if(bs.getFct_id().equals("5"))
+	     		return getViewAdd(FORM_SERVICE);
+	     	else
+		return getViewAdd(FORM_VIEW);
+	}
 	 
 	
 	public ModelAndView doAddAffectLieux( ArticleBean detailBean )   throws Exception  {
