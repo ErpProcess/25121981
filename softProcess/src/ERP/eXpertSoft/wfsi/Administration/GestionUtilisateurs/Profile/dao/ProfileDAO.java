@@ -21,8 +21,11 @@ public class ProfileDAO extends  GenericWeb    {
 		hibernateTemplate = new HibernateTemplate(sessionFactory);
 	}
 	@SuppressWarnings("unchecked")
-	public List<ProfileBean> doFindListProfile(ProfileBean beanSearch) {
-		 String requette=" select  b   FROM    ProfileBean b    WHERE     1=1       ";
+	public List<ProfileBean> doFindListProfile(ProfileBean beanSearch) throws Exception {
+		 String requette=" select  bean   FROM    ProfileBean bean    WHERE     1=1       ";
+		   
+		   requette +=this.setSocieteEtabFetch(beanSearch,"bean.etablissment", true);
+		 
 		try {
 			return   hibernateTemplate.find(requette);
 		} catch (Exception ex) {

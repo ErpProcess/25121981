@@ -27,7 +27,8 @@ public class SocieteController  extends ActionSocieteManager   {
 		public ModelAndView doControlAction(SocieteBean detailBean,HttpServletRequest request,HttpServletResponse response  )
 		throws  Throwable {
 	    ModelAndView model=doInitGenericAction(request,response,new SocieteTemplate());
-	       if (i$_ACT_INIT_SERVLET)          return      doInitServletAction();  
+	       if (i$_ACT_INIT_SERVLET)          return      doInitServletAction(); 
+	       if (i$_ACT_UPLOADER)              return      uploadFile();
 		   if (i$_ACT_ADD)                   return      doAddData(detailBean);   
 		   if (i$_ACT_SELECT_ROW)            return      doGetRowDataBean();             
 		  

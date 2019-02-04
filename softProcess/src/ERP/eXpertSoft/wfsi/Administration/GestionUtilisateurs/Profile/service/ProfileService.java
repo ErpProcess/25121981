@@ -28,7 +28,7 @@ public class ProfileService  extends GenericWeb  {
 	
 	
 	@Transactional(readOnly=true)
-	public List<ProfileBean> dofetchDatafromServer(ProfileBean beanSearch){
+	public List<ProfileBean> dofetchDatafromServer(ProfileBean beanSearch) throws Exception{
 		return daoProfile.doFindListProfile(beanSearch);
 	}
 	

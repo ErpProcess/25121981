@@ -2,6 +2,7 @@ package ERP.Process.Commerciale.Achat.Facture_Fournisseur.dao;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
@@ -100,6 +101,22 @@ public class Facture_FournisseurDAO extends  GenericWeb    {
  
 	}
 	
+	
+ 	public List findImageFile(BigDecimal file_id) {
+		Session session =  openSessionHibernate(sessionFactory);
+		List lisf= new ArrayList();
+		try{
+		    String requette=" select  bean   FROM    FileFactureFournisseur    bean    WHERE     bean.file_id="+file_id+"       ";
+		   lisf= session.createQuery(requette).list();
+		   commitTransaction(session);
+		 } catch (Exception e) {  
+		    	 rollbackTransaction(session) ;
+		     throw e;  
+		 } finally {  
+			 session.close();  
+		 }  
+		 return  lisf;
+	}
 	
 	
 	@SuppressWarnings("unchecked")
@@ -357,4 +374,10 @@ public class Facture_FournisseurDAO extends  GenericWeb    {
 	 
 		
 	}
+
+
+
+
+
+	
 }

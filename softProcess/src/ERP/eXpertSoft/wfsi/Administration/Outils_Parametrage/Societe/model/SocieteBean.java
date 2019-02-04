@@ -17,6 +17,7 @@ import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
+import ERP.Process.Commerciale.Achat.Facture_Fournisseur.model.FileFactureFournisseur;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 
 @JsonAutoDetect
@@ -34,9 +35,31 @@ public class SocieteBean implements Serializable,Cloneable {
 	@Column 
 	private String soc_lib = "";
 	
+	@Column
+	private BigDecimal file_id;
+	
+	@Transient
+	private FileFactureFournisseur   myFile ;
+	
 	@Column 
 	private BigDecimal soc_ordre  ;
 	 
+	public BigDecimal getFile_id() {
+		return file_id;
+	}
+
+	public void setFile_id(BigDecimal file_id) {
+		this.file_id = file_id;
+	}
+
+	public FileFactureFournisseur getMyFile() {
+		return myFile;
+	}
+
+	public void setMyFile(FileFactureFournisseur myFile) {
+		this.myFile = myFile;
+	}
+
 	@Column 
 	private String  lib_arab ="";
 	@Column 
@@ -367,6 +390,7 @@ public class SocieteBean implements Serializable,Cloneable {
 		this.code_cl = code_cl;
 	}
 
+	 
 	 
 
 }

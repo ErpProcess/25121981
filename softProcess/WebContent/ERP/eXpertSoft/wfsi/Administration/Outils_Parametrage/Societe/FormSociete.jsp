@@ -1,4 +1,36 @@
 <%@    include file="/Aceuil/esProcess.jsp"     %>
+
+<script type="text/javascript">
+var files = [];
+$(document).on("change","#fileLoader",function(event) { files=event.target.files; processUpload();})
+
+
+function processUpload(){
+           
+             var oMyForm = new FormData();
+             oMyForm.append("file", files[0]);
+             oMyForm.append("HiddenAction", "i$_ACT_UPLOADER");
+             $.ajax({dataType : "text",
+                    url : "${tmlx.urlAjax}",
+                    data : oMyForm,
+                    type : "POST",
+                    enctype: "multipart/form-data",
+                    processData: false, 
+                    contentType:false,
+                    scriptCharset: "utf-8",
+        			async: false,
+        			cache: false,
+        			timeout: 600000,
+                    success : function(result) {
+                    	 alert(result);
+                    },
+                    error : function(result){
+                        alert(result);
+                    }
+                });
+     }
+</script>
+
 <ext:body  >
 <ext:panel  renderTo="ThePageJsp"             >
 
@@ -15,7 +47,8 @@
          <tr>
              <td width="9%" ><label>code</label></td>
 	         <td width="33%" > 
-             <input id="soc_id"  name="soc_id"    type="text"     size="10"   value="${detailBean.soc_id}"    libre readonly="readonly"   />
+             <input id="soc_id"   name="soc_id"     type="text"     size="10"   value="${detailBean.soc_id}"    libre readonly="readonly"   />
+             <input id="file_id"  name="file_id"    type="text"        value="${detailBean.file_id}"    libre readonly="readonly"   />
 	         </td>   
              <td width="8%"><label >libelle</label></td>
              <td width="27%">
@@ -100,6 +133,13 @@
              <td width="8%"><label >formatage </label></td>
              <td  width="20%" ><input id="formatage" name="formatage"   type="text"  required    value="${detailBean.formatage}">             </td>
          </tr>
+   
+       <tr>  
+   <td  ><label>File</label></td>  
+   <td    >  
+   <input  id="fileLoader"  type="file" name="file"       />    
+  </td> 
+   </tr> 
    
           </table>
 	  </ext:panel>

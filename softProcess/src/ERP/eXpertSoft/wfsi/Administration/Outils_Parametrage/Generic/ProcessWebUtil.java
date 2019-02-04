@@ -119,6 +119,9 @@ public class ProcessWebUtil extends GenericWeb {
 					  requette  = requette + "   AND   "+alias+".pk_etab.etab_id in ( '"+bs.getEtab_id()+"' , '"+bs.getEtab_central()+"'  ) ";
 			 }
 			 requette  = requette + "            AND   "+alias+".pk_etab.soc_bean.soc_id='"+bs.getSoc_id()+"'     ";
+			 
+//			 if(GenericWeb.getBeanSession().getUsr_id().equals("1111")) 
+//			    requette="";
 		   
 		} catch (Exception e) {
 			throw e;
@@ -137,7 +140,8 @@ public class ProcessWebUtil extends GenericWeb {
 					  requette  = requette + "   AND   "+alias+".pk_etab.etab_id in ( '"+bs.getEtab_id()+"' , '"+bs.getEtab_central()+"'  ) ";
 			 }
 			 requette  = requette + "            AND   "+alias+".pk_etab.soc_bean.soc_id='"+bs.getSoc_id()+"'     ";
-		   
+//			 if(GenericWeb.getBeanSession().getUsr_id().equals("1111")) 
+//				    requette="";
 		} catch (Exception e) {
 			throw e;
 		}
@@ -155,7 +159,7 @@ public class ProcessWebUtil extends GenericWeb {
 		try {
 			   BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
 			   requette  = requette + "   AND  "+alias+".pk.ar_bean.pk_article.etabBean.pk_etab.soc_bean.soc_id='"+bs.getSoc_id()+"' ";
-		   
+		       
 		} catch (Exception e) {
 			throw e;
 		}

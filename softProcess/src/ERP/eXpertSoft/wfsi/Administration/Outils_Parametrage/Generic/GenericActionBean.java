@@ -23,6 +23,9 @@ public class GenericActionBean extends GenericWeb implements Serializable,Clonea
 	public static boolean i$_ACT_LOAD_SELECT = false;
 	
 	
+	public static boolean i$_ACT_UPLOADER = false;
+	
+	
 	public static boolean i$_ACT_LOAD_DATA_TABLE_AJAX = false;
 	
 	

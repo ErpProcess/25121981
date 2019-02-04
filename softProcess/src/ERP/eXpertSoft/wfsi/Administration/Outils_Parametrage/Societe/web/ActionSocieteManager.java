@@ -15,13 +15,17 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import ERP.Process.Commerciale.Achat.Facture_Fournisseur.model.FileFactureFournisseur;
 import ERP.eXpertSoft.wfsi.Administration.GestionsLinguistiques.GLangue.model.GLangueBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionsLinguistiques.GLangue.service.GLangueService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Data_entite_simple.service.Data_entite_simpleService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.service.DeviseService;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel.service.NumSequentielService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Paysvilleposte.model.PaysvilleposteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Paysvilleposte.service.PaysvilleposteService;
@@ -104,7 +108,48 @@ public class ActionSocieteManager extends SocieteTemplate {
 		}
 
 	}
+	
+	public ModelAndView uploadFile() throws Exception {
+        String  chargement= " Chargment du fichier effectué avec succès  ";
+		try {
+			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) getRequest();
+			MultipartFile multipartFile = multiRequest.getFile("file");
+		 
+			if(multipartFile==null){
+				chargement= " échec de chargment  ";
+				setObjectValueModel("MultipartFile", null);
+			}else{
+				
+			}
+			
+			String mime_content_type = multipartFile.getContentType();
+			String filename = multipartFile.getOriginalFilename();
+			byte[] bytes = multipartFile.getBytes();
+			FileFactureFournisseur insertBean = new FileFactureFournisseur();
+			
+			String doc_id_interne =getRequest().getParameter("doc_id_interne");
+			insertBean.setMime_content_type(mime_content_type);
+			insertBean.setDoc_id_interne(doc_id_interne);
+			insertBean.setFile_byte(bytes);
+			insertBean.setFile_name(filename);
+			insertBean.setMultipartFile(multipartFile);
+			setObjectValueModel("MultipartFile", insertBean);
+			//serviceFacture_Fournisseur.doCreateRowDatafileFacturefrs(insertBean);
+			/*InputStream input = multipartFile.getInputStream();
+			File source = new File("D://" + filename);
+			multipartFile.transferTo(source); */
+		} catch (Exception e) {
+			chargement= " échec de chargment  ";
+			e.printStackTrace();
+		}
+		getResponse().setContentType("text");
+		getResponse().setHeader("Cache-Control", "no-cache");
+		getResponse().getWriter().write(chargement);
 
+		return null;
+	}
+	
+	 
 	@SuppressWarnings("unchecked")
 	public ModelAndView doFetchData(SocieteBean searchBean)throws Throwable {
 		try {
@@ -122,7 +167,7 @@ public class ActionSocieteManager extends SocieteTemplate {
 	}
 	
 
-	public ModelAndView doAddData(SocieteBean detailBean) throws Throwable {
+	public ModelAndView doAddData(SocieteBean beans) throws Throwable {
 		try {
 			 String dataSocieteLng_ar= getRequest().getParameter("dataSocieteLng_ar");
 			 String dataSocieteLng_en= getRequest().getParameter("dataSocieteLng_en");
@@ -130,8 +175,11 @@ public class ActionSocieteManager extends SocieteTemplate {
 			 json.put("ar",  convertStringToHashMap(dataSocieteLng_ar));
 			 json.put("en", convertStringToHashMap(dataSocieteLng_en));
 			 String data_societe_langue=json.toString();
-			 detailBean.setData_societe_langue(data_societe_langue);
-			 serviceSociete.doCreateRowData(detailBean);
+			 beans.setData_societe_langue(data_societe_langue);
+			 
+	 
+				
+			 serviceSociete.doCreateRowData(beans);
 		     removeObjectModel(FORM_BEAN);
 		     throwNewException("Insertion Reussit");
 		} catch (Exception e) {
@@ -175,7 +223,7 @@ public class ActionSocieteManager extends SocieteTemplate {
 
 	}
 
-	public ModelAndView doUpdateData(SocieteBean beanUpBean) {
+	public ModelAndView doUpdateData(SocieteBean beanUp) {
 		try {
 			 
 			 String dataSocieteLng_ar= getRequest().getParameter("dataSocieteLng_ar");
@@ -184,10 +232,12 @@ public class ActionSocieteManager extends SocieteTemplate {
 			 json.put("ar",  convertStringToHashMap(dataSocieteLng_ar) );
 			 json.put("en", convertStringToHashMap(dataSocieteLng_en) );
 			 String data_societe_langue=json.toString();
-			 beanUpBean.setData_societe_langue(data_societe_langue);
-			serviceSociete.doUpdateRowData(beanUpBean);
-			update_row_from_list(LIST_DATA, beanUpBean)  ;
-			throwNewException("Update Reussit");
+			 beanUp.setData_societe_langue(data_societe_langue);
+			 
+			  
+			 serviceSociete.doUpdateRowData(beanUp);
+			 update_row_from_list(LIST_DATA, beanUp)  ;
+			 throwNewException("Update Reussit");
 		} catch (Exception e) {
 			displayException(e);
 		}

@@ -11,19 +11,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
+
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 
 
 @JsonAutoDetect
 @Entity
 @Table(name = "profile", schema = "administration")
 public class ProfileBean   implements Serializable   {
-	
-	 
-
+ 
+	private static final long serialVersionUID = 1L;
 	@Id
 	@Column
 	private String prf_id = "";
@@ -41,8 +45,23 @@ public class ProfileBean   implements Serializable   {
 	private Time time_cre;
 	@Column
 	private Time time_mod;
+	
+	
+	@ManyToOne
+	@JoinColumns( {
+			@JoinColumn(name = "etab_id", insertable = true, updatable = true, referencedColumnName = "etab_id"),
+			@JoinColumn(name = "soc_id", insertable = true, updatable = true, referencedColumnName = "soc_id"), })
+	private EtablissementBean etablissment = new EtablissementBean();
 	 
 
+
+	public EtablissementBean getEtablissment() {
+		return etablissment;
+	}
+
+	public void setEtablissment(EtablissementBean etablissment) {
+		this.etablissment = etablissment;
+	}
 
 	public void setPrf_id(String prf_id) {
 		this.prf_id = prf_id;

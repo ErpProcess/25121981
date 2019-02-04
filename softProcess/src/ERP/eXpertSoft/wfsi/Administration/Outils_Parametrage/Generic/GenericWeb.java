@@ -206,6 +206,11 @@ public class GenericWeb       {
 		
 	}
     
+    public static BeanSession getBeanSession() {
+        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
+        return bSession;
+     }
+    
     public Map convertStringToHashMap(String strData){
 		
 		Map<String, String> myMap = new HashMap<String, String>();

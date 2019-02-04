@@ -427,7 +427,14 @@ public class GeneratePdf extends  GenericWeb {
 	        PdfPTable tableheader = new PdfPTable(100);
 	        PdfPCell cellheder;
 	        tableheader.setWidthPercentage(100);
-	        Image companyLogo = Image.getInstance("c:/images/sigle_ibs.jpg");
+	        String relativeWebPath = "/img/logoGen.jpg";
+	        String absoluteDiskPath =  getRequest().getServletContext().getRealPath(relativeWebPath);
+	        Image companyLogo =null;
+	        if(bs.getSociete().getMyFile()!=null) {
+	        	  companyLogo = Image.getInstance(bs.getSociete().getMyFile().getFile_byte());
+	        }else {
+	        	 companyLogo = Image.getInstance(absoluteDiskPath);
+	        }
 			companyLogo.scalePercent(50);
 			cellheder = new PdfPCell(); 
 			cellheder.setBorder(3);
@@ -436,8 +443,18 @@ public class GeneratePdf extends  GenericWeb {
 			cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 			cellheder.setBorder(cellheder.NO_BORDER);
 			tableheader.addCell(cellheder);
+			
+		    cellheder = new PdfPCell(new Phrase("",Normal_10_times_roman));
+		    cellheder.setColspan(1);
+		    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
+		    cellheder.setPaddingLeft(20f);
+		    cellheder.setPaddingBottom(40f);
+		    cellheder.setPaddingTop(15f);
+		    cellheder.setBorder(cellheder.NO_BORDER);
+		    tableheader.addCell(cellheder);
+		    
 		    cellheder = new PdfPCell(new Phrase(bs.getSoc_lib()+"\n\r"+bs.getEtab_lib()+"\n\r"+bs.getPrf_libelle(),Normal_10_times_roman));
-		    cellheder.setColspan(90);
+		    cellheder.setColspan(89);
 		    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 		    cellheder.setPaddingLeft(20f);
 		    cellheder.setPaddingBottom(40f);
@@ -465,20 +482,38 @@ public class GeneratePdf extends  GenericWeb {
         PdfPCell cellheder;
         tableheader.setWidthPercentage(100);
         
-        Image companyLogo = Image.getInstance("c:/images/sigle_ibs.jpg");
-		companyLogo.scalePercent(50);
+        String relativeWebPath = "/img/logoGen.jpg";
+        String absoluteDiskPath =  getRequest().getServletContext().getRealPath(relativeWebPath);
+        Image companyLogo =null;
+        if(bs.getSociete().getMyFile()!=null) {
+        	 companyLogo = Image.getInstance(bs.getSociete().getMyFile().getFile_byte());
+        }else {
+        	companyLogo = Image.getInstance(absoluteDiskPath);
+        }
+        	
+         
+		companyLogo.scalePercent(50); 
 		cellheder = new PdfPCell(); 
 		cellheder.setBorder(3);
 		cellheder.addElement(new Chunk(companyLogo, 10, -50));
-		
+		cellheder.setPaddingRight(50f);
 		cellheder.setColspan(10);
 		cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 		cellheder.setBorder(cellheder.NO_BORDER);
 		tableheader.addCell(cellheder);
+
 		
+	    cellheder = new PdfPCell(new Phrase("",Normal_10_times_roman));
+	    cellheder.setColspan(4);
+	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cellheder.setPaddingLeft(20f);
+	    cellheder.setPaddingBottom(40f);
+	    cellheder.setPaddingTop(15f);
+	    cellheder.setBorder(cellheder.NO_BORDER);
+	    tableheader.addCell(cellheder);
 		
 	    cellheder = new PdfPCell(new Phrase(bs.getSoc_lib()+"\n\r"+bs.getEtab_lib()+"\n\r"+bs.getPrf_libelle(),Normal_10_times_roman));
-	    cellheder.setColspan(90);
+	    cellheder.setColspan(86);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cellheder.setPaddingLeft(28f);
 	    cellheder.setPaddingBottom(40f);

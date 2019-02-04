@@ -27,6 +27,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
+import ERP.Process.Commerciale.Achat.Facture_Fournisseur.dao.Facture_FournisseurDAO;
+import ERP.Process.Commerciale.Achat.Facture_Fournisseur.model.FileFactureFournisseur;
 import ERP.eXpertSoft.wfsi.Administration.GestionAuthentification.template.AuthentificationTemplate;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Module.model.ModuleBean;
@@ -52,6 +54,7 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.dao.E
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.model.SocieteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.template.MenuActionBean;
 
@@ -72,6 +75,14 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 	
 	@Autowired
 	private PrivilegeService      servicePrivilege;
+	
+	private Facture_FournisseurDAO daoFacture_Fournisseur;
+	@Autowired
+	public void setDaoFacture_Fournisseur(Facture_FournisseurDAO daoFacture_Fournisseur) {
+		this.daoFacture_Fournisseur = daoFacture_Fournisseur;
+	}
+	
+	
 	
 	@Autowired
 	private EntiteAdminService        serviceEntiteAdmin;
@@ -363,8 +374,12 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			
 			bs.setSoc_lib(utilBean.getEtab_bean().getPk_etab().getSoc_bean().getSoc_lib());
 			bs.setEtab_lib(utilBean.getEtab_bean().getEtab_lib());
-			
-			bs.setSociete(utilBean.getEtab_bean().getPk_etab().getSoc_bean());
+			List listData=daoFacture_Fournisseur.findImageFile(utilBean.getEtab_bean().getPk_etab().getSoc_bean().getFile_id());
+			SocieteBean ste = utilBean.getEtab_bean().getPk_etab().getSoc_bean();
+			if(listData!=null  && listData.size()>0) {
+				ste.setMyFile((FileFactureFournisseur) listData.get(0));
+			}
+			bs.setSociete(ste);
 			bs.setPatternDecimalFormat(bs.getSociete().getFormatage());
 			bs.setEtablissement(utilBean.getEtab_bean());
 			setObjectValueModel("utilBean", utilBean);

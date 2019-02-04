@@ -36,7 +36,15 @@ public class Code_barreBean implements Serializable,Cloneable {
 	@Column
 	private String designation_libelle = "";
 	
+	@Column
+	private Double cout_uni_ttc  ;
 	
+	@Column
+	private Double prix_vente_ttc  ;
+	
+	@Column
+	private Double quantite_stock  ;
+ 
 	@Column
 	private java.sql.Date date_cre;
 	@Column
@@ -54,6 +62,30 @@ public class Code_barreBean implements Serializable,Cloneable {
 	 
 
 	 
+
+	public Double getCout_uni_ttc() {
+		return cout_uni_ttc;
+	}
+
+	public void setCout_uni_ttc(Double cout_uni_ttc) {
+		this.cout_uni_ttc = cout_uni_ttc;
+	}
+
+	public Double getPrix_vente_ttc() {
+		return prix_vente_ttc;
+	}
+
+	public void setPrix_vente_ttc(Double prix_vente_ttc) {
+		this.prix_vente_ttc = prix_vente_ttc;
+	}
+
+	public Double getQuantite_stock() {
+		return quantite_stock;
+	}
+
+	public void setQuantite_stock(Double quantite_stock) {
+		this.quantite_stock = quantite_stock;
+	}
 
 	public void setDesignation(String designation) {
 		this.designation = designation;

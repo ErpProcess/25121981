@@ -1,5 +1,6 @@
 package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.dao;
 
+import java.io.FileOutputStream;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import ERP.Process.Commerciale.Achat.Facture_Fournisseur.model.FileFactureFournisseur;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.model.SocieteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.template.SocieteTemplate;
@@ -48,6 +50,12 @@ public class SocieteDAO extends  GenericWeb  {
 
 		try {
 			this.setBeanTrace(beanSave);
+			FileFactureFournisseur insertBean =(FileFactureFournisseur) getObjectValueModel("MultipartFile");
+			if(insertBean!=null){
+				this.setBeanTrace(insertBean);
+				this.hibernateTemplate.save(insertBean);
+			}
+			beanSave.setFile_id(insertBean.getFile_id());
 			this.hibernateTemplate.save(beanSave);
 			this.saveTrace(beanSave);
 			return true;
@@ -63,6 +71,12 @@ public class SocieteDAO extends  GenericWeb  {
 		try {
 			setIdBean((SocieteBean) getObjectValueModel(FORM_BEAN), beanUpdate, SocieteTemplate.idEntite);
 			this.setUpdateValueFieldTraceOject(beanUpdate);
+			FileFactureFournisseur insertBean =(FileFactureFournisseur) getObjectValueModel("MultipartFile");
+			if(insertBean!=null){
+				this.setBeanTrace(insertBean);
+				this.hibernateTemplate.save(insertBean);
+			}
+			beanUpdate.setFile_id(insertBean.getFile_id());
 			this.hibernateTemplate.update(beanUpdate);
 			this.saveTrace(beanUpdate);
 			return true;

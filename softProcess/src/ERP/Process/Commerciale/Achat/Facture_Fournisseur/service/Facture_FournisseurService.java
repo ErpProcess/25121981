@@ -12,11 +12,15 @@ import ERP.Process.Commerciale.Achat.Facture_Fournisseur.template.Facture_Fourni
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 @Service
 public class Facture_FournisseurService  extends GenericWeb  {
+	
+	
 	private Facture_FournisseurDAO daoFacture_Fournisseur;
 	@Autowired
 	public void setDaoFacture_Fournisseur(Facture_FournisseurDAO daoFacture_Fournisseur) {
 		this.daoFacture_Fournisseur = daoFacture_Fournisseur;
 	}
+	
+	
 	@Transactional(readOnly=true)
 	public List<Facture_FournisseurBean> doFetchDatafromServer(Facture_FournisseurBean beanSearch) throws Exception {
 		return daoFacture_Fournisseur.doFindListFacture_Fournisseur(beanSearch);
