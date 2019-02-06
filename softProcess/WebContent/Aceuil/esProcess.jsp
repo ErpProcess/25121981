@@ -10,7 +10,7 @@
 <meta http-equiv="description" content="This is my page">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link   rel="icon"   href="<%=request.getContextPath()%>/img/process.gif"   type="image/gif"  >
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/Aceuil/styles.css" />
 <link    href="<%=request.getContextPath()%>/ext-3.0.0/resources/css/ext-all.css"     rel="stylesheet"       type="text/css"     media="all"    />
 
 <script  src="<%=request.getContextPath()%>/ext-3.0.0/adapter/ext/ext-base.js"        type="text/javascript" ></script>
@@ -41,13 +41,13 @@
 
  
 <!-- 
-<script src="<%=request.getContextPath()%>/jQuery/jquery-dateFormat.js"  type="text/javascript"  ></script>
-<script src="<%=request.getContextPath()%>/jQuery/jquery-dateFormat.min.js"  type="text/javascript"  ></script>
+<script src="< %=request.getContextPath()%>/jQuery/jquery-dateFormat.js"  type="text/javascript"  ></script>
+<script src="< %=request.getContextPath()%>/jQuery/jquery-dateFormat.min.js"  type="text/javascript"  ></script>
  -->
 <script src="<%=request.getContextPath()%>/jQuery/dateFormat.js"  type="text/javascript"  ></script>
 <script src="<%=request.getContextPath()%>/jQuery/dateFormat.min.js"  type="text/javascript"  ></script>
  
-
+ 
  
 <style  >
 input[readonly],select[readonly]{
@@ -720,41 +720,28 @@ function migaXWXXWW(dssss) {
 <!-- ******************************************************* Panel Gauche**********************************************************************************-->
 
 
-    <ext:panel region="west"      margins="0 0 15 3"  autoScroll="yes"   border="true"    width="175"   collapsible="true"  
-	  title=" ProcessERP Explorer"   id="hyuE"       split="true"   collapseMode="true"   hideCollapseTool="true"
-	  plugins="[Ext.ux.PanelCollapsedTitle]">
-	  
+    <ext:panel region="west"    style="z-index:1;"   margins="0 0 15 3"  autoScroll="yes"   border="false"    width="40"     title="ProcessERP Explorer"   id="hyuE"  bodyStyle="none;"     >
+
+
+
         <div  class="x-toolbar"  style="height: 1400px;"  > 
         <form  id="myhrefaction"   method="post"   > 
           <input  name="HiddenAction"  id="HiddenAction"  value="i$_ACT_LOAD_Mod_SM"   type="hidden" > 
           <input  name="data_for_module"  id="data_for_module"  value=""   type="hidden" >   
-		  <div id="wrapper"  style="width: 100%;" > 
-			  <ul class="menu">
-			          <c:forEach var="packbean"  varStatus="outer" items="${listPackgeSousPack}"    >
-					      <c:choose>
-						      <c:when test="${not empty packbean.racourci_soupack}">
-						        <li class="item${outer.index}"   onclick="getModules('${packbean.racourci_soupack}','${packbean.pack_id}');"    ><a href='#'   style="text-decoration: none;"> <c:out value="${packbean.pack_libelle}"/>   </a> 
-							   <ul> 
-							  
-					          </ul> 
-					          </li> 
-						      </c:when>
-						    <c:otherwise>
-						        <li class="item${outer.index}"><a href='#' style="text-decoration: none;" > <c:out value="${packbean.pack_libelle}"/>   </a> 
-							   <ul> 
-							   <c:forEach  var="sousPackbean"  varStatus="souterX" items="${packbean.list_sous_mod}" >
-							      <li class="subitem${souterX.index}"  onclick="getModules(${sousPackbean.spack_id},'${packbean.pack_id}');" style="cursor: pointer;"  >
-							      <a  name="" style="text-decoration: none;" >
-							       <c:out value="${sousPackbean.spack_libelle}"/>  </a>
-							       </li>
-							 </c:forEach> 
-					          </ul> 
-					          </li> 
-						    </c:otherwise>
-						</c:choose>
-			         </c:forEach>
-			   </ul>
-	      </div>
+		 <ul id="navigationMenu"  style="z-index: 9999999999;position:fixed;">
+
+							    <c:forEach var="packbean"  varStatus="outer" items="${listPackgeSousPack}"    >
+								   <c:forEach  var="sousPackbean"  varStatus="souterX"    items="${packbean.list_sous_mod}" >
+								       <li   onclick="getModules(${sousPackbean.spack_id},'${packbean.pack_id}');"  >
+		    						<a class="home${souterX.index}" href="javascript:getModules(${sousPackbean.spack_id},'${packbean.pack_id}');"  style="background-position:-152px 0;"   >
+	                                <span  style="background-color:#af1e83;color:#460f35;text-shadow:1px 1px 0 #d244a6;"   ><c:out value="${sousPackbean.spack_libelle}"/></span>
+								        </a>
+								    </li>
+	    
+								 </c:forEach> 
+							  </c:forEach>
+ 
+            </ul>
       </form>
    </div>
 </ext:panel>
@@ -893,8 +880,8 @@ function migaXWXXWW(dssss) {
 </ext:body>
 <script type="text/javascript">
 Ext.onReady(function(){
-var primecontact = Ext.getCmp('hyuE');
-primecontact.collapse();
+// var primecontact = Ext.getCmp('hyuE');
+// primecontact.collapse();
 var dffff_win=$(window).height() - 195;
 dffff_win=dffff_win+"px";
 document.getElementById("ThePageJsp").style.maxHeight=dffff_win; 
