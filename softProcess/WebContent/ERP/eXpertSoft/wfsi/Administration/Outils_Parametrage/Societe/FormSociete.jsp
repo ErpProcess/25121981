@@ -4,7 +4,17 @@
 var files = [];
 $(document).on("change","#fileLoader",function(event) { files=event.target.files; processUpload();})
 
-
+function deleteFile(){ 
+	 var rjson=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_DELETE_FILE','text',false);
+		 if(rjson=="delete_file_true"){
+			 $('#file_id').val('');  
+			 $('#fileLoader').val('');  
+			 document.getElementById("ItemPreview").src ="";
+		 }else{
+			 alert(rjson);
+		 }
+} 
+ 
 function processUpload(){
            
              var oMyForm = new FormData();
@@ -22,7 +32,7 @@ function processUpload(){
         			cache: false,
         			timeout: 600000,
                     success : function(result) {
-                    	 alert(result);
+                    	document.getElementById("ItemPreview").src = "data:image/jpeg;base64," + result;
                     },
                     error : function(result){
                         alert(result);
@@ -37,6 +47,31 @@ function processUpload(){
  <ext:tabPanel   border="false"        id="sdsfgrgrgpll"  activeTab="fr"  >
 	  <ext:panel   id="fr"    bodyStyle="background: none;"       border="false"      title="Francais"    > 
 	  <table class="tableStyleContent"  cellpadding="5" cellspacing="10"  border="0"  id="tblData"    >
+       <tr>  
+		   <td  ><label>Logo</label></td>  
+		   <td    >  
+		   <style>
+		   
+		   .closexc {
+      position: absolute;
+      top: 20px;
+      left: 25%;
+      transition: all 0.2s;
+      font-size: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #333;
+    }
+		   
+		   </style>
+		   <a  href="javascript:deleteFile();"  class="closexc" >&times;</a>
+		   <img id="ItemPreview" src="data:image/jpeg;base64,${detailBean.myFile.fact_frs_id}" />
+		   <br>
+		   <input  id="fileLoader"  type="file" name="file"       />
+		   <input id="file_id"  name="file_id"    type="hidden"    value="${detailBean.file_id}"     />
+		  
+		  </td> 
+      </tr> 
 <!-- ******************************************************************************************************************************************** -->
           <tr>
              <td width="100%" colspan="6"    align="center" >
@@ -48,7 +83,6 @@ function processUpload(){
              <td width="9%" ><label>code</label></td>
 	         <td width="33%" > 
              <input id="soc_id"   name="soc_id"     type="text"     size="10"   value="${detailBean.soc_id}"    libre readonly="readonly"   />
-             <input id="file_id"  name="file_id"    type="text"        value="${detailBean.file_id}"    libre readonly="readonly"   />
 	         </td>   
              <td width="8%"><label >libelle</label></td>
              <td width="27%">
@@ -133,13 +167,6 @@ function processUpload(){
              <td width="8%"><label >formatage </label></td>
              <td  width="20%" ><input id="formatage" name="formatage"   type="text"  required    value="${detailBean.formatage}">             </td>
          </tr>
-   
-       <tr>  
-   <td  ><label>File</label></td>  
-   <td    >  
-   <input  id="fileLoader"  type="file" name="file"       />    
-  </td> 
-   </tr> 
    
           </table>
 	  </ext:panel>
