@@ -1,4 +1,14 @@
  
+#navigationMenu {
+	position: fixed;
+	z-index: 9999999999;
+	top: 13%;
+	left: 0;
+	height: 84.9%;
+	margin: 0;
+	padding: 0;
+	background: none;
+}
 
 #navigationMenu li{
 	list-style:none;
@@ -33,11 +43,25 @@
 
 #navigationMenu a{
 	background:url('img/navigation.jpg') no-repeat;
-
+	content: "C";
+	font-weight: 700;
+	font-size: 300%;
+	font-family: 'Lato', Calibri, Arial, sans-serif;
 	height:39px;
 	width:38px;
 	display:block;
 	position:relative;
+	
+
+	line-height: 5em;
+	text-align: center;
+	color: #999;
+
+	border-bottom: 1px solid rgba(0,0,0,0.05);
+	-webkit-transition: background 0.1s ease-in-out;
+	-moz-transition: background 0.1s ease-in-out;
+	transition: background 0.1s ease-in-out;
+	
 }
 
 /* General hover styles */

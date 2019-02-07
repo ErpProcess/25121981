@@ -719,22 +719,26 @@ function migaXWXXWW(dssss) {
 
 <!-- ******************************************************* Panel Gauche**********************************************************************************-->
 
+<%--    <ext:panel region="west"      margins="0 0 15 3"  autoScroll="yes"   border="true"    width="175"   collapsible="true"   --%>
+<%-- 	  title=" ProcessERP Explorer"   id="hyuE"       split="true"   collapseMode="true"   hideCollapseTool="true" --%>
+<%-- 	  plugins="[Ext.ux.PanelCollapsedTitle]"> --%>
+	  
 
-    <ext:panel region="west"    style="z-index:1;"   margins="0 0 15 3"  autoScroll="yes"   border="false"    width="40"     title="ProcessERP Explorer"   id="hyuE"  bodyStyle="none;"     >
+    <ext:panel    region="west"    margins="0 0 15 3"  autoScroll="yes"  title="&nbsp;"    border="true"    width="38"       id="hyuE"    split="true"  collapsible="true"  hideCollapseTool="false"  >
 
 
 
-        <div  class="x-toolbar"  style="height: 1400px;"  > 
+<!--         <div  class="x-toolbar"  style="height: 1400px;"  >  -->
         <form  id="myhrefaction"   method="post"   > 
           <input  name="HiddenAction"  id="HiddenAction"  value="i$_ACT_LOAD_Mod_SM"   type="hidden" > 
           <input  name="data_for_module"  id="data_for_module"  value=""   type="hidden" >   
-		 <ul id="navigationMenu"  style="z-index: 9999999999;position:fixed;">
+		 <ul id="navigationMenu"  >
 
 							    <c:forEach var="packbean"  varStatus="outer" items="${listPackgeSousPack}"    >
 								   <c:forEach  var="sousPackbean"  varStatus="souterX"    items="${packbean.list_sous_mod}" >
 								       <li   onclick="getModules(${sousPackbean.spack_id},'${packbean.pack_id}');"  >
-		    						<a class="home${souterX.index}" href="javascript:getModules(${sousPackbean.spack_id},'${packbean.pack_id}');"  style="background-position:-152px 0;"   >
-	                                <span  style="background-color:#af1e83;color:#460f35;text-shadow:1px 1px 0 #d244a6;"   ><c:out value="${sousPackbean.spack_libelle}"/></span>
+		    						<a class="contact" href="javascript:getModules(${sousPackbean.spack_id},'${packbean.pack_id}');"  style="background:None;"   >
+	                                <span  style="background-color:#47a3da;color:#fff;"   ><c:out value="${sousPackbean.spack_libelle}"/></span>
 								        </a>
 								    </li>
 	    
