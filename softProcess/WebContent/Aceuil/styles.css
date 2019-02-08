@@ -2,7 +2,7 @@
 #navigationMenu {
 	position: fixed;
 	z-index: 9999999999;
-	top: 13%;
+	top: 25%;
 	left: 0;
 	height: 84.9%;
 	margin: 0;
@@ -31,7 +31,7 @@
 	font-weight:bold;
 	letter-spacing:0.6px;
 	white-space:nowrap;
-	line-height:39px;
+	line-height:35px;
 	
 	/* CSS3 Transition: */
 	-webkit-transition: 0.25s;
@@ -43,7 +43,6 @@
 
 #navigationMenu a{
 	background:url('img/navigation.jpg') no-repeat;
-	content: "C";
 	font-weight: 700;
 	font-size: 300%;
 	font-family: 'Lato', Calibri, Arial, sans-serif;
@@ -57,7 +56,7 @@
 	text-align: center;
 	color: #999;
 
-	border-bottom: 1px solid rgba(0,0,0,0.05);
+	border-bottom: 3px solid rgba(0,0,0,0.05);
 	-webkit-transition: background 0.1s ease-in-out;
 	-moz-transition: background 0.1s ease-in-out;
 	transition: background 0.1s ease-in-out;
@@ -69,11 +68,7 @@
 #navigationMenu a:hover span{ width:auto; padding:0 20px;overflow:visible; }
 #navigationMenu a:hover{
 	text-decoration:none;
-	
-	/* CSS outer glow with the box-shadow property */
-	-moz-box-shadow:0 0 5px #9ddff5;
-	-webkit-box-shadow:0 0 5px #9ddff5;
-	box-shadow:0 0 5px #9ddff5;
+   
 }
 
 /* Green Button */
@@ -123,7 +118,6 @@
 #navigationMenu .contact span{
 	background-color:#af1e83;
 	color:#460f35;
-	text-shadow:1px 1px 0 #d244a6;
 }
 
  

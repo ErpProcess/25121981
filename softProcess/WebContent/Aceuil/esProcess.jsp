@@ -724,11 +724,11 @@ function migaXWXXWW(dssss) {
 <%-- 	  plugins="[Ext.ux.PanelCollapsedTitle]"> --%>
 	  
 
-    <ext:panel    region="west"    margins="0 0 15 3"  autoScroll="yes"  title="&nbsp;"    border="true"    width="38"       id="hyuE"    split="true"  collapsible="true"  hideCollapseTool="false"  >
+    <ext:panel    region="west"    margins="0 0 15 3"  autoScroll="yes"      border="true"    width="38"       id="hyuE"    split="true"  collapsible="true"  hideCollapseTool="true"  >
 
 
 
-<!--         <div  class="x-toolbar"  style="height: 1400px;"  >  -->
+       <div    >  
         <form  id="myhrefaction"   method="post"   > 
           <input  name="HiddenAction"  id="HiddenAction"  value="i$_ACT_LOAD_Mod_SM"   type="hidden" > 
           <input  name="data_for_module"  id="data_for_module"  value=""   type="hidden" >   
@@ -736,7 +736,7 @@ function migaXWXXWW(dssss) {
 
 							    <c:forEach var="packbean"  varStatus="outer" items="${listPackgeSousPack}"    >
 								   <c:forEach  var="sousPackbean"  varStatus="souterX"    items="${packbean.list_sous_mod}" >
-								       <li   onclick="getModules(${sousPackbean.spack_id},'${packbean.pack_id}');"  >
+								       <li   onclick="getModules(${sousPackbean.spack_id},'${packbean.pack_id}');"  > 
 		    						<a class="contact" href="javascript:getModules(${sousPackbean.spack_id},'${packbean.pack_id}');"  style="background:None;"   >
 	                                <span  style="background-color:#47a3da;color:#fff;"   ><c:out value="${sousPackbean.spack_libelle}"/></span>
 								        </a>
@@ -884,8 +884,8 @@ function migaXWXXWW(dssss) {
 </ext:body>
 <script type="text/javascript">
 Ext.onReady(function(){
-// var primecontact = Ext.getCmp('hyuE');
-// primecontact.collapse();
+ var primecontact = Ext.getCmp('hyuE');
+ primecontact.expand();
 var dffff_win=$(window).height() - 195;
 dffff_win=dffff_win+"px";
 document.getElementById("ThePageJsp").style.maxHeight=dffff_win; 
