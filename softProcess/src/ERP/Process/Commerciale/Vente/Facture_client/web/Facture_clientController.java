@@ -58,10 +58,11 @@ public class Facture_clientController  extends Facture_clientActionManager   {
 		          
 		           //if (i$_ACT_PRINT_PDF_DETAILLE)    return      doPrintPDF_detaille();
 		          
-		          if (i$_ACT_PRINT_PDF_DETAILLE &&  bs.getSoc_id().equals("6"))      return      doPrintFactureModelKobbi();
-		          if (i$_ACT_PRINT_PDF_DETAILLE && !bs.getSoc_id().equals("6"))     return      doPrintPDF_detaille();
+		          if (i$_ACT_PRINT_PDF_DETAILLE &&  bs.getSoc_id().equals("6"))     return      doPrintFactureModelKobbi();
+		          if (i$_ACT_PRINT_PDF_DETAILLE &&  bs.getSoc_id().equals("10"))    return      doPrintFactureSPL();
 		          
-		          if (i$_ACT_IMPRIMER_EXPORT_KB &&  bs.getSoc_id().equals("6"))      return      doPrintExportManchaKobbi();
+		          if (i$_ACT_PRINT_PDF_DETAILLE && !bs.getSoc_id().equals("6") && !bs.getSoc_id().equals("10") )     return      doPrintPDF_detaille();
+		          if (i$_ACT_IMPRIMER_EXPORT_KB &&  bs.getSoc_id().equals("6"))     return      doPrintExportManchaKobbi();
 		          
 		          
 

@@ -488,7 +488,7 @@ public class GeneratePdf extends  GenericWeb {
         if(bs.getSociete().getMyFile()!=null) {
         	 companyLogo = Image.getInstance(bs.getSociete().getMyFile().getFile_byte());
         }else {
-        	companyLogo = Image.getInstance(absoluteDiskPath);
+        	 companyLogo = Image.getInstance(absoluteDiskPath);
         }
         	
          

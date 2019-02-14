@@ -281,7 +281,7 @@ public class ProcessFormatNbr  extends GenericWeb  {
 	public static String  convertNumberToLetterDT(double number) throws Exception{ 
 		String s="";
 		try {
-			String ma_lettre = Nombre.CALCULATE.getValue(number,"euro");
+			String ma_lettre = Nombre.CALCULATE.getValue(number,"dinars");
 			System.out.println(ma_lettre);	
 			s = ma_lettre;
 			s = Character.toUpperCase(s.charAt(0)) + s.substring(1);

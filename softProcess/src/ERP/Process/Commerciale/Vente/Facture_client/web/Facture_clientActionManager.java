@@ -976,6 +976,16 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		}
 		return null;
 	}
+	
+	public ModelAndView doPrintFactureSPL() throws Exception {
+		PrintPdfModelSPL print = new PrintPdfModelSPL();
+		try {
+			print.doPrintPDF_detaille();
+		} catch (Exception e) {
+			displayException(e);
+		}
+		return null;
+	}
 	 
 	
 	public ModelAndView doPrintExportManchaKobbi() throws Exception {

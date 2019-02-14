@@ -74,34 +74,6 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 	public PrintPdfModeleKobbi() {
 		super();
 	}
-//	
-//	ALTER TABLE vente.client
-//	  ADD COLUMN clt_exonorer boolean DEFAULT false;
-//	  ALTER TABLE vente.deriver_operation_vente
-//	  RENAME TO deriver_det_op_vente;
-//	  
-//	CREATE TABLE vente.deriver_det_fact_vente(
-//	  drv_det_fact_id serial NOT NULL,
-//	  ar_id character varying(15) NOT NULL,
-//	  code_barre character varying(250) NOT NULL,
-//	  etab_id character varying(15) NOT NULL,
-//	  soc_id character varying(15) NOT NULL,
-//	  quantite double precision,
-//	  tarif_unit_vente character varying(50),
-//	  date_cre date,
-//	  usr_cre character varying(5),
-//	  date_mod date,
-//	  usr_mod character varying(5),
-//	  montant_tva_vente double precision,
-//	  montant_ht_vente double precision,
-//	  drv_coef double precision,
-//	  drv_oper character varying(1),
-//	  CONSTRAINT "pk -deriver_det_fact_vente" PRIMARY KEY (drv_det_fact_id),
-//	  CONSTRAINT fk_code_barre_det_operation_vente FOREIGN KEY (code_barre, ar_id, etab_id, soc_id)
-//	      REFERENCES gestioncommerciale.code_barre (code_barre, ar_id, etab_id, soc_id) MATCH SIMPLE
-//	      ON UPDATE NO ACTION ON DELETE NO ACTION
-	
-	
 	
 	public void printfacture( ) throws Exception{
 		
@@ -555,7 +527,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 	        PdfPTable tableheader = new PdfPTable(100);
 	        PdfPCell cellheder;
 	        tableheader.setWidthPercentage(100);
-	        Image companyLogo = Image.getInstance("c:/images/sigle_ibs.jpg");
+	        Image companyLogo = Image.getInstance(bs.getSociete().getMyFile().getFile_byte());
 			companyLogo.scalePercent(50);
 			cellheder = new PdfPCell(); 
 			cellheder.setBorder(3);

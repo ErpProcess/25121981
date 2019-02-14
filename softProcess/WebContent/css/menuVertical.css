@@ -78,7 +78,6 @@
 	border-bottom: 1px solid #1a638f;
 }
 .menu > li > a:before {
-	content: '';
 	background-image: url(images/sprite.png);
 	background-repeat: no-repeat;
 	font-size: 36px;
@@ -113,8 +112,8 @@
 	background: #48515c;
 	line-height: 1em;
 	height: 1em;
-	padding: .4em .6em;
-	margin: -.8em 0 0 0; 
+	padding: .1em .6em;
+	margin: -.1em 0 0 0; 
 	color: #fff;
 	text-indent: 0;
 	text-align: center;
@@ -131,7 +130,6 @@
 	background: #2173a1;
 }
 .menu > li > ul li a:before{
- content: '•';
 	font-size: 14px;
 	color: #bcbcbf;
 	position: absolute;
@@ -156,8 +154,8 @@
 	border: 1px solid #d0d0d3;
 	line-height: 1em;
 	height: 1em;
-	padding: .4em .7em;
-	margin: -.9em 0 0 0; 
+	padding: .1em .7em;
+	margin: -.1em 0 0 0; 
 	color: #878d95;
 	text-indent: 0;
 	text-align: center;
