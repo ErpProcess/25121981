@@ -720,40 +720,45 @@ function migaXWXXWW(dssss) {
 <!-- ******************************************************* Panel Gauche**********************************************************************************-->
 
 
-    <ext:panel region="west"      margins="0 0 15 3"  autoScroll="yes"   border="true"    width="150"   collapsible="true"  
-	  title=" ProcessERP Explorer"   id="hyuE"       split="true"   collapseMode="true"   hideCollapseTool="false"
+    <ext:panel region="west"      margins="0 0 5 3"  autoScroll="yes"   border="true"    width="130"   collapsible="true"  
+	  title="Explorer"   id="hyuE"       split="true"   collapseMode="true"   hideCollapseTool="false"
 	  plugins="[Ext.ux.PanelCollapsedTitle]">
 	  
         <div  class="x-toolbar"  style="height: 1400px;"  > 
         <form  id="myhrefaction"   method="post"   > 
           <input  name="HiddenAction"  id="HiddenAction"  value="i$_ACT_LOAD_Mod_SM"   type="hidden" > 
           <input  name="data_for_module"  id="data_for_module"  value=""   type="hidden" >   
-		  <div id="wrapper"  style="width: 100%;" > 
-			  <ul class="menu">
+		  <div id="wrapper"  > 
+<!-- 			  <ul class="menu"    > -->
 			          <c:forEach var="packbean"  varStatus="outer" items="${listPackgeSousPack}"    >
-					      <c:choose>
-						      <c:when test="${not empty packbean.racourci_soupack}">
-						        <li class="item${outer.index}"   onclick="getModules('${packbean.racourci_soupack}','${packbean.pack_id}');"    ><a href='#'   style="text-decoration: none;"> <c:out value="${packbean.pack_libelle}"/>   </a> 
-							   <ul> 
+<%-- 					      <c:choose> --%>
+<%-- 						      <c:when test="${not empty packbean.racourci_soupack}"> --%>
+<%-- 						        <li class="item${outer.index}"  onclick="getModules('${packbean.racourci_soupack}','${packbean.pack_id}');" > --%>
+						        
+<!-- 						        <a href='#'   style="text-decoration: none;"> -->
+<%-- 						       <c:out value="${packbean.pack_libelle}"/>   --%>
+						         
+<!-- 						           </a>  -->
+<!-- 							   <ul>  -->
 							  
-					          </ul> 
-					          </li> 
-						      </c:when>
-						    <c:otherwise>
-						        <li class="item${outer.index}"><a href='#' style="text-decoration: none;" > <c:out value="${packbean.pack_libelle}"/>   </a> 
-							   <ul> 
+<!-- 					          </ul>  -->
+<!-- 					          </li>  -->
+<%-- 						      </c:when> --%>
+<%-- 						    <c:otherwise> --%>
+<%-- 						        <li class="item${outer.index}"><a href='#' style="text-decoration: none;" > <c:out value="${packbean.pack_libelle}"/>   </a>  --%>
+							   <ul  class="menu"   >   <!-- <ul   >   -->
 							   <c:forEach  var="sousPackbean"  varStatus="souterX" items="${packbean.list_sous_mod}" >
-							      <li class="subitem${souterX.index}"  onclick="getModules(${sousPackbean.spack_id},'${packbean.pack_id}');" style="cursor: pointer;"  >
+							      <li class="item${souterX.index}"  onclick="getModules(${sousPackbean.spack_id},'${packbean.pack_id}');" style="cursor: pointer;"  >
 							      <a  name="" style="text-decoration: none;" >
 							       <c:out value="${sousPackbean.spack_libelle}"/>  </a>
 							       </li>
 							 </c:forEach> 
 					          </ul> 
-					          </li> 
-						    </c:otherwise>
-						</c:choose>
+<!-- 					          </li>  -->
+<%-- 						    </c:otherwise> --%>
+<%-- 						</c:choose> --%>
 			         </c:forEach>
-			   </ul>
+<!-- 			   </ul> -->
 	      </div>
       </form>
    </div>

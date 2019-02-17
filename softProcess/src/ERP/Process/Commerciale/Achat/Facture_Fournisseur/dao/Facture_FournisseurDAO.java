@@ -58,17 +58,15 @@ public class Facture_FournisseurDAO extends  GenericWeb    {
 		try{
 			
 		    String requette=" select  bean   FROM    Facture_FournisseurBean    bean    WHERE     1=1       ";
+		    
 		    if( !StringUtils.isEmpty(beanSearch.getFact_frs_id()) )  
-			    requette+="   AND   bean.fact_frs_id = '"+beanSearch.getFact_frs_id()+"'        ";    
+			    requette+="   AND   bean.fact_frs_id = '"+beanSearch.getFact_frs_id()+"'        ";   
+		    
 		 if( !StringUtils.isEmpty(beanSearch.getFrs().getFrs_id()) )  
 			    requette+="   AND   bean.frs.frs_id = '"+beanSearch.getFrs().getFrs_id()+"'        ";    
 		 
 		 if(  beanSearch.getTypefact().getType_fact_id() !=null )  
 			    requette+="   AND   bean.typefact.type_fact_id =  "+beanSearch.getTypefact().getType_fact_id()+"       ";
-		 
-	 
-		 
-		 
 		 
 		 if (beanSearch.getFact_date() != null) 
 		    	requette += "   AND  bean.fact_date >= '"+ProcessDate.getStringFormatDate(beanSearch.getFact_date())+"'        ";

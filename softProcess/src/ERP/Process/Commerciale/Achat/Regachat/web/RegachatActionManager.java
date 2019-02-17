@@ -174,7 +174,7 @@ public class RegachatActionManager extends RegachatTemplate {
 				setObjectValueModel(ACT_FETCH_AJAX_GLOBAL, "i$_ACT_FETCH_AJAX_FACT");
 				 
 				
-			    searchBean.setCondition_select_mode("   bean.etat_reg.data_id='fnon'  AND    bean.typefact.type_fact_id in ('1','3')    ");
+			    searchBean.setCondition_select_mode("  AND   bean.etat_reg.data_id='fnon'  AND    bean.typefact.type_fact_id in ('1','3')    ");
 			    
 			    
 			    
