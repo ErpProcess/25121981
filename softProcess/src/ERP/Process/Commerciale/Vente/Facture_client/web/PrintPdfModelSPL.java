@@ -65,7 +65,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	        String affich_mont =ProcessFormatNbr.convertNumberToLetterDT( reBean.getTotal_facture() );
 	        
 	        PdfPTable tabletitle = new PdfPTable(100);
-		    PdfPCell cell = new PdfPCell(new Phrase("",GeneratePdf.FONT_12_normal));
+		    PdfPCell cell = new PdfPCell(new Phrase("",GeneratePdf.Normal_10_times_roman));
 	        cell.setColspan(100);
 	        cell.setFixedHeight(10f);
 	        cell.setVerticalAlignment(Element.ALIGN_LEFT);
@@ -89,7 +89,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	        tabletitle.addCell(cell);
 	        
 	        
-	        cell = new PdfPCell(new Phrase("",GeneratePdf.FONT_12_normal));
+	        cell = new PdfPCell(new Phrase("",GeneratePdf.Normal_10_times_roman));
 	        cell.setColspan(100);
 	        cell.setFixedHeight(10f);
 	        cell.setVerticalAlignment(Element.ALIGN_LEFT);
@@ -146,10 +146,10 @@ public class PrintPdfModelSPL   extends GenericWeb  {
         }
         	
          
-		companyLogo.scalePercent(50); 
+		companyLogo.scalePercent(60); 
 		cellheder = new PdfPCell(); 
 		cellheder.setBorder(3);
-		cellheder.addElement(new Chunk(companyLogo, 10, -50));
+		cellheder.addElement(new Chunk(companyLogo, 10, -66));
 		cellheder.setPaddingRight(50f);
 		cellheder.setColspan(10);
 		cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -171,7 +171,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cellheder.setPaddingLeft(28f);
 	    cellheder.setPaddingBottom(5f);
-	    cellheder.setPaddingTop(15f);
+	    cellheder.setPaddingTop(31f);
 	    cellheder.setBorder(cellheder.NO_BORDER);
 	    tableheader.addCell(cellheder);
 	    
@@ -206,7 +206,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 		tableTopHeader.setWidthPercentage(96);
 		 
 		    
-		PdfPCell cell = new PdfPCell(new Phrase(" Facture N° ",GeneratePdf.FONT_12_bold));
+		PdfPCell cell = new PdfPCell(new Phrase(" Facture N° ",GeneratePdf.Bold_10_times_roman));
 	    cell.setColspan(13);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -214,7 +214,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    cell.setBorder(cell.NO_BORDER);
 	    tableTopHeader.addCell(cell);
 	    
-	    cell = new PdfPCell(new Phrase(" : "+denBean.getFact_clt_id(),GeneratePdf.FONT_12_normal));
+	    cell = new PdfPCell(new Phrase(" : "+denBean.getFact_clt_id(),GeneratePdf.Bold_10_times_roman));
 	    cell.setColspan(27);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -222,7 +222,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    tableTopHeader.addCell(cell);
 	    
 	    
-	    cell = new PdfPCell(new Phrase(" Client ",GeneratePdf.FONT_12_bold));
+	    cell = new PdfPCell(new Phrase(" Client ",GeneratePdf.Bold_10_times_roman));
 	    cell.setColspan(18);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -230,7 +230,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    tableTopHeader.addCell(cell);
 	    
 	    
-	    cell = new PdfPCell(new Phrase(" : "+denBean.getClient().getClt_lib() ,GeneratePdf.FONT_12_normal));
+	    cell = new PdfPCell(new Phrase(" : "+denBean.getClient().getClt_lib() ,GeneratePdf.Normal_10_times_roman));
 	    cell.setColspan(42);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -240,14 +240,14 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	     
 	    
 	    
-	    cell = new PdfPCell(new Phrase(" Date ",GeneratePdf.FONT_12_bold));
+	    cell = new PdfPCell(new Phrase(" Date ",GeneratePdf.Bold_10_times_roman));
 	    cell.setColspan(13);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cell.setBorder(cell.NO_BORDER);
 	    tableTopHeader.addCell(cell);
 	    
-	    cell = new PdfPCell(new Phrase(  " : "+ProcessDate.getCurrentTimeStamp(denBean.getFact_date()) ,GeneratePdf.FONT_12_normal));
+	    cell = new PdfPCell(new Phrase(  " : "+ProcessDate.getCurrentTimeStamp(denBean.getFact_date()) ,GeneratePdf.Normal_10_times_roman));
 	    cell.setColspan(27);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -256,14 +256,14 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    
 	    
 	    
-	    cell = new PdfPCell(new Phrase(" Adresse ",GeneratePdf.FONT_12_bold));
+	    cell = new PdfPCell(new Phrase(" Adresse ",GeneratePdf.Bold_10_times_roman));
 	    cell.setColspan(18);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cell.setBorder(cell.LEFT);
 	    tableTopHeader.addCell(cell);
 	    
-	    cell = new PdfPCell(new Phrase( " : "+denBean.getClient().getClt_adr() ,GeneratePdf.FONT_12_normal));
+	    cell = new PdfPCell(new Phrase( " : "+denBean.getClient().getClt_adr() ,GeneratePdf.Normal_10_times_roman));
 	    cell.setColspan(42);
 	    cell.setFixedHeight(40f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -272,14 +272,14 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    
 	    
 	    
-	    cell = new PdfPCell(new Phrase("   ",GeneratePdf.FONT_12_bold));
+	    cell = new PdfPCell(new Phrase("   ",GeneratePdf.Bold_10_times_roman));
 	    cell.setColspan(12);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cell.setBorder(cell.NO_BORDER);
 	    tableTopHeader.addCell(cell);
 	    
-	    cell = new PdfPCell(new Phrase(  "   " ,GeneratePdf.FONT_12_normal));
+	    cell = new PdfPCell(new Phrase(  "   " ,GeneratePdf.Normal_10_times_roman));
 	    cell.setColspan(28);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -288,21 +288,21 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    
 	    
 	    
-	    cell = new PdfPCell(new Phrase(" Matricule fiscal ",GeneratePdf.FONT_12_bold));
+	    cell = new PdfPCell(new Phrase(" Matricule fiscal ",GeneratePdf.Bold_10_times_roman));
 	    cell.setColspan(18);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cell.setBorder(cell.LEFT+cell.BOTTOM);
 	    tableTopHeader.addCell(cell);
 	    
-	    cell = new PdfPCell(new Phrase( " : "+denBean.getClient().getClt_obs() ,GeneratePdf.FONT_12_normal));
+	    cell = new PdfPCell(new Phrase( " : "+denBean.getClient().getClt_obs() ,GeneratePdf.Normal_10_times_roman));
 	    cell.setColspan(42);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cell.setBorder(cell.RIGHT +cell.BOTTOM);
 	    tableTopHeader.addCell(cell);
 	    
-	    cell = new PdfPCell(new Phrase( "  "  ,GeneratePdf.FONT_12_normal));
+	    cell = new PdfPCell(new Phrase( "  "  ,GeneratePdf.Normal_10_times_roman));
 	    cell.setColspan(100);
 	    cell.setFixedHeight(10f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -352,7 +352,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 		    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		    cell.setPaddingBottom(PaddingBottom);
 		    cell.setBackgroundColor(GeneratePdf.colorHeader);
-		    cell.setBorderWidth(1f);
+		    
 		    table.addCell(cell);
 		}
       document.add(table);
@@ -386,8 +386,6 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 				        	cell = new PdfPCell(new Phrase(String.valueOf(obj),GeneratePdf.REDFONT));
 					        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					        cell.setPaddingBottom(5);
-					        cell.setBorderWidth(0.1f);
-					        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 					        cell.setBackgroundColor(BaseColor.WHITE);
 					        if(i%2==0)
 					        cell.setBackgroundColor(GeneratePdf.colorLigne);
@@ -399,8 +397,6 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 				        	cell = new PdfPCell(new Phrase(ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(elm,pattern),GeneratePdf.REDFONT));
 					        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 					        cell.setPaddingBottom(5);
-					        cell.setBorderWidth(0.1f);
-					        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 					        cell.setBackgroundColor(BaseColor.WHITE);
 					        if(i%2==0)
 					        cell.setBackgroundColor(GeneratePdf.colorLigne);
@@ -409,8 +405,6 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 				        	cell = new PdfPCell(new Phrase(String.valueOf(obj),GeneratePdf.REDFONT));
 					        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 					        cell.setPaddingBottom(5);
-					        cell.setBorderWidth(0.1f);
-					        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 					        cell.setBackgroundColor(BaseColor.WHITE);
 					        if(i%2==0)
 					        cell.setBackgroundColor(GeneratePdf.colorLigne);
@@ -431,9 +425,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 		            PdfPCell cell = new PdfPCell(new Phrase("",GeneratePdf.REDFONT));
 			        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 			        cell.setPaddingBottom(5);
-			        cell.setBorderWidth(0.1f);
 			        cell.setFixedHeight(toul_contenu_tab);
-			        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 			        cell.setBackgroundColor(BaseColor.WHITE);
 			        cell.setBorder(cell.LEFT+cell.RIGHT);
 		            table.addCell(cell);
@@ -445,7 +437,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	tableTopHeader.setWidthPercentage(96);
 	 
 	    
-	PdfPCell cell = new PdfPCell(new Phrase("Facture Pro Forma N°",GeneratePdf.FONT_12_bold));
+	PdfPCell cell = new PdfPCell(new Phrase("Facture Pro Forma N°",GeneratePdf.Bold_10_times_roman));
     cell.setColspan(24);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -453,7 +445,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
     cell.setBorder(cell.NO_BORDER);
     tableTopHeader.addCell(cell);
     
-    cell = new PdfPCell(new Phrase(" : "+denBean.getCmd_id(),GeneratePdf.FONT_12_normal));
+    cell = new PdfPCell(new Phrase(" : "+denBean.getCmd_id(),GeneratePdf.Normal_10_times_roman));
     cell.setColspan(23);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -461,7 +453,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
     tableTopHeader.addCell(cell);
     
     
-    cell = new PdfPCell(new Phrase(" Client ",GeneratePdf.FONT_12_bold));
+    cell = new PdfPCell(new Phrase(" Client ",GeneratePdf.Bold_10_times_roman));
     cell.setColspan(13);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -469,7 +461,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
     tableTopHeader.addCell(cell);
     
     String getClient=denBean.getCmd_libelle().equals("")?denBean.getClient().getClt_lib():denBean.getCmd_libelle();
-    cell = new PdfPCell(new Phrase(" : "+getClient ,GeneratePdf.FONT_12_normal));
+    cell = new PdfPCell(new Phrase(" : "+getClient ,GeneratePdf.Normal_10_times_roman));
     cell.setColspan(40);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -482,14 +474,14 @@ public class PrintPdfModelSPL   extends GenericWeb  {
      
     
     
-    cell = new PdfPCell(new Phrase("Date",GeneratePdf.FONT_12_bold));
+    cell = new PdfPCell(new Phrase("Date",GeneratePdf.Bold_10_times_roman));
     cell.setColspan(24);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
     cell.setBorder(cell.NO_BORDER);
     tableTopHeader.addCell(cell);
     
-    cell = new PdfPCell(new Phrase(  " : "+ProcessDate.getCurrentTimeStamp(denBean.getCmd_date()) ,GeneratePdf.FONT_12_normal));
+    cell = new PdfPCell(new Phrase(  " : "+ProcessDate.getCurrentTimeStamp(denBean.getCmd_date()) ,GeneratePdf.Normal_10_times_roman));
     cell.setColspan(23);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -498,14 +490,14 @@ public class PrintPdfModelSPL   extends GenericWeb  {
     
     
     
-    cell = new PdfPCell(new Phrase(" Adresse ",GeneratePdf.FONT_12_bold));
+    cell = new PdfPCell(new Phrase(" Adresse ",GeneratePdf.Bold_10_times_roman));
     cell.setColspan(13);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
     cell.setBorder(cell.LEFT);
     tableTopHeader.addCell(cell);
     
-    cell = new PdfPCell(new Phrase( " : "+denBean.getClient().getClt_adr() ,GeneratePdf.FONT_12_normal));
+    cell = new PdfPCell(new Phrase( " : "+denBean.getClient().getClt_adr() ,GeneratePdf.Normal_10_times_roman));
     cell.setColspan(40);
     cell.setFixedHeight(40f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -514,7 +506,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
     
     
     
-    cell = new PdfPCell(new Phrase("   ",GeneratePdf.FONT_12_bold));
+    cell = new PdfPCell(new Phrase("   ",GeneratePdf.Bold_10_times_roman));
     cell.setColspan(47);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -525,14 +517,14 @@ public class PrintPdfModelSPL   extends GenericWeb  {
     
     
     
-    cell = new PdfPCell(new Phrase(" Matricule fiscal :",GeneratePdf.FONT_12_bold));
+    cell = new PdfPCell(new Phrase(" Matricule fiscal :",GeneratePdf.Bold_10_times_roman));
     cell.setColspan(18);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
     cell.setBorder(cell.LEFT+cell.BOTTOM);
     tableTopHeader.addCell(cell);
     
-    cell = new PdfPCell(new Phrase( "   "+denBean.getClient().getClt_obs() ,GeneratePdf.FONT_12_normal));
+    cell = new PdfPCell(new Phrase( "   "+denBean.getClient().getClt_obs() ,GeneratePdf.Normal_10_times_roman));
     cell.setColspan(35);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -545,7 +537,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
     
     
     
-    cell = new PdfPCell(new Phrase("",GeneratePdf.FONT_12_normal));
+    cell = new PdfPCell(new Phrase("",GeneratePdf.Normal_10_times_roman));
     cell.setColspan(100);
     cell.setFixedHeight(30f);
     cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -571,35 +563,35 @@ public class PrintPdfModelSPL   extends GenericWeb  {
            
            
            /******************************************* Entete  tableau des tva *************************************/
-           PdfPCell cell = new PdfPCell(new Phrase( "" ,GeneratePdf.FONT_12_normal));
+           PdfPCell cell = new PdfPCell(new Phrase( "" ,GeneratePdf.Normal_10_times_roman));
            cell.setColspan(100);
            cell.setFixedHeight(10f);
            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
            cell.setBorder(cell.TOP);
            table_des_tva.addCell(cell);
            
-           cell = new PdfPCell(new Phrase("Taux",GeneratePdf.FONT_12_bold));
+           cell = new PdfPCell(new Phrase("Taux",GeneratePdf.Bold_10_times_roman));
            cell.setColspan(10);
           // cell.setFixedHeight(20f);
            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
            cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
            table_des_tva.addCell(cell);
            
-           cell = new PdfPCell(new Phrase("Base",GeneratePdf.FONT_12_bold));
+           cell = new PdfPCell(new Phrase("Base",GeneratePdf.Bold_10_times_roman));
            cell.setColspan(21);
            //cell.setFixedHeight(20f);
            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
            cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
            table_des_tva.addCell(cell);
            
-           cell = new PdfPCell(new Phrase("Montant",GeneratePdf.FONT_12_bold));
+           cell = new PdfPCell(new Phrase("Montant",GeneratePdf.Bold_10_times_roman));
            cell.setColspan(23);
            //cell.setFixedHeight(20f);
            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
            cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
            table_des_tva.addCell(cell);
            
-           cell = new PdfPCell(new Phrase( "" ,GeneratePdf.FONT_12_normal));
+           cell = new PdfPCell(new Phrase( "" ,GeneratePdf.Normal_10_times_roman));
            cell.setColspan(49);
            //cell.setFixedHeight(20f);
            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -621,28 +613,28 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 			   String elmme=  (String) mapTvaImpression.get(key);
 			   String[] ligne=   elmme.split("£");
 			
-			   cell = new PdfPCell(new Phrase(key,GeneratePdf.FONT_12_bold));
+			   cell = new PdfPCell(new Phrase(key,GeneratePdf.Bold_10_times_roman));
 	           cell.setColspan(10);
 	           //cell.setFixedHeight(20f);
 	           cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 	           cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
 	           table_des_tva.addCell(cell);
 	           
-	           cell = new PdfPCell(new Phrase(ligne[0],GeneratePdf.FONT_12_bold));
+	           cell = new PdfPCell(new Phrase(ligne[0],GeneratePdf.Bold_10_times_roman));
 	           cell.setColspan(21);
 	           //cell.setFixedHeight(20f);
 	           cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 	           cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
 	           table_des_tva.addCell(cell);
 	           
-	           cell = new PdfPCell(new Phrase(ligne[1],GeneratePdf.FONT_12_bold));
+	           cell = new PdfPCell(new Phrase(ligne[1],GeneratePdf.Bold_10_times_roman));
 	           cell.setColspan(23);
 	           //cell.setFixedHeight(20f);
 	           cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 	           cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
 	           table_des_tva.addCell(cell);
 	           
-	           cell = new PdfPCell(new Phrase( "" ,GeneratePdf.FONT_12_normal));
+	           cell = new PdfPCell(new Phrase( "" ,GeneratePdf.Normal_10_times_roman));
 	           cell.setColspan(49);
 	           //cell.setFixedHeight(20f);
 	           cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -674,7 +666,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
         	    String titre = rec.getString("value1"); 
         	    String value = rec.getString("value2");
         	    
-        	    cell = new PdfPCell(new Phrase("",GeneratePdf.FONT_12_bold));
+        	    cell = new PdfPCell(new Phrase("",GeneratePdf.Bold_10_times_roman));
                 cell.setColspan(55);
                 cell.setFixedHeight(17f);
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -682,14 +674,14 @@ public class PrintPdfModelSPL   extends GenericWeb  {
                 table_total.addCell(cell);
                 
                 
-                cell = new PdfPCell(new Phrase(titre,GeneratePdf.FONT_12_bold));
+                cell = new PdfPCell(new Phrase(titre,GeneratePdf.Bold_10_times_roman));
                 cell.setColspan(18);
                 cell.setFixedHeight(17f);
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
                 table_total.addCell(cell);
                 
-                cell = new PdfPCell(new Phrase(value ,GeneratePdf.FONT_12_normal));
+                cell = new PdfPCell(new Phrase(value ,GeneratePdf.Normal_10_times_roman));
                 cell.setColspan(27);
                 cell.setFixedHeight(17f);
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);

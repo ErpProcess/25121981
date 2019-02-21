@@ -41,7 +41,7 @@ public static String LIST_DES_TVA       = "list_des_tva_facture";
 public static String  LIST_CPT_BANK  = "list_cpt_bank_fact";
 public static String  LIST_MODE_REGLMENT   = "list_mode_reglment_facture";
 
-public static String [][] MapfieldBean  = new String[][]{{ "fact_clt_id", "30" },{ "client.clt_id", "30" },{ "client.clt_lib", "30" },{ "fact_date", "30" },{ "fact_date_edition", "30" }};
+public static String [][] MapfieldBean  = new String[][]{  { "fact_date", "15" } , { "fact_clt_id", "20" } ,{ "client.clt_lib", "30" },{ "total_facture", "30" },{ "etat_reg.data_libelle", "30" }};
 
 public static String [][] MapfieldBean_detaille  = 
 	new String[][]{

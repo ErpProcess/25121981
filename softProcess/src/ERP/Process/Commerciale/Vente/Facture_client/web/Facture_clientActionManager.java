@@ -24,6 +24,7 @@ import ERP.Process.Commerciale.Stock.DepotStockage.model.DepotStockageBean;
 import ERP.Process.Commerciale.Stock.DepotStockage.service.DepotStockageService;
 import ERP.Process.Commerciale.Vente.Client.dao.ClientDAO;
 import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
+import ERP.Process.Commerciale.Vente.Client.template.ClientTemplate;
 import ERP.Process.Commerciale.Vente.Commandeclient.model.CommandeclientBean;
 import ERP.Process.Commerciale.Vente.Commandeclient.model.DetCmdCltBean;
 import ERP.Process.Commerciale.Vente.Commandeclient.template.CommandeclientTemplate;
@@ -133,6 +134,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			doLoadingLibelleOtherSModule(CommandeclientTemplate.ID_SOUS_MODULE);
 			doLoadingLibelleOtherSModule(ID_SOUS_MODULE);
 			doLoadingLibelleOtherSModule(ID_SOUS_MODULE_AVOIR);
+			 
 			
 			 setObjectValueModel(LIST_DEPOT_STOCK , serviceDepotStockage.doFetchDatafromServer(DepotStockageBean.class.newInstance()));
 			 List list_client_d= daoClient.doFindListClient(ClientBean.class.newInstance());

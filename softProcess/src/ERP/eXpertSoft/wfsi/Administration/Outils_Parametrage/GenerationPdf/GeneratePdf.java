@@ -94,8 +94,8 @@ public class GeneratePdf extends  GenericWeb {
 	 public static final Font FONT_12_normal = new Font(Font.getFamily("TIMES_ROMAN"), 12, Font.NORMAL);
 	  
 	 /** Times Roman 12 Bold */
-	 public static final Font REDFONT = new Font(Font.getFamily("TIMES_ROMAN"), 12, Font.NORMAL);
-	 public static final Font SMALLBOLD = new Font(Font.getFamily("TIMES_ROMAN"), 12, Font.BOLD);
+	 public static final Font REDFONT = new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.NORMAL);
+	 public static final Font SMALLBOLD = new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.BOLD);
 	
 	 
 	 public static   BaseColor colorLigne = WebColors.getRGBColor("#f8fcfc");
@@ -137,11 +137,9 @@ public class GeneratePdf extends  GenericWeb {
 		   try {
 		        Document document = new Document(PageSize.A4.rotate(), 5, 5, 20, 40);
 		        PdfPTable table = new PdfPTable(mapFieldBean.length);
-		        String    title =(String)getObjectValueModel(LIST_PDF_EXCEL) ;
+		        String    title= (String)getObjectValueModel("list-"+bSession.getSousmod_id()) ; 
 		        if(title==null)
 		             title =(String)getObjectValueModel("list-"+bSession.getSousmod_libelle()) ;
-		        if(title==null)
-		           title= (String)getObjectValueModel("list-"+bSession.getSousmod_id()) ; 
 		        if(title==null)title="";
 			    doWriteHeaderDocument_PDF(document,fs,mapFieldBean,bSession);
 			    if(map_critere_de_recherche!=null && map_critere_de_recherche.length>0)
@@ -174,7 +172,7 @@ public class GeneratePdf extends  GenericWeb {
 					        cell = new PdfPCell(new Phrase(String.valueOf(obj),REDFONT));
 					        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 					        cell.setPaddingBottom(5);
-					        cell.setBorderWidth(0.1f);
+					        
 					        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 					        cell.setBackgroundColor(BaseColor.WHITE);
 					        if(i%2==0)
@@ -195,18 +193,12 @@ public class GeneratePdf extends  GenericWeb {
 			String[][] mapFieldBean) throws Exception, SecurityException {
 		  for(int i=0; i < lisData.size(); i++ ){
 			   Object bean = (Object) lisData.get(i);
-			    
 			 for(int j = 0; j < mapFieldBean.length; j++){
-				 
 				        PdfPCell cell = new PdfPCell(new Phrase("",REDFONT));
-				 
 				        Object obj=	 GenericWeb.getValueOject_with_name_field(bean, mapFieldBean[j][0]);
 				        cell = new PdfPCell(new Phrase(String.valueOf(obj),REDFONT));
-				        
 				        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 				        cell.setPaddingBottom(5);
-				        cell.setBorderWidth(0.1f);
-				        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 				        cell.setBackgroundColor(BaseColor.WHITE);
 				        if(i%2==0)
 				        cell.setBackgroundColor(colorLigne);
@@ -236,6 +228,8 @@ public class GeneratePdf extends  GenericWeb {
 					 final String[] lesColunmooo = mapFieldBean[i][0].split("\\.");
 					 String getel=lesColunmooo[lesColunmooo.length-1];
 					 titrehead=(String) getObjectValueModel(getel);
+					 if(titrehead==null)  titrehead=(String) getObjectValueModel(mapFieldBean[i][0]);
+					 if(titrehead==null)  titrehead="";
         	     }else{
         	    	 titrehead=(String) getObjectValueModel(mapFieldBean[i][0]);
         	     } 
@@ -245,7 +239,6 @@ public class GeneratePdf extends  GenericWeb {
 			    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			    cell.setPaddingBottom(PaddingBottom);
 			    cell.setBackgroundColor(colorHeader);
-			    cell.setBorderWidth(1f);
 			    table.addCell(cell);
 			}
 		
@@ -288,7 +281,7 @@ public class GeneratePdf extends  GenericWeb {
 
 	public void doWriteTitle_Table(Document document, String title) throws Exception {
 		    PdfPTable tabletitle = new PdfPTable(100);
-		    PdfPCell cell = new PdfPCell(new Phrase(title,TIMES_ROMAN_14_BOLD));
+		    PdfPCell cell = new PdfPCell(new Phrase(title,   Bold_10_times_roman));
 	        cell.setColspan(100);
 	        cell.setFixedHeight(50f);
 	        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -717,7 +710,7 @@ public class GeneratePdf extends  GenericWeb {
 						       cell = new PdfPCell(new Phrase(  (String)field.get(bean),REDFONT));
 						        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 						        cell.setPaddingBottom(widthval);
-						        cell.setBorderWidth(0.1f);
+						        
 						        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 						        cell.setBackgroundColor(BaseColor.WHITE);
 						        if(i%2==0)
