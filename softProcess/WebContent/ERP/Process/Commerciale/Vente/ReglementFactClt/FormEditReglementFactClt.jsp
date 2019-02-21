@@ -280,19 +280,13 @@ function FnLoadSelectAjax(objeJson){
            Ext.get('RET_GRID').show();
            loadGridEcheance();
            }  
-     
-          
-           
+
            }
-           
-        
-       
-        
           $(function() {  loadSelectAjax("reg_modXX","list_mode_reglment","mod_id","mod_libelle","${detailBean.modReg.mod_id}",true);  })</script>
         <select    id="reg_modXX"  name="modReg.mod_id"     required     style="width: 180px;"      nextelement="num_piece"        ></select>
            
            
-        </select></td>
+         </td>
         <td  >${num_piece}</td>
         <td  ><input id="num_piece" name="num_piece"     type="text"    size="20"       maxlength="30"        value="${detailBean.num_piece}"    nextelement="reg_nature" /></td>
       </tr>

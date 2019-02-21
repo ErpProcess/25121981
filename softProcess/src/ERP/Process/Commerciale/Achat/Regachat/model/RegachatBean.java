@@ -2,6 +2,7 @@ package ERP.Process.Commerciale.Achat.Regachat.model;
 import java.sql.Time;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import ERP.Process.Commerciale.Achat.Facture_Fournisseur.model.Facture_FournisseurBean;
 import ERP.Process.Commerciale.Entite_etat_commerciale.model.Entite_etat_commercialeBean;
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.model.ModeReglementBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
@@ -23,10 +25,6 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean
 @Table(name = "reglement_fact_frs", schema = "achat") 
 public class  RegachatBean   extends  GenericBean {
  
-  
- 
- 
-	private static final long serialVersionUID = 660551893906458053L;
 
 	@Id
 	@Column
@@ -38,9 +36,9 @@ public class  RegachatBean   extends  GenericBean {
 
  
 	
-	@ManyToOne
-	@JoinColumn(name = "reg_mod", insertable = true, updatable = true)
-	private Entite_etat_commercialeBean mode = new Entite_etat_commercialeBean();
+	@ManyToOne(cascade = CascadeType.PERSIST) 
+	@JoinColumn(name = "mod_reg_id", insertable = true, updatable = true)
+	private ModeReglementBean   modReg = new ModeReglementBean();
 	
 	
 	@ManyToOne
@@ -73,6 +71,72 @@ public class  RegachatBean   extends  GenericBean {
 	@Transient
 	private String pieceNumHeader;
 	
+	@Transient
+	private Double echeanMontant;
+	
+	
+	@Transient
+	private  String condition_mode="";
+	
+	
+	@Transient
+	private  String select_avoir="";
+	
+	
+	@Column
+	private Date reg_date;
+	
+	@Column
+	private Integer reg_nbr_echeance;
+	
+	@Column
+	private Double montant_facture;
+	
+	@Column
+	private Double montant_avance;
+	
+	@Column
+	private Double montant_recu;
+	
+	@Column
+	private Double montant_restant;
+
+	@Column
+	private java.sql.Date date_cre;
+	
+	@Column
+	private String usr_cre = "";
+	
+	@Column
+	private java.sql.Date date_mod;
+	
+	@Column
+	private String usr_mod = "";
+	
+	@ManyToOne
+	@JoinColumn(name = "mode_op", insertable = true, updatable = true)
+	private FonctionBean modeBean = new FonctionBean();
+	
+
+	@ManyToOne
+	@JoinColumns( {
+			@JoinColumn(name = "etab_id", insertable = true, updatable = true, referencedColumnName = "etab_id"),
+			@JoinColumn(name = "soc_id", insertable = true, updatable = true, referencedColumnName = "soc_id"), })
+	private EtablissementBean fk_etab_Bean = new EtablissementBean();
+
+	@Column
+	private Time time_cre  ;
+	
+	@Column
+	private Time time_mod  ;
+	
+	
+	@Column
+	private String num_piece = "";
+	 
+	
+
+	
 	public Date getEcheanDate() {
 		return echeanDate;
 	}
@@ -103,61 +167,7 @@ public class  RegachatBean   extends  GenericBean {
 	public void setEcheanMontant(Double echeanMontant) {
 		this.echeanMontant = echeanMontant;
 	}
-	@Transient
-	private Double echeanMontant;
-	
-	
-	@Transient
-	private  String condition_mode="";
-	
-	
-	@Transient
-	private  String select_avoir="";
-	
-	
-	@Column
-	private Date reg_date;
-	@Column
-	private Integer reg_nbr_echeance;
-	@Column
-	private Double montant_facture;
-	@Column
-	private Double montant_avance;
-	@Column
-	private Double montant_restant;
 
-	@Column
-	private java.sql.Date date_cre;
-	@Column
-	private String usr_cre = "";
-	@Column
-	private java.sql.Date date_mod;
-	@Column
-	private String usr_mod = "";
-	@ManyToOne
-	@JoinColumn(name = "mode_op", insertable = true, updatable = true)
-	private FonctionBean modeBean = new FonctionBean();
-
-	@ManyToOne
-	@JoinColumns( {
-			@JoinColumn(name = "etab_id", insertable = true, updatable = true, referencedColumnName = "etab_id"),
-			@JoinColumn(name = "soc_id", insertable = true, updatable = true, referencedColumnName = "soc_id"), })
-	private EtablissementBean fk_etab_Bean = new EtablissementBean();
-
-	@Column
-	private Time time_cre  ;
-	@Column
-	private Time time_mod  ;
-	@Column
-	private String num_piece = "";
-	 
-	
-	
-	
-	
-	
-	
-	
 	public void setReg_frs_id (String  reg_frs_id) {
 		this.reg_frs_id = reg_frs_id;
 	}
@@ -228,12 +238,7 @@ public class  RegachatBean   extends  GenericBean {
 	public void setFact_frs(Facture_FournisseurBean fact_frs) {
 		this.fact_frs = fact_frs;
 	}
-	public Entite_etat_commercialeBean getMode() {
-		return mode;
-	}
-	public void setMode(Entite_etat_commercialeBean mode) {
-		this.mode = mode;
-	}
+	 
 	public Entite_etat_commercialeBean getReg_type() {
 		return reg_type;
 	}
@@ -293,6 +298,18 @@ public class  RegachatBean   extends  GenericBean {
 	}
 	public void setCondition_mode(String condition_mode) {
 		this.condition_mode = condition_mode;
+	}
+	public ModeReglementBean getModReg() {
+		return modReg;
+	}
+	public void setModReg(ModeReglementBean modReg) {
+		this.modReg = modReg;
+	}
+	public Double getMontant_recu() {
+		return montant_recu;
+	}
+	public void setMontant_recu(Double montant_recu) {
+		this.montant_recu = montant_recu;
 	}
 	 
 	 

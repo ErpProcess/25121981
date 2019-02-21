@@ -1,70 +1,9 @@
 <%@include file="/Aceuil/esProcess.jsp" %>
  <c:import url="${context_path}/dataGridSetting/EditabledataGridConfig.jsp"></c:import> 
 <script type="text/javascript">
-$(document).ready(function () { 
  
-	
-if( "${detailBean.fact_frs.devise.dev_id}"=="191"  ||  "${detailBean.fact_frs.devise.dev_id}"=="192"  ){
-		$(":input[type=montant3]").each(function (cnt, item) {
-			    $(item).removeClass( "money2" );  
-		        $(item).removeClass( "money_2" );   
-				var nbrX=2;
-				var ELTs=$(item).val();  
-				var text=ELTs; 
-				var regex = new RegExp(",", 'g');
-				text = text.replace(regex, '');
-				var SSSS  =Math.round(text * Math.pow(10,nbrX)) / Math.pow(10,nbrX);
-				var numS = new Number(SSSS);
-			    var fix = numS.toFixed(nbrX);
-				$(item).val(fix); 
-				$(item).addClass( "money_2" );
-				if($(item).val()=="0.000"  ||  $(item).val()=="0.00"   || $(item).val()=="0.0"  )
-				$(item).val("");
-		});
-		
-		   $('.dataTable tbody td input[type=montant3]').live('keypress', function(e) {
-			    var nbrvv=2;
-				var text=$(this).val();  
-				$(this).addClass( "money_2" );
-				if($(this).val()=="0.000"  ||  $(this).val()=="0.00"   || $(this).val()=="0.0"  )
-				$(this).val("");
-			});
+ 
 
-		}else{
-			   
-				$('.dataTable tbody td input[type=montant3]').live('keypress', function(e) {
-				    var nbrvv=3;
-					var text=$(this).val();  
-					$(this).addClass( "money2" );
-					if($(this).val()=="0.000"  ||  $(this).val()=="0.00"   || $(this).val()=="0.0"  )
-					$(this).val("");
-				});
-
-		        $(":input[type=montant3]").each(function (cnt, item) { 
-		        $(item).removeClass( "money2" );  
-		        $(item).removeClass( "money_2" ); 
-			    var nbrX=3;
-				var ELTs=$(item).val();  
-				var text=ELTs; 
-				var regex = new RegExp(",", 'g');
-				text = text.replace(regex, '');
-				var SSSS  =Math.round(text * Math.pow(10,nbrX)) / Math.pow(10,nbrX);
-				var numS = new Number(SSSS);
-			    var fix = numS.toFixed(nbrX);
-				$(item).val(fix); 
-				$(item).addClass( "money2" );
-				if($(item).val()=="0.000"  ||  $(item).val()=="0.00"   || $(item).val()=="0.0"  )
-				$(item).val("");
-		});
-
-		}
-	
-	
-	
-	});
- 
- 
- 
 				
 function control_de_liste(){
 var     retournX = doGenerate_methode_ajaxWithReturn('POST',urls_Generic_def+"?nameList=list_des_echeances",'i$_ACT_VERIF_LIST','text',false);
@@ -109,7 +48,7 @@ function doCheked_unCheked(element){
 	    res=element.checked==false?"":"checked";
 	    }
  
-  jQuery.ajax({ type: 'POST',  
+jQuery.ajax({ type: 'POST',  
 	               url: '${tmlx.urlAjax}', 
 	               data:'HiddenAction=i$_ACT_Cheked_unCheked&statucheked='+res,
 	               dataType: 'text', 
@@ -121,7 +60,7 @@ function doCheked_unCheked(element){
                  error: function (request, status, error) {
                          alert(request.responseText);
                   } 
-    });
+ });
 }   
 var lumsbean=[ 
 
@@ -154,7 +93,6 @@ var lumsbean=[
 	          
 	  ]; 
 mapEditableGen = {"otab":oTable,"table":"gridEcheance","list":"list_des_echeances","id_name":"indx_row","url":"${urlloadDataTableAjax}","action":"i$_ACT_LOAD_EDITABLE_TABLE_AJAX","mapCol":lumsbean};
-
 
 function loadGridEcheance(){
  height_tabbJQuey="auto";
@@ -212,45 +150,41 @@ function FnLoadSelectAjax(objeJson){
 }
 
 
-
-
  
 
  
 </script>
+
+
 <ext:body  >
   <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >
   
-   <ext:panel  border="false"    bodyStyle="background: none;"   id="headReg"  height="250"   >
+   <ext:panel  border="false"    bodyStyle="background: none;"       >
    
- 
+        <ext:toolbar         toolbarType="bbar"   > 
+        <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuiv()"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar>
         
     <table width="100%"  cellpadding="5" cellspacing="10" class="tableStyleContent"  id="tblData"     >
       <tr>
-        <td width="10%"><label>${fact_id}</label></td>
-        <td  width="30%"  >
-        <input id="fact_frs_id" name="fact_frs.fact_frs_id"    libre   readonly="readonly"   type="text"      size="20"       maxlength="20"   
-             value="${detailBean.fact_frs.fact_frs_id}"    nextElement="clt_id"              />    
-          
-         
-             
-                 </td>
+        <td width="10%"><label>${fact_frs_id}</label></td>
+        <td  width="30%"  ><input id="fact_frs_id" name="fact_frs.fact_frs_id"    libre   readonly="readonly"   type="text"      size="20"       maxlength="20"        value="${detailBean.fact_frs.fact_frs_id}"    nextElement="frs_id"              />        </td>
         <td    >${reg_id}</td>
-        <td    ><input id="reg_id" name="reg_id"   libre="libre" readonly="readonly"   type="text"    size="20"       maxlength="20"        value="${detailBean.reg_id}"    nextelement="fact_id"></td>
+        <td    ><input id="reg_frs_id" name="reg_frs_id"   libre="libre" readonly="readonly"   type="text"    size="20"       maxlength="20"        value="${detailBean.reg_frs_id}"    nextelement="fact_id"></td>
         <td    >${reg_date}</td>
         <td    >
-           <fmt:formatDate pattern="dd/MM/yyyy"  value="${detailBean.reg_date}"   var="dateforInput"/>   
+        <fmt:formatDate pattern="dd/MM/yyyy"  value="${detailBean.reg_date}"   var="dateforInput"/>   
         <input id="reg_date" name="reg_date"     type="datepicker"    size="13"       maxlength="13"        value="${dateforInput}"    nextelement="reg_nbr_echeance" /></td>
       </tr>
+     
       <tr>
         <td  ><label>${frs_id}</label></td>
-        <td  > <input id="clt_id"  name="factclient.client.clt_id"     libre   readonly="readonly"    type="text"    size="10"       maxlength="10"        value="${detailBean.fact_frs.frs.frs_id}"    nextElement="fact_date"     />
-               <input id="clt_lib" name="factclient.client.clt_lib"    libre   readonly="readonly"    type="text"    size="22"       maxlength="10"        value="${detailBean.fact_frs.frs.frsref}"    nextElement="fact_date"   />        </td>
+        <td  > <input id="frs_id"  name="fact_frs.frs.frs_id"     libre   readonly="readonly"    type="text"    size="10"       maxlength="10"        value="${detailBean.fact_frs.frs.frs_id}"    nextElement="fact_date"              />
+               <input id="frsref"  name="fact_frs.frs.frsref"     libre   readonly="readonly"    type="text"    size="22"       maxlength="10"        value="${detailBean.fact_frs.frs.frsref}"    nextElement="fact_date"              />        </td>
         <td  >${reg_mod}</td>
         <td  >
-           <script  >
-           
-           function convertStringToNumber(paramStringNbr){
+        <script>  
+        
+                     function convertStringToNumber(paramStringNbr){
 			if(paramStringNbr=="" ||  paramStringNbr=="NaN"  || paramStringNbr==null   || paramStringNbr==undefined    ) return 0;
 			var mntRetour = paramStringNbr.replace(/ /g, '');
 			return mntRetour;
@@ -282,46 +216,45 @@ function FnLoadSelectAjax(objeJson){
           
            
            }
-           
         
-       
         
-          $(function() {  loadSelectAjax("reg_modXX","list_mode_reglment","mod_id","mod_libelle","${detailBean.modReg.mod_id}",true);  })</script>
+        $(function() {  loadSelectAjax("reg_modXX","list_mode_reglment","mod_id","mod_libelle","${detailBean.modReg.mod_id}",true);  })</script>
         <select    id="reg_modXX"  name="modReg.mod_id"     required     style="width: 180px;"      nextelement="num_piece"        ></select>
-           
-           
-        </select></td>
+        
+       </td>
         <td  >${num_piece}</td>
         <td  ><input id="num_piece" name="num_piece"     type="text"    size="20"       maxlength="30"        value="${detailBean.num_piece}"    nextelement="reg_nature" /></td>
       </tr>
+      
+      
       <tr>
         <td  ><label>${fact_date}</label></td>
-        <td  ><fmt:formatDate pattern="dd/MM/yyyy"        value="${detailBean.factclient.fact_date}"      var="searchat_datefac"/>
-          <input id="fact_date" name="factclient.fact_date"     type="datepicker"    size="13"       maxlength="13"        value="${searchat_datefac}"    nextElement="fact_date_edition"              />        </td>
+        <td  ><fmt:formatDate pattern="dd/MM/yyyy"        value="${detailBean.fact_frs.fact_date}"      var="searchat_datefac"/>
+          <input id="fact_date" name="fact_frs.fact_date"     type="datepicker"    size="13"       maxlength="13"        value="${searchat_datefac}"    nextElement="fact_date_edition"              />        </td>
         <td  >${reg_nature}</td>
         <td  >
-        <script  >$(function() {  
-        loadSelectAjax("reg_nature","list_nature_reglement","data_id","data_libelle","${detailBean.nature.data_id}",true);  })</script>
-        <select  id="reg_nature" name="nature.data_id"     required="required"    onchange="getMontantRestant(this.value);"     style="width:180px;"      nextelement="reg_nbr_echeance" > </select> </td>
+        <script  >
+        $(function() {  loadSelectAjax("reg_nature","list_nature_reglement","data_id","data_libelle","${detailBean.nature.data_id}",false);  })</script>
+        <select  id="reg_nature" name="nature.data_id"      style="width:180px;"      nextelement="reg_nbr_echeance" > </select> </td>
         <td  ><label>${reg_nbr_echeance}</label></td>
         <td  ><input id="reg_nbr_echeance" name="reg_nbr_echeance"     type="number"    min="0"    width="10px"       value="${detailBean.reg_nbr_echeance}"    nextelement="montant_facture" /></td>
       </tr>
       <tr>
-        <td ><label>${montant_facture}</label></td>
-        <td ><input id="montant_facture" name="montant_facture"     type="montant3"    size="17"     libre readonly="readonly"   maxlength="17"   value="${detailBean.factclient.total_facture}"    nextelement="montant_avance" /></td>
-        <td ><label>${montant_avance}</label></td>
-        <td ><input id="montant_avance" name="montant_avance"     type="montant3"    size="17"     libre readonly="readonly"   maxlength="17"        value="${detailBean.factclient.avance_montant_vente}"    nextelement="montant_restant"></td>
-        <td ><label>Montant Reçu</label></td>
-        <td ><input id="montant_recu" name="montant_recu"    onblur="CalculMontantRestant();"     type="montant3"    size="17"    value="${detailBean.montant_recu}"    nextelement="montant_recu" /></td>
+        <td  ><label>${montant_facture}</label></td>
+        <td   ><input id="montant_facture" name="montant_facture"     type="montant3"    size="17"       maxlength="17"        value="${detailBean.fact_frs.total_facture}"    nextelement="montant_avance" /></td>
+        <td   ><label>${montant_avance}</label></td>
+        <td   ><input id="montant_avance" name="montant_avance"       type="montant3"    size="17"       maxlength="17"        value="${detailBean.fact_frs.avance_montant_achat}"    nextelement="montant_restant"></td>
+        <td   ><label>Montant Reçu</label></td>
+        <td   ><input id="montant_recu" name="montant_recu"  onblur="CalculMontantRestant();"      type="montant3"    size="17"       maxlength="17"        value="${detailBean.montant_recu}"    nextelement="num_piece"></td>
       </tr>
+      
        <tr>
         <td colspan="6" ><br><label>Solde restant à payer</label> <input id="montant_restant" name="montant_restant"     type="montant3"    size="17"     libre readonly="readonly"   maxlength="17"        value="${detailBean.montant_restant}"    nextelement="num_piece"></td>
       </tr>
       
-      
     </table>
-     </ext:panel>
-     <ext:panel   id="RET_GRID"   bodyStyle="background: none;"   title="Echéance paiement facture"  height="300"     style="display:none;"> 
+      </ext:panel>
+      <ext:panel   id="RET_GRID"   bodyStyle="background: none;"   title="Echéance paiement facture"  height="300"> 
 	 <table id="gridEcheance" class="display" width="100%"   >
 	 <thead   >
 					<tr style="border-color:#a9bfd3;background-color:#d0def0;"   >
@@ -363,7 +296,6 @@ function FnLoadSelectAjax(objeJson){
 	</ext:panel>  
   </ext:panel>
 </ext:body>
-
 <script>
 
 Ext.onReady(function(){  try {	   
@@ -372,5 +304,5 @@ Ext.onReady(function(){  try {
        loadGridEcheance();  
         </c:if>           
         } catch(e){   		}	         });             
-          </script>        
- 
+          </script>   
+          
