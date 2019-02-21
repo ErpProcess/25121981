@@ -234,8 +234,8 @@ function FnLoadSelectAjax(objeJson){
         <td  >${reg_nature}</td>
         <td  >
         <script  >
-        $(function() {  loadSelectAjax("reg_nature","list_nature_reglement","data_id","data_libelle","${detailBean.nature.data_id}",false);  })</script>
-        <select  id="reg_nature" name="nature.data_id"      style="width:180px;"      nextelement="reg_nbr_echeance" > </select> </td>
+        $(function() {  loadSelectAjax("reg_nature","list_nature_reglement","data_id","data_libelle","${detailBean.nature.data_id}",true);  })</script>
+        <select  id="reg_nature" name="nature.data_id"      onchange="getMontantRestant(this.value);"   style="width:180px;"      nextelement="reg_nbr_echeance" > </select> </td>
         <td  ><label>${reg_nbr_echeance}</label></td>
         <td  ><input id="reg_nbr_echeance" name="reg_nbr_echeance"     type="number"    min="0"    width="10px"       value="${detailBean.reg_nbr_echeance}"    nextelement="montant_facture" /></td>
       </tr>

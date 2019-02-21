@@ -84,7 +84,9 @@ public class RegachatActionManager extends RegachatTemplate {
 			setObjectValueModel(LIST_ETAT_ECH_REGLMENT,serviceEntite_etat_commerciale.dofetchDatafromServer(beanEch));
 			
  
-			 
+			Entite_etat_commercialeBean beanSn = new Entite_etat_commercialeBean();
+			beanSn.setCode_entite("reg_nature");
+			setObjectValueModel(LIST_NATURE_REGLEMENT,serviceEntite_etat_commerciale.dofetchDatafromServer(beanSn));
 			
 			
 			
