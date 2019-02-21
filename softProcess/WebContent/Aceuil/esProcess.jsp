@@ -292,7 +292,7 @@ function genericPdfProcess(url_geric_process){
 	            
 		             
 					 
-						  var doSwitch = function(btn) {doPrintPDF(data);}
+						  //var doSwitch = function(btn) {doPrintPDF(data);}
 						  win_genericPdfProcess =  new Ext.Window({
 									  width        : 1200,
 									  height       : 500,
@@ -302,7 +302,7 @@ function genericPdfProcess(url_geric_process){
 									  closeAction: 'hide',
 									  maxHeight: 500,
 									  modal   : true,
-									  buttons : [{text: 'Print',handler : doSwitch}],
+									 // buttons : [{text: 'Print',handler : doSwitch}],
 									  items: {
 									            xtype: 'component',
 									            autoEl: {
