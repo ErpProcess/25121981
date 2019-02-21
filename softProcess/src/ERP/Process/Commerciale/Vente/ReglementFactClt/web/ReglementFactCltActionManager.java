@@ -464,7 +464,6 @@ public   ModelAndView doActualiserGrid( ReglementFactCltBean searchBean ) throws
 	public ModelAndView doAddData(ReglementFactCltBean detailBean) throws Throwable {
 	     try {
 				setObjectValueModel(FORM_BEAN, detailBean);
-				List  <EcheanceRegCltBean>list_des_echeances=(List) getObjectValueModel( ReglementFactCltTemplate.LIST_DES_ECHEANCES );
 	            serviceReglementFactClt.doCreateRowData(detailBean);
 	            removeObjectModel(FORM_BEAN);
 	            throwNewException("ins01");

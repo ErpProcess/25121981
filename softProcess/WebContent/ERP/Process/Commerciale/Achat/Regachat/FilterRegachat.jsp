@@ -13,9 +13,16 @@
    <tr>  
    <td width="12%" height="32"><label>${reg_mod}</label></td>  
    <td  >
-   <script  >$(function() {  loadSelectAjax("reg_mod","list_mode_reglment","data_id","data_libelle","${searchBean.mode.data_id}",true);  })</script>
+ 
    
-   <select id="reg_mod"   name="mode.data_id"   style="width: 150px;"   /></td>  
+           
+       <script> $(function() {  loadSelectAjax("reg_modXX","list_mode_reglment","mod_id","mod_libelle","${detailBean.modReg.mod_id}",true);  })</script>
+        <select    id="reg_modXX"  name="modReg.mod_id"       style="width: 180px;"      nextelement="num_piece"        ></select>
+        
+        
+        
+   
+   </td>  
    <td  ><label>${reg_date}</label></td>
    <td  ><input id="reg_date"   name="reg_date"     type="datepicker"    size="13"       maxlength="13"        value="${searchBean.reg_date}"    nextelement="reg_nbr_echeance"></td>
    </tr>   

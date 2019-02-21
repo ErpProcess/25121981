@@ -78,6 +78,9 @@ public static boolean i$_ACT_FETCH_AJAX_FACT = false;
 public static boolean i$_ACT_SELECT_ROW = false;
 public static boolean i$_ACT_LOAD_GRID_ECHEAN= false;
 
+public static boolean i$_ACT_RETOUR_TO_LIST_FACT= false;
+
+
 public static ModelAndView getViewFilterFacture(String isPage) {
 	MenuActionBean twebBean = new MenuActionBean();
 	twebBean.setLibelleAction(BTN_SEARCH);

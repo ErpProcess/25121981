@@ -31,13 +31,13 @@ public class EcheanceRegFrsBean extends GenericBean {
 	@ManyToOne
 	@JoinColumn(name = "mod_reg_ech_id", insertable = true, updatable = true)
 	private ModeReglementBean echMode = new ModeReglementBean();
-	
+	 
 	
 	@ManyToOne
 	@JoinColumn(name = "etat_reg_ech", insertable = true, updatable = true)
 	private Entite_etat_commercialeBean etatRegEch = new Entite_etat_commercialeBean();
 	
-
+	
 	public Entite_etat_commercialeBean getEtatRegEch() {
 		return etatRegEch;
 	}
@@ -51,35 +51,39 @@ public class EcheanceRegFrsBean extends GenericBean {
 
 	@Column
 	private java.sql.Date date_cre;
+	
+	
 	@Column
 	private String usr_cre = "";
+	
 	@Column
 	private java.sql.Date date_mod;
+	
+	
 	@Column
 	private String usr_mod = "";
+	
 	@ManyToOne
 	@JoinColumn(name = "mode_op", insertable = true, updatable = true)
 	private FonctionBean modeBean = new FonctionBean();
 
 	@Column
 	private Time time_cre  ;
+	
 	@Column
 	private Time time_mod  ;
 	
 	@Column
 	private String num_piece_ech = "";
 	
+	@Transient
+	private String	 indx_row   = "";
 	
 	@Transient
-	private String				indx_row			= "";
-	
-	
-	@Transient
-	private String				indx_row_next		= "";
-	
+	private String	 indx_row_next		= "";
 	
 	@Transient
-	private String				to_check			= "";
+	private String	 to_check			= "";
 	
 	
 

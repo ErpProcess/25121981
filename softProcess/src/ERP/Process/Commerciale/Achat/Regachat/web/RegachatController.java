@@ -29,6 +29,11 @@ public class RegachatController  extends RegachatActionManager   {
            ModelAndView model=doInitGenericAction(request,response,new RegachatTemplate());
                   if (i$_ACT_INIT_SERVLET )         return      doInitServletAction();  
                   
+                  if (i$_ACT_LOAD_SELECT )          return      doLoadSelectList(); 
+                  
+                  if (i$_ACT_ACTUALISER_TABLE )     return      doActualiserGrid(detailBean); 
+                  
+                  
                   if (i$_ACT_FETCH_AJAX_FACT )      return      doFetchFacture_fournisseur(searchBean);  
                   
                   if (i$_ACT_DELETE_ROW )           return      doDeleteRowEditable(detailBean); 
@@ -37,13 +42,17 @@ public class RegachatController  extends RegachatActionManager   {
 		          
 		          if (I$_ACT_CHEKED_UNCHEKED )      return      doChekedUnCheked();
                   
-                  
+		          if (i$_ACT_RETOUR_TO_LIST_FACT)   return      doRetourToFilterFacture();
+		          
 		          if (i$_ACT_SELECT_ROW)            return      doGetRowBeanReg();
                   
                   
                   if (i$_ACT_LOAD_GRID_ECHEAN)      return      doLoadGridEcheance( detailBean );  
                   
 		          if (i$_ACT_ADD)                   return      doAddData(detailBean);
+		          
+		          
+		          if (i$_ACT_CALCUL_TOTAL)          return      doCalculerTotal();
 		          
 		          if (i$_ACT_AJAX_FETCH)            return      doFetchData(detailBean);
 		          

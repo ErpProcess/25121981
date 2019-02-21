@@ -27,13 +27,7 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean
 @Table(name = "reglement_fact_client", schema = "vente")
 public class ReglementFactCltBean extends GenericBean {
 
-
  
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7870550959727110742L;
 
 	@Id
 	@Column
@@ -42,11 +36,6 @@ public class ReglementFactCltBean extends GenericBean {
 	@ManyToOne
 	@JoinColumn(name = "fact_clt_id", insertable = true, updatable = false)
 	private Facture_clientBean factclient = new Facture_clientBean();
-
- 
-	
- 
-	
 	
 	@ManyToOne(cascade = CascadeType.PERSIST) 
 	@JoinColumn(name = "mod_reg_id", insertable = true, updatable = true)
@@ -71,12 +60,7 @@ public class ReglementFactCltBean extends GenericBean {
 	
 	@Transient
 	private String pieceNumHeader;
-	
-	
-
-	
-	
-	
+ 
 	@Transient
 	private Double echeanMontant;
 	

@@ -221,18 +221,13 @@ function FnLoadSelectAjax(objeJson){
 </script>
 <ext:body  >
   <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >
-  
    <ext:panel  border="false"    bodyStyle="background: none;"   id="headReg"  height="250"   >
-   
- 
-        
     <table width="100%"  cellpadding="5" cellspacing="10" class="tableStyleContent"  id="tblData"     >
       <tr>
         <td width="10%"><label>${fact_id}</label></td>
         <td  width="30%"  >
         <input id="fact_clt_id" name="factclient.fact_clt_id"    libre   readonly="readonly"   type="text"      size="20"       maxlength="20"   
              value="${detailBean.factclient.fact_clt_id}"    nextElement="clt_id"              />    
-          
           <input id="fact_ref_id" name="factclient.fact_ref_id"    libre   readonly="readonly"   type="text"      size="20"       maxlength="20"   
              value="${detailBean.factclient.fact_ref_id}"                />        
              

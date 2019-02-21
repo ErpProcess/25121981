@@ -20,6 +20,7 @@ import ERP.Process.Commerciale.Achat.Regachat.template.RegachatTemplate;
  
  
  
+ 
 @Repository
 public class RegachatDAO extends  GenericWeb    {
 	private SessionFactory sessionFactory;
@@ -114,21 +115,27 @@ public class RegachatDAO extends  GenericWeb    {
 		String nature="foui";
 		
 		try {
+			
+			 
+			
+			
 			daoNumSequentiel.getNumSeqSimple(beanSave,"reg_frs_id",session);
 			List  <EcheanceRegFrsBean>list_des_echeances=(List) getObjectValueModel( RegachatTemplate.LIST_DES_ECHEANCES );
 			this.setBeanTrace(beanSave);
 			beanSave.getReg_type().setData_id("reg");
-			session.save(beanSave);
-			this.saveTrace(beanSave);
-			if(beanSave.getReg_nbr_echeance()!=null  &&  beanSave.getReg_nbr_echeance()>0)
-			for (int i = 0; i < list_des_echeances.size(); i++) {
-				EcheanceRegFrsBean eCltBean =list_des_echeances.get(i);
-				eCltBean.getPk().setReg(beanSave);
-				this.setBeanTrace(eCltBean);
-				session.save(eCltBean);
-				nature="fech";
+			if(list_des_echeances!=null  &&  list_des_echeances.size()>0){
+				beanSave.setReg_nbr_echeance(list_des_echeances.size());
 			}
-			 
+			session.save(beanSave);
+			if(list_des_echeances!=null  &&  list_des_echeances.size()>0){
+				for (int i = 0; i < list_des_echeances.size(); i++) {
+					EcheanceRegFrsBean eCltBean =list_des_echeances.get(i);
+					eCltBean.getPk().setReg(beanSave);
+					this.setBeanTrace(eCltBean);
+					nature="fech";
+					session.save(eCltBean);
+				}
+			}
 			session.createQuery( " UPDATE  Facture_FournisseurBean  b  set  " +
 					"            b.etat_reg.data_id='"+nature+"'   " +
 							"     where   b.fact_frs_id='"+beanSave.getFact_frs().getFact_frs_id()+"'    ").executeUpdate();

@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.JsonObject;
 
 import ERP.Process.Commerciale.Achat.Facture_Fournisseur.model.Facture_FournisseurBean;
 import ERP.Process.Commerciale.Achat.Facture_Fournisseur.service.Facture_FournisseurService;
@@ -23,11 +26,13 @@ import ERP.Process.Commerciale.Fournisseur.service.FournisseurService;
 import ERP.Process.Commerciale.Fournisseur.template.FournisseurTemplate;
 import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.model.ModeReglementBean;
 import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.service.ModeReglementService;
+ 
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericActionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
+import ERP.eXpertSoft.wfsi.framework_dev.JQuery_datatables_Version1.web.ActionDataTablesManager;
 import ERP.eXpertSoft.wfsi.jqueryoR.datatables.controller.AjaxDataTablesUtility;
 public class RegachatActionManager extends RegachatTemplate {
     
@@ -89,7 +94,7 @@ public class RegachatActionManager extends RegachatTemplate {
 			setObjectValueModel(LIST_NATURE_REGLEMENT,serviceEntite_etat_commerciale.dofetchDatafromServer(beanSn));
 			
 			
-			
+			setObjectValueModel( LIST_DES_ECHEANCES, new ArrayList<EcheanceRegFrsBean>() );
 			
 			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 				
@@ -117,6 +122,56 @@ public class RegachatActionManager extends RegachatTemplate {
 
 	}
 	
+public   ModelAndView doLoadSelectList() throws Exception{
+		
+		List listDataEtatEch   = (List) getObjectValueModel(LIST_ETAT_ECH_REGLMENT);
+		List listDataModeReg = (List) getObjectValueModel(LIST_MODE_REGLMENT);
+		JSONObject json = new JSONObject();
+		try {
+			JSONArray items1  =  ActionDataTablesManager.doTraiterJsonSelect(listDataEtatEch  , "data_id"            , "data_libelle");
+			JSONArray items2 =  ActionDataTablesManager.doTraiterJsonSelect(listDataModeReg , "mod_id"           , "mod_libelle");
+			json.put("etatEchList", items1);
+			json.put("modeRegList", items2);
+			getResponse().setContentType("application/json");
+			getResponse().getWriter().write(json.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+
+}
+	
+public   ModelAndView doActualiserGrid( RegachatBean  searchBean ) throws Exception{
+	
+	try {
+		getResponse().setContentType(JSON_CONTENT_TYPE); 
+		JSONObject data    =doCalculerEcheanceList(searchBean);
+		getResponse().getWriter().print(data.toString());
+		} catch (Exception e) {
+			getResponse().setStatus(500);
+			getResponse().setContentType(HTML_CONTENT_TYPE);
+			PrintWriter out = getResponse().getWriter();
+			out.println(e.getMessage());
+		    out.close();
+		}
+		return null;
+	 
+	}
+
+
+	public     ModelAndView doRetourToFilterFacture() {
+		setObjectValueModel(MAP_FIELD_BEAN, Facture_FournisseurTemplate.MapfieldBean);
+		setObjectValueModel(LIST_VIEW_G, LIST_VIEW_FACTURE);
+		setObjectValueModel(NAME_LIST_G ,LIST_DATA_FACTURE); 
+		setObjectValueModel(NAME_GRID_G, NAME_GRID_FACTURE);
+		
+		List  listDataTrie=(List) getObjectValueModel((String)getObjectValueModel(NAME_LIST_G)  );
+		setObjectValueModel(DATA_LIST_AJAX,listDataTrie);
+		setObjectValueModel(ACT_FETCH_AJAX_GLOBAL, "i$_ACT_FETCH_AJAX_FACT");
+		
+		
+		return getViewFilterFacture(FILTER_VIEW_FACTURE);
+	}
 	
 	@SuppressWarnings("unchecked") 
 	public ModelAndView doFetchData(RegachatBean searchBean)throws Throwable {
@@ -478,6 +533,42 @@ public class RegachatActionManager extends RegachatTemplate {
 	          }
 	        return getViewAdd(FORM_VIEW);
 		}
+	
+	
+	
+	public ModelAndView doCalculerTotal() throws Exception {
+			
+			try {
+				 List <RegachatBean> regList   = (List) getObjectValueModel("listRegGlobal");
+				  
+				 Double totMntFacture=new Double(0);
+				 Double totMntAvance=new Double(0);
+				 Double totMntRecu=new Double(0);
+				 Double totMntRestant=new Double(0);
+				 for (int i = 0; i < regList.size(); i++) {
+					 RegachatBean  bean=regList.get(i);
+					 totMntFacture=ProcessNumber.addition(totMntFacture,ProcessFormatNbr.FormatDouble_Troischiffre(bean.getMontant_facture()) );
+					 totMntRecu=ProcessNumber.addition(totMntRecu, ProcessFormatNbr.FormatDouble_Troischiffre(bean.getMontant_recu()));
+					 totMntAvance=ProcessNumber.addition(totMntAvance, ProcessFormatNbr.FormatDouble_Troischiffre(bean.getMontant_avance()));
+					 totMntRestant=ProcessNumber.addition(totMntRestant,ProcessFormatNbr.FormatDouble_Troischiffre( bean.getMontant_restant()));
+				 }
+				JsonObject data = new JsonObject();
+				data.addProperty("totMntFacture",  ProcessFormatNbr.FormatDouble_To_String_Troischiffre(totMntFacture) );
+				data.addProperty("totMntAvance",   ProcessFormatNbr.FormatDouble_To_String_Troischiffre(totMntAvance) );
+			    data.addProperty("totMntRecu",     ProcessFormatNbr.FormatDouble_To_String_Troischiffre(totMntRecu) );
+			    data.addProperty("totMntRestant",  ProcessFormatNbr.FormatDouble_To_String_Troischiffre(totMntRestant) );
+			    getResponse().setContentType(JSON_CONTENT_TYPE);
+				getResponse().getWriter().print(data.toString());
+				
+			} catch (Exception e) {
+				getResponse().setContentType(HTML_CONTENT_TYPE);
+				getResponse().getWriter().print(e.getMessage());
+			}
+			return null;
+		}
+	
+	
+	
 	public ModelAndView doUpdateData(RegachatBean beanUpBean) {	 
 		 	try {
 		 		BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);

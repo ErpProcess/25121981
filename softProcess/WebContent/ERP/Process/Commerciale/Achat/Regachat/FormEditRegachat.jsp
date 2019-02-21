@@ -158,12 +158,7 @@ function FnLoadSelectAjax(objeJson){
 
 <ext:body  >
   <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >
-  
-   <ext:panel  border="false"    bodyStyle="background: none;"       >
-   
-        <ext:toolbar         toolbarType="bbar"   > 
-        <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuiv()"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar>
-        
+   <ext:panel  border="false"    bodyStyle="background: none;"   id="headReg"  height="250"       >
     <table width="100%"  cellpadding="5" cellspacing="10" class="tableStyleContent"  id="tblData"     >
       <tr>
         <td width="10%"><label>${fact_frs_id}</label></td>
@@ -182,9 +177,9 @@ function FnLoadSelectAjax(objeJson){
                <input id="frsref"  name="fact_frs.frs.frsref"     libre   readonly="readonly"    type="text"    size="22"       maxlength="10"        value="${detailBean.fact_frs.frs.frsref}"    nextElement="fact_date"              />        </td>
         <td  >${reg_mod}</td>
         <td  >
-        <script>  
         
-                     function convertStringToNumber(paramStringNbr){
+        <script>  
+        function convertStringToNumber(paramStringNbr){
 			if(paramStringNbr=="" ||  paramStringNbr=="NaN"  || paramStringNbr==null   || paramStringNbr==undefined    ) return 0;
 			var mntRetour = paramStringNbr.replace(/ /g, '');
 			return mntRetour;
@@ -212,9 +207,6 @@ function FnLoadSelectAjax(objeJson){
            Ext.get('RET_GRID').show();
            loadGridEcheance();
            }  
-     
-          
-           
            }
         
         
@@ -245,7 +237,7 @@ function FnLoadSelectAjax(objeJson){
         <td   ><label>${montant_avance}</label></td>
         <td   ><input id="montant_avance" name="montant_avance"       type="montant3"    size="17"       maxlength="17"        value="${detailBean.fact_frs.avance_montant_achat}"    nextelement="montant_restant"></td>
         <td   ><label>Montant Reçu</label></td>
-        <td   ><input id="montant_recu" name="montant_recu"  onblur="CalculMontantRestant();"      type="montant3"    size="17"       maxlength="17"        value="${detailBean.montant_recu}"    nextelement="num_piece"></td>
+        <td   ><input id="montant_recu" name="montant_recu"  onblur="CalculMontantRestant();"      type="montant3"    size="17"       maxlength="17"        value="${detailBean.montant_recu}"   ></td>
       </tr>
       
        <tr>
@@ -254,7 +246,7 @@ function FnLoadSelectAjax(objeJson){
       
     </table>
       </ext:panel>
-      <ext:panel   id="RET_GRID"   bodyStyle="background: none;"   title="Echéance paiement facture"  height="300"> 
+      <ext:panel   id="RET_GRID"   bodyStyle="background: none;"   title="Echéance paiement facture"  height="300"    style="display:none;"  > 
 	 <table id="gridEcheance" class="display" width="100%"   >
 	 <thead   >
 					<tr style="border-color:#a9bfd3;background-color:#d0def0;"   >
@@ -296,6 +288,7 @@ function FnLoadSelectAjax(objeJson){
 	</ext:panel>  
   </ext:panel>
 </ext:body>
+
 <script>
 
 Ext.onReady(function(){  try {	   
@@ -304,5 +297,5 @@ Ext.onReady(function(){  try {
        loadGridEcheance();  
         </c:if>           
         } catch(e){   		}	         });             
-          </script>   
-          
+          </script>        
+ 
