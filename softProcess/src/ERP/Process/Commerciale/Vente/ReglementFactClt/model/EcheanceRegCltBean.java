@@ -25,10 +25,7 @@ public class EcheanceRegCltBean extends GenericBean {
 	@EmbeddedId
 	private PkEcheanceClt pk = new PkEcheanceClt();
 
-	@ManyToOne
-	@JoinColumn(name = "mod_reg_ech_id", insertable = true, updatable = true)
-	private ModeReglementBean echMode = new ModeReglementBean();
-
+ 
 	@Column
 	private Double echean_montant;
 
@@ -41,6 +38,11 @@ public class EcheanceRegCltBean extends GenericBean {
 	@Column
 	private String usr_mod = "";
 
+	@ManyToOne
+	@JoinColumn(name = "mod_reg_ech_id", insertable = true, updatable = true)
+	private ModeReglementBean echMode = new ModeReglementBean();
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "etat_reg_ech", insertable = true, updatable = true)
 	private Entite_etat_commercialeBean etatRegEch = new Entite_etat_commercialeBean();

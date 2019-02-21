@@ -61,6 +61,18 @@ public static String  LIST_NATURE_REGLEMENT= "list_nature_reglement";
 
 public static String  LIST_DES_ECHEANCES= "list_des_echeances";
 public static String  LIST_DES_ECHEANCES_ORIGINE= "list_des_echeancesOrigine";
+
+
+public static String  LIST_ETAT_ECH_REGLMENT   = "list_etat_reglment_ech";
+
+ 
+ 
+public static boolean i$_ACT_ADD_ROW = false;
+public static boolean i$_ACT_DELETE_ROW = false;
+public static boolean I$_ACT_CHEKED_UNCHEKED = false;
+public static boolean i$_ACT_ACTUALISER_TABLE= false;
+
+
 public static boolean i$_ACT_INIT_SERVLET = false;
 public static boolean i$_ACT_FETCH_AJAX_FACT = false;
 public static boolean i$_ACT_SELECT_ROW = false;

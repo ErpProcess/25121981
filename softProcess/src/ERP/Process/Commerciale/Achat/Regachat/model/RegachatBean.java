@@ -59,6 +59,53 @@ public class  RegachatBean   extends  GenericBean {
 	@Transient
 	private  String condition_juste_echeance="";
 	
+	@Transient
+	private Date echeanDate;
+	
+	
+	@Transient
+	private String etatRegHeader;
+	
+	@Transient
+	private String modeRegHeader;
+	
+	
+	@Transient
+	private String pieceNumHeader;
+	
+	public Date getEcheanDate() {
+		return echeanDate;
+	}
+	public void setEcheanDate(Date echeanDate) {
+		this.echeanDate = echeanDate;
+	}
+	public String getEtatRegHeader() {
+		return etatRegHeader;
+	}
+	public void setEtatRegHeader(String etatRegHeader) {
+		this.etatRegHeader = etatRegHeader;
+	}
+	public String getModeRegHeader() {
+		return modeRegHeader;
+	}
+	public void setModeRegHeader(String modeRegHeader) {
+		this.modeRegHeader = modeRegHeader;
+	}
+	public String getPieceNumHeader() {
+		return pieceNumHeader;
+	}
+	public void setPieceNumHeader(String pieceNumHeader) {
+		this.pieceNumHeader = pieceNumHeader;
+	}
+	public Double getEcheanMontant() {
+		return echeanMontant;
+	}
+	public void setEcheanMontant(Double echeanMontant) {
+		this.echeanMontant = echeanMontant;
+	}
+	@Transient
+	private Double echeanMontant;
+	
 	
 	@Transient
 	private  String condition_mode="";

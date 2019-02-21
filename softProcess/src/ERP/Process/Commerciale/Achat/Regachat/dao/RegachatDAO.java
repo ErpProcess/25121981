@@ -38,19 +38,22 @@ public class RegachatDAO extends  GenericWeb    {
 	@SuppressWarnings("unchecked")
 	public List<RegachatBean> doFindListRegachat(RegachatBean beanSearch) throws Exception {
 		  Session session =  openSessionHibernate(sessionFactory);
-		  List list_data= new ArrayList();
+		  List<RegachatBean> list_data= new ArrayList<RegachatBean>();
 		  try{
 		    String requette=" select  bean   FROM    RegachatBean    bean    WHERE     1=1       ";
  			   if( !StringUtils.isEmpty(beanSearch.getReg_frs_id()) )  
-	    			requette+="   AND   bean.reg_frs_id = '"+beanSearch.getReg_frs_id()+"'        ";    
+	    			requette+="   AND   bean.reg_frs_id = '"+beanSearch.getReg_frs_id()+"'        "; 
+ 			   
  			  /* if( !StringUtils.isEmpty(beanSearch.getFact_frs_id()) )  
 	    			requette+="   AND   bean.fact_frs_id = '"+beanSearch.getFact_frs_id()+"'        ";    
  			   if( !StringUtils.isEmpty(beanSearch.getReg_mod()) )  
 	    			requette+="   AND   bean.reg_mod = '"+beanSearch.getReg_mod()+"'        ";  */  
  			   if(  beanSearch.getReg_date() !=null   )  
 	    			requette+="   AND   bean.reg_date = '"+beanSearch.getReg_date()+"'        ";    
+ 			   
  			   if(  beanSearch.getReg_nbr_echeance()!=null  )  
-	    			requette+="   AND   bean.reg_nbr_echeance = '"+beanSearch.getReg_nbr_echeance()+"'        ";    
+	    			requette+="   AND   bean.reg_nbr_echeance = '"+beanSearch.getReg_nbr_echeance()+"'        ";  
+ 			   
  			   /*if( !StringUtils.isEmpty(beanSearch.getMontant_facture()) )  
 	    			requette+="   AND   bean.montant_facture = '"+beanSearch.getMontant_facture()+"'        ";    
  			   if( !StringUtils.isEmpty(beanSearch.getMontant_avance()) )  
@@ -67,11 +70,10 @@ public class RegachatDAO extends  GenericWeb    {
  			 if( !StringUtils.isEmpty(beanSearch.getCondition_mode()) )  
 					requette+="  "+beanSearch.getCondition_mode()+"         "; 
  			 
- 			 
- 				
- 				
-				  		list_data= session.createQuery(requette).list();
-				        commitTransaction(session);
+ 	                requette+=this.setSocieteEtabFetch(beanSearch,"bean.fk_etab_Bean", true);
+ 		 		
+			    list_data= session.createQuery(requette).list();
+			     commitTransaction(session);
 			 } catch (Exception e) {  
 			     if (sessionIsTrue(session)) 
 			    	 rollbackTransaction(session) ;

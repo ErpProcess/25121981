@@ -118,7 +118,7 @@ public class ProcessWebUtil extends GenericWeb {
 			 if(inclure_central){
 					  requette  = requette + "   AND   "+alias+".pk_etab.etab_id in ( '"+bs.getEtab_id()+"' , '"+bs.getEtab_central()+"'  ) ";
 			 }
-			 requette  = requette + "            AND   "+alias+".pk_etab.soc_bean.soc_id='"+bs.getSoc_id()+"'     ";
+			          requette  = requette + "   AND   "+alias+".pk_etab.soc_bean.soc_id='"+bs.getSoc_id()+"'     ";
 			 
 //			 if(GenericWeb.getBeanSession().getUsr_id().equals("1111")) 
 //			    requette="";

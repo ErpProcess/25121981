@@ -28,14 +28,31 @@ public class RegachatController  extends RegachatActionManager   {
   	    try { 
            ModelAndView model=doInitGenericAction(request,response,new RegachatTemplate());
                   if (i$_ACT_INIT_SERVLET )         return      doInitServletAction();  
+                  
                   if (i$_ACT_FETCH_AJAX_FACT )      return      doFetchFacture_fournisseur(searchBean);  
-                  if (i$_ACT_SELECT_ROW)            return      doGetRowBeanReg();
+                  
+                  if (i$_ACT_DELETE_ROW )           return      doDeleteRowEditable(detailBean); 
+
+	              if (i$_ACT_ADD_ROW )              return      doAddRowEditable(detailBean);
+		          
+		          if (I$_ACT_CHEKED_UNCHEKED )      return      doChekedUnCheked();
+                  
+                  
+		          if (i$_ACT_SELECT_ROW)            return      doGetRowBeanReg();
+                  
+                  
                   if (i$_ACT_LOAD_GRID_ECHEAN)      return      doLoadGridEcheance( detailBean );  
+                  
 		          if (i$_ACT_ADD)                   return      doAddData(detailBean);
+		          
 		          if (i$_ACT_AJAX_FETCH)            return      doFetchData(detailBean);
+		          
 		          if (i$_ACT_UPDATE)                return      doUpdateData(detailBean);
+		          
 		          if (i$_ACT_DELETE)                return      doDeleteData(detailBean);
+		          
 		          if (i$_ACT_CONFIRM)                return     doUpdateData(detailBean);
+		          
 		          
 	          return model;
   	   } finally { 

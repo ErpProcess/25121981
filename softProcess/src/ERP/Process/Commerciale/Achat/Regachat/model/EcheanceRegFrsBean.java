@@ -13,6 +13,7 @@ import javax.persistence.Transient;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import ERP.Process.Commerciale.Entite_etat_commerciale.model.Entite_etat_commercialeBean;
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.model.ModeReglementBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
 
@@ -28,8 +29,22 @@ public class EcheanceRegFrsBean extends GenericBean {
 	private PkEcheanceFrs pk = new PkEcheanceFrs();
 
 	@ManyToOne
-	@JoinColumn(name = "echeance_mod", insertable = true, updatable = true)
-	private Entite_etat_commercialeBean echeanMode = new Entite_etat_commercialeBean();
+	@JoinColumn(name = "mod_reg_ech_id", insertable = true, updatable = true)
+	private ModeReglementBean echMode = new ModeReglementBean();
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "etat_reg_ech", insertable = true, updatable = true)
+	private Entite_etat_commercialeBean etatRegEch = new Entite_etat_commercialeBean();
+	
+
+	public Entite_etat_commercialeBean getEtatRegEch() {
+		return etatRegEch;
+	}
+
+	public void setEtatRegEch(Entite_etat_commercialeBean etatRegEch) {
+		this.etatRegEch = etatRegEch;
+	}
 
 	@Column
 	private Double echean_montant;
@@ -163,12 +178,13 @@ public class EcheanceRegFrsBean extends GenericBean {
 
 	 
 
-	public Entite_etat_commercialeBean getEcheanMode() {
-		return echeanMode;
+ 
+	public ModeReglementBean getEchMode() {
+		return echMode;
 	}
 
-	public void setEcheanMode(Entite_etat_commercialeBean echeanMode) {
-		this.echeanMode = echeanMode;
+	public void setEchMode(ModeReglementBean echMode) {
+		this.echMode = echMode;
 	}
 
 	public PkEcheanceFrs getPk() {

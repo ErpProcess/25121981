@@ -2,6 +2,7 @@ package ERP.Process.Commerciale.Achat.Facture_Fournisseur.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ import ERP.Process.Commerciale.Entite_etat_commerciale.model.Entite_etat_commerc
 import ERP.Process.Commerciale.Fournisseur.model.FournisseurBean;
 import ERP.Process.Commerciale.Parametrage.TypeFacture.model.TypeFactureBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 
 @JsonAutoDetect
@@ -41,6 +43,10 @@ public class Facture_FournisseurBean {
 	@ManyToOne
 	@JoinColumn(name = "type_fact_id", insertable = true, updatable = true )
 	private TypeFactureBean   typefact = new TypeFactureBean();
+	
+	@ManyToOne(cascade = CascadeType.PERSIST) 
+	@JoinColumn(name = "dev_id", insertable = true, updatable = true)
+	private DeviseBean  devise ;
 	
 	
 	@Column
@@ -136,7 +142,16 @@ public class Facture_FournisseurBean {
 	private EtablissementBean etablissment = new EtablissementBean();
 
 	 
+	
 	 
+
+	public DeviseBean getDevise() {
+		return devise;
+	}
+
+	public void setDevise(DeviseBean devise) {
+		this.devise = devise;
+	}
 
 	public String getFact_frs_id() {
 		return fact_frs_id;

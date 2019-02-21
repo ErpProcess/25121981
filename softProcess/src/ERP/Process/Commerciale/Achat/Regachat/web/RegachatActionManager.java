@@ -1,7 +1,10 @@
 package ERP.Process.Commerciale.Achat.Regachat.web;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,11 +21,11 @@ import ERP.Process.Commerciale.Entite_etat_commerciale.service.Entite_etat_comme
 import ERP.Process.Commerciale.Fournisseur.model.FournisseurBean;
 import ERP.Process.Commerciale.Fournisseur.service.FournisseurService;
 import ERP.Process.Commerciale.Fournisseur.template.FournisseurTemplate;
-import ERP.Process.Commerciale.Vente.ReglementFactClt.template.ReglementFactCltTemplate;
- 
- 
- 
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.model.ModeReglementBean;
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.service.ModeReglementService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericActionBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.jqueryoR.datatables.controller.AjaxDataTablesUtility;
@@ -49,6 +52,11 @@ public class RegachatActionManager extends RegachatTemplate {
 		this.serviceFacture_Fournisseur = serviceFacture_Fournisseur;
 	}
 	
+	 private ModeReglementService  serviceModeReglement;
+	  @Autowired
+	  public void setServiceModeReglement(ModeReglementService serviceModeReglement) {
+	      this.serviceModeReglement = serviceModeReglement;
+	  } 
 	
 	
 	public    ModelAndView doInitServletAction() {
@@ -68,14 +76,15 @@ public class RegachatActionManager extends RegachatTemplate {
 			setObjectValueModel(Facture_FournisseurTemplate.LIST_FOURNISSEUR_FACTURE_FRS , listfournisseur);
 			doLoadingLibelleOtherSModule(Reception_achatTemplate.ID_SOUS_MODULE);
 			
-			Entite_etat_commercialeBean beanSearBean = new Entite_etat_commercialeBean();
-			beanSearBean.setCode_entite("reg_mod");
-			setObjectValueModel(LIST_MODE_REGLMENT,serviceEntite_etat_commerciale.dofetchDatafromServer(beanSearBean));
+            setObjectValueModel(LIST_MODE_REGLMENT,serviceModeReglement.doFetchDatafromServer(ModeReglementBean.class.newInstance()));
+			
+			
+			Entite_etat_commercialeBean beanEch = new Entite_etat_commercialeBean();
+			beanEch.setCode_entite("etat_reg_ech");
+			setObjectValueModel(LIST_ETAT_ECH_REGLMENT,serviceEntite_etat_commerciale.dofetchDatafromServer(beanEch));
 			
  
-			Entite_etat_commercialeBean beanSn = new Entite_etat_commercialeBean();
-			beanSn.setCode_entite("reg_nature");
-			setObjectValueModel(LIST_NATURE_REGLEMENT,serviceEntite_etat_commerciale.dofetchDatafromServer(beanSn));
+			 
 			
 			
 			
@@ -198,6 +207,155 @@ public class RegachatActionManager extends RegachatTemplate {
 	}
 	return null;
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public   ModelAndView doDeleteRowEditable( RegachatBean searchBean  ) throws Exception{
+		
+		try {
+			List listOfmyData=(List) getObjectValueModel(LIST_DES_ECHEANCES);
+			int sizefinal=listOfmyData.size();
+			boolean  del=false;
+			for (int i = 0; i < sizefinal; i++) {
+				EcheanceRegFrsBean newBean= (EcheanceRegFrsBean) listOfmyData.get(i);
+				if(newBean.getTo_check()!=null  &&  newBean.getTo_check().equals("checked")){
+					listOfmyData.remove(i);
+					sizefinal--;
+					i--;
+					del=true;
+				}
+			}
+			if(!del) throw new Exception ((String) getObjectValueModel("_cochezAumoin"));
+			getResponse().setContentType(JSON_CONTENT_TYPE);
+			JSONObject data    = doCalculerEcheanceList(searchBean);
+			getResponse().getWriter().print(data.toString());
+			
+			} catch (Exception e) {
+					getResponse().setContentType(HTML_CONTENT_TYPE);
+					PrintWriter out = getResponse().getWriter();
+					out.println(e.getMessage());
+				    out.close();
+			}
+			return null;
+	}
+	
+	private JSONObject doCalculerEcheanceList(RegachatBean searchBean) throws Exception {
+		JSONObject data        = new JSONObject();
+		try {
+			List  <EcheanceRegFrsBean> listEcheanceReg     = (List) getObjectValueModel( LIST_DES_ECHEANCES );
+			Double montantRecu= new Double(0);
+			Double montantRestant= new Double(0);
+			Double montantFacture = searchBean.getMontant_facture();
+			Double montantAvance = searchBean.getMontant_avance();
+			for (int i = 0; i < listEcheanceReg.size(); i++) {
+				EcheanceRegFrsBean echeanceRegCltBean =listEcheanceReg.get(i);
+				if(echeanceRegCltBean.getEchean_montant()!=null && 
+						(echeanceRegCltBean.getEtatRegEch()!=null  &&  echeanceRegCltBean.getEtatRegEch().getData_id().equals("echOui") ) )
+				montantRecu=ProcessNumber.addition(montantRecu, echeanceRegCltBean.getEchean_montant()); 
+			}
+			Double sommAvanceRecu= ProcessNumber.addition(montantAvance, montantRecu);  
+			montantRestant=ProcessNumber.SOUSTRACTION(montantFacture, sommAvanceRecu);
+			data.put("montantRecu",ProcessFormatNbr.FormatDouble_To_String_Troischiffre(montantRecu));
+			data.put("montantRestant",ProcessFormatNbr.FormatDouble_To_String_Troischiffre(montantRestant));	
+		} catch (Exception e) {
+			throw e;
+		}
+		return data;
+		
+}
+	
+	
+	@SuppressWarnings("unchecked")
+	public   ModelAndView doChekedUnCheked( ) throws Exception{
+		 
+		try {
+			List listOfmyData=(List) getObjectValueModel(LIST_DES_ECHEANCES);
+			String to_check=getRequest().getParameter("statucheked")==null?"":getRequest().getParameter("statucheked");
+			for (int i = 0; i < listOfmyData.size(); i++) {
+				EcheanceRegFrsBean newBean =(EcheanceRegFrsBean) listOfmyData.get(i);
+				newBean.setTo_check(to_check);
+			}
+			getResponse().setContentType(HTML_CONTENT_TYPE);
+			} catch (Exception e) {
+				getResponse().setStatus(500);
+				getResponse().setContentType(HTML_CONTENT_TYPE);
+				PrintWriter out = getResponse().getWriter();
+				out.println(e.getMessage());
+			    out.close();
+			}
+			return null;
+	 
+	}
+	
+ 
+	 
+	public   ModelAndView doAddRowEditable( RegachatBean detailBean  ) throws Exception{
+		 
+		
+		try {
+			getResponse().setContentType(JSON_CONTENT_TYPE);
+			List  <EcheanceRegFrsBean> listEcheanceReg     = (List) getObjectValueModel( LIST_DES_ECHEANCES );
+			
+			for (int i = 0; i < listEcheanceReg.size(); i++) {
+				EcheanceRegFrsBean echeanceRegCltBean =listEcheanceReg.get(i);
+				 if(echeanceRegCltBean.getPk().getEchean_date().compareTo(detailBean.getEcheanDate())==0)
+					 throwNewException(" Date existant ");
+ 			}
+			 
+			EcheanceRegFrsBean beanLigne= new EcheanceRegFrsBean();
+			beanLigne.setEchean_montant(detailBean.getEcheanMontant());
+			beanLigne.getPk().setEchean_date(detailBean.getEcheanDate());
+			Entite_etat_commercialeBean  etatRegEch = new Entite_etat_commercialeBean();
+			etatRegEch.setCode_entite("etat_reg_ech");
+			etatRegEch.setData_id(detailBean.getEtatRegHeader());
+			beanLigne.setEtatRegEch(etatRegEch);
+			
+			ModeReglementBean    echMode = new ModeReglementBean();
+		    if( !StringUtils.isBlank(detailBean.getModeRegHeader())   ) {
+		    	echMode.setMod_id( Integer.parseInt(detailBean.getModeRegHeader()) );
+		    }
+		
+			beanLigne.setEchMode(echMode);
+			beanLigne.setNum_piece_ech(detailBean.getPieceNumHeader());
+			listEcheanceReg.add(beanLigne);
+			
+			JSONObject data        = new JSONObject();
+			Double montantRecu= new Double(0);
+			Double montantRestant= new Double(0);
+			
+			Double montantFacture = detailBean.getMontant_facture()!=null ? 
+					ProcessFormatNbr.FormatDouble_Troischiffre(detailBean.getMontant_facture()): new Double(0)	;
+			
+			Double montantAvance = detailBean.getMontant_avance()!=null ? 
+					ProcessFormatNbr.FormatDouble_Troischiffre(detailBean.getMontant_avance()): new Double(0)	;
+					
+			for (int i = 0; i < listEcheanceReg.size(); i++) {
+				EcheanceRegFrsBean echeanceRegCltBean =listEcheanceReg.get(i);
+				if(echeanceRegCltBean.getEchean_montant()!=null && 
+						(echeanceRegCltBean.getEtatRegEch()!=null  &&  echeanceRegCltBean.getEtatRegEch().getData_id().equals("echOui") ) )
+				montantRecu=ProcessNumber.addition(montantRecu, 
+				ProcessFormatNbr.FormatDouble_Troischiffre(echeanceRegCltBean.getEchean_montant())		); 
+			}
+		
+			
+			
+			Double sommAvanceRecu= ProcessNumber.addition(montantAvance, montantRecu);  
+			montantRestant=ProcessNumber.SOUSTRACTION(montantFacture, sommAvanceRecu);
+			data.put("montantRecu",ProcessFormatNbr.FormatDouble_To_String_Troischiffre(montantRecu));
+			data.put("montantRestant",ProcessFormatNbr.FormatDouble_To_String_Troischiffre(montantRestant));
+			getResponse().getWriter().print(data.toString());
+			
+			 
+			} catch (Exception e) {
+				getResponse().setStatus(500);
+				getResponse().setContentType(HTML_CONTENT_TYPE);
+				PrintWriter out = getResponse().getWriter();
+				out.println(e.getMessage());
+			    out.close();
+			}
+			return null;
+	}
+	
 	
 	public    ModelAndView doGetRowBeanReg() {
 

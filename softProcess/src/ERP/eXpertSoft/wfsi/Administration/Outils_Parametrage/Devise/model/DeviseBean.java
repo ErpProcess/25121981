@@ -10,21 +10,21 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 @Entity
 @Table(name = "devise", schema = "administration")
 public class  DeviseBean  {
- @Id
- @GeneratedValue
- @Column	private Integer dev_id; 
- @Column	private String  dev_abrv =""; 
- @Column	private String  dev_libelle =""; 
- 
- 
- @Column	private String  symbole_monetaire	 ;
- @Column	private String  chiffre_pattern ;
- 
- @Column	private String  usr_cre =""; 
- @Column	private java.sql.Date  date_cre;
- @Column	private String  usr_mod =""; 
- @Column	private java.sql.Date  date_mod;
- @Column	private String  soc_id =""; 
+	 @Id
+	 @GeneratedValue
+	 @Column	private Integer dev_id; 
+	 @Column	private String  dev_abrv =""; 
+	 @Column	private String  dev_libelle =""; 
+	 
+	 
+	 @Column	private String  symbole_monetaire	 ;
+	 @Column	private String  chiffre_pattern ;
+	 
+	 @Column	private String  usr_cre =""; 
+	 @Column	private java.sql.Date  date_cre;
+	 @Column	private String  usr_mod =""; 
+	 @Column	private java.sql.Date  date_mod;
+	 @Column	private String  soc_id =""; 
 	 
  
 	public void setDev_abrv (String  dev_abrv) {
