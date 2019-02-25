@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -172,26 +173,45 @@ public class Stock_articleActionManager extends Stock_articleTemplate {
 	public    ModelAndView doPrintPDFStock() {
 		 
 		List   lisData                         =    (List) getObjectValueModel((String) getObjectValueModel(NAME_LIST_G)) ;
-		String [][]    mapFieldBean            =    (String[][]) getObjectValueModel(MAP_FIELD_BEAN) ;
+	 
 		GeneratePdf  genpdf= new GeneratePdf();
-		try {
-			 File file = new File(getRequest().getRealPath("/")+"/temp/"+(String)getObjectValueModel(NAME_LIST_G)+getRequest().getSession().getId()+".pdf");
-		     FileOutputStream fs = new FileOutputStream(file);
+		
+		 String [][] mapFieldBean  = new String[][]{
+			{ "pk.date_stock", "15" },
+			{ "pk.fkCode_barre.designation_libelle", "40" },  
+			{ "quantite_recept", "15" },{ "mnt_ttc_recept", "30" },
+			
+			{ "quantite_vendu", "15" },{ "mnt_ttc_vendu", "30" },
+			{ "cout_unitaire_moyen_pondere", "30" } ,
+			{ "solde_stock", "15" } 
+			};
+		 JSONObject propertieField = 
+				       new JSONObject("{"+
+	                   "\"cout_unitaire_moyen_pondere\": {\"title\": \"CUMP\",\"width\": 15 ,\"type\":\"montant3\", \"size\": 10 , \"align\": 2 },"+
+	                   "\"mnt_ttc_recept\": {\"title\": \"fact_clt_id\",\"width\": 20 ,\"type\":\"montant3\", \"size\": 10 , \"align\": 2 },"+
+	                   "\"mnt_ttc_vendu\": {\"title\": \"clt_lib\",\"width\": 30 ,\"type\":\"montant3\", \"size\": 10 , \"align\": 2 },"+
+	                   "\"quantite_recept\": {\"title\": \"quantite_recept\" ,\"type\":\"integer\", \"size\": 10 , \"align\": 1 },"+
+	                   "\"quantite_vendu\": {\"title\": \"quantite_vendu\" ,\"type\":\"integer\", \"size\": 10 , \"align\": 1 },"+
+	                   "\"solde_stock\": {\"title\": \"solde_stock\" ,\"type\":\"integer\", \"size\": 10 , \"align\": 1 },"+
+	                     "}");
+		try { 
+			    File file = new File(getRequest().getRealPath("/")+"/temp/"+(String)getObjectValueModel(NAME_LIST_G)+getRequest().getSession().getId()+".pdf");
+		        FileOutputStream fs = new FileOutputStream(file);
 		        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
-		        String [][]    map_critere_de_recherche=    (String[][]) getObjectValueModel(MAP_CRITERE_DE_RECHERCHE) ;
-		        Object searchBean=getObjectValueModel(SEARCH_BEAN);
 		        Document document = new Document(PageSize.A4.rotate(), 3, 3, 20, 40);
 		        PdfPTable table = new PdfPTable(mapFieldBean.length);
 		        String    title =(String)getObjectValueModel("list-"+Stock_articleTemplate.ID_SOUS_MODULE) ; 
+		        setObjectValueModel("propertieField",propertieField);
 		        genpdf.doWriteHeaderDocument_PDF(document,fs,mapFieldBean,bSession);
 			    genpdf.doWriteTitle_Table(document,title);
 			    genpdf.doWrite_Header_Table(table,mapFieldBean);
-			    doWrite_Data_Table(lisData,table,mapFieldBean);
+			    genpdf.doWrite_Data_Table(lisData,table,mapFieldBean);
 		        document.add(table);
 		        document.close();
 			getResponse().setContentType("text");
 			getResponse().setHeader("Cache-Control", "no-cache");
 			getResponse().setStatus(200);
+			removeObjectModel("propertieField");
 			getResponse().getWriter().write((String) getObjectValueModel(NAME_LIST_G)+getRequest().getSession().getId()+".pdf");
 		} catch (Throwable e) {
 			displayException((Exception) e);

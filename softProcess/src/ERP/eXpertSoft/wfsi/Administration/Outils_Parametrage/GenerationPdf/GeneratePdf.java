@@ -22,6 +22,8 @@ import ERP.Process.Commerciale.Vente.Devis.model.DevisBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionsLinguistiques.GLangue.model.GLangueBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 
 import com.itextpdf.text.BaseColor;
@@ -52,7 +54,9 @@ import java.io.FileOutputStream;
 
 import javax.swing.border.Border;
 
- 
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Phrase;
@@ -132,6 +136,8 @@ public class GeneratePdf extends  GenericWeb {
 		        FileOutputStream fs = new FileOutputStream(file);
 		        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
 		        String [][]    map_critere_de_recherche=    (String[][]) getObjectValueModel(MAP_CRITERE_DE_RECHERCHE) ;
+		      
+		        
 		        Object searchBean=getObjectValueModel(SEARCH_BEAN);
 		 
 		   try {
@@ -189,20 +195,45 @@ public class GeneratePdf extends  GenericWeb {
 	  
 	  
 	  
-	  public void doWrite_Data_Table(List lisData, PdfPTable table,
-			String[][] mapFieldBean) throws Exception, SecurityException {
+	  public void doWrite_Data_Table(List lisData, PdfPTable table, String[][] mapFieldBean) throws Exception, SecurityException {
+		  
+		  JSONObject  jSONObject=    (JSONObject) getObjectValueModel("propertieField") ;
 		  for(int i=0; i < lisData.size(); i++ ){
 			   Object bean = (Object) lisData.get(i);
 			 for(int j = 0; j < mapFieldBean.length; j++){
 				        PdfPCell cell = new PdfPCell(new Phrase("",REDFONT));
 				        Object obj=	 GenericWeb.getValueOject_with_name_field(bean, mapFieldBean[j][0]);
-				        cell = new PdfPCell(new Phrase(String.valueOf(obj),REDFONT));
-				        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-				        cell.setPaddingBottom(5);
-				        cell.setBackgroundColor(BaseColor.WHITE);
-				        if(i%2==0)
-				        cell.setBackgroundColor(colorLigne);
-				        table.addCell(cell);
+				        
+				        if(jSONObject!=null &&  jSONObject.has(mapFieldBean[j][0]) ) {
+				        	JSONObject propertie = (JSONObject) jSONObject.get(mapFieldBean[j][0]);
+				        	String valueData=String.valueOf(obj);
+				        	if(propertie.getString("type").equals("montant3") &&  !StringUtils.isEmpty(valueData) ) {
+				        		Double value = Double.parseDouble(valueData);
+				        		valueData=ProcessFormatNbr.FormatDouble_To_String_Troischiffre(value);
+				        	}
+				        	if(propertie.getString("type").equals("integer") &&  !StringUtils.isEmpty(valueData) ) {
+				        		Double value = Double.parseDouble(valueData);
+				        		Integer iva = value.intValue();
+				        		valueData=String.valueOf( iva);
+				        	}
+					        cell = new PdfPCell(new Phrase(valueData,REDFONT));
+					        cell.setHorizontalAlignment(propertie.getInt("align"));
+					        cell.setPaddingBottom(5);
+					        cell.setBackgroundColor(BaseColor.WHITE);
+					        if(i%2==0)
+					        cell.setBackgroundColor(colorLigne);
+					        table.addCell(cell);
+				        }else {
+				        	cell = new PdfPCell(new Phrase(String.valueOf(obj),REDFONT));
+					        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+					        cell.setPaddingBottom(5);
+					        cell.setBackgroundColor(BaseColor.WHITE);
+					        if(i%2==0)
+					        cell.setBackgroundColor(colorLigne);
+					        table.addCell(cell);
+				        }
+				        
+				        
 					   
 				    }   
 			   
@@ -222,6 +253,7 @@ public class GeneratePdf extends  GenericWeb {
 			}
 	        table.setWidthPercentage(90);
             table.setWidths(columnWidths);
+            JSONObject  jSONObject=    (JSONObject) getObjectValueModel("propertieField") ;
           for(int i = 0; i < mapFieldBean.length; i++){
         	     String titrehead="";
         	     if(mapFieldBean[i][0].indexOf(".")>0){
@@ -234,8 +266,16 @@ public class GeneratePdf extends  GenericWeb {
         	    	 titrehead=(String) getObjectValueModel(mapFieldBean[i][0]);
         	     } 
         	     
-        	     if(mapFieldBean[i][0].startsWith("modeBean"))  titrehead=(String) getObjectValueModel("_mode");
-        	    PdfPCell cell = new PdfPCell(new Phrase( titrehead==null?"-":titrehead  ,SMALLBOLD));
+        	    if(mapFieldBean[i][0].startsWith("modeBean"))  titrehead=(String) getObjectValueModel("_mode");
+        	    String  title=titrehead==null?"-":titrehead ;
+        	   
+        	    
+        	    if(jSONObject!=null &&  jSONObject.has(mapFieldBean[i][0]) &&  title.equals("-") ) {
+        	    	 JSONObject propertie = (JSONObject) jSONObject.get(mapFieldBean[i][0]);
+        	    	 title=propertie.getString("title")==null?"-":propertie.getString("title"); 
+        	    }
+        	    		
+        	    PdfPCell cell = new PdfPCell(new Phrase( title ,new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.BOLD)));
 			    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			    cell.setPaddingBottom(PaddingBottom);
 			    cell.setBackgroundColor(colorHeader);

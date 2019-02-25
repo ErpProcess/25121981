@@ -1,6 +1,9 @@
 package ERP.Process.Commerciale.Vente.Facture_client.template;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.web.servlet.ModelAndView;
 
 import ERP.Process.Commerciale.Vente.Facture_client.model.Facture_clientBean;
@@ -42,6 +45,53 @@ public static String  LIST_CPT_BANK  = "list_cpt_bank_fact";
 public static String  LIST_MODE_REGLMENT   = "list_mode_reglment_facture";
 
 public static String [][] MapfieldBean  = new String[][]{  { "fact_date", "15" } , { "fact_clt_id", "20" } ,{ "client.clt_lib", "30" },{ "total_facture", "30" },{ "etat_reg.data_libelle", "30" }};
+
+
+//0=Left, 1=Centre, 2=Right
+//Field descriptor #80 I
+public static final int NORMAL = 0;
+
+// Field descriptor #80 I
+public static final int BOLD = 1;
+
+// Field descriptor #80 I
+public static final int ITALIC = 2;
+
+public static JSONObject propertieField = new JSONObject("{"+
+                   "\"fact_date\": {\"title\": \"fact_date\",\"width\": 15 ,\"type\":\"String\", \"size\": 10 , \"align\": 0 },"+
+                   "\"fact_clt_id\": {\"title\": \"fact_clt_id\",\"width\": 20 ,\"type\":\"String\", \"size\": 10 , \"align\": 0 },"+
+                   "\"client.clt_lib\": {\"title\": \"clt_lib\",\"width\": 30 ,\"type\":\"String\", \"size\": 10 , \"align\": 0 },"+
+                   "\"total_facture\": {\"title\": \"total_facture\",\"width\": 30 ,\"type\":\"montant3\", \"size\": 10 , \"align\": 2 },"+
+                   "\"etat_reg.data_libelle\": {\"title\": \"etat_reg.data_libelle\",\"width\": 30 ,\"type\":\"String\", \"size\": 10 , \"align\": 0 },"+
+  "}"
+ );
+
+
+//public static void main(String[] args) {
+//	
+//	String  data  ="{"+
+//            "\"fact_date\": {\"title\": \"fact_date\",\"width\": 15 ,\"type\":\"String\", \"size\": 10 , \"align\": 0 },"+
+//            "\"fact_clt_id\": {\"title\": \"fact_clt_id\",\"width\": 20 ,\"type\":\"String\", \"size\": 10 , \"align\": 0 },"+
+//            "\"client.clt_lib\": {\"title\": \"clt_lib\",\"width\": 30 ,\"type\":\"String\", \"size\": 10 , \"align\": 0 },"+
+//            "\"total_facture\": {\"title\": \"total_facture\",\"width\": 30 ,\"type\":\"montant3\", \"size\": 10 , \"align\": 2 },"+
+//            "\"etat_reg.data_libelle\": {\"title\": \"etat_reg.data_libelle\",\"width\": 30 ,\"type\":\"String\", \"size\": 10 , \"align\": 0 },"+
+//"}";
+//	    JSONObject jsonObject = new JSONObject(data);
+//	    
+//	     
+//	    JSONObject val = (JSONObject) jsonObject.get( "fact_date" );
+//	    int valee = (int) val.get( "align" );
+//		 System.out.println( val + ", " + valee);
+// 
+////	for (Iterator iterator = jsonObject.keys(); iterator.hasNext();) {
+////	  String cle = (String) iterator.next();
+////	  Object val = jsonObject.get( cle );
+////	  System.out.println( cle + ", " + val);
+////	}
+//	
+//	 
+//}
+ 
 
 public static String [][] MapfieldBean_detaille  = 
 	new String[][]{

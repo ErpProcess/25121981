@@ -739,6 +739,8 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 	        		 removeObjectModel(NAME_LIST_G);
 		        	 removeObjectModel(NAME_GRID_G);
 		        	 removeObjectModel(MAP_FIELD_BEAN);
+		        	 removeObjectModel("propertieField");
+		        	 
 		    	     removeObjectModel(MAP_CRITERE_DE_RECHERCHE);
 		    	     removeObjectModel(ACT_FETCH_AJAX_GLOBAL);
 	        	 
@@ -776,6 +778,13 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 		    	       setObjectValueModel(MAP_FIELD_BEAN, objBean);
 		    	     //System.out.println(" ------------ FIELD_BEAN  :"+objBean.getClass().getSimpleName()+"            -------------------------");
 		         }
+		         
+		         if(nameAttribute!=null  &&  nameAttribute.equals("propertieField")){
+		    	       Object objBean = (Object) value;
+		    	       setObjectValueModel("propertieField", objBean);
+		    	     //System.out.println(" ------------ FIELD_BEAN  :"+objBean.getClass().getSimpleName()+"            -------------------------");
+		         }
+		         
 		         
 		         if(nameAttribute!=null  &&  nameAttribute.equals("MAP_CRITERE_DE_RECHERCHE")){
 		    	     Object objBean = (Object) value;
