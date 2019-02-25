@@ -15,6 +15,7 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Phrase;
@@ -166,7 +167,9 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    cellheder.setBorder(cellheder.NO_BORDER);
 	    tableheader.addCell(cellheder);
 		
-	    cellheder = new PdfPCell(new Phrase(bs.getSoc_lib()+"\n\r"+bs.getSociete().getAdresse()+"\n\r"+bs.getSociete().getMatricule_fiscale(),GeneratePdf.Normal_10_times_roman));
+	    cellheder = new PdfPCell(new Phrase(bs.getSoc_lib()+"\n\r"+bs.getSociete().getAdresse()+"\n\r"+"MF: "+bs.getSociete().getMatricule_fiscale()+
+	    		                            "\n\rRC :"+bs.getSociete().getRegistre_commerce()+"\n\r"+"TEL: "+bs.getSociete().getTelephone()
+	    		                            ,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
 	    cellheder.setColspan(86);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cellheder.setPaddingLeft(28f);
@@ -178,20 +181,20 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    cellheder = new PdfPCell(new Phrase("",GeneratePdf.Normal_10_times_roman));
 	    cellheder.setColspan(19);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
-	    cellheder.setPaddingLeft(21f);
 	    cellheder.setBorder(cellheder.NO_BORDER);
 	    tableheader.addCell(cellheder);
 	    
-	    cellheder = new PdfPCell(new Phrase("Virement bancaire :",GeneratePdf.Normal_10_times_roman));
-	    cellheder.setColspan(17);
+	    cellheder = new PdfPCell(new Phrase("Virement bancaire:",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
+	    cellheder.setColspan(14);
 	    cellheder.setPaddingBottom(10f);
+	    cellheder.setPaddingLeft(-1f);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cellheder.setBorder(cellheder.NO_BORDER);
 	    tableheader.addCell(cellheder);
         
         
-	    cellheder = new PdfPCell(new Phrase(denBean.getCpt_bank().getCptbanribrs()+"   /   "+denBean.getCpt_bank().getCptbanribrib(),GeneratePdf.Bold_10_times_roman));
-	    cellheder.setColspan(64);
+	    cellheder = new PdfPCell(new Phrase(denBean.getCpt_bank().getCptbanribrs()+" / "+denBean.getCpt_bank().getCptbanribrib(),GeneratePdf.Normal_10_times_roman));
+	    cellheder.setColspan(67);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cellheder.setPaddingBottom(10f);
 	    cellheder.setBorder(cellheder.NO_BORDER);
