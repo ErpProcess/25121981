@@ -34,10 +34,15 @@ import ERP.Process.Commerciale.Vente.Facture_client.model.Facture_clientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.model.MvtVente_articleBean;
 import ERP.Process.Commerciale.Vente.Facture_client.service.Facture_clientService;
 import ERP.Process.Commerciale.Vente.Facture_client.template.Facture_clientTemplate;
+import ERP.Process.Commerciale.Vente.FournitureVente.model.DetFournitureVenteBean;
+import ERP.Process.Commerciale.Vente.FournitureVente.model.FournitureVenteBean;
+import ERP.Process.Commerciale.Vente.FournitureVente.service.FournitureVenteService;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.DetProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.service.ProcedureVenteService;
 import ERP.Process.Commerciale.Vente.ProcedureVente.template.ProcedureVenteTemplate;
+import ERP.Process.Commerciale.Vente.Service.model.DetServiceBean;
+import ERP.Process.Commerciale.Vente.Service.service.ServiceService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.GenerationPdf.GeneratePdf;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
@@ -83,11 +88,14 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	    this.serviceProcedureVente = serviceProcedureVente;
 	}
 	
-	/*private ClientService serviceClient;
 	@Autowired
-	public void setServiceClient(ClientService serviceClient) {
-		this.serviceClient = serviceClient;
-	}*/
+	private FournitureVenteService    serviceFournitureVente;
+	
+	private ServiceService serviceService;
+	@Autowired
+	public void setServiceService(ServiceService serviceService) {
+		this.serviceService = serviceService;
+	}
 	
 	private ClientDAO daoClient;
 	@Autowired
@@ -274,6 +282,8 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	     List<Det_Fact_ClientBean> liste_detaille_facture= new ArrayList<Det_Fact_ClientBean>();
 	     
 	     HashMap  map_article= new HashMap();
+	     HashMap  map_fourniture= new HashMap();
+	     HashMap  map_Service= new HashMap();
 	     
 	     HashMap  map_detail_codBarre= new HashMap();
 	      
@@ -308,22 +318,179 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	    		}
 	    		
 	    	 }
+	    	 
+	    	 FournitureVenteBean fourBean= new FournitureVenteBean();
+			 fourBean.setVenteFrn(beanVente);
+			 List <DetFournitureVenteBean>listDetFournitureVente  =  serviceFournitureVente.doFetchDetailFourniturefromServer(fourBean);
+			 for (DetFournitureVenteBean beanfrns:listDetFournitureVente) {
+	    		 String keyString  =    beanfrns.getFkcode_barre().getPk().getCode_barre()+"£"+
+	    				 beanfrns.getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"£"+
+	    				 beanfrns.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"£"+
+	    				 beanfrns.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"£";
+	    		List list= (List) map_fourniture.get(keyString);
+	    		if(list==null)list= new ArrayList();
+	    		list.add(beanfrns);
+	    		map_fourniture.put(keyString, list);
+	    		if(map_detail_codBarre.get(keyString)==null){
+	    			map_detail_codBarre.put(keyString, beanfrns.getFkcode_barre());
+	    		}
+	    	 }
+			 
+			 
+			 List <DetServiceBean>listDetServiceBean =  serviceService.doFindDetailListServiceByVenteId(beanVente);
+			 for (DetServiceBean beanserv:listDetServiceBean) {
+	    		 String keyString  =    beanserv.getFkcode_barre().getPk().getCode_barre()+"£"+
+	    				                beanserv.getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"£"+
+	    				                beanserv.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"£"+
+	    				                beanserv.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"£";
+	    		List list= (List) map_Service.get(keyString);
+	    		if(list==null)list= new ArrayList();
+	    		list.add(beanserv);
+	    		map_Service.put(keyString, list);
+	    		if(map_detail_codBarre.get(keyString)==null){
+	    			map_detail_codBarre.put(keyString, beanserv.getFkcode_barre());
+	    		}
+	    	 }
+ 
 	     }
 	     
-	     
-	     Set mapio_map_article=map_article.keySet();
+	     Set  set_map_service=map_Service.keySet();
 	     List listMvt_Vente= new ArrayList();
-	     for (Iterator itera = mapio_map_article.iterator(); itera.hasNext();) {
+	     for (Iterator itera = set_map_service.iterator(); itera.hasNext();) {
 			 String produit = (String) itera.next();
-			
 			
 			 
 			 Code_barreBean  fkcode_barre=(Code_barreBean) map_detail_codBarre.get(produit);
 			 MvtVente_articleBean  mvt_article= new MvtVente_articleBean();
 			 
+			 Double  quantiteGen	= new Double(0);
+			 Double  quantiteBox	= new Double(0);
+			 Double  mnt_ht		    = new Double(0);
+			 Double  mnt_tva	    = new Double(0);
+			 
+			 Double  montant_ht_vente_reel	    = new Double(0);
+			 Double  montant_Remise_Ligne_gen	    = new Double(0);
+			 Double  taux_remise_ligne_gen	    = new Double(0);
+			 
+			 
+			 
+			 List list_detail_mvt_vente= new ArrayList();
+			 TVABean  tvaBean	= new TVABean();
+			 List listMvt=(List) map_Service.get(produit);
+			 
+			 for (int i = 0; i < listMvt.size(); i++) {
+				 DetServiceBean detProVente = (DetServiceBean) listMvt.get(i);
+				 tvaBean=detProVente.getTarifVente().getTvaBean();
+				  
+				 
+				
+				 
+				 Detail_mvt_vente_articleBean detMvt = new Detail_mvt_vente_articleBean();
+				 detMvt.getPk().getMvt_vente().setMvt_vente_id("");
+				 detMvt.getPk().setVente(detProVente.getService().getVenteSrv());
+				 detMvt.getPk().setDocument_com_id(detProVente.getService().getVenteSrv().getVente_id()) ;
+				 detMvt.getPk().getNat_mvt().setNature_mvt_id("ve");
+				 detMvt.setTarif(detProVente.getTarifVente());
+				 detMvt.getPk().setFkcode_barre(detProVente.getFkcode_barre());
+				 detMvt.setQuantite(detProVente.getQuantite());
+				 
+				
+				 
+				 
+				 
+				/*****************************************le cout ********************************************/
+		        /*Double  getQuantiteX      = detProVente.getQuantite()==null?new Double(0):detProVente.getQuantite();
+		    	Double  qte               = ProcessFormatNbr.FormatDouble_ParameterChiffre(getQuantiteX);
+		    	Double  cout              = detProVente.getTarif().getCout()==null?new Double(0):detProVente.getTarif().getCout().getTarif_unit_article();
+		    	Double	Prixcout          = cout==null?new Double(0):cout;
+		    	Double le_cout            = ProcessNumber.PRODUIT(Prixcout, qte);
+		    					  le_cout = ProcessFormatNbr.FormatDouble_ParameterChiffre(le_cout);*/
+		    		
+		    	/*****************************************  setInfo  ********************************************/
+		    		
+		    	/*String libelle_desi=detProVente.getPk().getFkcode_barre().getDesignation_libelle();
+		    	String groupe=detProVente.getTarif().getGroupe().getType_trf_lib();
+				String lot=detProVente.getTarif().getTarif_lot()!=null && detProVente.getTarif().getTarif_lot().equals(true)?" * de lot   ":"";
+				String natureprix="<br>"+" <p style='color:red;margin-left:20%;font-size:8px;'># Prix "+lot+" * "+groupe+"</p>";
+				detProVente.setInfo(libelle_desi+natureprix);*/
+		    	
+				 quantiteGen  =ProcessNumber.addition(quantiteGen, detProVente.getQuantite());
+				 
+		    		
+		    		
+		    	/*****************************************Prix Unit Brute reel********************************************/
+				Double priUnitvente=ProcessFormatNbr.FormatDouble_ParameterChiffre(detProVente.getTarifVente().getTarif_unit_vente(),pattern);	
+		    	Double montant_ht_ligne_reel=ProcessNumber.PRODUIT(priUnitvente, detProVente.getQuantite());
+		    	montant_ht_ligne_reel=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_ligne_reel,pattern);
+		    	
+		    	montant_ht_vente_reel=ProcessNumber.addition(montant_ht_vente_reel,montant_ht_ligne_reel);
+		    		 
+		    	/*******************************************Remise********************************************************/
+		    		
+		    	Double taux_remiseligne     = detProVente.getTaux_remise_ligne()==null?new Double(0):detProVente.getTaux_remise_ligne();
+				Double tot_taux             = ProcessFormatNbr.FormatDouble_ParameterChiffre(taux_remiseligne,pattern);
+				taux_remise_ligne_gen=ProcessNumber.addition(taux_remise_ligne_gen,tot_taux); 
+				
+				
+				
+				Double montant_Remise_Ligne  = ProcessNumber.Pourcentage(montant_ht_ligne_reel, tot_taux);
+				detProVente.setMontant_Remise_Ligne(ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_Remise_Ligne,pattern));
+				montant_Remise_Ligne_gen=ProcessNumber.addition(montant_Remise_Ligne_gen,montant_Remise_Ligne); 
+
+	    		/*******************************************montant_ht_vente *********************************************/   
+	    		    
+	    		Double montant_ht_vente=ProcessNumber.SOUSTRACTION(montant_ht_vente_reel, montant_Remise_Ligne);
+	    		montant_ht_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente,pattern);
+	    		detProVente.setMontant_ht_vente(ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente,pattern));
+	    		detMvt.setMontant_ht_vente(montant_ht_vente);
+	    		mnt_ht=ProcessNumber.addition(mnt_ht, montant_ht_vente);
+		    		
+		    	/*********************************************montant_tva_vente ******************************************/
+		    		 
+		    	Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente, detProVente.getTarifVente().getTvaBean().getTva_value());
+		    	montant_tva_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_tva_vente,pattern);
+		    	detProVente.setMontant_tva_vente(montant_tva_vente);
+		    	detMvt.setMontant_tva_vente(montant_tva_vente);
+		    	mnt_tva=ProcessNumber.addition(mnt_tva, montant_tva_vente);
+		    	
+		    		
+		    	/*********************************************montant_ttc_vente *******************************************/
+		    		
+		    	Double  montant_ttc_vente=ProcessNumber.addition(montant_ht_vente, montant_tva_vente);
+		    	detProVente.setMontant_ttc_vente(montant_ttc_vente);
+		    		
+		    	/*********************************************montant_benefice *******************************************/
+		    	/*if(le_cout.doubleValue()>0){
+		    	 Double	 montant_benefice = ProcessNumber.SOUSTRACTION(montant_ht_vente, le_cout);
+		    	montant_benefice          =ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_benefice);
+		    	detProVente.setMontant_benefice(montant_benefice);
+		    	}*/
+		    	/**********************************************************************************************************/
+				 
+				 list_detail_mvt_vente.add(detMvt);
+			}
+			mvt_article.setFkcode_barre(fkcode_barre); 
+			mvt_article.setTvaBean(tvaBean);
+			mvt_article.setQuantite(quantiteGen);
 			
+			mvt_article.setNbrBox(quantiteBox);
+			mvt_article.setMontant_ht_vente(mnt_ht);
+			mvt_article.setMontant_tva_vente(mnt_tva);
+			mvt_article.setMontant_ht_vente_reel(montant_ht_vente_reel);
+			mvt_article.setMontant_Remise_Ligne(montant_Remise_Ligne_gen);
+			mvt_article.setTaux_remise_ligne(taux_remise_ligne_gen);
+			mvt_article.setList_detail_mvt_vente(list_detail_mvt_vente);
+			listMvt_Vente.add(mvt_article);
+		 }
+	     
+	     
+	     Set mapio_map_article=map_article.keySet();
+	     for (Iterator itera = mapio_map_article.iterator(); itera.hasNext();) {
+			 String produit = (String) itera.next();
 			
 			 
+			 Code_barreBean  fkcode_barre=(Code_barreBean) map_detail_codBarre.get(produit);
+			 MvtVente_articleBean  mvt_article= new MvtVente_articleBean();
 			 
 			 Double  quantiteGen	= new Double(0);
 			 Double  quantiteBox	= new Double(0);
@@ -446,7 +613,6 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			mvt_article.setTaux_remise_ligne(taux_remise_ligne_gen);
 			mvt_article.setList_detail_mvt_vente(list_detail_mvt_vente);
 			listMvt_Vente.add(mvt_article);
-			
 		 }
 	     
 	     for (int i = 0; i < listMvt_Vente.size(); i++) {

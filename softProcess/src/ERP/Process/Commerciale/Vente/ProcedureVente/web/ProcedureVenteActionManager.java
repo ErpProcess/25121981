@@ -94,13 +94,14 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 	private static final long serialVersionUID = -8175356954235186229L;
 	private ProcedureVenteService  serviceProcedureVente;
 	
-	@Autowired
-	private FournitureVenteService    serviceFournitureVente;
+
 	@Autowired
 	public void setServiceProcedureVente(ProcedureVenteService serviceProcedureVente) {
 	    this.serviceProcedureVente = serviceProcedureVente;
 	} 
 	
+	@Autowired
+	private FournitureVenteService    serviceFournitureVente;
 	
 	private ServiceService serviceService;
 	@Autowired
