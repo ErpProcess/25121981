@@ -62,6 +62,7 @@ function ADD_Prestation(){
 	 lib_required="required";
 	 doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_ADD_ROW_PRESTATION','text',false);
 	 otab_otraPrestation.fnAdjustColumnSizing();
+	 otab_otra.fnAdjustColumnSizing();
 	 $('input[id="codeFocusPrestation"]').val('');               
 	 $('#XnextFocusPrestation').val('');
 	 $('#quantitePrestation').val('1');

@@ -183,6 +183,18 @@ public class ProcessUtil {
 		return mapRetourn;
 	}
 	
+	
+	public static  boolean doesObjectContainField(Object object, String fieldName) {
+	    Class<?> objectClass = object.getClass();
+	    Field[] fields = objectClass.getDeclaredFields();
+	    for (Field field : fields) {
+	    	if (field.getName().equals(fieldName)) {
+	            return true;
+	        }
+	    } 
+	    return false;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static void CollectionSortAsc(List listData, final String lesColun) {
 

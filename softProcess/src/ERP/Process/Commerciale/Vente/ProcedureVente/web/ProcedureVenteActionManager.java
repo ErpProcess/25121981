@@ -2430,20 +2430,72 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	public    ModelAndView doPrintPDF_detaille() throws Exception   {
 		 
 		List   lisData=  (List) getObjectValueModel(LIST_EDITABLE_VENTE) ;
+		List   list_detailleFourniture =  (List<DetFournitureVenteBean>) getObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE);   
+		List   list_detailleService    =  (List<DetServiceBean>) getObjectValueModel(LIST_EDITABLE_PRESTATION);   
+		 
 		ProcedureVenteBean      denBean= (ProcedureVenteBean) getObjectValueModel(FORM_BEAN) ;
 		File file = new File(getRequest().getRealPath("/")+"/temp/"+LIST_EDITABLE_VENTE+getRequest().getSession().getId()+".pdf");
 	    FileOutputStream fs = new FileOutputStream(file);
 	    GeneratePdf  genpdf= new GeneratePdf();
+
+	    String [][] mapfieldBean_detaille  = 
+	    		new String[][]{
+	    		          { "pk.fkcode_barre.pk.code_barre", "30" }, 
+	    		          { "pk.fkcode_barre.designation_libelle", "100" },
+	    		          { "quantite", "20" },
+	    		          { "tarif.tarif_unit_vente", "30" },
+	    		          { "taux_remise_ligne", "20" },
+	    		          { "montant_ht_vente", "50" }
+	    		          };    
+	    		          
+    
+						   
+	     String [][] mapfieldBeanFourniture  = 
+	        		new String[][]{
+	        		          { "fkcode_barre.pk.code_barre", "30" }, 
+	        		          { "fkcode_barre.designation_libelle", "100" },
+	        		          { "quantite", "20" },
+	        		          { "tarifVente.tarif_unit_vente", "30" },
+	        		          { "taux_remise_ligne", "20" },
+	        		          { "montant_ht_vente", "50" }
+	      };
+        
+	     String [][] mapfieldBeanPrestation  = 
+	        		new String[][]{
+	        		          { "fkcode_barre.pk.code_barre", "30" }, 
+	        		          { "fkcode_barre.designation_libelle", "100" },
+	        		          { "quantite", "20" },
+	        		          { "tarifVente.tarif_unit_vente", "30" },
+	        		          { "taux_remise_ligne", "20" },
+	        		          { "montant_ht_vente", "50" }
+	          };
 		try {
 			Document document = new Document(PageSize.A4, 5, 5, 5, 25);
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
-	        genpdf.doWriteHeaderDocument_PDF_NOT_PASY(document,fs,MapfieldBean_detaille,bSession);
+	        genpdf.doWriteHeaderDocument_PDF_NOT_PASY(document,fs,mapfieldBean_detaille,bSession);
 	        
 	        doWriteEntete(document,denBean);
-	        doWrite_Header_ContentTable(document,96,MapfieldBean_detaille);
-	        doWrite_Data_Table (lisData,document,96,MapfieldBean_detaille);
-	        doWrite_Tva_Total_Piece(lisData,document);  
+	        doWrite_Header_ContentTable(document,96,mapfieldBean_detaille);
+	        PdfPTable table = new PdfPTable(mapfieldBean_detaille.length);
 	        
+	        int listsDatasize=0;
+	        if(lisData!=null  &&  lisData.size()>0) {
+	        	listsDatasize=listsDatasize+lisData.size();
+	        	doWrite_Data_Table (table,lisData,document,96,mapfieldBean_detaille);
+	        }   
+	        if(list_detailleFourniture!=null  &&  list_detailleFourniture.size()>0) {
+	         	listsDatasize=listsDatasize+list_detailleFourniture.size();
+	            doWrite_Data_Table (table,list_detailleFourniture,document,96,mapfieldBeanFourniture);
+	        }   
+	        if(list_detailleService!=null  &&  list_detailleService.size()>0) {
+	        	listsDatasize=listsDatasize+list_detailleService.size();
+	        	doWrite_Data_Table (table,list_detailleService,document,96,mapfieldBeanPrestation);
+	        }
+	        
+	        if(listsDatasize>0) {
+	          doWriteRowVideApresData(table, listsDatasize, document, mapfieldBean_detaille);
+	          doWrite_Tva_Total_Piece(lisData,document);  
+	        }
 	        document.close();
 			getResponse().setContentType("text");
 			getResponse().setHeader("Cache-Control", "no-cache");
@@ -2457,11 +2509,33 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	return null;
 
      }
-	
-	  public   void doWrite_Data_Table(List lisData, Document document,int poucentage,String[][] mapFieldBean) throws Exception, SecurityException {
+	public   void doWriteRowVideApresData(PdfPTable table ,int listsDatasize, Document document ,String[][] mapFieldBean) throws Exception, SecurityException {
+		
+		  /********************************************************************************************************/
+        int sizelist=listsDatasize;
+        int toolha=sizelist*20;
+        int resul=380 - toolha;
+        float toul_contenu_tab=Float.valueOf(String.valueOf(resul));
+        /********************************************************************************************************/
+         
+        for(int j = 0; j < mapFieldBean.length; j++){
+		            PdfPCell cell = new PdfPCell(new Phrase("",GeneratePdf.Normal_9_times_roman));
+			        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+			        cell.setPaddingBottom(5);
+			        cell.setBorderWidth(0.1f);
+			        cell.setFixedHeight(toul_contenu_tab);
+			        cell.setBorderColor(WebColors.getRGBColor("#787878"));
+			        cell.setBackgroundColor(BaseColor.WHITE);
+			        cell.setBorder(cell.LEFT+cell.RIGHT);
+		            table.addCell(cell);
+		    }   
+		  document.add(table);
+		
+	}
+	  public   void doWrite_Data_Table(PdfPTable table,List lisData, Document document,int poucentage,String[][] mapFieldBean) throws Exception, SecurityException {
 		  
-		    PdfPTable table = new PdfPTable(mapFieldBean.length);
-		    int PaddingBottom=5;
+		  
+		  
 	        int[] columnWidths = new int[mapFieldBean.length] ;
 	        for(int i = 0; i < mapFieldBean.length; i++){
 	      	columnWidths[i]= Integer.parseInt(mapFieldBean[i][1])   ;
@@ -2471,20 +2545,24 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		  
 			  for(int i=0; i < lisData.size(); i++ ){
 				   Object bean = (Object) lisData.get(i);
+				   
+				  if(ProcessUtil.doesObjectContainField(bean, "isVente")) {
+					  Object obj=	 GenericWeb.getValueOject_with_name_field(bean, "isVente");
+					  Boolean   isVenteData = (Boolean) obj;
+					  if(!isVenteData) continue;
+				  }
 				    
 				 for(int j = 0; j < mapFieldBean.length; j++){
 					 
-					        PdfPCell cell = new PdfPCell(new Phrase("",GeneratePdf.Normal_10_times_roman));
+					        PdfPCell cell = new PdfPCell(new Phrase("",GeneratePdf.Normal_9_times_roman));
 					 
 					        Object obj=	 GenericWeb.getValueOject_with_name_field(bean, mapFieldBean[j][0]);
 					        
 					        if(j==mapFieldBean.length-3 ||  j==mapFieldBean.length-1 ){
 					        	Double elm=Double.valueOf(String.valueOf(obj));
-					        	cell = new PdfPCell(new Phrase(ProcessFormatNbr.FormatDouble_To_String_Troischiffre(elm) ,GeneratePdf.Normal_10_times_roman));
+					        	cell = new PdfPCell(new Phrase(ProcessFormatNbr.FormatDouble_To_String_Troischiffre(elm) ,GeneratePdf.Normal_9_times_roman));
 						        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 						        cell.setPaddingBottom(5);
-						        cell.setBorderWidth(0.1f);
-						        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 						        cell.setBackgroundColor(BaseColor.WHITE);
 						        if(i%2==0)
 						        cell.setBackgroundColor(GeneratePdf.colorLigne);
@@ -2492,14 +2570,12 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 					        }else{
 					        	 
 					        
-					        	cell = new PdfPCell(new Phrase(String.valueOf(obj),GeneratePdf.Normal_10_times_roman));
+					         cell = new PdfPCell(new Phrase(String.valueOf(obj),GeneratePdf.Normal_9_times_roman));
 					       	 if(j==mapFieldBean.length-2)
-					       		cell = new PdfPCell(new Phrase(ProcessFormatNbr.addPourcentage(String.valueOf(obj)) ,GeneratePdf.Normal_10_times_roman));
+					       		cell = new PdfPCell(new Phrase(ProcessFormatNbr.addPourcentage(String.valueOf(obj)) ,GeneratePdf.Normal_9_times_roman));
 				        		 
 						        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 						        cell.setPaddingBottom(5);
-						        cell.setBorderWidth(0.1f);
-						        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 						        cell.setBackgroundColor(BaseColor.WHITE);
 						        if(i%2==0)
 						        cell.setBackgroundColor(GeneratePdf.colorLigne);
@@ -2509,25 +2585,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 				   
 	           }
 			  
-			   /********************************************************************************************************/
-	           int sizelist=lisData.size();
-	           int toolha=sizelist*20;
-	           int resul=380 - toolha;
-	           float toul_contenu_tab=Float.valueOf(String.valueOf(resul));
-	           /********************************************************************************************************/
-	            
-	           for(int j = 0; j < mapFieldBean.length; j++){
-			            PdfPCell cell = new PdfPCell(new Phrase("",GeneratePdf.Normal_10_times_roman));
-				        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-				        cell.setPaddingBottom(5);
-				        cell.setBorderWidth(0.1f);
-				        cell.setFixedHeight(toul_contenu_tab);
-				        cell.setBorderColor(WebColors.getRGBColor("#787878"));
-				        cell.setBackgroundColor(BaseColor.WHITE);
-				        cell.setBorder(cell.LEFT+cell.RIGHT);
-			            table.addCell(cell);
-			    }   
-			  document.add(table);
+			 
 		}
 	  
 	  
@@ -2564,7 +2622,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
     	     
     	     
     	     
-    	    PdfPCell cell = new PdfPCell(new Phrase( titrehead==null?"-":titrehead  ,GeneratePdf.Bold_10_times_roman));
+    	    PdfPCell cell = new PdfPCell(new Phrase( titrehead==null?"-":titrehead  ,GeneratePdf.Bold_9_times_roman));
 		    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		    cell.setPaddingBottom(PaddingBottom);
 		    cell.setBackgroundColor(GeneratePdf.colorHeader);
@@ -2581,7 +2639,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	tableTopHeader.setWidthPercentage(96);
 	 
 	    
-	PdfPCell cell = new PdfPCell(new Phrase("Bon Livraison N°",GeneratePdf.FONT_12_bold));
+	PdfPCell cell = new PdfPCell(new Phrase("Bon Livraison N°",GeneratePdf.Bold_9_times_roman));
     cell.setColspan(24);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -2589,7 +2647,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
     cell.setBorder(cell.NO_BORDER);
     tableTopHeader.addCell(cell);
     
-    cell = new PdfPCell(new Phrase(" : "+denBean.getVente_id(),GeneratePdf.FONT_12_normal));
+    cell = new PdfPCell(new Phrase(" : "+denBean.getVente_id(),GeneratePdf.Normal_9_times_roman));
     cell.setColspan(23);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -2597,7 +2655,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
     tableTopHeader.addCell(cell);
     
     
-    cell = new PdfPCell(new Phrase(" Client ",GeneratePdf.FONT_12_bold));
+    cell = new PdfPCell(new Phrase(" Client ",GeneratePdf.Bold_9_times_roman));
     cell.setColspan(13);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -2605,7 +2663,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
     tableTopHeader.addCell(cell);
     
     String getClient=denBean.getVente_libelle().equals("")?denBean.getClient().getClt_lib():denBean.getVente_libelle();
-    cell = new PdfPCell(new Phrase(" : "+getClient ,GeneratePdf.FONT_12_normal));
+    cell = new PdfPCell(new Phrase(" : "+getClient ,GeneratePdf.Normal_9_times_roman));
     cell.setColspan(40);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -2618,14 +2676,14 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
      
     
     
-    cell = new PdfPCell(new Phrase("Date",GeneratePdf.FONT_12_bold));
+    cell = new PdfPCell(new Phrase("Date",GeneratePdf.Bold_9_times_roman));
     cell.setColspan(24);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
     cell.setBorder(cell.NO_BORDER);
     tableTopHeader.addCell(cell);
     
-    cell = new PdfPCell(new Phrase(  " : "+ProcessDate.getCurrentTimeStamp(denBean.getVente_date()) ,GeneratePdf.FONT_12_normal));
+    cell = new PdfPCell(new Phrase(  " : "+ProcessDate.getCurrentTimeStamp(denBean.getVente_date()) ,GeneratePdf.Normal_9_times_roman));
     cell.setColspan(23);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -2634,14 +2692,14 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
     
     
     
-    cell = new PdfPCell(new Phrase(" Adresse ",GeneratePdf.FONT_12_bold));
+    cell = new PdfPCell(new Phrase(" Adresse ",GeneratePdf.Bold_9_times_roman));
     cell.setColspan(13);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
     cell.setBorder(cell.LEFT);
     tableTopHeader.addCell(cell);
     
-    cell = new PdfPCell(new Phrase( " : "+denBean.getClient().getClt_adr() ,GeneratePdf.FONT_12_normal));
+    cell = new PdfPCell(new Phrase( " : "+denBean.getClient().getClt_adr() ,GeneratePdf.Normal_9_times_roman));
     cell.setColspan(40);
     cell.setFixedHeight(40f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -2650,7 +2708,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
     
     
     
-    cell = new PdfPCell(new Phrase("   ",GeneratePdf.FONT_12_bold));
+    cell = new PdfPCell(new Phrase("   ",GeneratePdf.Bold_9_times_roman));
     cell.setColspan(47);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -2661,14 +2719,14 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
     
     
     
-    cell = new PdfPCell(new Phrase(" Matricule fiscal :",GeneratePdf.FONT_12_bold));
+    cell = new PdfPCell(new Phrase(" Matricule fiscal :",GeneratePdf.Bold_9_times_roman));
     cell.setColspan(18);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
     cell.setBorder(cell.LEFT+cell.BOTTOM);
     tableTopHeader.addCell(cell);
     
-    cell = new PdfPCell(new Phrase( "   "+denBean.getClient().getClt_obs() ,GeneratePdf.FONT_12_normal));
+    cell = new PdfPCell(new Phrase( "   "+denBean.getClient().getClt_obs() ,GeneratePdf.Normal_9_times_roman));
     cell.setColspan(35);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -2681,7 +2739,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
     
     
     
-    cell = new PdfPCell(new Phrase("",GeneratePdf.FONT_12_normal));
+    cell = new PdfPCell(new Phrase("",GeneratePdf.Normal_9_times_roman));
     cell.setColspan(100);
     cell.setFixedHeight(30f);
     cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -2707,35 +2765,35 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
            
            
            /******************************************* Entete  tableau des tva *************************************/
-           PdfPCell cell = new PdfPCell(new Phrase( "" ,GeneratePdf.FONT_12_normal));
+           PdfPCell cell = new PdfPCell(new Phrase( "" ,GeneratePdf.Normal_9_times_roman));
            cell.setColspan(100);
            cell.setFixedHeight(20f);
            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
            cell.setBorder(cell.TOP);
            table_des_tva.addCell(cell);
            
-           cell = new PdfPCell(new Phrase("Taux",GeneratePdf.FONT_12_bold));
+           cell = new PdfPCell(new Phrase("Taux",GeneratePdf.Bold_9_times_roman));
            cell.setColspan(10);
            cell.setFixedHeight(20f);
            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
            cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
            table_des_tva.addCell(cell);
            
-           cell = new PdfPCell(new Phrase("Base",GeneratePdf.FONT_12_bold));
+           cell = new PdfPCell(new Phrase("Base",GeneratePdf.Bold_9_times_roman));
            cell.setColspan(21);
            cell.setFixedHeight(20f);
            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
            cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
            table_des_tva.addCell(cell);
            
-           cell = new PdfPCell(new Phrase("Montant",GeneratePdf.FONT_12_bold));
+           cell = new PdfPCell(new Phrase("Montant",GeneratePdf.Bold_9_times_roman));
            cell.setColspan(23);
            cell.setFixedHeight(20f);
            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
            cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
            table_des_tva.addCell(cell);
            
-           cell = new PdfPCell(new Phrase( "" ,GeneratePdf.FONT_12_normal));
+           cell = new PdfPCell(new Phrase( "" ,GeneratePdf.Normal_9_times_roman));
            cell.setColspan(49);
            cell.setFixedHeight(20f);
            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -2757,28 +2815,28 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			   String elmme=  (String) mapTvaImpression.get(key);
 			   String[] ligne=   elmme.split("£");
 			
-			   cell = new PdfPCell(new Phrase(key,GeneratePdf.Normal_10_times_roman));
+			   cell = new PdfPCell(new Phrase(key,GeneratePdf.Normal_9_times_roman));
 	           cell.setColspan(10);
 	           cell.setFixedHeight(20f);
 	           cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 	           cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
 	           table_des_tva.addCell(cell);
 	           
-	           cell = new PdfPCell(new Phrase(ligne[0],GeneratePdf.Normal_10_times_roman));
+	           cell = new PdfPCell(new Phrase(ligne[0],GeneratePdf.Normal_9_times_roman));
 	           cell.setColspan(21);
 	           cell.setFixedHeight(20f);
 	           cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 	           cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
 	           table_des_tva.addCell(cell);
 	           
-	           cell = new PdfPCell(new Phrase(ligne[1],GeneratePdf.Normal_10_times_roman));
+	           cell = new PdfPCell(new Phrase(ligne[1],GeneratePdf.Normal_9_times_roman));
 	           cell.setColspan(23);
 	           cell.setFixedHeight(20f);
 	           cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 	           cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
 	           table_des_tva.addCell(cell);
 	           
-	           cell = new PdfPCell(new Phrase( "" ,GeneratePdf.Normal_10_times_roman));
+	           cell = new PdfPCell(new Phrase( "" ,GeneratePdf.Normal_9_times_roman));
 	           cell.setColspan(49);
 	           cell.setFixedHeight(20f);
 	           cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -2810,7 +2868,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
         	    String titre = rec.getString("value1"); 
         	    String value = rec.getString("value2");
         	    
-        	    cell = new PdfPCell(new Phrase("",GeneratePdf.FONT_12_bold));
+        	    cell = new PdfPCell(new Phrase("",GeneratePdf.Bold_9_times_roman));
                 cell.setColspan(55);
                 cell.setFixedHeight(20f);
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -2818,14 +2876,14 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
                 table_total.addCell(cell);
                 
                 
-                cell = new PdfPCell(new Phrase(titre,GeneratePdf.FONT_12_bold));
+                cell = new PdfPCell(new Phrase(titre,GeneratePdf.Bold_9_times_roman));
                 cell.setColspan(18);
                 cell.setFixedHeight(20f);
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 cell.setBorder(cell.TOP+cell.BOTTOM+cell.LEFT+cell.RIGHT);
                 table_total.addCell(cell);
                 
-                cell = new PdfPCell(new Phrase(value ,GeneratePdf.FONT_12_normal));
+                cell = new PdfPCell(new Phrase(value ,GeneratePdf.Normal_9_times_roman));
                 cell.setColspan(27);
                 cell.setFixedHeight(20f);
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -3050,6 +3108,8 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 					pattern ="0.00";
 				} 
 				List_detaille = serviceProcedureVente.doFetch_detDatafromServer(rowBean);
+				List_detailleFourniture =  (List<DetFournitureVenteBean>) getObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE);   
+				List_detailleService    =  (List<DetServiceBean>) getObjectValueModel(LIST_EDITABLE_PRESTATION);   
 				setObjectValueModel(LIST_EDITABLE_VENTE, List_detaille);
 				getTaux_remise_alacaisse = rowBean.getTaux_remise_alacaisse()==null?new Double(0):rowBean.getTaux_remise_alacaisse();
 				getAvance_montant_vente  = rowBean.getAvance_montant_vente()==null?new Double(0):rowBean.getAvance_montant_vente();

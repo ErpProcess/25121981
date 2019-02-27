@@ -3,9 +3,11 @@ package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.GenerationPdf;
 
  
 
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BDateTime;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -54,9 +56,13 @@ public class TableHeaderNormale extends PdfPageEventHelper {
                 table.setLockedWidth(true);
                 table.getDefaultCell().setFixedHeight(10);
                 table.getDefaultCell().setBorder(Rectangle.TOP);
-                table.addCell(header);
+                table.addCell(header); 
                 table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
-                table.addCell(String.format("Editer Par : "+bSession.getUsr_nom()+"  "+bSession.getUsr_pre()+" Le "+bTime.getDateActuelF1()+"  A  "+bTime.getHeurActuel()+"      Page %d de", writer.getPageNumber()));
+                
+                PdfPCell celld = new PdfPCell(new Phrase(String.format("Editer Par : "+bSession.getUsr_nom()+"  "+bSession.getUsr_pre()+" Le "+bTime.getDateActuelF1()+"  A  "+bTime.getHeurActuel()+"      Page %d de", writer.getPageNumber()),GeneratePdf.Normal_10_times_roman));
+                celld.setBorder(celld.TOP);
+                celld.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                table.addCell(celld);
                 PdfPCell cell = new PdfPCell(Image.getInstance(total));
                 cell.setBorder(Rectangle.TOP);
                 cell.setPaddingBottom(20f);

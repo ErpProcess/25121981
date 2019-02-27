@@ -235,6 +235,7 @@ function ADD_Fourniture(){
  var res_add = doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_ADD_ROW_FOURNIURE','text',false);
 
  otab_otra2.fnAdjustColumnSizing();
+ otab_otra.fnAdjustColumnSizing();
  $('input[id="codeFocuso"]').val('');               
  $('#XnextFocuso').val('');
  $('#quantite_stockxc').val('');
