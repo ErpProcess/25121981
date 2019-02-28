@@ -2471,7 +2471,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	        		          { "montant_ht_vente", "50" }
 	          };
 		try {
-			Document document = new Document(PageSize.A4, 5, 5, 5, 25);
+			 Document document=GeneratePdf.doGenerateDocumentFormat();
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
 	        genpdf.doWriteHeaderDocument_PDF_NOT_PASY(document,fs,mapfieldBean_detaille,bSession);
 	        
@@ -2967,7 +2967,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		        Object searchBean=getObjectValueModel(SEARCH_BEAN);
 		 
 		   
-		        Document document = new Document(PageSize.A4.rotate(), 5, 5, 20, 40);
+		        Document document=GeneratePdf.doGenerateDocumentFormat();
 		        PdfPTable table = new PdfPTable(mapFieldBean.length);
 		        
 		       

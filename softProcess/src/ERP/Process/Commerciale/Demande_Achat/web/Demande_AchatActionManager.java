@@ -538,7 +538,7 @@ public class Demande_AchatActionManager extends Demande_AchatTemplate {
 		    GeneratePdf  genpdf= new GeneratePdf();
 			try {
 			 
-				Document document = new Document(PageSize.A4.rotate(), 5, 5, 5, 25);
+				Document document=GeneratePdf.doGenerateDocumentFormat();
 		        PdfPTable table = new PdfPTable(Mapfield_det_achat.length);
 		        //String title= (String) getObjectValueModel("list-"+getObjectValueModel(ENTITES));
 		        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);

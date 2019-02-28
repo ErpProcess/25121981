@@ -765,7 +765,7 @@ public ModelAndView doLoadInfoVente(TarificationBean detailBean ) throws Excepti
 	        String [][]    map_critere_de_recherche=    (String[][]) getObjectValueModel(MAP_CRITERE_DE_RECHERCHE) ;
 	        Object searchBean=getObjectValueModel(SEARCH_BEAN);
 			 FileOutputStream fs = new FileOutputStream(file);
-			 Document document = new Document(PageSize.A4.rotate(), 5, 5, 20, 40);
+			 Document document=GeneratePdf.doGenerateDocumentFormat();
 		     PdfPTable table = new PdfPTable(mapFieldBean.length);
 		    String    title =(String)getObjectValueModel(LIST_PDF_EXCEL) ;
 		     if(title==null)

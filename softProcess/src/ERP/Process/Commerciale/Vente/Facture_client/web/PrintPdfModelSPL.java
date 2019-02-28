@@ -54,7 +54,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    		          };
 	    
 		try {
-			Document document = new Document(PageSize.A4, 5, 5, 5, 25);
+			 Document document=GeneratePdf.doGenerateDocumentFormat();
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
 	        doWriteHeaderDocument_PDF_NOT_PASY(document,fs,mapfieldBeanDetaille,bSession);
 	        doWriteEntete(document,denBean); 

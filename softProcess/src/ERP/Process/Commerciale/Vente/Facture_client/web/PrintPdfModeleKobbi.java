@@ -83,7 +83,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		File file = new File(getRequest().getRealPath("/")+"/temp/"+Facture_clientTemplate.LIST_DATA_DET_FACT+getRequest().getSession().getId()+".pdf");
 		BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
 	    FileOutputStream fs = new FileOutputStream(file);
-		Document document = new Document(PageSize.A4, 5, 5, 5, 25);
+	    Document document=GeneratePdf.doGenerateDocumentFormat();
 		String varLangue="kb";
 		EntiteAdminBean  beAdminBean=new EntiteAdminBean();
 		beAdminBean.getPk_entite_admin().setLang_id(varLangue);
@@ -512,9 +512,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 	}
 	
 	private  void doWriteHeaderDocumentEditionvente(Document document,int poucentage, FileOutputStream fs ,BeanSession bSession) throws Exception {
-		 PdfWriter writer = PdfWriter.getInstance(document,  fs);
-	        TableHeaderPaysage event = new TableHeaderPaysage(bSession);
-	        writer.setPageEvent(event);
+		GeneratePdf.doGeneratePdfWriterFormat(document, fs);
 	        
 	       
 	        BeanSession  bs=(BeanSession) getObjectValueModel(BEAN_SESSION);

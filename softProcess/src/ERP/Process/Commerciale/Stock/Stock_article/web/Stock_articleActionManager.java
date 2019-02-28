@@ -198,7 +198,7 @@ public class Stock_articleActionManager extends Stock_articleTemplate {
 			    File file = new File(getRequest().getRealPath("/")+"/temp/"+(String)getObjectValueModel(NAME_LIST_G)+getRequest().getSession().getId()+".pdf");
 		        FileOutputStream fs = new FileOutputStream(file);
 		        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
-		        Document document = new Document(PageSize.A4.rotate(), 3, 3, 20, 40);
+		        Document document=GeneratePdf.doGenerateDocumentFormat();
 		        PdfPTable table = new PdfPTable(mapFieldBean.length);
 		        String    title =(String)getObjectValueModel("list-"+Stock_articleTemplate.ID_SOUS_MODULE) ; 
 		        setObjectValueModel("propertieField",propertieField);

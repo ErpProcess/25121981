@@ -838,9 +838,45 @@ function migaXWXXWW(dssss) {
 							<ext:toolbar.separator />  
 							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/Notes.gif"        cls="x-btn-text-icon"      disabled="${tml.btAide}"    onClick="doGetTrace()"  text="${_labeltrace}"       />
 							<ext:toolbar.separator />  
-							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/pdf.png"          cls="x-btn-text-iconXX"    disabled="${tml.btPdf}"     onClick="${tml.fctdoPdf}"       id="btPrintPdfx"  />
-							<ext:toolbar.separator />   
-							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/Excel.gif"        cls="x-btn-text-iconXX"    disabled="${tml.btExcel}"   onClick="${tml.fctdoExcel}"     id="btExportXlsx" />
+							<ext:toolbar.button   text="Print"  icon="${pathRootac}/css/icons/fam/pdf.png"          cls="x-btn-text-iconXX"    disabled="${tml.btPdf}"   
+							      onClick="${tml.fctdoPdf}"     id="btPrintPdfx"  >
+						     </ext:toolbar.button>
+						     
+	                       
+						   <ext:toolbar.button   id="methodPRint"     onClick="changePrint()"     text="${bs.formatPrintIcon}"    ></ext:toolbar.button>
+						   
+							<script>
+							function changePrint( ){
+								 
+								if(Ext.getCmp('methodPRint').getText()=="&#9650;&#9660;"){
+									var json1= doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}?newFormat=paysage','i$_ACT_CHANGE_FORMAT_PRINT','text',false);
+									if(json1=="paysage"){ 
+									Ext.getCmp('methodPRint').setText("&#9668;&#9658;");
+									
+									 
+									}else{
+										Ext.Msg.alert('','error');
+									}
+									return null;
+								}
+								
+								if(Ext.getCmp('methodPRint').getText()=="&#9668;&#9658;"){
+									var json2= doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}?newFormat=portrait','i$_ACT_CHANGE_FORMAT_PRINT','text',false);
+									if(json2=="portrait") {
+										Ext.getCmp('methodPRint').setText("&#9650;&#9660;");
+									}else{
+										Ext.Msg.alert('','error');
+									}
+									
+									return null;
+								}
+								
+							}
+							 
+							</script>
+							<ext:toolbar.separator />
+							
+							<ext:toolbar.button   text="Excel"   icon="${pathRootac}/css/icons/fam/Excel.gif"        cls="x-btn-text-iconXX"    disabled="${tml.btExcel}"   onClick="${tml.fctdoExcel}"     id="btExportXlsx" />
 							
 							<ext:toolbar.button    cls="x-btn-text-icon"    text="&nbsp;"   id="ESPACE_DEUX"      minWidth="20"  disabled="true" />
 								
@@ -898,12 +934,17 @@ function migaXWXXWW(dssss) {
 </ext:body>
 <script type="text/javascript">
 Ext.onReady(function(){
+ if("${bs.formatPrint}"=="portrait"){
+			Ext.getCmp('methodPRint').setText("&#9650;&#9660;");
+ }else{
+	 Ext.getCmp('methodPRint').setText("&#9668;&#9658;");
+ }
 var primecontact = Ext.getCmp('hyuE');
 primecontact.expand();
 var dffff_win=$(window).height() - 195;
 dffff_win=dffff_win+"px";
 document.getElementById("ThePageJsp").style.maxHeight=dffff_win; 
-		});
+});
 </script>
 </body>
 </html>

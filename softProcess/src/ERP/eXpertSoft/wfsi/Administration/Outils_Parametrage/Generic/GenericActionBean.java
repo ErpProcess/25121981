@@ -104,6 +104,8 @@ public class GenericActionBean extends GenericWeb implements Serializable,Clonea
 	
 	public static boolean i$_ACT_EXPORT_XLS_DETAILLE = false;
 	
+	public static boolean i$_ACT_CHANGE_FORMAT_PRINT = false;
+	
 	
 	public static String  Fn_Nouveau="1";
 	public static String  Fn_Consulter="2";

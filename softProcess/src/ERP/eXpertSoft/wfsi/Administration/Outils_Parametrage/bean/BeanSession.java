@@ -51,6 +51,11 @@ public class BeanSession {
 	
 	private String  data_action = "";
 	
+	private String  formatPrint = "portrait";
+	private String  formatPrintIcon = "&#9650;&#9660;";
+	
+ 
+	
 	private String  home = "";
 	
 	private String  patternDecimalFormat  = "";
@@ -65,6 +70,22 @@ public class BeanSession {
 	
  
 	
+
+	public String getFormatPrintIcon() {
+		return formatPrintIcon;
+	}
+
+	public void setFormatPrintIcon(String formatPrintIcon) {
+		this.formatPrintIcon = formatPrintIcon;
+	}
+
+	public String getFormatPrint() {
+		return formatPrint;
+	}
+
+	public void setFormatPrint(String formatPrint) {
+		this.formatPrint = formatPrint;
+	}
 
 	public String getFct_id() {
 		return fct_id;

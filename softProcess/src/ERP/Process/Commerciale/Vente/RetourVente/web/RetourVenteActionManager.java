@@ -520,7 +520,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		        Object searchBean=getObjectValueModel(SEARCH_BEAN);
 		 
 		   try {
-		        Document document = new Document(PageSize.A4.rotate(), 5, 5, 20, 40);
+			   Document document=GeneratePdf.doGenerateDocumentFormat();
 		        PdfPTable table = new PdfPTable(mapFieldBean.length);
 		        
 		        String    title =(String)getObjectValueModel(LIST_PDF_EXCEL) ;

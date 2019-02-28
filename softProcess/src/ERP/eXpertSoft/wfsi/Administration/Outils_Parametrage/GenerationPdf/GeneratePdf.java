@@ -74,13 +74,52 @@ public class GeneratePdf extends  GenericWeb {
 	 private BaseFont bfBold;
 	 private BaseFont bf;
 	 private int pageNumber = 0;
-	 /** Times Roman 18 Bold */
-	 public static final Font CATFONT = new Font(Font.getFamily("TIMES_ROMAN"), 18, Font.BOLD);
+	 
+//	 public static final Font CATFONT = new Font(Font.getFamily("TIMES_ROMAN"), 18, Font.BOLD);
+//	  
+//	 
+//		
+//	 public static final Font Normal_10_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.NORMAL);
+//	 public static final Font Bold_10_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.BOLD);
+//	 
+//
+//		
+//	 public static final Font Normal_9_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL);
+//	 public static final Font Bold_9_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD);
+//	 
+//	 public static final Font Bold_8_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 8, Font.BOLD);
+//	 
+//	 public static final Font Normal_11_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 11, Font.NORMAL);
+//	 public static final Font Bold_11_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 11, Font.BOLD);
+//	  
+//	 /** Times Roman 16 Bold */
+//	 public static final Font SUBFONT = new Font(Font.getFamily("TIMES_ROMAN"), 16, Font.BOLD);
+//	 
+//	 public static final Font TIMES_ROMAN_14_BOLD = new Font(Font.getFamily("TIMES_ROMAN"), 14, Font.BOLD);
+//	 
+//	 public static final Font FONT_12_bold = new Font(Font.getFamily("TIMES_ROMAN"), 12, Font.BOLD);
+//	 
+//	 
+//	 
+//	 public static final Font FONT_12_normal = new Font(Font.getFamily("TIMES_ROMAN"), 12, Font.NORMAL);
+//	  
+//	 /** Times Roman 12 Bold */
+//	 public static final Font REDFONT = new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.NORMAL);
+//	 public static final Font SMALLBOLD = new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.BOLD);
+//	
+//	 
+//	 public static   BaseColor colorLigne = WebColors.getRGBColor("#f8fcfc");
+//	 
+//	 public static   BaseColor colorHeader = WebColors.getRGBColor("#F0F0F0"); 
+	 /***********************************************************************************************************************************************/
+	 
+	 
+	 
 	  
-	 /** Times Roman 12 Normal */
+	 
 	
-	 public static final Font Normal_10_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.NORMAL);
-	 public static final Font Bold_10_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.BOLD);
+	 public static final Font Normal_10_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL);
+	 public static final Font Bold_10_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD);
 	 
 
 		
@@ -89,23 +128,20 @@ public class GeneratePdf extends  GenericWeb {
 	 
 	 public static final Font Bold_8_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 8, Font.BOLD);
 	 
-	 public static final Font Normal_11_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 11, Font.NORMAL);
-	 public static final Font Bold_11_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 11, Font.BOLD);
+	 public static final Font Normal_11_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL);
+	 public static final Font Bold_11_times_roman = new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD);
 	  
-	 /** Times Roman 16 Bold */
-	 public static final Font SUBFONT = new Font(Font.getFamily("TIMES_ROMAN"), 16, Font.BOLD);
+
 	 
-	 public static final Font TIMES_ROMAN_14_BOLD = new Font(Font.getFamily("TIMES_ROMAN"), 14, Font.BOLD);
-	 
-	 public static final Font FONT_12_bold = new Font(Font.getFamily("TIMES_ROMAN"), 12, Font.BOLD);
+	 public static final Font FONT_12_bold = new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD);
 	 
 	 
 	 
-	 public static final Font FONT_12_normal = new Font(Font.getFamily("TIMES_ROMAN"), 12, Font.NORMAL);
+	 public static final Font FONT_12_normal = new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL);
 	  
 	 /** Times Roman 12 Bold */
-	 public static final Font REDFONT = new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.NORMAL);
-	 public static final Font SMALLBOLD = new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.BOLD);
+	 public static final Font REDFONT = new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL);
+	 public static final Font SMALLBOLD = new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD);
 	
 	 
 	 public static   BaseColor colorLigne = WebColors.getRGBColor("#f8fcfc");
@@ -145,9 +181,10 @@ public class GeneratePdf extends  GenericWeb {
 		      
 		        
 		        Object searchBean=getObjectValueModel(SEARCH_BEAN);
-		 
+		       
 		   try {
-		        Document document = new Document(PageSize.A4.rotate(), 5, 5, 20, 40);
+			   
+			    Document document=GeneratePdf.doGenerateDocumentFormat();
 		        PdfPTable table = new PdfPTable(mapFieldBean.length);
 		        String    title= (String)getObjectValueModel("list-"+bSession.getSousmod_id()) ; 
 		        if(title==null)
@@ -451,10 +488,8 @@ public class GeneratePdf extends  GenericWeb {
 
 
 	public  void doWriteHeaderDocument_PDF(Document document, FileOutputStream fs ,String [][] mapFieldBean,BeanSession bSession) throws Exception {
-		    PdfWriter writer = PdfWriter.getInstance(document,  fs);
-	        TableHeaderPaysage event = new TableHeaderPaysage(bSession);
-	        writer.setPageEvent(event);
-	        
+		  
+		    doGeneratePdfWriterFormat(document, fs);
 	       
 	        BeanSession  bs=(BeanSession) getObjectValueModel(BEAN_SESSION);
 	        
@@ -475,12 +510,14 @@ public class GeneratePdf extends  GenericWeb {
 	        	 companyLogo = Image.getInstance(absoluteDiskPath);
 	        }
 			companyLogo.scalePercent(50);
+		
 			cellheder = new PdfPCell(); 
 			cellheder.setBorder(3);
 			cellheder.addElement(new Chunk(companyLogo, 10, -50));
 			cellheder.setColspan(10);
 			cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 			cellheder.setBorder(cellheder.NO_BORDER);
+			cellheder.setPaddingRight(50f);
 			tableheader.addCell(cellheder);
 			
 		    cellheder = new PdfPCell(new Phrase("",Normal_10_times_roman));
@@ -503,11 +540,41 @@ public class GeneratePdf extends  GenericWeb {
 		    document.add(tableheader);
 		
 	}
+	
+	public static  Document  doGenerateDocumentFormat() {
+		
+		  Document document =null;
+		  BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION); 
+			 
+		 if(bSession.getFormatPrint().equals("portrait")) {
+			 document = new Document(PageSize.A4, 5, 5, 5, 25);
+					         } else {
+					        	
+					        	document = new Document(PageSize.A4.rotate(), 5, 5, 20, 40);
+		  }
+			 return 	document;
+
+	}
+
+	
+	public static  void  doGeneratePdfWriterFormat(Document document, FileOutputStream fs) throws Exception {
+		
+		   PdfWriter writer = PdfWriter.getInstance(document,  fs);
+		   BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);  
+		  if(bSession.getFormatPrint().equals("portrait")) {
+		    	 TableHeaderNormale event = new TableHeaderNormale(bSession);
+	           writer.setPageEvent(event);
+	       } else {
+	           TableHeaderPaysage event = new TableHeaderPaysage(bSession);
+			     writer.setPageEvent(event); 
+		    }
+
+	}
+	
+	 
 
 	public  void doWriteHeaderDocument_PDF_NOT_PASY(Document document, FileOutputStream fs ,String [][] mapFieldBean,BeanSession bSession) throws Exception {
-	    PdfWriter writer = PdfWriter.getInstance(document,  fs);
-	    TableHeaderNormale event = new TableHeaderNormale(bSession);
-        writer.setPageEvent(event);
+		doGeneratePdfWriterFormat(document, fs);
         
        
         BeanSession  bs=(BeanSession) getObjectValueModel(BEAN_SESSION);
@@ -718,12 +785,12 @@ public class GeneratePdf extends  GenericWeb {
 			
 			 
 			 
-		        cell = new PdfPCell(new Phrase("Liste Des Utilisateurs",SUBFONT));
-		        cell.setColspan(3);
-		        cell.setFixedHeight(40f);
-		        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		        cell.setBorder(cell.NO_BORDER);
-		        table.addCell(cell);
+//		        cell = new PdfPCell(new Phrase("Liste Des Utilisateurs",SUBFONT));
+//		        cell.setColspan(3);
+//		        cell.setFixedHeight(40f);
+//		        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//		        cell.setBorder(cell.NO_BORDER);
+//		        table.addCell(cell);
 		        
 		        
 		     

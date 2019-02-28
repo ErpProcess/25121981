@@ -3,6 +3,7 @@ package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.template;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +29,9 @@ public class TemplateGeneric extends GenericActionBean {
 		  try {
 			    ACT_NAVIGATE = false;
 			   
-		       if (i$_ACT_INIT_SERVLET )         return      doInit_ServletAction();  
+		       if (i$_ACT_INIT_SERVLET )         return      doInit_ServletAction(); 
+		       
+		       
 		       
 		       if (i$_ACT_RESET_FORM)            return      doResetForm();                  
 				
@@ -55,6 +58,9 @@ public class TemplateGeneric extends GenericActionBean {
 			   if (i$_ACT_SET_TIME_OUT)          return      getTimeOut(); 
 			   
 			   if (i$_ACT_PRINT_PDF)             return      doPrintPDF();
+			   
+			   if (i$_ACT_CHANGE_FORMAT_PRINT)   return      doChangePrintFormat();
+			   
 			   
 			   if (i$_ACT_EXPORT_XLS)            return      doExportXls();
 			   
@@ -254,6 +260,33 @@ public class TemplateGeneric extends GenericActionBean {
 			} 
 		return null;
 
+	}
+	
+public static ModelAndView doChangePrintFormat( ) throws Exception{
+		
+		try {
+			  String formatPrint   = getRequest().getParameter("newFormat")   == null ? "" : getRequest().getParameter("newFormat");
+			  BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+			  bs.setFormatPrint(formatPrint);
+			  
+			  if(formatPrint=="paysage") {
+				  bs.setFormatPrintIcon("&#9668;&#9658;");
+			  }else {
+				  bs.setFormatPrintIcon("&#9650;&#9660;");
+				  
+			  }
+			  setObjectValueModel(BEAN_SESSION, bs);
+			  getResponse().setContentType(HTML_CONTENT_TYPE);
+			  getResponse().getWriter().print(formatPrint);
+			} catch (Exception e) {
+				getResponse().setStatus(500);
+				getResponse().setContentType(HTML_CONTENT_TYPE);
+				PrintWriter out = getResponse().getWriter();
+				out.println(e.getMessage());
+			    out.close();
+			}
+			return null;
+	 
 	}
 	
 	public static  ModelAndView doExportXls() {

@@ -961,11 +961,12 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		File file = new File(getRequest().getRealPath("/")+"/temp/"+LIST_EDITABLE_RECEP_ACHAT+getRequest().getSession().getId()+".pdf");
 	    FileOutputStream fs = new FileOutputStream(file);
 	    GeneratePdf  genpdf= new GeneratePdf();
+	     
 		try {
-		
-			Document document = new Document(PageSize.A4.rotate(), 5, 5, 5, 25);
+			
+			Document document=GeneratePdf.doGenerateDocumentFormat();
 	        PdfPTable table = new PdfPTable(MapfieldBean_detaille.length);
-	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
+	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION); 
 	        genpdf.doWriteHeaderDocument_PDF(document,fs,MapfieldBean_detaille,bSession);
 	        doWriteEntete_reception_achat(document,denBean);
 	    	Reception_achatBean rBeanS=(Reception_achatBean) getObjectValueModel(FORM_BEAN);
@@ -1293,46 +1294,41 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 	public    ModelAndView doPrintPDF_Action()   throws Exception { 
 		 
 		try {
-			  BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION); 
-		List   lisData                         =  new ArrayList();  
-		String [][]    mapFieldBean            =  new String [1][1] ; 
-		 String    title ="";
+			BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION); 
+			List   lisData                         =  new ArrayList();  
+			String [][]    mapFieldBean            =  new String [1][1] ; 
+			String    title ="";
 	       
-		String PDF_IS_CMD= (String) getObjectValueModel("PDF_IS_CMD");
-		 if(PDF_IS_CMD.equals("OUI")){
-			  lisData                         =  (List) getObjectValueModel(LIST_DATA_DEM) ;
-			  mapFieldBean            =  Demande_AchatTemplate.MapfieldBean;  
-			  setObjectValueModel(NAME_LIST_G,LIST_DATA_DEM);
-			   title= (String)getObjectValueModel("list-"+"57") ; 
-			 
-		 }else{
-			  lisData                         =  (List) getObjectValueModel(LIST_DATA) ;
-			  mapFieldBean            =   MapfieldBean; 
-			  title= (String)getObjectValueModel("list-"+bSession.getSousmod_id()) ; 
-		 }
+		    String PDF_IS_CMD= (String) getObjectValueModel("PDF_IS_CMD");
+			 if(PDF_IS_CMD.equals("OUI")){
+				  lisData                         =  (List) getObjectValueModel(LIST_DATA_DEM) ;
+				  mapFieldBean            =  Demande_AchatTemplate.MapfieldBean;  
+				  setObjectValueModel(NAME_LIST_G,LIST_DATA_DEM);
+				   title= (String)getObjectValueModel("list-"+"57") ; 
+				 
+			 }else{
+				  lisData                         =  (List) getObjectValueModel(LIST_DATA) ;
+				  mapFieldBean            =   MapfieldBean; 
+				  title= (String)getObjectValueModel("list-"+bSession.getSousmod_id()) ; 
+			 }
 		
-		GeneratePdf  genpdf= new GeneratePdf();
+		      GeneratePdf  genpdf= new GeneratePdf();
 		
 			  File file = new File(getRequest().getRealPath("/")+"/temp/"+(String)getObjectValueModel(NAME_LIST_G)+getRequest().getSession().getId()+".pdf");
-		        FileOutputStream fs = new FileOutputStream(file);
+		      FileOutputStream fs = new FileOutputStream(file);
 		      
-		        String [][]    map_critere_de_recherche=    (String[][]) getObjectValueModel(MAP_CRITERE_DE_RECHERCHE) ;
-		        Object searchBean=getObjectValueModel(SEARCH_BEAN);
-		 
-		   
-		        Document document = new Document(PageSize.A4.rotate(), 5, 5, 20, 40);
-		        PdfPTable table = new PdfPTable(mapFieldBean.length);
-		        
-		       
-		        
-		        genpdf.doWriteHeaderDocument_PDF(document,fs,mapFieldBean,bSession);
-			    if(map_critere_de_recherche!=null && map_critere_de_recherche.length>0)
-			    	genpdf.doWriteCritere_de_recherche_Table(document, searchBean,map_critere_de_recherche);
-			    genpdf.doWriteTitle_Table(document,title);
-			    genpdf.doWrite_Header_Table(table,mapFieldBean);
-			    genpdf.doWrite_Data_Table(lisData,table,mapFieldBean);
-		        document.add(table);
-		        document.close();
+		      String [][]    map_critere_de_recherche=    (String[][]) getObjectValueModel(MAP_CRITERE_DE_RECHERCHE) ;
+		      Object searchBean=getObjectValueModel(SEARCH_BEAN);
+		      PdfPTable table = new PdfPTable(mapFieldBean.length);
+		      Document document=GeneratePdf.doGenerateDocumentFormat();
+		      genpdf.doWriteHeaderDocument_PDF(document,fs,mapFieldBean,bSession);
+			  if(map_critere_de_recherche!=null && map_critere_de_recherche.length>0)
+			  genpdf.doWriteCritere_de_recherche_Table(document, searchBean,map_critere_de_recherche);
+			  genpdf.doWriteTitle_Table(document,title);
+			  genpdf.doWrite_Header_Table(table,mapFieldBean);
+			  genpdf.doWrite_Data_Table(lisData,table,mapFieldBean);
+		      document.add(table);
+		      document.close();
 			getResponse().setContentType("text");
 			getResponse().setHeader("Cache-Control", "no-cache");
 			getResponse().setStatus(200);
