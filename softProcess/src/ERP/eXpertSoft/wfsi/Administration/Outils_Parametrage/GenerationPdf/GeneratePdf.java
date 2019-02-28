@@ -56,6 +56,7 @@ import javax.swing.border.Border;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.objectweb.asm.tree.analysis.Interpreter;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -178,8 +179,6 @@ public class GeneratePdf extends  GenericWeb {
 		        FileOutputStream fs = new FileOutputStream(file);
 		        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
 		        String [][]    map_critere_de_recherche=    (String[][]) getObjectValueModel(MAP_CRITERE_DE_RECHERCHE) ;
-		      
-		        
 		        Object searchBean=getObjectValueModel(SEARCH_BEAN);
 		       
 		   try {
@@ -487,59 +486,7 @@ public class GeneratePdf extends  GenericWeb {
 
 
 
-	public  void doWriteHeaderDocument_PDF(Document document, FileOutputStream fs ,String [][] mapFieldBean,BeanSession bSession) throws Exception {
-		  
-		    doGeneratePdfWriterFormat(document, fs);
-	       
-	        BeanSession  bs=(BeanSession) getObjectValueModel(BEAN_SESSION);
-	        
-	        document.addCreator(bs.getPack_libelle());
-		    document.addAuthor(bs.getMod_libelle());
-		    document.addTitle(bs.getFct_libelle()+"/"+bs.getSousmod_libelle_title());
-		    document.open();
-	        
-	        PdfPTable tableheader = new PdfPTable(100);
-	        PdfPCell cellheder;
-	        tableheader.setWidthPercentage(100);
-	        String relativeWebPath = "/img/logoGen.jpg";
-	        String absoluteDiskPath =  getRequest().getServletContext().getRealPath(relativeWebPath);
-	        Image companyLogo =null;
-	        if(bs.getSociete().getMyFile()!=null) {
-	        	  companyLogo = Image.getInstance(bs.getSociete().getMyFile().getFile_byte());
-	        }else {
-	        	 companyLogo = Image.getInstance(absoluteDiskPath);
-	        }
-			companyLogo.scalePercent(50);
-		
-			cellheder = new PdfPCell(); 
-			cellheder.setBorder(3);
-			cellheder.addElement(new Chunk(companyLogo, 10, -50));
-			cellheder.setColspan(10);
-			cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
-			cellheder.setBorder(cellheder.NO_BORDER);
-			cellheder.setPaddingRight(50f);
-			tableheader.addCell(cellheder);
-			
-		    cellheder = new PdfPCell(new Phrase("",Normal_10_times_roman));
-		    cellheder.setColspan(1);
-		    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
-		    cellheder.setPaddingLeft(20f);
-		    cellheder.setPaddingBottom(40f);
-		    cellheder.setPaddingTop(15f);
-		    cellheder.setBorder(cellheder.NO_BORDER);
-		    tableheader.addCell(cellheder);
-		    
-		    cellheder = new PdfPCell(new Phrase(bs.getSoc_lib()+"\n\r"+bs.getEtab_lib()+"\n\r"+bs.getPrf_libelle(),Normal_10_times_roman));
-		    cellheder.setColspan(89);
-		    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
-		    cellheder.setPaddingLeft(20f);
-		    cellheder.setPaddingBottom(40f);
-		    cellheder.setPaddingTop(15f);
-		    cellheder.setBorder(cellheder.NO_BORDER);
-		    tableheader.addCell(cellheder);
-		    document.add(tableheader);
-		
-	}
+	 
 	
 	public static  Document  doGenerateDocumentFormat() {
 		
@@ -571,62 +518,58 @@ public class GeneratePdf extends  GenericWeb {
 
 	}
 	
-	 
-
-	public  void doWriteHeaderDocument_PDF_NOT_PASY(Document document, FileOutputStream fs ,String [][] mapFieldBean,BeanSession bSession) throws Exception {
-		doGeneratePdfWriterFormat(document, fs);
-        
-       
-        BeanSession  bs=(BeanSession) getObjectValueModel(BEAN_SESSION);
+	public static  void  doGenerateEnteteDocument(Document document, FileOutputStream fs , int espaceImage , int espaceText ,  String textEntete) throws Exception {
+		
+		BeanSession  bs=(BeanSession) getObjectValueModel(BEAN_SESSION);
         
         document.addCreator(bs.getPack_libelle());
 	    document.addAuthor(bs.getMod_libelle());
 	    document.addTitle(bs.getFct_libelle()+"/"+bs.getSousmod_libelle_title());
 	    document.open();
+	    if(bs.getFormatPrint().equals("portrait")) {
+	    	espaceImage=espaceImage+5;
+	    	espaceText=espaceText-5;
+         }  
         
-        PdfPTable tableheader = new PdfPTable(100);
-        PdfPCell cellheder;
-        tableheader.setWidthPercentage(100);
-        
-        String relativeWebPath = "/img/logoGen.jpg";
-        String absoluteDiskPath =  getRequest().getServletContext().getRealPath(relativeWebPath);
+        PdfPTable tableheader = new PdfPTable(90);
+        tableheader.setWidthPercentage(90);
+        String absoluteDiskPath =  getRequest().getServletContext().getRealPath("/img/logoGen.jpg");
         Image companyLogo =null;
         if(bs.getSociete().getMyFile()!=null) {
-        	 companyLogo = Image.getInstance(bs.getSociete().getMyFile().getFile_byte());
+        	  companyLogo = Image.getInstance(bs.getSociete().getMyFile().getFile_byte());
         }else {
         	 companyLogo = Image.getInstance(absoluteDiskPath);
         }
-        	
-         
-		companyLogo.scalePercent(50); 
-		cellheder = new PdfPCell(); 
-		cellheder.setBorder(3);
-		cellheder.addElement(new Chunk(companyLogo, 10, -50));
-		cellheder.setPaddingRight(50f);
-		cellheder.setColspan(10);
+        PdfPCell cellheder = new PdfPCell(companyLogo, true);
+		cellheder.setColspan(espaceImage);
+		cellheder.setPaddingLeft(5f);
+		cellheder.setPaddingTop(16f);
 		cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 		cellheder.setBorder(cellheder.NO_BORDER);
+		//cellheder.setBorder(cellheder.TOP+cellheder.LEFT+cellheder.RIGHT+cellheder.BOTTOM);
 		tableheader.addCell(cellheder);
-
 		
-	    cellheder = new PdfPCell(new Phrase("",Normal_10_times_roman));
-	    cellheder.setColspan(4);
+
+	    
+	    cellheder = new PdfPCell(new Phrase(textEntete,Normal_10_times_roman));
+	    cellheder.setColspan(espaceText);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cellheder.setPaddingLeft(20f);
 	    cellheder.setPaddingBottom(40f);
-	    cellheder.setPaddingTop(15f);
+	    cellheder.setPaddingTop(16f);
 	    cellheder.setBorder(cellheder.NO_BORDER);
-	    tableheader.addCell(cellheder);
-		
-	    cellheder = new PdfPCell(new Phrase(bs.getSoc_lib()+"\n\r"+bs.getEtab_lib()+"\n\r"+bs.getPrf_libelle(),Normal_10_times_roman));
-	    cellheder.setColspan(86);
-	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
-	    cellheder.setPaddingLeft(28f);
-	    cellheder.setPaddingBottom(40f);
-	    cellheder.setPaddingTop(15f);
-	    cellheder.setBorder(cellheder.NO_BORDER);
+	    //cellheder.setBorder(cellheder.TOP+cellheder.LEFT+cellheder.RIGHT+cellheder.BOTTOM);
 	    tableheader.addCell(cellheder);
 	    document.add(tableheader);
+
+	}
+	
+	 
+
+	public  void doWriteHeaderDocument_PDF(Document document, FileOutputStream fs ,String [][] mapFieldBean,BeanSession bs) throws Exception {
+		doGeneratePdfWriterFormat(document, fs);
+		String textEntete=bs.getSoc_lib()+"\n\r"+bs.getEtab_lib()+"\n\r"+bs.getPrf_libelle();
+		doGenerateEnteteDocument(document, fs, 10, 80, textEntete);
 	
 }
 	

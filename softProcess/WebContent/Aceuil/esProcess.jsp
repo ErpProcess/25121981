@@ -846,14 +846,24 @@ function migaXWXXWW(dssss) {
 						   <ext:toolbar.button   id="methodPRint"     onClick="changePrint()"     text="${bs.formatPrintIcon}"    ></ext:toolbar.button>
 						   
 							<script>
+							
+							function messageBoxTimeOut(title,body,time){
+								var mb = Ext.MessageBox.show({
+								    title:title,
+								    msg: '&nbsp;&nbsp;&nbsp;&nbsp;'+body+'&nbsp;&nbsp;&nbsp;&nbsp;',
+								    icon: Ext.Msg.INFO,
+								    closable: true,
+								    fn:function(btn) { } // singleton
+								});
+								setTimeout(function(){mb.hide();}, time);
+							}
 							function changePrint( ){
 								 
 								if(Ext.getCmp('methodPRint').getText()=="&#9650;&#9660;"){
 									var json1= doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}?newFormat=paysage','i$_ACT_CHANGE_FORMAT_PRINT','text',false);
 									if(json1=="paysage"){ 
 									Ext.getCmp('methodPRint').setText("&#9668;&#9658;");
-									
-									 
+									messageBoxTimeOut("",json1,500);
 									}else{
 										Ext.Msg.alert('','error');
 									}
@@ -864,6 +874,7 @@ function migaXWXXWW(dssss) {
 									var json2= doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}?newFormat=portrait','i$_ACT_CHANGE_FORMAT_PRINT','text',false);
 									if(json2=="portrait") {
 										Ext.getCmp('methodPRint').setText("&#9650;&#9660;");
+										messageBoxTimeOut("",json2,500);
 									}else{
 										Ext.Msg.alert('','error');
 									}

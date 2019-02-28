@@ -2473,7 +2473,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		try {
 			 Document document=GeneratePdf.doGenerateDocumentFormat();
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
-	        genpdf.doWriteHeaderDocument_PDF_NOT_PASY(document,fs,mapfieldBean_detaille,bSession);
+	        genpdf.doWriteHeaderDocument_PDF(document,fs,mapfieldBean_detaille,bSession);
 	        
 	        doWriteEntete(document,denBean);
 	        doWrite_Header_ContentTable(document,96,mapfieldBean_detaille);

@@ -1056,7 +1056,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		
 			Document document = new Document(PageSize.A4, 5, 5, 5, 25);
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
-	        genpdf.doWriteHeaderDocument_PDF_NOT_PASY(document,fs,MapfieldBean_detaille,bSession);
+	        genpdf.doWriteHeaderDocument_PDF(document,fs,MapfieldBean_detaille,bSession);
 	        
 	        doWriteEntete(document,denBean); 
 	        doWrite_Header_ContentTable(document,96,MapfieldBean_detaille);
