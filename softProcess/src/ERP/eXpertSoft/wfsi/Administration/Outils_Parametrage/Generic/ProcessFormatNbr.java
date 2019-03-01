@@ -1,8 +1,11 @@
 package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -306,69 +309,142 @@ public class ProcessFormatNbr  extends GenericWeb  {
 	  }
 	  
 
-		public static void main(String[] args) {
+//		public static void main(String[] args) {
+//			
+//			double decimal = 7.27467;
+//			System.out.println("The test number: "+decimal);
+//			int decimalPlaces = 3;	// the scale for the decimal
+//			
+//			// use of BigDecimal class
+//			BigDecimal bd = new BigDecimal(decimal);
+//
+//			// set the scale and round up if >= 0.5
+//			bd = bd.setScale(decimalPlaces, BigDecimal.ROUND_UP);
+//			double bigDecimal = bd.doubleValue();
+//			System.out.println("BigDecimal rounded in 3rd decimal: "+bigDecimal);
+//			
+//			// use of DecimalFormat
+//			DecimalFormat decFormat = new DecimalFormat("#.00");
+//			double formatDecimal = new Double(decFormat.format(decimal)).doubleValue();
+//			System.out.println("DecimalFormat rounded in 2nd decimal: "+formatDecimal);
+//			
+//			System.out.println("--------------------------------------");
+//			
+//			DecimalFormat numFormat;
+//			String number;
+//			
+//			// 2 digits before decimal point and then 2 digits (rounded)
+//			numFormat = new DecimalFormat("000.##");
+//			number = numFormat.format(-15.567);
+//			System.out.println("1. DecimalFormat with .: " + number);
+//			
+//			// string '$' in front of the number
+//			numFormat = new DecimalFormat("'$'00.####");
+//			number = numFormat.format(15.567);
+//			System.out.println("2. DecimalFormat with '$': " + number);
+//			
+//			// use of , to group numbers
+//			numFormat = new DecimalFormat("#,###,###");
+//			number = numFormat.format(1556789);
+//			System.out.println("3. DecimalFormat with ,: " + number);
+//
+//			// use of % for percentage
+//			numFormat = new DecimalFormat("%");
+//			number = numFormat.format(0.15);
+//			System.out.println("4. DecimalFormat with percentage: " + number);
+//			
+//			// 2 digits before decimal point and 2 digits after
+//			numFormat = new DecimalFormat("00.00");
+//			number = numFormat.format(-15.567);
+//			System.out.println("5. DecimalFormat with 4 digits: " + number);
+//			
+//			// left part of decimal number
+//			numFormat = new DecimalFormat("##");
+//			number = numFormat.format(156.567);
+//			System.out.println("6. DecimalFormat with no decimal part: " + number);
+//			
+//			// 5 or less digits in the decimal part
+//			numFormat = new DecimalFormat(".#####");
+//			number = numFormat.format(1890.567);
+//			System.out.println("7. DecimalFormat with 5 or less digits (in decimal part): " + number);
+//			
+//			// string 'JCG' in front of the number
+//			numFormat = new DecimalFormat("'JCG'000.#");
+//			number = numFormat.format(15.567);
+//			System.out.println("8. DecimalFormat with 'JCG': " + number);
+//		}
+	
+		
+	public static void main(String[] args) {
+	
+		//BigDecimal payment = new BigDecimal("1234.568");$1,234.57
+		Double mnt =5504546.944;
+		String mntString=mnt.toString();
+		System.out.println(mntString);
+		int index=mntString.indexOf(".");
+		if(index!=-1) {
+			String mntStringApresVirgul=mntString.substring(index+1);
+			System.out.println(mntStringApresVirgul);
 			
-			double decimal = 7.27467;
-			System.out.println("The test number: "+decimal);
-			int decimalPlaces = 3;	// the scale for the decimal
+			if(mntStringApresVirgul.length()==1 ) { 
+				 NumberFormat n = NumberFormat.getCurrencyInstance();
+				 String s = n.format(mnt).replace(n.getCurrency().getSymbol(), "");
+				 System.out.println(s.replace(",", "")+"0");
+			}
+			if(mntStringApresVirgul.length()==2 ) { 
+				 NumberFormat n = NumberFormat.getCurrencyInstance();
+				 String s = n.format(mnt).replace(n.getCurrency().getSymbol(), "");
+				 System.out.println(s.replace(",", "")+"0");
+			}
 			
-			// use of BigDecimal class
-			BigDecimal bd = new BigDecimal(decimal);
-
-			// set the scale and round up if >= 0.5
-			bd = bd.setScale(decimalPlaces, BigDecimal.ROUND_UP);
-			double bigDecimal = bd.doubleValue();
-			System.out.println("BigDecimal rounded in 3rd decimal: "+bigDecimal);
+			if(mntStringApresVirgul.length()==3 ) {
 			
-			// use of DecimalFormat
-			DecimalFormat decFormat = new DecimalFormat("#.00");
-			double formatDecimal = new Double(decFormat.format(decimal)).doubleValue();
-			System.out.println("DecimalFormat rounded in 2nd decimal: "+formatDecimal);
+			  if( mntStringApresVirgul.endsWith("1") ||   mntStringApresVirgul.endsWith("2")  ) {
+					 NumberFormat n = NumberFormat.getCurrencyInstance();
+					 String s = n.format(mnt).replace(n.getCurrency().getSymbol(), "");
+					 System.out.println(s.replace(",", "")+"0");
+			  }
+				
+			  if( mntStringApresVirgul.endsWith("3") ||   mntStringApresVirgul.endsWith("4")  ) {
+					 NumberFormat n = NumberFormat.getCurrencyInstance();
+					 String s = n.format(mnt).replace(n.getCurrency().getSymbol(), "");
+					 System.out.println(s.replace(",", "")+"5");
+			  }
+			  
+			  if( mntStringApresVirgul.endsWith("6") ||   mntStringApresVirgul.endsWith("7")  ) {
+				     
+				  StringBuffer aBuffer = new StringBuffer(mntStringApresVirgul);
+				  aBuffer.setCharAt(aBuffer.length()-1, '5');
+				  String apresVirgule="."+aBuffer.toString();
+				  String montantInteger =mntString.substring(0, index);
+				  String montant =montantInteger+apresVirgule;
+				  System.out.println(montant);
+				  
+			  }
+			  
+			  if( mntStringApresVirgul.endsWith("8") ||   mntStringApresVirgul.endsWith("9")  ) {
+				  NumberFormat n = NumberFormat.getCurrencyInstance();
+				  String s = n.format(mnt).replace(n.getCurrency().getSymbol(), "");
+				  System.out.println(s.replace(",", "")+"0");
+			  }
+			  
+			 
+//			  if( !mntStringApresVirgul.endsWith("5") &&   !mntStringApresVirgul.endsWith("0")  ) {
+//				 NumberFormat n = NumberFormat.getCurrencyInstance();
+//				 String s = n.format(mnt).replace(n.getCurrency().getSymbol(), "");
+//				 System.out.println(s.replace(",", ""));
+//			  }
+			  
+			}
 			
-			System.out.println("--------------------------------------");
-			
-			DecimalFormat numFormat;
-			String number;
-			
-			// 2 digits before decimal point and then 2 digits (rounded)
-			numFormat = new DecimalFormat("000.##");
-			number = numFormat.format(-15.567);
-			System.out.println("1. DecimalFormat with .: " + number);
-			
-			// string '$' in front of the number
-			numFormat = new DecimalFormat("'$'00.####");
-			number = numFormat.format(15.567);
-			System.out.println("2. DecimalFormat with '$': " + number);
-			
-			// use of , to group numbers
-			numFormat = new DecimalFormat("#,###,###");
-			number = numFormat.format(1556789);
-			System.out.println("3. DecimalFormat with ,: " + number);
-
-			// use of % for percentage
-			numFormat = new DecimalFormat("%");
-			number = numFormat.format(0.15);
-			System.out.println("4. DecimalFormat with percentage: " + number);
-			
-			// 2 digits before decimal point and 2 digits after
-			numFormat = new DecimalFormat("00.00");
-			number = numFormat.format(-15.567);
-			System.out.println("5. DecimalFormat with 4 digits: " + number);
-			
-			// left part of decimal number
-			numFormat = new DecimalFormat("##");
-			number = numFormat.format(156.567);
-			System.out.println("6. DecimalFormat with no decimal part: " + number);
-			
-			// 5 or less digits in the decimal part
-			numFormat = new DecimalFormat(".#####");
-			number = numFormat.format(1890.567);
-			System.out.println("7. DecimalFormat with 5 or less digits (in decimal part): " + number);
-			
-			// string 'JCG' in front of the number
-			numFormat = new DecimalFormat("'JCG'000.#");
-			number = numFormat.format(15.567);
-			System.out.println("8. DecimalFormat with 'JCG': " + number);
 		}
+		
+		 
+		
+		
+		
+	 
+		 
+	}
 
 	}
