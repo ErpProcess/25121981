@@ -1543,8 +1543,9 @@ public   ModelAndView doAdd_row_Prestation( ProcedureVenteBean detailBean  ) thr
 		    beanLigne.setMontant_ht_vente(ProcessFormatNbr.FormatDouble_Troischiffre(montant_ht_vente));
     		
     		/*********************************************montant_tva_vente ******************************************/
-    		 
-    		Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente, ss.getTvaBean().getTva_value());
+		 
+		    
+    		Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente, ss.getv);
     		montant_tva_vente=ProcessFormatNbr.FormatDouble_Troischiffre(montant_tva_vente);
     		beanLigne.setMontant_tva_vente(montant_tva_vente);
     		
