@@ -542,7 +542,7 @@ public class Demande_AchatActionManager extends Demande_AchatTemplate {
 		        PdfPTable table = new PdfPTable(Mapfield_det_achat.length);
 		        //String title= (String) getObjectValueModel("list-"+getObjectValueModel(ENTITES));
 		        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
-		        genpdf.doWriteHeaderDocument_PDF(document,fs,Mapfield_det_achat,bSession);
+		        genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
 		        doWriteEntete_demande_achat(document,denBean);
 		        genpdf.doWriteTitle_Table(document,BON_COMMANDE_FRS);
 		        genpdf.doWrite_Header_Table(table,Mapfield_det_achat);

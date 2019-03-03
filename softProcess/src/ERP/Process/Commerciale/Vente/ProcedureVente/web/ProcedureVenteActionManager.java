@@ -488,7 +488,6 @@ public   ModelAndView doGet_Stock_Founiture(ProcedureVenteBean bean ) throws Exc
 public   ModelAndView doActualiserGridPrestation( ProcedureVenteBean bean ) throws Exception{
 		
 		try {
-			
  			List listService=(List) getObjectValueModel(LIST_EDITABLE_PRESTATION);
 			JsonObject data = new JsonObject();
 			for (int i = 0; i < listService.size(); i++) {
@@ -532,7 +531,7 @@ public   ModelAndView doActualiserGridPrestation( ProcedureVenteBean bean ) thro
 		    		newBean.setMontant_ht_vente(ProcessFormatNbr.FormatDouble_Troischiffre(montant_ht_vente_brute));
 		    		
 		    		/*********************************************montant_tva_vente ******************************************/
-		    		Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente_brute, ss.getTvaBean().getTva_value());
+		    		Double montant_tva_vente= ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente_brute,ss.getTvaBean(),new DeviseBean());
 		    		montant_tva_vente=ProcessFormatNbr.FormatDouble_Troischiffre(montant_tva_vente);
 		     
 		    		newBean.setMontant_tva_vente(montant_tva_vente);
@@ -625,7 +624,7 @@ public   ModelAndView doActualiserGridFourniture( ProcedureVenteBean bean ) thro
 		    		
 		    		/*********************************************montant_tva_vente ******************************************/
 		    		 
-		    		Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente_brute, ss.getTvaBean().getTva_value());
+		    		Double montant_tva_vente= ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente_brute,ss.getTvaBean(),new DeviseBean());
 		    		montant_tva_vente=ProcessFormatNbr.FormatDouble_Troischiffre(montant_tva_vente);
 		     
 		    		newBean.setMontant_tva_vente(montant_tva_vente);
@@ -749,7 +748,8 @@ public   ModelAndView doActualiser_GRID( ProcedureVenteBean bean ) throws Except
 		    		
 		    		/*********************************************montant_tva_vente ******************************************/
 		    		 
-		    		Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente, ss.getTvaBean().getTva_value());
+		    		 
+		    		Double montant_tva_vente= ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente,ss.getTvaBean(),new DeviseBean());
 		    		montant_tva_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_tva_vente,pattern);
 		    		newBean.setMontant_tva_vente(montant_tva_vente);
 		    		
@@ -1271,7 +1271,8 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	    		
 	    		/*********************************************montant_tva_vente ******************************************/
 	    		 
-	    		Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente, ss.getTvaBean().getTva_value());
+	    		 
+	    		Double montant_tva_vente= ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente,ss.getTvaBean(),new DeviseBean());
 	    		montant_tva_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_tva_vente,pattern); 
 	    		beanLigne.setMontant_tva_vente(montant_tva_vente);
 	    		
@@ -1421,7 +1422,7 @@ public   ModelAndView doAdd_row_Fourniture( ProcedureVenteBean detailBean  ) thr
 	    		
 	    		/*********************************************montant_tva_vente ******************************************/
 	    		 
-	    		Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente, ss.getTvaBean().getTva_value());
+	    		Double montant_tva_vente= ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente,ss.getTvaBean(),new DeviseBean());
 	    		montant_tva_vente=ProcessFormatNbr.FormatDouble_Troischiffre(montant_tva_vente);
 	    		beanLigne.setMontant_tva_vente(montant_tva_vente);
 	    		
@@ -1545,7 +1546,7 @@ public   ModelAndView doAdd_row_Prestation( ProcedureVenteBean detailBean  ) thr
     		/*********************************************montant_tva_vente ******************************************/
 		 
 		    
-    		Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente, ss.getv);
+		    Double montant_tva_vente= ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente,ss.getTvaBean(),new DeviseBean());
     		montant_tva_vente=ProcessFormatNbr.FormatDouble_Troischiffre(montant_tva_vente);
     		beanLigne.setMontant_tva_vente(montant_tva_vente);
     		
@@ -2277,7 +2278,8 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			    		
 			    		/*********************************************montant_tva_vente ******************************************/
 			    		 
-			    		Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente, ss.getTvaBean().getTva_value());
+			    	 
+			    		Double montant_tva_vente      = ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente,ss.getTvaBean(),new DeviseBean());
 			    		montant_tva_vente=ProcessFormatNbr.FormatDouble_Troischiffre(montant_tva_vente);
 			    		beanLigne.setMontant_tva_vente(montant_tva_vente);
 			    		
@@ -2474,7 +2476,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		try {
 			 Document document=GeneratePdf.doGenerateDocumentFormat();
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
-	        genpdf.doWriteHeaderDocument_PDF(document,fs,mapfieldBean_detaille,bSession);
+	        genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
 	        
 	        doWriteEntete(document,denBean);
 	        doWrite_Header_ContentTable(document,96,mapfieldBean_detaille);
@@ -2524,9 +2526,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		            PdfPCell cell = new PdfPCell(new Phrase("",GeneratePdf.Normal_9_times_roman));
 			        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 			        cell.setPaddingBottom(5);
-			        cell.setBorderWidth(0.1f);
 			        cell.setFixedHeight(toul_contenu_tab);
-			        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 			        cell.setBackgroundColor(BaseColor.WHITE);
 			        cell.setBorder(cell.LEFT+cell.RIGHT);
 		            table.addCell(cell);
@@ -2973,7 +2973,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		        
 		       
 		        
-		        genpdf.doWriteHeaderDocument_PDF(document,fs,mapFieldBean,bSession);
+		        genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
 			    if(map_critere_de_recherche!=null && map_critere_de_recherche.length>0)
 			    	genpdf.doWriteCritere_de_recherche_Table(document, searchBean,map_critere_de_recherche);
 			    genpdf.doWriteTitle_Table(document,title);
@@ -3421,7 +3421,9 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		    beanLigne.setMontant_ht_vente(ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente,pattern));
 		    tot_ht_net=ProcessNumber.addition(tot_ht_net, beanLigne.getMontant_ht_vente());
     		/*********************************************montant_tva_vente ******************************************/
-    		Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente, beanLigne.getTarif().getTvaBean().getTva_value());
+    	 
+    		Double montant_tva_vente= ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente,beanLigne.getTarif().getTvaBean(),new DeviseBean());
+    		
     		montant_tva_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_tva_vente,pattern);
     		beanLigne.setMontant_tva_vente(montant_tva_vente);
     		tot_tva=ProcessNumber.addition(tot_tva, beanLigne.getMontant_tva_vente());
@@ -3477,8 +3479,8 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
     		Double montant_ht_vente_brute=ProcessNumber.PRODUIT(priUnitvente, qte);
     		montant_ht_vente_brute=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente_brute,pattern);
     		beanLigne.setMontant_ht_vente_reel(montant_ht_vente_brute);
-    		tot_qte     =ProcessNumber.addition(tot_qte, qte);
-			tot_ht_brute=ProcessNumber.addition(tot_ht_brute, beanLigne.getMontant_ht_vente_reel());
+    		if( beanLigne.getIsVente()  ) tot_qte     =ProcessNumber.addition(tot_qte, qte);
+    		if( beanLigne.getIsVente()  ) tot_ht_brute=ProcessNumber.addition(tot_ht_brute, beanLigne.getMontant_ht_vente_reel());
     		/*******************************************Remise********************************************************/
     		Double taux_remiseligne     = beanLigne.getTarifVente().getTaux_remise()==null?new Double(0):beanLigne.getTarifVente().getTaux_remise();
 			Double tot_taux             = ProcessNumber.addition(getTaux_remise_alacaisse, taux_remiseligne); 
@@ -3486,32 +3488,37 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			beanLigne.setTaux_remise_ligne(tot_taux);
 			Double montant_Remise_Ligne  = ProcessNumber.Pourcentage(beanLigne.getMontant_ht_vente_reel(), tot_taux);
 			beanLigne.setMontant_Remise_Ligne(ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_Remise_Ligne,pattern));
-			totalre_mise=ProcessNumber.addition(totalre_mise, montant_Remise_Ligne);
+			if( beanLigne.getIsVente()  ) totalre_mise=ProcessNumber.addition(totalre_mise, montant_Remise_Ligne);
 		    /*******************************************montant_ht_vente *********************************************/   
 		    Double montant_ht_vente=ProcessNumber.SOUSTRACTION(montant_ht_vente_brute, montant_Remise_Ligne);
 		    montant_ht_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente,pattern);
 		    beanLigne.setMontant_ht_vente(ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente,pattern));
-		    tot_ht_net=ProcessNumber.addition(tot_ht_net, beanLigne.getMontant_ht_vente());
+		    if( beanLigne.getIsVente()  )   tot_ht_net=ProcessNumber.addition(tot_ht_net, beanLigne.getMontant_ht_vente());
     		/*********************************************montant_tva_vente ******************************************/
-    		Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente, beanLigne.getTarifVente().getTvaBean().getTva_value());
+    		 
+    		
+    		Double montant_tva_vente= ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente,beanLigne.getTarifVente().getTvaBean(),new DeviseBean());
+    		
     		montant_tva_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_tva_vente,pattern);
     		beanLigne.setMontant_tva_vente(montant_tva_vente);
-    		tot_tva=ProcessNumber.addition(tot_tva, beanLigne.getMontant_tva_vente());
+    		if( beanLigne.getIsVente()  )  tot_tva=ProcessNumber.addition(tot_tva, beanLigne.getMontant_tva_vente());
     		/*********************************************montant_ttc_vente *******************************************/
     		Double  montant_ttc_vente=ProcessNumber.addition(montant_ht_vente, montant_tva_vente);
     		beanLigne.setMontant_ttc_vente(montant_ttc_vente);
     		/*********************************************montant_benefice *******************************************/
-    		if(le_cout.doubleValue()>0){
+    		if(le_cout.doubleValue()>0  &&  beanLigne.getIsVente()   ){
     		Double	 montant_benefice = ProcessNumber.SOUSTRACTION(montant_ht_vente, le_cout);
     		montant_benefice          =ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_benefice,pattern);
     		beanLigne.setMontant_benefice(montant_benefice);
     		marge_benefice_vente=ProcessNumber.addition(marge_benefice_vente, montant_benefice);
     		}
     		/**********************************************************************************************************/
+    		if( beanLigne.getIsVente()  ) {
 			List  listTva = (List) map_des_Tva.get(beanLigne.getTarifVente().getTvaBean().getTva_libelle());
 			if(listTva==null)listTva= new ArrayList();
 			listTva.add(beanLigne);
 			map_des_Tva.put(beanLigne.getTarifVente().getTvaBean().getTva_libelle(), listTva);
+    		}
 			/**********************************************************************************************************/
 		}		
 	}
@@ -3527,7 +3534,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		for (int i = 0; i < List_detaille.size(); i++) {
 			DetServiceBean  beanLigne=List_detaille.get(i);
 			
-			if(!beanLigne.getIsVente()) continue;
+			
 				
 			String lib=beanLigne.getFkcode_barre().getDesignation_libelle();
 			String groupe=beanLigne.getTarifVente().getGroupe().getType_trf_lib();
@@ -3549,8 +3556,8 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
     		Double montant_ht_vente_brute=ProcessNumber.PRODUIT(priUnitvente, qte);
     		montant_ht_vente_brute=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente_brute,pattern);
     		beanLigne.setMontant_ht_vente_reel(montant_ht_vente_brute);
-    		tot_qte     =ProcessNumber.addition(tot_qte, qte);
-			tot_ht_brute=ProcessNumber.addition(tot_ht_brute, beanLigne.getMontant_ht_vente_reel());
+    		if(beanLigne.getIsVente()) tot_qte     =ProcessNumber.addition(tot_qte, qte);
+    		if(beanLigne.getIsVente()) tot_ht_brute=ProcessNumber.addition(tot_ht_brute, beanLigne.getMontant_ht_vente_reel());
     		/*******************************************Remise********************************************************/
     		Double taux_remiseligne     = beanLigne.getTarifVente().getTaux_remise()==null?new Double(0):beanLigne.getTarifVente().getTaux_remise();
 			Double tot_taux             = ProcessNumber.addition(getTaux_remise_alacaisse, taux_remiseligne); 
@@ -3558,32 +3565,36 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			beanLigne.setTaux_remise_ligne(tot_taux);
 			Double montant_Remise_Ligne  = ProcessNumber.Pourcentage(beanLigne.getMontant_ht_vente_reel(), tot_taux);
 			beanLigne.setMontant_Remise_Ligne(ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_Remise_Ligne,pattern));
-			totalre_mise=ProcessNumber.addition(totalre_mise, montant_Remise_Ligne);
+			if(beanLigne.getIsVente())  totalre_mise=ProcessNumber.addition(totalre_mise, montant_Remise_Ligne);
 		    /*******************************************montant_ht_vente *********************************************/   
 		    Double montant_ht_vente=ProcessNumber.SOUSTRACTION(montant_ht_vente_brute, montant_Remise_Ligne);
 		    montant_ht_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente,pattern);
 		    beanLigne.setMontant_ht_vente(ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente,pattern));
-		    tot_ht_net=ProcessNumber.addition(tot_ht_net, beanLigne.getMontant_ht_vente());
+		    if(beanLigne.getIsVente())   tot_ht_net=ProcessNumber.addition(tot_ht_net, beanLigne.getMontant_ht_vente());
     		/*********************************************montant_tva_vente ******************************************/
-    		Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente, beanLigne.getTarifVente().getTvaBean().getTva_value());
+    		 
+    		Double montant_tva_vente= ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente,beanLigne.getTarifVente().getTvaBean(),new DeviseBean());
+    		
     		montant_tva_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_tva_vente,pattern);
     		beanLigne.setMontant_tva_vente(montant_tva_vente);
-    		tot_tva=ProcessNumber.addition(tot_tva, beanLigne.getMontant_tva_vente());
+    		if(beanLigne.getIsVente()) tot_tva=ProcessNumber.addition(tot_tva, beanLigne.getMontant_tva_vente());
     		/*********************************************montant_ttc_vente *******************************************/
     		Double  montant_ttc_vente=ProcessNumber.addition(montant_ht_vente, montant_tva_vente);
     		beanLigne.setMontant_ttc_vente(montant_ttc_vente);
     		/*********************************************montant_benefice *******************************************/
-    		if(le_cout.doubleValue()>0){
+    		if(le_cout.doubleValue()>0 &&   beanLigne.getIsVente()  ){
     		Double	 montant_benefice = ProcessNumber.SOUSTRACTION(montant_ht_vente, le_cout);
     		montant_benefice          =ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_benefice,pattern);
     		beanLigne.setMontant_benefice(montant_benefice);
     		marge_benefice_vente=ProcessNumber.addition(marge_benefice_vente, montant_benefice);
     		}
     		/**********************************************************************************************************/
+    		if( beanLigne.getIsVente()  ){
 			List  listTva = (List) map_des_Tva.get(beanLigne.getTarifVente().getTvaBean().getTva_libelle());
 			if(listTva==null)listTva= new ArrayList();
 			listTva.add(beanLigne);
 			map_des_Tva.put(beanLigne.getTarifVente().getTvaBean().getTva_libelle(), listTva);
+    		}
 			/**********************************************************************************************************/
 		}		
 	}

@@ -36,6 +36,7 @@ import ERP.Process.Commerciale.Vente.EditionVente.template.EditionVenteTemplate;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Det_Fact_ClientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Facture_clientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.template.Facture_clientTemplate;
+import ERP.Process.Commerciale.Vente.ProcedureVente.model.DetProcedureVenteBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionsLinguistiques.EntiteAdmin.model.EntiteAdminBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionsLinguistiques.EntiteAdmin.service.EntiteAdminService;
 import ERP.eXpertSoft.wfsi.Administration.GestionsLinguistiques.Glibelle.model.GlibelleBean;
@@ -486,7 +487,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 
 	}
 	
-	public void printEtatVenteExportKobbi( EditionVenteBean searchBean ) throws Exception{
+	public void printEtatFactureVenteExportKobbi( EditionVenteBean searchBean ) throws Exception{
 		
 		try {
 		List   listEditionVente=  (List) getObjectValueModel("listEditionVente") ;
@@ -511,8 +512,40 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		} 
 	}
 	
+public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception{
+		
+		try {
+		List   listEditionVente=  (List) getObjectValueModel("listEditionVente") ;
+		File file = new File(getRequest().getRealPath("/")+"/temp/"+"listEditionVente"+getRequest().getSession().getId()+".pdf");
+		BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
+	    FileOutputStream fs = new FileOutputStream(file);
+	    Document document = GeneratePdf.doGenerateDocumentFormat();
+	    GeneratePdf.doWriteHeaderDocument_PDF(document, fs, bSession);      
+		doWriteEnteteEtatVente(document,73,searchBean );
+	    String [][] mapfieldEtatDeVente  = new String[][]{{ "date", "12" }, { "invoice", "12" },
+			{ "client", "33" },{ "description", "35" },
+			{ "qte", "10" },
+			{ "prixUnit", "20" },{ "total", "20" },
+		    };
+		   
+		doWriteHeaderEtatEditionVente(document,97,mapfieldEtatDeVente);
+		//doWriteDataTableEditionVenteKobbi (listEditionVente,document,97,mapfieldEtatDeVente);
+		doWriteDataTableEditionVente(listEditionVente,document,97,mapfieldEtatDeVente);
+	    //doWrite_mode_pay_banc(denBean,lisData,73,document);  ;  
+	    /*****************************************************************************************************/
+	    document.close();
+		getResponse().setContentType("text");
+		getResponse().setHeader("Cache-Control", "no-cache");
+		getResponse().setStatus(200);
+		getResponse().getWriter().write("listEditionVente"+getRequest().getSession().getId()+".pdf");
+		
+		} catch (Exception e) {
+			throw e;
+		} 
+	}
+	
 	private  void doWriteHeaderDocumentEditionvente(Document document,int poucentage, FileOutputStream fs ,BeanSession bSession) throws Exception {
-		GeneratePdf.doGeneratePdfWriterFormat(document, fs);
+		    GeneratePdf.doGeneratePdfWriterFormat(document, fs);
 	        
 	       
 	        BeanSession  bs=(BeanSession) getObjectValueModel(BEAN_SESSION);
@@ -904,7 +937,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		tableTopHeader2.setWidthPercentage(85);
 		Font FONT_12_bold = new Font(Font.getFamily("TIMES_ROMAN"), 13, Font.BOLD);
 		PdfPCell cell = new PdfPCell(
-				new Phrase("KOBBI FISH Exports " + ProcessDate.getStringFormatDate(searchBean.getDate_debut()) + " - "
+				new Phrase("Etat des Ventes  " + ProcessDate.getStringFormatDate(searchBean.getDate_debut()) + " - "
 						+ ProcessDate.getStringFormatDate(searchBean.getDate_fin()), FONT_12_bold));
 		cell.setColspan(100);
 		cell.setPaddingBottom(20f);
@@ -922,7 +955,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 		tableTopHeader2.setWidthPercentage(85);
 		Font FONT_12_bold = new Font(Font.getFamily("TIMES_ROMAN"), 13, Font.BOLD);
 		PdfPCell cell = new PdfPCell(
-				new Phrase("ETAT DEPENSES PRODUITS FRAIS " + ProcessDate.getStringFormatDate(searchBean.getDate_debut()) + " - "
+				new Phrase("ETAT des Dépenses " + ProcessDate.getStringFormatDate(searchBean.getDate_debut()) + " - "
 						+ ProcessDate.getStringFormatDate(searchBean.getDate_fin()), FONT_12_bold));
 		cell.setColspan(100);
 		cell.setPaddingBottom(20f);
@@ -1207,6 +1240,249 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 			   if(i%2==0)
 			   cell.setBackgroundColor(GeneratePdf.colorLigne);
 			   table.addCell(cell);
+			   
+			   cell = new PdfPCell(new Phrase( ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(bean.getPrixUnit(), devise, true, false)  ,GeneratePdf.Bold_10_times_roman));
+			   cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		       cell.setPadding(5f);
+		       cell.setPaddingBottom(7f);
+			   cell.setBackgroundColor(BaseColor.WHITE);
+			   if(i%2==0)
+			   cell.setBackgroundColor(GeneratePdf.colorLigne);
+			   table.addCell(cell);
+				if(bean.isIsrowSpanDetFact()) {
+				   cell = new PdfPCell(new Phrase(   ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(bean.getTotal(), devise, true, false)   ,GeneratePdf.Bold_10_times_roman));
+				   cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			       cell.setPadding(5f);
+			       cell.setRowspan(bean.getRowSpanDetFacture());
+			       cell.setPaddingBottom(7f);
+				   cell.setBackgroundColor(BaseColor.WHITE);
+				   if(i%2==0)
+				   cell.setBackgroundColor(GeneratePdf.colorLigne);
+				   table.addCell(cell);
+				}
+	        }
+		    
+		    
+		   
+		    	PdfPCell cell = new PdfPCell(new Phrase( "Total",GeneratePdf.Bold_10_times_roman));
+		        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		        cell.setBackgroundColor(BaseColor.WHITE);
+		        cell.setColspan(4);
+		        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		        cell.setPadding(5f);
+		        cell.setPaddingBottom(7f);
+		        cell.setBackgroundColor(GeneratePdf.colorLigne);
+		        table.addCell(cell);
+		    	 
+		   
+			      
+			        
+			   cell = new PdfPCell(new Phrase( ProcessFormatNbr.convertDoubleToIntString(totGenQte)   ,GeneratePdf.Bold_10_times_roman));
+			   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		       cell.setPadding(5f);
+		       cell.setPaddingBottom(7f);
+			   cell.setBackgroundColor(GeneratePdf.colorLigne);
+			   table.addCell(cell);
+			   
+			   cell = new PdfPCell(new Phrase( ProcessFormatNbr.convertDoubleToIntString(totGenNbrBox)  ,GeneratePdf.Bold_10_times_roman));
+			   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		       cell.setPadding(5f);
+		       cell.setPaddingBottom(7f);
+			   cell.setBackgroundColor(GeneratePdf.colorLigne);
+			   table.addCell(cell);
+			   
+			   cell = new PdfPCell(new Phrase("" ,GeneratePdf.Bold_10_times_roman));
+			   cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		       cell.setPadding(5f);
+		       cell.setPaddingBottom(7f);
+			   cell.setBackgroundColor(GeneratePdf.colorLigne);
+			   table.addCell(cell);
+			 
+			   cell = new PdfPCell(new Phrase(   ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(totGenfacture, devise, true, false)   ,GeneratePdf.Bold_10_times_roman));
+			   cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+			   cell.setPadding(5f);
+			   cell.setPaddingBottom(7f);
+			   cell.setBackgroundColor(GeneratePdf.colorLigne);
+			   table.addCell(cell);
+			 
+		    
+		    
+	
+		    document.add(table);
+		}
+	  
+	  
+	  
+	  private   void doWriteDataTableEditionVente(List lisData, Document document,int poucentage,String[][] mapFieldBean) throws Exception, SecurityException {
+		  
+		    PdfPTable table = new PdfPTable(mapFieldBean.length);
+	        int[] columnWidths = new int[mapFieldBean.length] ;
+	        for(int i = 0; i < mapFieldBean.length; i++){
+	    	 columnWidths[i]= Integer.parseInt(mapFieldBean[i][1])   ;
+			}
+	       table.setWidthPercentage(poucentage);
+	       table.setWidths(columnWidths);
+	      
+	       HashMap  mapDate= new HashMap();
+	       Double totGenfacture= new Double(0);
+	       Double totGenQte= new Double(0);
+	       Double totGenNbrBox= new Double(0);
+	       
+	       List<EtatVenteProduit> list_etat_edition = new ArrayList<EtatVenteProduit>();
+	       DeviseBean  devise = new DeviseBean();
+			for (int i = 0; i < lisData.size(); i++) {
+				DetProcedureVenteBean dBean  =(DetProcedureVenteBean) lisData.get(i);
+				devise=dBean.getPk().getVente().getDevise();
+				Date dateFact=dBean.getPk().getVente().getVente_date();
+				List listPardate=(List) mapDate.get(dateFact);
+				if(listPardate==null) {listPardate= new ArrayList();  }
+				listPardate.add(dBean);
+				mapDate.put(dateFact, listPardate);
+			}
+			Set set_mapdate= mapDate.keySet();
+		
+			for (Iterator iterr = set_mapdate.iterator(); iterr.hasNext();) {
+				Date dateFact = (Date) iterr.next();
+				boolean isrowSpanDate=true;
+				List listmapDate=(List) mapDate.get(dateFact);
+				
+				
+				
+				HashMap  mapInvoiceClient=  new HashMap();
+				for (int i = 0; i < listmapDate.size(); i++) {
+					DetProcedureVenteBean dBean  =(DetProcedureVenteBean) listmapDate.get(i);
+					String  key =dBean.getPk().getVente().getVente_id()+"²µ²"+dBean.getPk().getVente().getClient().getClt_lib();
+					List listInvoice=(List) mapInvoiceClient.get(key);
+					if(listInvoice==null) {listInvoice= new ArrayList();  }
+					listInvoice.add(dBean);
+					mapInvoiceClient.put(key, listInvoice);
+				}
+				
+				Set mapInvoiceClientSet = mapInvoiceClient.keySet(); 
+				
+				for (Iterator iterInvo = mapInvoiceClientSet.iterator(); iterInvo.hasNext();) {
+					String iClientnvoice = (String) iterInvo.next();
+					String[] element=iClientnvoice.split("²µ²");
+					boolean isrowSpanDetailFacture=true;
+					List listInvoiceClient=(List) mapInvoiceClient.get(iClientnvoice);
+					Double totfacture= new Double(0);
+					for (int i = 0; i < listInvoiceClient.size(); i++) {
+						DetProcedureVenteBean dBean  =(DetProcedureVenteBean) listInvoiceClient.get(i);	
+					    EtatVenteProduit  etatBean  =  new EtatVenteProduit();
+					    totfacture =ProcessNumber.addition(totfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getMontant_ttc_vente(), devise.getChiffre_pattern())  );
+					    
+					    totGenfacture =ProcessNumber.addition(totGenfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getMontant_ttc_vente(), devise.getChiffre_pattern())  );
+					    totGenQte =ProcessNumber.addition(totGenQte,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getQuantite(), devise.getChiffre_pattern())  );
+					   
+					    
+					    
+					    etatBean.setIsrowSpanDate(isrowSpanDate);
+					    etatBean.setRowSpanDate(listmapDate.size());
+					    
+					    etatBean.setIsrowSpanDetFact(isrowSpanDetailFacture);
+					    etatBean.setRowSpanDetFacture(listInvoiceClient.size());
+					    
+						etatBean.setDate(dateFact);
+						etatBean.setInvoice(element[0]);
+						etatBean.setClient(element[1]);
+						etatBean.setDescription(dBean.getPk().getFkcode_barre().getDesignation_libelle());
+						etatBean.setQte(dBean.getQuantite());
+						etatBean.setPrixUnit(dBean.getTarif().getTarif_unit_vente());
+						list_etat_edition.add(etatBean);
+						
+						if(i==listInvoiceClient.size()-1) {
+							 int position=list_etat_edition.size() - listInvoiceClient.size();
+							 list_etat_edition.get(position).setTotal(ProcessFormatNbr.FormatDouble_ParameterChiffre(totfacture, devise.getChiffre_pattern())  ); 
+						}
+						isrowSpanDate=false;
+						isrowSpanDetailFacture=false;
+					}
+				}
+			}
+
+			  
+			
+			    Collections.sort(list_etat_edition, new Comparator<EtatVenteProduit>() {
+					@Override
+					public int compare(EtatVenteProduit o1, EtatVenteProduit o2) {
+						return o1.getDate().compareTo( o2.getDate() );
+					}
+				});
+			  
+			
+			
+		    for(int i=0; i < list_etat_edition.size(); i++ ){
+		    	EtatVenteProduit bean = (EtatVenteProduit) list_etat_edition.get(i); 
+		    	
+		    	if(bean.isIsrowSpanDate()) {
+		    	PdfPCell cell = new PdfPCell(new Phrase( ProcessDate.getStringFormatDate(bean.getDate()),GeneratePdf.Bold_10_times_roman));
+		        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		        cell.setBackgroundColor(BaseColor.WHITE);
+		        cell.setRowspan(bean.getRowSpanDate());
+		        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		        cell.setPadding(5f);
+		        cell.setPaddingBottom(7f);
+		        if(i%2==0)
+		        cell.setBackgroundColor(GeneratePdf.colorLigne);
+		        table.addCell(cell);
+		    	}
+		    	
+		    	
+		    	if(bean.isIsrowSpanDetFact()) {
+		    	PdfPCell cell  = new PdfPCell(new Phrase( bean.getInvoice(),GeneratePdf.Bold_10_times_roman));
+		        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		        cell.setPadding(5f);
+		        cell.setRowspan(bean.getRowSpanDetFacture());
+		        cell.setPaddingBottom(7f);
+		        cell.setBackgroundColor(BaseColor.WHITE);
+		        if(i%2==0)
+		        cell.setBackgroundColor(GeneratePdf.colorLigne);
+		        table.addCell(cell);
+		        
+		        cell = new PdfPCell(new Phrase( bean.getClient(),GeneratePdf.Bold_10_times_roman));
+		        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		        cell.setRowspan(bean.getRowSpanDetFacture());
+		        cell.setPadding(5f);
+		        cell.setPaddingBottom(7f);
+		        cell.setBackgroundColor(BaseColor.WHITE);
+		        if(i%2==0)
+		        cell.setBackgroundColor(GeneratePdf.colorLigne);
+		        table.addCell(cell);
+		    	}
+		        
+		         
+			
+				
+		    	PdfPCell cell = new PdfPCell(new Phrase( bean.getDescription(),GeneratePdf.Bold_10_times_roman));
+			    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		        cell.setPadding(5f);
+		        cell.setPaddingBottom(7f);
+			    cell.setBackgroundColor(BaseColor.WHITE);
+			    if(i%2==0)
+			    cell.setBackgroundColor(GeneratePdf.colorLigne);
+			    table.addCell(cell);
+
+			        
+			   cell = new PdfPCell(new Phrase( ProcessFormatNbr.convertDoubleToIntString(bean.getQte())   ,GeneratePdf.Bold_10_times_roman));
+			   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+		       cell.setPadding(5f);
+		       cell.setPaddingBottom(7f);
+			   cell.setBackgroundColor(BaseColor.WHITE);
+			   if(i%2==0)
+			   cell.setBackgroundColor(GeneratePdf.colorLigne);
+			   table.addCell(cell);
+			   
+			  
 			   
 			   cell = new PdfPCell(new Phrase( ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(bean.getPrixUnit(), devise, true, false)  ,GeneratePdf.Bold_10_times_roman));
 			   cell.setHorizontalAlignment(Element.ALIGN_RIGHT);

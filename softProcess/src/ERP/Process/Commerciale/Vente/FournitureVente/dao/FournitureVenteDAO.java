@@ -31,17 +31,19 @@ public class FournitureVenteDAO extends  GenericWeb    {
 		     
 		  try{
 		    String requette=" select  bean   FROM    DetFournitureVenteBean    bean    WHERE     1=1       ";
-// 			   if( !StringUtils.isEmpty(beanSearch.getFrn_ve_id()) )  
-//	    			requette+="   AND   bean.frn_ve_id = '"+beanSearch.getFrn_ve_id()+"'        "; 
-// 			   
-// 			   if( !StringUtils.isEmpty(beanSearch.getFrn_ve_libelle()) )  
-//	    			requette+="   AND   bean.frn_ve_libelle = '"+beanSearch.getFrn_ve_libelle()+"'        ";    
+   
  			   if(   beanSearch.getVenteFrn()!=null  &&   !StringUtils.isBlank(beanSearch.getVenteFrn().getVente_id()) )  
 	    			requette+="   AND   bean.fourniture.venteFrn.vente_id = '"+beanSearch.getVenteFrn().getVente_id()+"'        ";  
- 			   else 
- 					requette+="   AND   bean.fourniture.vente_id = 'bidan01'        ";  
-// 			   if(  beanSearch.getFrn_ve_date()!=null )  
-//	    			requette+="   AND   bean.frn_ve_date = '"+ProcessDate.getStringFormatDate(beanSearch.getFrn_ve_date())+"'        ";    
+// 			   else 
+// 					requette+="   AND   bean.fourniture.vente_id = 'bidan01'        ";  
+
+ 				 if (beanSearch.getVenteFrn().getVente_date() != null) 
+				    	requette += "   AND  bean.fourniture.venteFrn.vente_date >= '"+ProcessDate.getStringFormatDate(beanSearch.getVenteFrn().getVente_date())+"'        ";
+				    
+				if (   beanSearch.getVenteFrn().getVente_date2()!= null ) 
+				    	requette += "   AND  bean.fourniture.venteFrn.vente_date <=  '"+ProcessDate.getStringFormatDate(beanSearch.getVenteFrn().getVente_date2())+"'         ";
+				
+				
 				  		list_data= session.createQuery(requette).list();
 				        commitTransaction(session);
 			 } catch (Exception e) {  

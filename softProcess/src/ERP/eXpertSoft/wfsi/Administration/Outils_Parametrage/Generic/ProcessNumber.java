@@ -1,6 +1,7 @@
 package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic;
 
-
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.model.TVABean;
 
 public class ProcessNumber {
 	
@@ -98,6 +99,20 @@ public class ProcessNumber {
 			e.printStackTrace();
 			throw e;
 		}  
+	}
+
+
+	public static Double getMontantTvaByMontantHT(Double montantHTva, TVABean tvaBean, DeviseBean devise) throws Exception {
+		Double   tvaValue          = ProcessNumber.DIVISION(tvaBean.getTva_value(), 100) ;
+		Double valeur_de_laTva     = ProcessNumber.PRODUIT(montantHTva,tvaValue);
+		return valeur_de_laTva;
+	}
+	
+	public static Double getMontantHTByMontantTTC(Double montantTTC, TVABean tvaBean, DeviseBean devise) throws Exception {
+		Double   tvaValue        = ProcessNumber.DIVISION(tvaBean.getTva_value(), 100) ;
+		Double   MntUnitTTC      = ProcessNumber.addition(1.000, tvaValue) ;
+		Double   montantHT       = ProcessNumber.DIVISION(montantTTC,MntUnitTTC);
+		return montantHT;
 	}
 	
 

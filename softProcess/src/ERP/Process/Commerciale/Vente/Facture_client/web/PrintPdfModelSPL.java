@@ -150,7 +150,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 		companyLogo.scalePercent(60); 
 		cellheder = new PdfPCell(); 
 		cellheder.setBorder(3);
-		cellheder.addElement(new Chunk(companyLogo, 10, -66));
+		cellheder.addElement(new Chunk(companyLogo, 10, -77));
 		cellheder.setPaddingRight(50f);
 		cellheder.setColspan(10);
 		cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -166,10 +166,9 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    cellheder.setPaddingTop(15f);
 	    cellheder.setBorder(cellheder.NO_BORDER);
 	    tableheader.addCell(cellheder);
-		
-	    cellheder = new PdfPCell(new Phrase(bs.getSoc_lib()+"\n\r"+bs.getSociete().getAdresse()+"\n\r"+"MF: "+bs.getSociete().getMatricule_fiscale()+
-	    		                            "\n\rRC :"+bs.getSociete().getRegistre_commerce()+"\n\r"+"TEL: "+bs.getSociete().getTelephone()
-	    		                            ,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
+		String entete= bs.getSoc_lib()+"\n\r"+bs.getSociete().getAdresse()+"\n\r"+"MF: "+bs.getSociete().getMatricule_fiscale()+
+                "\n\rRC :"+bs.getSociete().getRegistre_commerce()+"\n\r"+"TEL: "+bs.getSociete().getTelephone();
+	    cellheder = new PdfPCell(new Phrase( entete.toUpperCase()  ,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
 	    cellheder.setColspan(86);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cellheder.setPaddingLeft(28f);
@@ -184,8 +183,8 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    cellheder.setBorder(cellheder.NO_BORDER);
 	    tableheader.addCell(cellheder);
 	    
-	    cellheder = new PdfPCell(new Phrase("Virement bancaire:",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
-	    cellheder.setColspan(14);
+	    cellheder = new PdfPCell(new Phrase("Virement bancaire:".toUpperCase(),new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
+	    cellheder.setColspan(17);
 	    cellheder.setPaddingBottom(10f);
 	    cellheder.setPaddingLeft(-1f);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -194,7 +193,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
         
         
 	    cellheder = new PdfPCell(new Phrase(denBean.getCpt_bank().getCptbanribrs()+" / "+denBean.getCpt_bank().getCptbanribrib(),GeneratePdf.Normal_10_times_roman));
-	    cellheder.setColspan(67);
+	    cellheder.setColspan(64);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cellheder.setPaddingBottom(10f);
 	    cellheder.setBorder(cellheder.NO_BORDER);

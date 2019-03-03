@@ -142,7 +142,10 @@ var mapEditableGen2 = {        "otab"   :oTable23,
 	                                              ,"mRender": function (data, type, full) {return  formatNumberJs(data,3);  }    }, 
 	                                      
 	                                       {      "sTitle":"Total TTC" , "sName": "montant_ttc_vente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
-	                                              ,"mRender": function (data, type, full) {return  formatNumberJs(data,3);  }    },                
+	                                              ,"mRender": function (data, type, full) {return  formatNumberJs(data,3);  }    }, 
+	                                              
+	                                       {    "sTitle":"Mvt" , "sName": "isVente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
+	                                              ,"mRender": function (data, type, full) {return   data=="false"?"Dépense":"Vente"   }    },           
 	                                            ]
  
                                };
@@ -418,11 +421,13 @@ config_header_foot_tableJQuey ,"toolbar_es",  contenu_toolbarJQuey  );
 						<th>T.V.A</th>
 						<th>P.U.V</th>
 						<th>T.H.T</th>
+						<th></th>
 				    </tr>
 				 </thead>
 				 <tfoot>
 		                    <tr  > 
 								<td colspan="5" align="right"></td>
+								<td ></td>
 								<td ></td>
 								<td ></td>
 					  </tr>

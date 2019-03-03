@@ -2,10 +2,11 @@ package ERP.Process.Commerciale.Vente.Service.dao;
 import java.util.List;
 import java.util.ArrayList;
 import org.apache.commons.lang.StringUtils;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+
 import org.springframework.stereotype.Repository;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
@@ -89,7 +90,15 @@ public class ServiceDAO extends  GenericWeb    {
 				  
 			    String requette=" select  bean   FROM    DetServiceBean    bean    WHERE     1=1       ";
 	 			   
+
 			    
+				 if (beanSearch.getVente_date() != null) 
+				    	requette += "   AND  bean.service.venteSrv.vente_date >= '"+ProcessDate.getStringFormatDate(beanSearch.getVente_date())+"'        ";
+				    
+				if (   beanSearch.getVente_date2()!= null ) 
+				    	requette += "   AND  bean.service.venteSrv.vente_date <=  '"+ProcessDate.getStringFormatDate(beanSearch.getVente_date2())+"'         ";
+				
+				if ( ! StringUtils.isEmpty(beanSearch.getVente_id())  ) 
 			    	requette += "   AND  bean.service.venteSrv.vente_id = '"+beanSearch.getVente_id()+"'        ";
 			    
 			 

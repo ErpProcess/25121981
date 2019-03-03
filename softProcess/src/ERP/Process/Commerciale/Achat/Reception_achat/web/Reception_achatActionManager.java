@@ -967,7 +967,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			Document document=GeneratePdf.doGenerateDocumentFormat();
 	        PdfPTable table = new PdfPTable(MapfieldBean_detaille.length);
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION); 
-	        genpdf.doWriteHeaderDocument_PDF(document,fs,MapfieldBean_detaille,bSession);
+	        genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
 	        doWriteEntete_reception_achat(document,denBean);
 	    	Reception_achatBean rBeanS=(Reception_achatBean) getObjectValueModel(FORM_BEAN);
 	        genpdf.doWriteTitle_Table(document,"Bon de réception N° "+rBeanS.getAchat_id());
@@ -1321,7 +1321,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		      Object searchBean=getObjectValueModel(SEARCH_BEAN);
 		      PdfPTable table = new PdfPTable(mapFieldBean.length);
 		      Document document=GeneratePdf.doGenerateDocumentFormat();
-		      genpdf.doWriteHeaderDocument_PDF(document,fs,mapFieldBean,bSession);
+		      genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
 			  if(map_critere_de_recherche!=null && map_critere_de_recherche.length>0)
 			  genpdf.doWriteCritere_de_recherche_Table(document, searchBean,map_critere_de_recherche);
 			  genpdf.doWriteTitle_Table(document,title);

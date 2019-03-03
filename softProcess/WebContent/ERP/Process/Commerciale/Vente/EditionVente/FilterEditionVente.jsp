@@ -19,7 +19,7 @@ mapEditableGen = {             "otab"   :oTable,
     			   resp.listcolonne[key]['mRender']= function (data, type, full) {   return  formatNumberJsXC(data,2);   } 
     		   }
     		   if( resp.listcolonne[key].hasOwnProperty('formatMnt3') ){
-    			   resp.listcolonne[key]['mRender']= function (data, type, full) {   return  formatNumberJsXC(data,3);   } 
+    			   resp.listcolonne[key]['mRender']= function (data, type, full) {   return  formatNumberJs(data,3);   } 
     		   }
     		});
     	 
@@ -44,8 +44,22 @@ mapEditableGen = {             "otab"   :oTable,
  <ext:panel  border="false"    bodyStyle="background: none;"  id="sedK"   title="Critere de recherche"   collapsible="true"    >  
  <table class="tableStyleContent"  cellpadding="5" cellspacing="10"  id="tblData"     >  
  
+       <tr>
+	     <td  width="10%" ><label>Nature édition</label></td>  
+	     <td      colspan="3" > 
+	     <select id="natureEdition"  name="natureEdition">
+	     <option value="v">Par Vente</option>
+	     <option value="f">Par Facture</option>
+	     </select>
+	     
+	     </td>
+	      
+	   
+	   </tr>
+	   
+	   
 	   <tr>
-	     <td  width="7%" ><label>${_datedebut} </label></td>  
+	     <td  width="10%" ><label>${_datedebut} </label></td>  
 	     <td   width="10%"  > 
 	     <input id="date_debut"             compareTo="date_fin"      name="date_debut"    required    type="datepicker"    size="13"       maxlength="13"        value="${searchBean.date_debut}"    nextElement="date_fin"              /></td>
 	     <td width="5%"  ><label>${_datefin}</label></td>

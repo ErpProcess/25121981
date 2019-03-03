@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
@@ -36,6 +37,11 @@ public class EditionVenteBean extends GenericBean {
 
 	@Column
 	private Date date_fin;
+	
+	
+	@Transient
+	private String natureEdition;
+	
 
 	@ManyToOne
 	@JoinColumn(name = "fact_clt_id", insertable = true, updatable = false)
@@ -97,4 +103,53 @@ public class EditionVenteBean extends GenericBean {
 	public String getEdition_libelle() {
 		return edition_libelle;
 	}
+
+	public String getNatureEdition() {
+		return natureEdition;
+	}
+
+	public void setNatureEdition(String natureEdition) {
+		this.natureEdition = natureEdition;
+	}
+
+	public ClientBean getClient() {
+		return client;
+	}
+
+	public void setClient(ClientBean client) {
+		this.client = client;
+	}
+
+	public java.sql.Time getTime_cre() {
+		return time_cre;
+	}
+
+	public void setTime_cre(java.sql.Time time_cre) {
+		this.time_cre = time_cre;
+	}
+
+	public Date getDate_cre() {
+		return date_cre;
+	}
+
+	public void setDate_cre(Date date_cre) {
+		this.date_cre = date_cre;
+	}
+
+	public String getUsr_cre() {
+		return usr_cre;
+	}
+
+	public void setUsr_cre(String usr_cre) {
+		this.usr_cre = usr_cre;
+	}
+
+	public EtablissementBean getFk_etab_Bean() {
+		return fk_etab_Bean;
+	}
+
+	public void setFk_etab_Bean(EtablissementBean fk_etab_Bean) {
+		this.fk_etab_Bean = fk_etab_Bean;
+	}
+	
 }

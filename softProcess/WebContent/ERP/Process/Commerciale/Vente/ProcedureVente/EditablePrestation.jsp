@@ -17,8 +17,11 @@ var mapColCons= [
        {      "sTitle":"Total H T" , "sName": "montant_ht_vente"    ,"sWidth": "10%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
            ,"mRender": function (data, type, full) {return  formatNumberJs(data,3);  }    }, 
    
-        {      "sTitle":"Total TTC" , "sName": "montant_ttc_vente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
-           ,"mRender": function (data, type, full) {return  formatNumberJs(data,3);  }    }, 
+       {      "sTitle":"Total TTC" , "sName": "montant_ttc_vente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
+            ,"mRender": function (data, type, full) {return  formatNumberJs(data,3);  }    }, 
+           
+       {    "sTitle":"Mvt" , "sName": "isVente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
+           ,"mRender": function (data, type, full) {return   data=="false"?"Dépense":"Vente"   }    },      
    ];
          
          
@@ -50,8 +53,13 @@ var mapEditableGenPrs = {      "otab"   :oTablePr,
 	                                      
 	                                       {      "sTitle":"Total TTC" , "sName": "montant_ttc_vente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
 	                                              ,"mRender": function (data, type, full) {return  formatNumberJs(data,3);  }    }, 
+	                                              
+	                                       {    "sTitle":"Mvt" , "sName": "isVente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
+	                                            ,"mRender": function (data, type, full) {return   data=="false"?"Dépense":"Vente"   }    },           
 	                                                             
-										   {      "sName": "indx_row_next"        ,"bSearchable": false  , "bSortable": false,"bVisible": false },       
+										   {      "sName": "indx_row_next"        ,"bSearchable": false  , "bSortable": false,"bVisible": false },
+										   
+										   
 	                                            ]
  
                                }; 

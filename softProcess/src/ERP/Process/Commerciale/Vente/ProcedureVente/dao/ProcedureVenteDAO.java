@@ -128,16 +128,16 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				   requette += "   AND   bean.pk.vente.vente_id ='"+beanSearch.getVente_id()+"'        ";
 		    
 			 if (beanSearch.getVente_date() != null) 
-			    	requette += "   AND  bean.pk.vente.factclient.fact_date >= '"+ProcessDate.getStringFormatDate(beanSearch.getVente_date())+"'        ";
+			    	requette += "   AND  bean.pk.vente.vente_date >= '"+ProcessDate.getStringFormatDate(beanSearch.getVente_date())+"'        ";
 			    
 			if (   beanSearch.getVente_date2()!= null ) 
-			    	requette += "   AND  bean.pk.vente.factclient.fact_date <=  '"+ProcessDate.getStringFormatDate(beanSearch.getVente_date2())+"'         ";
+			    	requette += "   AND  bean.pk.vente.vente_date <=  '"+ProcessDate.getStringFormatDate(beanSearch.getVente_date2())+"'         ";
 		    
 		  
 		    requette +=this.setSocieteEtabFetch(beanSearch,"bean.pk.vente.fk_etab_Bean", false);
 				    
-				   lisf= session.createQuery(requette).list();
-				   commitTransaction(session);
+			lisf= session.createQuery(requette).list();
+			commitTransaction(session);
 		 } catch (Exception e) {  
 		     if (sessionIsTrue(session)) 
 		    	 rollbackTransaction(session) ;

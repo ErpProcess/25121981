@@ -634,20 +634,20 @@ public ModelAndView doLoadInfoVente(TarificationBean detailBean ) throws Excepti
 						      throwNewException(" Veuillez entrer le Prix TTC   ");
 							}
 					         
-							  //Double valeur_Unite     = ProcessFormatNbr.FormatDouble_ParameterChiffre( new Double(1.000),pattern);
-							  //Double val_tva_de_Unite = ProcessNumber.Pourcentage(valeur_Unite,le_tva);
-							  //Double val_ttc_de_Unite = ProcessNumber.addition(valeur_Unite,val_tva_de_Unite);
+							  Double valeur_Unite     = ProcessFormatNbr.FormatDouble_ParameterChiffre( new Double(1.000),pattern);
+							  Double val_tva_de_Unite = ProcessNumber.Pourcentage(valeur_Unite,le_tva);
+							  Double val_ttc_de_Unite = ProcessNumber.addition(valeur_Unite,val_tva_de_Unite);
 							  
 							  Double  prix_unitVente_ttc   = ProcessFormatNbr.FormatDouble_ParameterChiffre(detailBean.getTarif_unit_vente_tt(),pattern);
 							  Double  prix_unit_htVente    = new Double(0);
 							  if(le_tva.doubleValue()==0)
 								  prix_unit_htVente    = prix_unitVente_ttc;
-//							  else
-//								  prix_unit_htVente    = ProcessNumber.DIVISION(prix_unitVente_ttc, val_ttc_de_Unite);
+							  else
+								  prix_unit_htVente    = ProcessNumber.DIVISION(prix_unitVente_ttc, val_ttc_de_Unite);
 							  
 							  
-							  Double valeur_tva         = ProcessNumber.Pourcentage(prix_unitVente_ttc, le_tva);
-							  prix_unit_htVente         = ProcessNumber.SOUSTRACTION(prix_unitVente_ttc, valeur_tva);
+							  Double valeur_tva        = ProcessNumber.Pourcentage(prix_unit_htVente, le_tva);
+							
 							  
 							  if(cout_achat.doubleValue()==0){
 							    	cout_achat = new Double(0);
@@ -773,7 +773,7 @@ public ModelAndView doLoadInfoVente(TarificationBean detailBean ) throws Excepti
 		     if(title==null)
 		     title= (String)getObjectValueModel("list-"+bSession.getSousmod_id()) ; 
 		    if(title==null)title="";
-		    genpdf.doWriteHeaderDocument_PDF(document,fs,mapFieldBean,bSession);
+		    genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
 			if(map_critere_de_recherche!=null && map_critere_de_recherche.length>0)
 			genpdf.doWriteCritere_de_recherche_Table(document, searchBean,map_critere_de_recherche);
 			genpdf.doWriteTitle_Table(document,title);

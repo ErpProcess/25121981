@@ -1011,7 +1011,7 @@ public class CommandeclientActionManager extends CommandeclientTemplate {
 		try {
 			 Document document=GeneratePdf.doGenerateDocumentFormat();
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
-	        genpdf.doWriteHeaderDocument_PDF(document,fs,MapfieldBean_detaille,bSession);
+	        genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
 	        
 	        doWriteEntete(document,denBean);
 	        doWrite_Header_ContentTable(document,96,MapfieldBean_detaille);

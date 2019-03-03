@@ -323,6 +323,13 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			 fourBean.setVenteFrn(beanVente);
 			 List <DetFournitureVenteBean>listDetFournitureVente  =  serviceFournitureVente.doFetchDetailFourniturefromServer(fourBean);
 			 for (DetFournitureVenteBean beanfrns:listDetFournitureVente) {
+				 
+				  if(ProcessUtil.doesObjectContainField(beanfrns, "isVente")) {
+					  Object obj=	 GenericWeb.getValueOject_with_name_field(beanfrns, "isVente");
+					  Boolean   isVenteData = (Boolean) obj;
+					  if(!isVenteData) continue;
+				  }
+				  
 	    		 String keyString  =    beanfrns.getFkcode_barre().getPk().getCode_barre()+"£"+
 	    				 beanfrns.getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"£"+
 	    				 beanfrns.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"£"+
@@ -339,6 +346,14 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			 
 			 List <DetServiceBean>listDetServiceBean =  serviceService.doFindDetailListServiceByVenteId(beanVente);
 			 for (DetServiceBean beanserv:listDetServiceBean) {
+				 
+				 if(ProcessUtil.doesObjectContainField(beanserv, "isVente")) {
+					  Object obj=	 GenericWeb.getValueOject_with_name_field(beanserv, "isVente");
+					  Boolean   isVenteData = (Boolean) obj;
+					  if(!isVenteData) continue;
+				  }
+				 
+				 
 	    		 String keyString  =    beanserv.getFkcode_barre().getPk().getCode_barre()+"£"+
 	    				                beanserv.getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"£"+
 	    				                beanserv.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"£"+
@@ -354,11 +369,144 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
  
 	     }
 	     
-	     Set  set_map_service=map_Service.keySet();
+	     Set  set_map_fourniture=map_fourniture.keySet();
 	     List listMvt_Vente= new ArrayList();
+	     for (Iterator itera = set_map_fourniture.iterator(); itera.hasNext();) {
+			 String produit = (String) itera.next();
+			 
+			 Code_barreBean  fkcode_barre=(Code_barreBean) map_detail_codBarre.get(produit);
+			 MvtVente_articleBean  mvt_article= new MvtVente_articleBean();
+			 
+			 Double  quantiteGen	= new Double(0);
+			 Double  quantiteBox	= new Double(0);
+			 Double  mnt_ht		    = new Double(0);
+			 Double  mnt_tva	    = new Double(0);
+			 
+			 Double  montant_ht_vente_reel	    = new Double(0);
+			 Double  montant_Remise_Ligne_gen	    = new Double(0);
+			 Double  taux_remise_ligne_gen	    = new Double(0);
+			 
+			 
+			 
+			 List list_detail_mvt_vente= new ArrayList();
+			 TVABean  tvaBean	= new TVABean();
+			 List listMvt=(List) map_fourniture.get(produit);
+			 
+			 for (int i = 0; i < listMvt.size(); i++) {
+				 DetFournitureVenteBean detProVente = (DetFournitureVenteBean) listMvt.get(i);
+				 tvaBean=detProVente.getTarifVente().getTvaBean();
+				  
+				 
+				 if(ProcessUtil.doesObjectContainField(detProVente, "isVente")) {
+					  Object obj=	 GenericWeb.getValueOject_with_name_field(detProVente, "isVente");
+					  Boolean   isVenteData = (Boolean) obj;
+					  if(!isVenteData) continue;
+				  }
+				 
+				 Detail_mvt_vente_articleBean detMvt = new Detail_mvt_vente_articleBean();
+				 detMvt.getPk().getMvt_vente().setMvt_vente_id("");
+				 detMvt.getPk().setVente(detProVente.getFourniture().getVenteFrn());
+				 detMvt.getPk().setDocument_com_id(detProVente.getFourniture().getVenteFrn().getVente_id()) ;
+				 detMvt.getPk().getNat_mvt().setNature_mvt_id("ve");
+				 detMvt.setTarif(detProVente.getTarifVente());
+				 detMvt.getPk().setFkcode_barre(detProVente.getFkcode_barre());
+				 detMvt.setQuantite(detProVente.getQuantite());
+				 
+				
+				 
+				 
+				 
+				/*****************************************le cout ********************************************/
+		        /*Double  getQuantiteX      = detProVente.getQuantite()==null?new Double(0):detProVente.getQuantite();
+		    	Double  qte               = ProcessFormatNbr.FormatDouble_ParameterChiffre(getQuantiteX);
+		    	Double  cout              = detProVente.getTarif().getCout()==null?new Double(0):detProVente.getTarif().getCout().getTarif_unit_article();
+		    	Double	Prixcout          = cout==null?new Double(0):cout;
+		    	Double le_cout            = ProcessNumber.PRODUIT(Prixcout, qte);
+		    					  le_cout = ProcessFormatNbr.FormatDouble_ParameterChiffre(le_cout);*/
+		    		
+		    	/*****************************************  setInfo  ********************************************/
+		    		
+		    	/*String libelle_desi=detProVente.getPk().getFkcode_barre().getDesignation_libelle();
+		    	String groupe=detProVente.getTarif().getGroupe().getType_trf_lib();
+				String lot=detProVente.getTarif().getTarif_lot()!=null && detProVente.getTarif().getTarif_lot().equals(true)?" * de lot   ":"";
+				String natureprix="<br>"+" <p style='color:red;margin-left:20%;font-size:8px;'># Prix "+lot+" * "+groupe+"</p>";
+				detProVente.setInfo(libelle_desi+natureprix);*/
+		    	
+				 quantiteGen  =ProcessNumber.addition(quantiteGen, detProVente.getQuantite());
+				 
+		    		
+		    		
+		    	/*****************************************Prix Unit Brute reel********************************************/
+				Double priUnitvente=ProcessFormatNbr.FormatDouble_ParameterChiffre(detProVente.getTarifVente().getTarif_unit_vente(),pattern);	
+		    	Double montant_ht_ligne_reel=ProcessNumber.PRODUIT(priUnitvente, detProVente.getQuantite());
+		    	montant_ht_ligne_reel=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_ligne_reel,pattern);
+		    	
+		    	montant_ht_vente_reel=ProcessNumber.addition(montant_ht_vente_reel,montant_ht_ligne_reel);
+		    		 
+		    	/*******************************************Remise********************************************************/
+		    		
+		    	Double taux_remiseligne     = detProVente.getTaux_remise_ligne()==null?new Double(0):detProVente.getTaux_remise_ligne();
+				Double tot_taux             = ProcessFormatNbr.FormatDouble_ParameterChiffre(taux_remiseligne,pattern);
+				taux_remise_ligne_gen=ProcessNumber.addition(taux_remise_ligne_gen,tot_taux); 
+				
+				
+				
+				Double montant_Remise_Ligne  = ProcessNumber.Pourcentage(montant_ht_ligne_reel, tot_taux);
+				detProVente.setMontant_Remise_Ligne(ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_Remise_Ligne,pattern));
+				montant_Remise_Ligne_gen=ProcessNumber.addition(montant_Remise_Ligne_gen,montant_Remise_Ligne); 
+
+	    		/*******************************************montant_ht_vente *********************************************/   
+	    		    
+	    		Double montant_ht_vente=ProcessNumber.SOUSTRACTION(montant_ht_vente_reel, montant_Remise_Ligne);
+	    		montant_ht_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente,pattern);
+	    		detProVente.setMontant_ht_vente(ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente,pattern));
+	    		detMvt.setMontant_ht_vente(montant_ht_vente);
+	    		mnt_ht=ProcessNumber.addition(mnt_ht, montant_ht_vente);
+		    		
+		    	/*********************************************montant_tva_vente ******************************************/
+		    		 
+		    	 
+		    	
+		    	Double montant_tva_vente= ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente, detProVente.getTarifVente().getTvaBean(),detProVente.getDevise());
+		    	
+		    	montant_tva_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_tva_vente,pattern);
+		    	detProVente.setMontant_tva_vente(montant_tva_vente);
+		    	detMvt.setMontant_tva_vente(montant_tva_vente);
+		    	mnt_tva=ProcessNumber.addition(mnt_tva, montant_tva_vente);
+		    	
+		    		
+		    	/*********************************************montant_ttc_vente *******************************************/
+		    		
+		    	Double  montant_ttc_vente=ProcessNumber.addition(montant_ht_vente, montant_tva_vente);
+		    	detProVente.setMontant_ttc_vente(montant_ttc_vente);
+		    		
+		    	/*********************************************montant_benefice *******************************************/
+		    	/*if(le_cout.doubleValue()>0){
+		    	 Double	 montant_benefice = ProcessNumber.SOUSTRACTION(montant_ht_vente, le_cout);
+		    	montant_benefice          =ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_benefice);
+		    	detProVente.setMontant_benefice(montant_benefice);
+		    	}*/
+		    	/**********************************************************************************************************/
+				 
+				 list_detail_mvt_vente.add(detMvt);
+			}
+			mvt_article.setFkcode_barre(fkcode_barre); 
+			mvt_article.setTvaBean(tvaBean);
+			mvt_article.setQuantite(quantiteGen);
+			mvt_article.setNbrBox(quantiteBox);
+			mvt_article.setMontant_ht_vente(mnt_ht);
+			mvt_article.setMontant_tva_vente(mnt_tva);
+			mvt_article.setMontant_ht_vente_reel(montant_ht_vente_reel);
+			mvt_article.setMontant_Remise_Ligne(montant_Remise_Ligne_gen);
+			mvt_article.setTaux_remise_ligne(taux_remise_ligne_gen);
+			mvt_article.setList_detail_mvt_vente(list_detail_mvt_vente);
+			listMvt_Vente.add(mvt_article);
+		 }
+	     
+	     
+	     Set  set_map_service=map_Service.keySet();
 	     for (Iterator itera = set_map_service.iterator(); itera.hasNext();) {
 			 String produit = (String) itera.next();
-			
 			 
 			 Code_barreBean  fkcode_barre=(Code_barreBean) map_detail_codBarre.get(produit);
 			 MvtVente_articleBean  mvt_article= new MvtVente_articleBean();
@@ -383,7 +531,11 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				 tvaBean=detProVente.getTarifVente().getTvaBean();
 				  
 				 
-				
+				 if(ProcessUtil.doesObjectContainField(detProVente, "isVente")) {
+					  Object obj=	 GenericWeb.getValueOject_with_name_field(detProVente, "isVente");
+					  Boolean   isVenteData = (Boolean) obj;
+					  if(!isVenteData) continue;
+				  }
 				 
 				 Detail_mvt_vente_articleBean detMvt = new Detail_mvt_vente_articleBean();
 				 detMvt.getPk().getMvt_vente().setMvt_vente_id("");
@@ -447,7 +599,10 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		    		
 		    	/*********************************************montant_tva_vente ******************************************/
 		    		 
-		    	Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente, detProVente.getTarifVente().getTvaBean().getTva_value());
+		    	 
+		    	
+		    	Double montant_tva_vente= ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente, detProVente.getTarifVente().getTvaBean(),detProVente.getDevise());
+		    	
 		    	montant_tva_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_tva_vente,pattern);
 		    	detProVente.setMontant_tva_vente(montant_tva_vente);
 		    	detMvt.setMontant_tva_vente(montant_tva_vente);
@@ -579,7 +734,8 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		    		
 		    	/*********************************************montant_tva_vente ******************************************/
 		    		 
-		    	Double montant_tva_vente=ProcessNumber.Pourcentage(montant_ht_vente, detProVente.getTarif().getTvaBean().getTva_value());
+		     
+		    	Double montant_tva_vente= ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente, detProVente.getTarif().getTvaBean(),detProVente.getDevise());
 		    	montant_tva_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_tva_vente,pattern);
 		    	detProVente.setMontant_tva_vente(montant_tva_vente);
 		    	detMvt.setMontant_tva_vente(montant_tva_vente);
@@ -1056,7 +1212,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		
 			Document document = new Document(PageSize.A4, 5, 5, 5, 25);
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
-	        genpdf.doWriteHeaderDocument_PDF(document,fs,MapfieldBean_detaille,bSession);
+	        genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
 	        
 	        doWriteEntete(document,denBean); 
 	        doWrite_Header_ContentTable(document,96,MapfieldBean_detaille);
@@ -1353,8 +1509,6 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				        	cell = new PdfPCell(new Phrase(String.valueOf(obj),GeneratePdf.REDFONT));
 					        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					        cell.setPaddingBottom(5);
-					        cell.setBorderWidth(0.1f);
-					        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 					        cell.setBackgroundColor(BaseColor.WHITE);
 					        if(i%2==0)
 					        cell.setBackgroundColor(GeneratePdf.colorLigne);
@@ -1366,8 +1520,6 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				        	cell = new PdfPCell(new Phrase(ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(elm,pattern),GeneratePdf.REDFONT));
 					        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 					        cell.setPaddingBottom(5);
-					        cell.setBorderWidth(0.1f);
-					        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 					        cell.setBackgroundColor(BaseColor.WHITE);
 					        if(i%2==0)
 					        cell.setBackgroundColor(GeneratePdf.colorLigne);
@@ -1376,8 +1528,6 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				        	cell = new PdfPCell(new Phrase(String.valueOf(obj),GeneratePdf.REDFONT));
 					        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 					        cell.setPaddingBottom(5);
-					        cell.setBorderWidth(0.1f);
-					        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 					        cell.setBackgroundColor(BaseColor.WHITE);
 					        if(i%2==0)
 					        cell.setBackgroundColor(GeneratePdf.colorLigne);
@@ -1398,9 +1548,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		            PdfPCell cell = new PdfPCell(new Phrase("",GeneratePdf.REDFONT));
 			        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 			        cell.setPaddingBottom(5);
-			        cell.setBorderWidth(0.1f);
 			        cell.setFixedHeight(toul_contenu_tab);
-			        cell.setBorderColor(WebColors.getRGBColor("#787878"));
 			        cell.setBackgroundColor(BaseColor.WHITE);
 			        cell.setBorder(cell.LEFT+cell.RIGHT);
 		            table.addCell(cell);

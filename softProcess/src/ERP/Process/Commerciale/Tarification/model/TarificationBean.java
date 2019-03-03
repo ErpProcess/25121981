@@ -140,6 +140,10 @@ public class TarificationBean  extends GenericBean {
 
 	@Column
 	private Double taux_remise;
+	
+	
+	@Column(name="valeur_de_la_tva")
+	private Double valeur_de_laTva ;
 
 	 
 
@@ -459,6 +463,16 @@ public class TarificationBean  extends GenericBean {
 	public void setDevise(DeviseBean devise) {
 		this.devise = devise;
 	}
+
+	public Double getValeur_de_laTva() {
+		return valeur_de_laTva;
+	}
+
+	public void setValeur_de_laTva(Double valeur_de_laTva) {
+		this.valeur_de_laTva = valeur_de_laTva;
+	}
+
+	 
 
 	 
 

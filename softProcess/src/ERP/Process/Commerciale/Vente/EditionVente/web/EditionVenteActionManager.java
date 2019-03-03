@@ -9,6 +9,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Transient;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,7 @@ import ERP.Process.Commerciale.Vente.Facture_client.model.Facture_clientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.service.Facture_clientService;
 import ERP.Process.Commerciale.Vente.Facture_client.web.PrintPdfModeleKobbi;
 import ERP.Process.Commerciale.Vente.FournitureVente.model.DetFournitureVenteBean;
+import ERP.Process.Commerciale.Vente.FournitureVente.model.FournitureVenteBean;
 import ERP.Process.Commerciale.Vente.FournitureVente.service.FournitureVenteService;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.DetProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
@@ -50,6 +54,7 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 	}
 	
 	
+	 
 	private Facture_clientService serviceFacture;
 	@Autowired
 	public void setServiceFacture(Facture_clientService serviceFacture) {
@@ -61,6 +66,10 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 	public void setServiceProcedureVente(ProcedureVenteService serviceProcedureVente) {
 	    this.serviceProcedureVente = serviceProcedureVente;
 	}
+	
+	
+	 
+	
 	private ServiceService serviceService;
 	@Autowired
 	public void setServiceService(ServiceService serviceService) {
@@ -100,9 +109,14 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 			
 			EditionVenteBean searchBean = (EditionVenteBean) getObjectValueModel(SEARCH_BEAN) ;
 			
-		    if(ifFonctionEqual(  Fn_État_des_ventes)) {
-			pModeleKobbi.printEtatVenteExportKobbi(searchBean);
+			if(ifFonctionEqual(Fn_État_des_ventes) && searchBean.getNatureEdition().equals("f")) {
+			pModeleKobbi.printEtatFactureVenteExportKobbi(searchBean);
 		    }
+			
+			if(ifFonctionEqual(Fn_État_des_ventes) && searchBean.getNatureEdition().equals("v")) {
+				pModeleKobbi.printEtatVenteExport(searchBean);
+		     }
+		    
 		    
 		    if(ifFonctionEqual( Fn_État_des_dépenses)) {
 		    pModeleKobbi.printEtatDepensesProduitsKobbi(searchBean);
@@ -124,7 +138,7 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 		     setObjectValueModel(SEARCH_BEAN, searchBean);
 			 JSONObject json      = new JSONObject();
 			
-             if(ifFonctionEqual( Fn_État_des_ventes)) {
+             if(ifFonctionEqual(Fn_État_des_ventes) && searchBean.getNatureEdition().equals("f")) {
             	 List <Det_Fact_ClientBean> listEditionVente =  serviceFacture.doFindByCriteriaList_detaille_Facture(searchBean);
                  Collections.sort(listEditionVente, new Comparator<Det_Fact_ClientBean>() {
          				@Override
@@ -133,13 +147,59 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
          				}
          		  });
                  setObjectValueModel("listEditionVente",  listEditionVente);
+            	 JSONArray  listcolonne    = doWriteHeaderGridDataEtatFactureVenteProduit();
+            	 json.put("listcolonne", listcolonne); 
+            	 json.put("nameColIdGrid", "pk.fkcode_barre.pk.code_barre"); 
+            	 json.put("list", "listEditionVente"); 
+			}
+             
+             if(ifFonctionEqual(Fn_État_des_ventes) && searchBean.getNatureEdition().equals("v")) {
+            	 ProcedureVenteBean beanSearch = new ProcedureVenteBean();
+            	 beanSearch.setVente_date(searchBean.getDate_debut());
+            	 beanSearch.setVente_date2(searchBean.getDate_fin());
+            	 List <DetProcedureVenteBean> listEditionVente =  serviceProcedureVente.doFindDetailleListProcedureVenteEdition(beanSearch)  ;
+            	 List <DetServiceBean>listDetServiceBean       =  serviceService.doFindDetailListServiceByVenteId(beanSearch);
+            	 
+            	 
+            	 FournitureVenteBean fourBean= new FournitureVenteBean();
+            	 fourBean.setVenteFrn(beanSearch);
+            	 List <DetFournitureVenteBean>listDetFournitureVente  =  serviceFournitureVente.doFetchDetailFourniturefromServer(fourBean);
+            	 List <DetProcedureVenteBean> listEditionVenteFinal =  new ArrayList<>();
+            	 for (DetProcedureVenteBean detProcedureVenteBean : listEditionVente) {
+					 Double mntTTC=ProcessNumber.addition(detProcedureVenteBean.getMontant_tva_vente(), detProcedureVenteBean.getMontant_ht_vente());
+            		 detProcedureVenteBean.setMontant_ttc_vente(ProcessFormatNbr.FormatDouble_Troischiffre(mntTTC)); 
+            		 listEditionVenteFinal.add(detProcedureVenteBean);
+				 }
+            	 
+            	 for (DetServiceBean detService : listDetServiceBean) {
+            		 if(!detService.getIsVente()) continue;
+            		 DetProcedureVenteBean detProcedureVenteBean  = new DetProcedureVenteBean();
+            		 detProcedureVenteBean.getPk().setFkcode_barre(detService.getFkcode_barre());
+            		 detProcedureVenteBean.getPk().setVente(detService.getService().getVenteSrv());
+            		 detProcedureVenteBean.setMontant_ht_vente(detService.getMontant_ht_vente());
+            		 detProcedureVenteBean.setMontant_tva_vente(detService.getMontant_tva_vente());
+            		 detProcedureVenteBean.setTarif(detService.getTarifVente());
+            		 detProcedureVenteBean.setQuantite(detService.getQuantite());
+					 Double mntTTC=ProcessNumber.addition(detProcedureVenteBean.getMontant_tva_vente(), detProcedureVenteBean.getMontant_ht_vente());
+            		 detProcedureVenteBean.setMontant_ttc_vente(ProcessFormatNbr.FormatDouble_Troischiffre(mntTTC)); 
+            		 listEditionVenteFinal.add(detProcedureVenteBean);
+				 }
+            	 
+                 Collections.sort(listEditionVenteFinal, new Comparator<DetProcedureVenteBean>() {
+         				@Override
+         				public int compare(DetProcedureVenteBean o1, DetProcedureVenteBean o2) {
+         					return o1.getPk().getVente().getVente_date().compareTo( o2.getPk().getVente().getVente_date()  );
+         				}
+         		  });
+                 setObjectValueModel("listEditionVente",  listEditionVenteFinal);
             	 JSONArray  listcolonne    = doWriteHeaderGridDataEtatVenteProduit();
             	 json.put("listcolonne", listcolonne); 
             	 json.put("nameColIdGrid", "pk.fkcode_barre.pk.code_barre"); 
             	 json.put("list", "listEditionVente"); 
-            	 
-                 
 			}
+             
+             
+             
             
             if(ifFonctionEqual(Fn_État_des_dépenses)) {
             	ProcedureVenteBean beanSearch  = new ProcedureVenteBean();
@@ -616,7 +676,7 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 
 
 
-private JSONArray doWriteHeaderGridDataEtatVenteProduit() throws Exception {
+private JSONArray doWriteHeaderGridDataEtatFactureVenteProduit() throws Exception {
 	
 		try {
 			
@@ -690,6 +750,79 @@ private JSONArray doWriteHeaderGridDataEtatVenteProduit() throws Exception {
 		}
 	}
 
+private JSONArray doWriteHeaderGridDataEtatVenteProduit() throws Exception {
+	
+	try {
+		
+		 JSONArray   listcol   = new JSONArray();
+    	 JSONObject  element   = new JSONObject();
+		 element.put("sTitle","Date");
+		 element.put("sName","pk.vente.vente_date");
+		 element.put("sWidth","5%" );
+		 element.put("bSortable","false" );
+		 listcol.put(element);
+		 
+		 element = new JSONObject();
+		 element.put("sTitle","Vente");
+		 element.put("sName","pk.vente.vente_id");
+		 element.put("sWidth","5%" );
+		 element.put("bSortable","true" );
+		 listcol.put(element);
+		 
+		 element = new JSONObject();
+		 element.put("sTitle","Client");
+		 element.put("sName","pk.vente.client.clt_lib");
+		 element.put("sWidth","25%" );
+		 element.put("bSortable","true" );
+		 listcol.put(element);
+		 
+		 element = new JSONObject();
+		 element.put("sTitle","Description");
+		 element.put("sName","pk.fkcode_barre.designation_libelle");
+		 element.put("sWidth","25%" );
+		 element.put("bSortable","true" );
+		 listcol.put(element);
+		 
+		 
+		 element = new JSONObject();
+		 element.put("sTitle","Qté");
+		 element.put("sName","quantite");
+		 element.put("sWidth","5%" );
+		 element.put("sClass","alignCenter" );
+		 element.put("bSortable","true" );
+		 listcol.put(element);
+ 
+		 
+		 
+		 element = new JSONObject();
+		 element.put("sTitle","PrixU HT");
+		 element.put("sName","tarif.tarif_unit_vente");
+		 element.put("formatMnt3","oui");
+		 element.put("sWidth","15%" );
+		 element.put("sClass","alignRight" );
+		 element.put("bSortable","true" );
+		 listcol.put(element);
+		 
+		 
+		 element = new JSONObject();
+		 element.put("sTitle","Total TTC");
+		 element.put("formatMnt3","oui");
+		 element.put("sName","montant_ttc_vente");
+		 element.put("sWidth","15%" );
+		 element.put("sClass","alignRight" );
+		 element.put("bSortable","true" );
+		 listcol.put(element);
+		 
+		 
+		 
+			
+			
+		 return listcol ;
+		
+	} catch (Exception e) {
+		throw e;
+	}
+}
 
 private JSONArray doWriteHeaderGridDataEtatDepenseProduit() throws Exception {
 	

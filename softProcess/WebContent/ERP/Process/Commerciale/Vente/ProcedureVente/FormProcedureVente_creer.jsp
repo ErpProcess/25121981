@@ -136,7 +136,11 @@ var mapEditableGen2 = {        "otab"   :oTable23,
 	                                              ,"mRender": function (data, type, full) {return  formatNumberJs(data,3);  }    }, 
 	                                      
 	                                       {      "sTitle":"Total TTC" , "sName": "montant_ttc_vente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
-	                                              ,"mRender": function (data, type, full) {return  formatNumberJs(data,3);  }    },                
+	                                              ,"mRender": function (data, type, full) {return  formatNumberJs(data,3);  }    },       
+
+	                                       {    "sTitle":"Mvt" , "sName": "isVente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
+	                                           ,"mRender": function (data, type, full) {return   data=="false"?"Dépense":"Vente"   }    }, 
+	                                                  
 										   {      "sName": "indx_row_next"        ,"bSearchable": false  , "bSortable": false,"bVisible": false },       
 	                                            ]
  
@@ -704,7 +708,8 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th><input   type="text"       id="XnextFocuso"           name="XnextFocuso"   style="width: 95%;"        requiredy ></th>
 						<th ><input  type="number"     id="quantite_stockxc"      name="quantite_stock_fourniture"        style="width: 93%;"             ></th>
 		                <th  colspan="2"><input  type="number"     id="quantiteXx"            name="quantiteFourniture"      min="1"    value="1"    style="width: 93%;"              requiredx ></th>
-						<th> <select   id="isVente"  name="isVente"   > <option value="false">Dépense </option>  <option  value="true"  > Vente </option>  </select>   </th>
+						<th><select   id="isVente"  name="isVente"   ><option  value="true"  > Vente </option> <option value="false">Dépense </option>  </select>   </th>
+						<th></th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -720,11 +725,13 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th>P.U.V</th>
 						<th>T.H.T</th>
 						<th></th>
+						<th></th>
 				    </tr>
 				 </thead>
 			    <tfoot>
 		                    <tr  > 
 								<td colspan="8" align="right"></td>
+								<td ></td>
 								<td ></td>
 								<td ></td>
 								 
@@ -757,9 +764,9 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th><input   type="checkbox"   id="Cheked_unCheked1"               name="Cheked_unCheked"      ></th>
 						<th><input   type="text"       id="codeFocusPrestation"    requiredPrestation        name="code_barreService"       style="width: 95%;"        requiredy ></th>
 						<th><input   type="text"       id="XnextFocusPrestation"   requiredPrestation        name="XnextFocusPrestation"    style="width: 95%;"        requiredy ></th>
-		                <th><input  type="number"     id="quantitePrestation"     requiredPrestation        name="quantiteService"       min="1"    value="1"    style="width: 150px;"              requiredx ></th>
-						 
-						<th><select   id="isVentePrestation"  name="isVentePrestation"   > <option value="false">Dépense </option>  <option  value="true"  > Vente </option>  </select> </th>
+		                <th><input  type="number"      id="quantitePrestation"     requiredPrestation        name="quantiteService"       min="1"    value="1"    style="width: 150px;"              requiredx ></th>
+						<th><select   id="isVentePrestation"  name="isVentePrestation"   > <option  value="true"  > Vente </option><option value="false">Dépense </option>  </select> </th>
+						<th></th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -773,6 +780,7 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th>Qté</th>
 						<th>P.U.V</th>
 						<th>T.H.T</th>
+						<th></th>
 						<th></th>
 				    </tr>
 				    

@@ -174,12 +174,13 @@ public class ProcessFormatNbr  extends GenericWeb  {
 	public static String  FormatDouble_To_String_Troischiffre(double number) throws Exception{
 	     
 	      try{
-	    	    
+	    	    BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
 	    	    DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
 	    		decimalFormatSymbols.setDecimalSeparator('.');
 	    		decimalFormatSymbols.setGroupingSeparator(' ');
-	    		Double numberTrchifffre= FormatDouble_Troischiffre(number); 
-	    		return numberTrchifffre.toString(); //1,237,516.25 
+	    		DecimalFormat decimalFormat = new DecimalFormat("#,##"+bs.getPatternDecimalFormat(), decimalFormatSymbols);
+	    		Double numberTrchifffre= FormatDouble_Troischiffre(number);
+	    		return (decimalFormat.format(numberTrchifffre)); //1,237,516.25
 	    		
 	    		
 	      }catch(Exception e){
@@ -373,50 +374,107 @@ public class ProcessFormatNbr  extends GenericWeb  {
 //			System.out.println("8. DecimalFormat with 'JCG': " + number);
 //		}
 	
-		
+	public static String cleanEspace(String chaine){/// supprimer un espace dans une chaine
+
+	      String car="";
+	      String temp="";
+	      String chaineEspace="";
+	      if(chaine==null){chaine="";}
+
+	      for(int l=0;l<chaine.length();l++){
+	          car=chaine.substring(l,l+1);
+	          if (car.equals("0")||car.equals("1")||car.equals("2")||car.equals("3")||car.equals("4")
+	              ||car.equals("5")||car.equals("6")||car.equals("7")||car.equals("8")||car.equals("9")
+	              ||car.equals(".")||car.equals(",")||car.equals("-")){
+	              temp=temp+car;
+	          }
+	      }
+	      chaine=temp;
+	    return chaine;
+	  }
+
 	 
 	public static Double  ArrondissmentDouble(Double mnt ) {
  
+		if(mnt.doubleValue()==0)  return new Double(0);
 		String mntString=mnt.toString();
 		 
 		int index=mntString.indexOf(".");
+		
 		if(index!=-1) {
-			String mntStringApresVirgul=mntString.substring(index+1);
+			 String mntStringApresVirgul=mntString.substring(index+1);
+			 NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
 			
+			 
 			if(mntStringApresVirgul.length()==1  ||  mntStringApresVirgul.length()==2 ) { 
-				 NumberFormat n = NumberFormat.getCurrencyInstance();
-				 String s = n.format(mnt).replace(n.getCurrency().getSymbol(), "");
-				 //System.out.println(s.replace(",", "")+"0");
-				 return Double.parseDouble(s.replace(",", "")+"0");
+				 String sNumberFormat = numberFormat.format(mnt).replace(numberFormat.getCurrency().getSymbol(), "");
+				 int virgule=sNumberFormat.indexOf(",");
+				 int index2= sNumberFormat.indexOf(".");
+				 sNumberFormat= cleanEspace(sNumberFormat); 
+				 if(virgule!=-1 && index2==-1 ) {
+					 sNumberFormat= sNumberFormat.replace(",", "."); 
+				 }
+				 if(virgule!=-1 && index2!=-1 ) {
+					 sNumberFormat= sNumberFormat.replace(",", ""); 
+				 }
+				 return Double.parseDouble(sNumberFormat);	 
 			}
 			 
 			if(mntStringApresVirgul.length()==3 ) {
 			
 			  if( mntStringApresVirgul.endsWith("1") ||   mntStringApresVirgul.endsWith("2")  ||   mntStringApresVirgul.endsWith("8") ||   mntStringApresVirgul.endsWith("9") ) {
-					 NumberFormat n = NumberFormat.getCurrencyInstance();
-					 String s = n.format(mnt).replace(n.getCurrency().getSymbol(), "");
-					 return Double.parseDouble(s.replace(",", "")+"0");
+				  
+					
+				  
+					 String sNumberFormat = numberFormat.format(mnt).replace(numberFormat.getCurrency().getSymbol(), "");
+					 int virgule=sNumberFormat.indexOf(",");
+					 int index2= sNumberFormat.indexOf(".");
+					 sNumberFormat= cleanEspace(sNumberFormat);
+					 if(virgule!=-1 && index2==-1 ) {
+						 sNumberFormat= sNumberFormat.replace(",", "."); 
+					 }
+					 if(virgule!=-1 && index2!=-1 ) {
+						 sNumberFormat= sNumberFormat.replace(",", ""); 
+					 }
+					 
+					 return Double.parseDouble(sNumberFormat);	 
 			  }
 				
 			  if( mntStringApresVirgul.endsWith("3") ||   mntStringApresVirgul.endsWith("4")  ) {
-					 NumberFormat n = NumberFormat.getCurrencyInstance();
-					 String s = n.format(mnt).replace(n.getCurrency().getSymbol(), "");
-					 return Double.parseDouble(s.replace(",", "")+"5");
+					
+				  
+					 String sNumberFormat = numberFormat.format(mnt).replace(numberFormat.getCurrency().getSymbol(), "");
+					 int virgule=sNumberFormat.indexOf(",");
+					 int index2= sNumberFormat.indexOf(".");
+					 sNumberFormat= cleanEspace(sNumberFormat);
+					 if(virgule!=-1 && index2==-1 ) {
+						 sNumberFormat= sNumberFormat.replace(",", "."); 
+					 }
+					 if(virgule!=-1 && index2!=-1 ) {
+						 sNumberFormat= sNumberFormat.replace(",", ""); 
+					 }
+					 return Double.parseDouble(sNumberFormat+"5");	 
+					 
+					 
 			  }
+			  
 			  
 			  if( mntStringApresVirgul.endsWith("6") ||   mntStringApresVirgul.endsWith("7")  ) {
 				     
 				  StringBuffer aBuffer = new StringBuffer(mntStringApresVirgul);
 				  aBuffer.setCharAt(aBuffer.length()-1, '5');
+				  
 				  String apresVirgule="."+aBuffer.toString();
 				  String montantInteger =mntString.substring(0, index);
+				  montantInteger=montantInteger.replace(",", "");
+				  montantInteger=montantInteger.replaceAll(" ", ""); 
 				  String montant =montantInteger+apresVirgule;
 				  return Double.parseDouble(montant);
 				  
 			  }
 			}
 		}
-		 return new Double(0);
+		 return mnt;
 		  
 	}
 	

@@ -202,7 +202,7 @@ public class Stock_articleActionManager extends Stock_articleTemplate {
 		        PdfPTable table = new PdfPTable(mapFieldBean.length);
 		        String    title =(String)getObjectValueModel("list-"+Stock_articleTemplate.ID_SOUS_MODULE) ; 
 		        setObjectValueModel("propertieField",propertieField);
-		        genpdf.doWriteHeaderDocument_PDF(document,fs,mapFieldBean,bSession);
+		        genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
 			    genpdf.doWriteTitle_Table(document,title);
 			    genpdf.doWrite_Header_Table(table,mapFieldBean);
 			    genpdf.doWrite_Data_Table(lisData,table,mapFieldBean);

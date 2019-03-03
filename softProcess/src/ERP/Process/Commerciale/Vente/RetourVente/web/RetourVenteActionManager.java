@@ -530,7 +530,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		           title= (String)getObjectValueModel("Liste_ret_br") ; 
 		        if(title==null)title="";
 		        
-		        genpdf.doWriteHeaderDocument_PDF(document,fs,mapFieldBean,bSession);
+		        genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
 			    
 			    genpdf.doWriteTitle_Table(document,title);
 			    doWrite_Header_Table_Retour(table,mapFieldBean);

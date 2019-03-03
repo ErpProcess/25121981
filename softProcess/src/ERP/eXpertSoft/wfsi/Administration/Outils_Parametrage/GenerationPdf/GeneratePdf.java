@@ -189,7 +189,7 @@ public class GeneratePdf extends  GenericWeb {
 		        if(title==null)
 		             title =(String)getObjectValueModel("list-"+bSession.getSousmod_libelle()) ;
 		        if(title==null)title="";
-			    doWriteHeaderDocument_PDF(document,fs,mapFieldBean,bSession);
+			    doWriteHeaderDocument_PDF(document,fs,bSession);
 			    if(map_critere_de_recherche!=null && map_critere_de_recherche.length>0)
 			    doWriteCritere_de_recherche_Table(document, searchBean,map_critere_de_recherche);
 			    doWriteTitle_Table(document,title);
@@ -509,11 +509,11 @@ public class GeneratePdf extends  GenericWeb {
 		   PdfWriter writer = PdfWriter.getInstance(document,  fs);
 		   BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);  
 		  if(bSession.getFormatPrint().equals("portrait")) {
-		    	 TableHeaderNormale event = new TableHeaderNormale(bSession);
-	           writer.setPageEvent(event);
+		         TableHeaderNormale event = new TableHeaderNormale(bSession);
+	           //  writer.setPageEvent(event);
 	       } else {
-	           TableHeaderPaysage event = new TableHeaderPaysage(bSession);
-			     writer.setPageEvent(event); 
+	             TableHeaderPaysage event = new TableHeaderPaysage(bSession);
+			   //  writer.setPageEvent(event); 
 		    }
 
 	}
@@ -566,7 +566,7 @@ public class GeneratePdf extends  GenericWeb {
 	
 	 
 
-	public  void doWriteHeaderDocument_PDF(Document document, FileOutputStream fs ,String [][] mapFieldBean,BeanSession bs) throws Exception {
+	public static  void doWriteHeaderDocument_PDF(Document document, FileOutputStream fs ,BeanSession bs) throws Exception {
 		doGeneratePdfWriterFormat(document, fs);
 		String textEntete=bs.getSoc_lib()+"\n\r"+bs.getEtab_lib()+"\n\r"+bs.getPrf_libelle();
 		doGenerateEnteteDocument(document, fs, 10, 80, textEntete);
