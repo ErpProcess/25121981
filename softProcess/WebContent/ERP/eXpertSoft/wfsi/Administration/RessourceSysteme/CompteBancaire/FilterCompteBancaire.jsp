@@ -6,7 +6,8 @@
    <tr>  
    <td width="7%"><label>${cptbanribrib}</label></td>  
    <td width="93%"  >  
-   <input id="cptbanribrib"   name="cptbanribrib"     type="text"    size="20"       maxlength="20"        value="${searchBean.cptbanribrib}"    nextElement="cptbanribrs"    autofocus         />  
+   <input id="cptbanribrib" name="cptbanribrib"     type="text"    size="30"       maxlength="100"     
+      value="${detailBean.cptbanribrib}"    nextElement="cptbanribrs"    autofocus         />   
   </td>  
    </tr>   
    <tr>  
@@ -21,19 +22,19 @@
    <input id="cptbanadr"   name="cptbanadr"     type="text"    size="100"       maxlength="100"        value="${searchBean.cptbanadr}"    nextElement="bancod"              />  
   </td>  
    </tr>   
-   <tr>  
-   <td width="7%"><label>${bancod}</label></td>  
+   <tr   ${displayNone}   >  
+   <td   width="7%"><label>${bancod}</label></td>  
    <td width="93%"  >  
    <input id="bancod"   name="bancod"     type="text"    size="6"       maxlength="6"        value="${searchBean.bancod}"    nextElement="cptbanjoucod"              />  
   </td>  
    </tr>   
-   <tr>  
-   <td width="7%"><label>${cptbanjoucod}</label></td>  
+   <tr  ${displayNone} >  
+   <td   width="7%"><label>${cptbanjoucod}</label></td>  
    <td width="93%"  >  
    <input id="cptbanjoucod"   name="cptbanjoucod"     type="text"    size="8"       maxlength="8"        value="${searchBean.cptbanjoucod}"    nextElement="cptbancptcom"              />  
   </td>  
    </tr>   
-   <tr>  
+   <tr ${displayNone} >  
    <td width="7%"><label>${cptbancptcom}</label></td>  
    <td width="93%"  >  
    <input id="cptbancptcom"   name="cptbancptcom"     type="text"    size="8"       maxlength="8"        value="${searchBean.cptbancptcom}"    nextElement="btValidx"              />  

@@ -2,10 +2,15 @@ package ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.CompteBancaire.model
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Data_entite_simple.model.Data_entite_simpleBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
 @JsonAutoDetect
 @Entity
@@ -13,21 +18,40 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean
 public class  CompteBancaireBean   extends  GenericBean {
 	
  
-	private static final long serialVersionUID = -2973649405349662476L;
- @Id
- @Column	private String  cptbanribrib =""; 
- @Column	private String  cptbanribrs =""; 
   
- @Column	private String  cptbanadr =""; 
- @Column	private String  bancod =""; 
- @Column	private String  cptbanjoucod =""; 
- @Column	private String  cptbancptcom =""; 
- @Column	private String  sitcod =""; 
- @Column	private String  usr_cre =""; 
- @Column	private java.sql.Date  date_mod;
- @Column	private java.sql.Date  date_cre;
- @Column	private String  usr_mod =""; 
+	private static final long serialVersionUID = -7657579619534078805L;
+	@Id
+	@Column(length = 32)
+    private String  cptbanribrib =""; 
+    @Column	private String  cptbanribrs =""; 
  
+  
+    @Column	private String  cptbanadr =""; 
+    @Column	private String  bancod =""; 
+    @Column	private String  cptbanjoucod =""; 
+    @Column	private String  cptbancptcom =""; 
+	@ManyToOne
+	@JoinColumn(name = "sitcod", insertable = true, updatable = true)
+	private Data_entite_simpleBean bean_sitcod ;
+	
+    @Column	private String  usr_cre =""; 
+    @Column	private java.sql.Date  date_mod;
+    @Column	private java.sql.Date  date_cre;
+    @Column	private String  usr_mod =""; 
+    
+    @ManyToOne
+	@JoinColumns( {
+			@JoinColumn(name = "etab_id", insertable = true, updatable = true, referencedColumnName = "etab_id"),
+			@JoinColumn(name = "soc_id", insertable = true, updatable = true, referencedColumnName = "soc_id"), })
+	private EtablissementBean fk_etab_Bean = new EtablissementBean();
+ 
+	 
+	public EtablissementBean getFk_etab_Bean() {
+		return fk_etab_Bean;
+	}
+	public void setFk_etab_Bean(EtablissementBean fk_etab_Bean) {
+		this.fk_etab_Bean = fk_etab_Bean;
+	}
 	public void setCptbanribrib (String  cptbanribrib) {
 		this.cptbanribrib = cptbanribrib;
 	}
@@ -64,12 +88,15 @@ public class  CompteBancaireBean   extends  GenericBean {
 	public String getCptbancptcom() {
 		return cptbancptcom;
 	}
-	public void setSitcod (String  sitcod) {
-		this.sitcod = sitcod;
+	
+
+	public Data_entite_simpleBean getBean_sitcod() {
+		return bean_sitcod;
 	}
-	public String getSitcod() {
-		return sitcod;
+	public void setBean_sitcod(Data_entite_simpleBean bean_sitcod) {
+		this.bean_sitcod = bean_sitcod;
 	}
+	
 	public void setUsr_cre (String  usr_cre) {
 		this.usr_cre = usr_cre;
 	}

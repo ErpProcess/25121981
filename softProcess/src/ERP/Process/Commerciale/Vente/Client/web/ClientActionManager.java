@@ -16,6 +16,7 @@ import ERP.Process.Commerciale.Type_tarification.service.Type_tarificationServic
 import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
 import ERP.Process.Commerciale.Vente.Client.service.ClientService;
 import ERP.Process.Commerciale.Vente.Client.template.ClientTemplate;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Data_entite_simple.model.Data_entite_simpleBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.model.SocieteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.CompteBancaire.model.CompteBancaireBean;
@@ -58,7 +59,13 @@ public class ClientActionManager extends ClientTemplate {
 			setObjectValueModel(LIST_TYPE_TARIF_CLIENT, list_type_tarification);
 			
 			 
-			setObjectValueModel(LIST_CPT_BANK, serviceCompteBancaire.doFetchDatafromServer(CompteBancaireBean.class.newInstance()));
+		 
+			
+			  CompteBancaireBean compteBancaireBean = new CompteBancaireBean();
+			  Data_entite_simpleBean bean_sitcod = new Data_entite_simpleBean();
+			  bean_sitcod.setData_id("A");
+			  compteBancaireBean.setBean_sitcod(bean_sitcod);
+			  setObjectValueModel(LIST_CPT_BANK, serviceCompteBancaire.doFetchDatafromServer(compteBancaireBean));
 			
 			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 				return getViewAdd( FORM_VIEW );

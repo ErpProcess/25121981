@@ -382,6 +382,7 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			bs.setSociete(ste);
 			bs.setPatternDecimalFormat(bs.getSociete().getFormatage());
 			bs.setEtablissement(utilBean.getEtab_bean());
+			
 			setObjectValueModel("utilBean", utilBean);
 			setObjectValueModel(BEAN_SESSION, bs);
 
@@ -469,13 +470,18 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			setObjectValueModel("mapHashMappack", mapHashMappack);
 			setObjectValueModel("mapHashMApRAcoucci", mapHashMApRAcoucci);
 			setObjectValueModel("mapHashSousPAck", mapHashSousPAck);
-			
+			setUtilDevFront();
 			return getHome();
 		} catch (Exception e) {
 			displayException(e);
 			return getTimeOut();
 		}
 
+	}
+
+	private void setUtilDevFront() {
+		
+		setObjectValueModel("displayNone", "style=\"display: none;\"");
 	}
 
 	public ModelAndView doQuitterApplication() {

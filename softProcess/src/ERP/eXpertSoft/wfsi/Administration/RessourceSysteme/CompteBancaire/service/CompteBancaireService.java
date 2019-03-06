@@ -18,6 +18,8 @@ public class CompteBancaireService  extends GenericWeb  {
 	public List<CompteBancaireBean> doFetchDatafromServer(CompteBancaireBean beanSearch) throws Exception {
 		return daoCompteBancaire.doFindListCompteBancaire(beanSearch);
 	}
+	
+	
 	@Transactional
 	public Boolean doCreateRowData(CompteBancaireBean insertBean) throws Exception {
 		 boolean result = false;

@@ -43,6 +43,7 @@ import ERP.Process.Commerciale.Vente.ProcedureVente.service.ProcedureVenteServic
 import ERP.Process.Commerciale.Vente.ProcedureVente.template.ProcedureVenteTemplate;
 import ERP.Process.Commerciale.Vente.Service.model.DetServiceBean;
 import ERP.Process.Commerciale.Vente.Service.service.ServiceService;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Data_entite_simple.model.Data_entite_simpleBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.GenerationPdf.GeneratePdf;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
@@ -154,7 +155,15 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				
 			 List list_des_tva= serviceTVA.doFetchDatafromServer(TVABean.class.newInstance());
 			 setObjectValueModel(LIST_DES_TVA, list_des_tva);
-			 setObjectValueModel(LIST_CPT_BANK, serviceCompteBancaire.doFetchDatafromServer(CompteBancaireBean.class.newInstance()));
+			 
+			   
+			 
+			  
+			  CompteBancaireBean compteBancaireBean = new CompteBancaireBean();
+			  Data_entite_simpleBean bean_sitcod = new Data_entite_simpleBean();
+			  bean_sitcod.setData_id("A");
+			  compteBancaireBean.setBean_sitcod(bean_sitcod);
+			  setObjectValueModel(LIST_CPT_BANK, serviceCompteBancaire.doFetchDatafromServer(compteBancaireBean));
 			 
 			 if(bs.getSousmod_id().equals(ID_SOUS_MODULE)){
 				 

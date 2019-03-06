@@ -24,4 +24,7 @@ public static String [][] MapfieldBean  = new String[][]{{ "cptbanribrib", "30" 
 public static String FORM_VIEW          = "FormCompteBancaire";
 public static String FILTER_VIEW        = "FilterCompteBancaire";
 public static String LIST_VIEW          = "ListCompteBancaire";
+
+public static boolean i$_ACT_INIT_SERVLET = false;
+
 }

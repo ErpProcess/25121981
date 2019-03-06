@@ -2,9 +2,10 @@
 <script  type="text/javascript">
 $(document).ready(function (){
 LoadAutoCompletAjax("paycod","paylib","usr_ville","listCountry");
-LoadAutoCompletAjax("soc_id","soc_lib","pk_etab.etab_id","listSocioTa");
+
 LoadAutoCompletAjax("prf_id","prf_libelle","usr_etat","listProfile_for_utlisateur");
 
+LoadAutoCompletAjax("soc_id","soc_lib","pk_etab.etab_id","listSocioTa");
 LoadOtherAutocompletesAjax("soc_id","i$_ACT_LOAD_ETAB","pk_etab.etab_id","etab_lib","usr_obs");
 
 selectOptionvalue('usr_sexe' ,'${detailBean.usr_sexe}') ;

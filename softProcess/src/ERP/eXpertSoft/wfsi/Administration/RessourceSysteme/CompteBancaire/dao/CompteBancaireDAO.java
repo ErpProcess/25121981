@@ -20,21 +20,33 @@ public class CompteBancaireDAO extends  GenericWeb    {
 	@SuppressWarnings("unchecked")
 	public List<CompteBancaireBean> doFindListCompteBancaire(CompteBancaireBean beanSearch) throws Exception {
 		  Session session =  openSessionHibernate(sessionFactory);
-		  List list_data= new ArrayList();
+		  List <CompteBancaireBean>list_data= new ArrayList<CompteBancaireBean>();
 		  try{
 		    String requette=" select  bean   FROM    CompteBancaireBean    bean    WHERE     1=1       ";
- 			   if( !StringUtils.isEmpty(beanSearch.getCptbanribrib()) )  
-	    			requette+="   AND   bean.cptbanribrib = '"+beanSearch.getCptbanribrib()+"'        ";    
+		    
+ 			   if( !StringUtils.isEmpty(beanSearch.getCptbanribrib() ) )  
+	    			requette+="   AND   bean.cptbanribrib ='"+beanSearch.getCptbanribrib()+"'        ";
+ 			   
+ 			  if( beanSearch.getBean_sitcod()!=null  &&  !StringUtils.isEmpty( beanSearch.getBean_sitcod().getData_id() ) )  
+	    			requette+="   AND   bean.bean_sitcod.data_id ='"+beanSearch.getBean_sitcod().getData_id()+"'    ";
+ 			   
  			   if( !StringUtils.isEmpty(beanSearch.getCptbanribrs()) )  
-	    			requette+="   AND   bean.cptbanribrs = '"+beanSearch.getCptbanribrs()+"'        ";    
+	    			requette+="   AND   bean.cptbanribrs = '"+beanSearch.getCptbanribrs()+"'        ";  
+ 			   
  			   if( !StringUtils.isEmpty(beanSearch.getCptbanadr()) )  
-	    			requette+="   AND   bean.cptbanadr = '"+beanSearch.getCptbanadr()+"'        ";    
+	    			requette+="   AND   bean.cptbanadr = '"+beanSearch.getCptbanadr()+"'        ";   
+ 			   
  			   if( !StringUtils.isEmpty(beanSearch.getBancod()) )  
-	    			requette+="   AND   bean.bancod = '"+beanSearch.getBancod()+"'        ";    
+	    			requette+="   AND   bean.bancod = '"+beanSearch.getBancod()+"'        ";   
+ 			   
  			   if( !StringUtils.isEmpty(beanSearch.getCptbanjoucod()) )  
-	    			requette+="   AND   bean.cptbanjoucod = '"+beanSearch.getCptbanjoucod()+"'        ";    
+	    			requette+="   AND   bean.cptbanjoucod = '"+beanSearch.getCptbanjoucod()+"'        "; 
+ 			   
  			   if( !StringUtils.isEmpty(beanSearch.getCptbancptcom()) )  
-	    			requette+="   AND   bean.cptbancptcom = '"+beanSearch.getCptbancptcom()+"'        ";    
+	    			requette+="   AND   bean.cptbancptcom = '"+beanSearch.getCptbancptcom()+"'        ";  
+ 			   
+ 			        requette +=this.setSocieteEtabFetch(beanSearch,"bean.fk_etab_Bean", true); 
+ 			   
 				  		list_data= session.createQuery(requette).list();
 				        commitTransaction(session);
 			 } catch (Exception e) {  

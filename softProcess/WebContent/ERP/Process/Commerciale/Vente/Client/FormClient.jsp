@@ -4,7 +4,7 @@
   <script type="text/javascript">
    $(document).ready(function () { 
    LoadAutoCompletAjax("type_trf_id","type_trf_lib","btValidx","list_type_tarif_client");   
-   LoadAutoCompletAjax("cptbanribrib","cptbanribrs","btValidx","list_cpt_bank_reg_fact");
+   LoadAutoCompletAjax("cptbanribrs","cptbanribrib","btValidx","list_cpt_bank_reg_fact");
    });
    </script>
   <ext:body  >  
@@ -81,9 +81,9 @@
   <tr>  
    <td width="7%"><label>Compte.Bank.Fact</label></td>  
    <td width="93%" height="40px" >  
-   
-   <input id="cptbanribrib"  name="compte.cptbanribrib"      type="text"      size="15"            value="${detailBean.compte.cptbanribrib}"        required         /> 
-   <input id="cptbanribrs"   name="compte.cptbanribrs"       type="text"    size="25"                value="${detailBean.compte.cptbanribrs}"         required        />   
+      <input id="cptbanribrs"   name="compte.cptbanribrs"       type="text"    size="10"                value="${detailBean.compte.cptbanribrs}"         required        />  
+      <input id="cptbanribrib"  name="compte.cptbanribrib"      type="text"      size="30"            value="${detailBean.compte.cptbanribrib}"        required         /> 
+ 
   </td>  
    </tr> 
    

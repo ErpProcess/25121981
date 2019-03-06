@@ -369,7 +369,15 @@ function  getLangueSystem(){
 
 } 
  
- 
+$(function(){
+    $('[data-password-autocomplete="off"]').each(function() {
+        $(this).prop('type', 'text');
+        $('<input type="password"/>').hide().insertBefore(this);
+        $(this).focus(function() {
+            $(this).prop('type', 'password');
+        });
+    });     
+});
    
 </script>
 <title>Process</title>
@@ -392,7 +400,7 @@ id="SSSSSSSSS"
   <ext:window   id="intWin"    
    title="Process Engineering &nbsp;&nbsp;-&nbsp;&nbsp; &nbsp;Créateur de Valeur"  
     draggable="false"  resizable="false"  closable="false"    footer="true"    width="530"  height="308"     >
-    <form  id="myform" method="post"  name="myform"  >
+    <form  id="myform" method="post"  name="myform"  autocomplete="off"  >
       <input  type="hidden"  name="HiddenAction"  id="HiddenAction"  value="doLoadApp.action"  style=" " >
       <table style="background: url('${pathRootac}/img/blue.jpg');width: 100%;" border="0"  >
         <tr>
@@ -420,7 +428,7 @@ id="SSSSSSSSS"
                       <c:otherwise>Login</c:otherwise>
                     </c:choose>
                     </font></td>
-                  <td><input    id="usr_login"  name="usr_login"   required      
+                  <td><input  autocomplete="off"    id="usr_login"  name="usr_login"   required      
                            onBlur="validAuthen()"   value=""   Type="text"  maxlength="4"    style="width: 70px;height: 22px;font-weight: bold;"   /></td>
                   <td></td>
                 </tr>
@@ -433,9 +441,9 @@ id="SSSSSSSSS"
                       <c:otherwise>Utilisateur</c:otherwise>
                     </c:choose>
                     </font></td>
-                  <td><input id="nomprenom"  name="nomprenom"  type="text"   readonly="readonly" 
+                  <td><input autocomplete="off"  id="nomprenom"  name="nomprenom"  type="text"   readonly="readonly" 
                      value=""  style="width: 150px;height: 22px;background: none;font-weight: bold;"   >
-                    <input id="baseUrlProject"  name="baseUrlProject"  type="hidden"   value=""  ></td>
+                    <input autocomplete="off"  id="baseUrlProject"  name="baseUrlProject"  type="hidden"   value=""  ></td>
                   <td></td>
                 </tr>
                 <tr>
@@ -447,7 +455,26 @@ id="SSSSSSSSS"
                       <c:otherwise>Mot de passe</c:otherwise>
                     </c:choose>
                     </font></td>
-                  <td colspan="2"><input id="usr_pwd"    name="usr_pwd"  required  type="password"  value=""  style="width: 150px;height: 22px;font-weight: bold;"  ></td>
+                  <td colspan="2">
+                  
+                  
+                  
+                  
+                  <input id="usr_pwd"  autocomplete="off"  
+                    name="usr_pwd"       type="password"  value=""  
+                    style="width: 150px;height: 22px;font-weight: bold;"
+ 
+                    
+                    
+                    
+                      >
+                    
+          <!--                     style="color: black; text-shadow: none;width: 150px;height: 22px;font-weight: bold;" -->          
+                    
+                    
+                    
+                    
+                    </td>
                 </tr>
               </table>
             </div></td>

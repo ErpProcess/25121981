@@ -47,7 +47,7 @@ mapEditableGen = {             "otab"   :oTable,
                                };
        
 $(document).ready(function (){
-   LoadAutoCompletAjax("cptbanribrib","cptbanribrs","btValidx","list_cpt_bank_fact");
+ LoadAutoCompletAjax("cptbanribrs","cptbanribrib","btValidx","list_cpt_bank_fact");
  LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
  config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  ); 
  
@@ -103,8 +103,11 @@ $(document).ready(function (){
         </tr>
         <tr>
           <td  ><label>Virement bancaire</label></td>
-          <td   ><input id="cptbanribrib"  name="cpt_bank.cptbanribrib"      type="text"      size="10"               value="${detailBean.cpt_bank.cptbanribrib}"        required="required">
-            <input id="cptbanribrs" name="cpt_bank.cptbanribrs"     type="text"    size="40"                value="${detailBean.cpt_bank.cptbanribrs}"         required="required"></td>
+          <td   >
+            
+            <input id="cptbanribrs" name="cpt_bank.cptbanribrs"     type="text"    size="10"                value="${detailBean.cpt_bank.cptbanribrs}"         required="required">
+            <input id="cptbanribrib"  name="cpt_bank.cptbanribrib"      type="text"      size="40"               value="${detailBean.cpt_bank.cptbanribrib}"        required="required">
+            </td>
           <td   ><label>Net a payer</label></td>
           <td   ><input id="net_a_payer"     name="net_a_payer"  style="text-align: right;"    type="montant3"    size="25"    libre="libre"   readonly="readonly"      maxlength="50"        value="${detailBean.net_a_payer}"    nextelement="btValidx"></td>
         </tr>

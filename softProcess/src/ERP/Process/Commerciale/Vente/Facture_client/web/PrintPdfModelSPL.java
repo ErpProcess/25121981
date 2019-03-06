@@ -368,7 +368,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
     	if( denBean.getDevise().getDev_id().intValue()==191  ||  denBean.getDevise().getDev_id().intValue()==192   ){
 				pattern ="0.00";
 		} 
-	    int PaddingBottom=5;
+	  
       int[] columnWidths = new int[mapFieldBean.length] ;
       for(int i = 0; i < mapFieldBean.length; i++){
     	columnWidths[i]= Integer.parseInt(mapFieldBean[i][1])   ;
@@ -421,6 +421,9 @@ public class PrintPdfModelSPL   extends GenericWeb  {
          int toolha=sizelist*20;
          int resul=380 - toolha;
          float toul_contenu_tab=Float.valueOf(String.valueOf(resul));
+         
+        
+         
          /********************************************************************************************************/
           
          for(int j = 0; j < mapFieldBean.length; j++){
@@ -653,7 +656,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
            /****************************************************************************************************************/
            
             
-           int  init=13;
+           int  init=6;
            int size=mapTvaImpression.size();
            int space=size*20;
            space=space+init;
