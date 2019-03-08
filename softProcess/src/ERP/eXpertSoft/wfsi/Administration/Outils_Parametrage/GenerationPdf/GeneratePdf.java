@@ -488,26 +488,24 @@ public class GeneratePdf extends  GenericWeb {
 
 	 
 	
-	public static  Document  doGenerateDocumentFormat() {
-		
-		  Document document =null;
-		  BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION); 
-			 
-		 if(bSession.getFormatPrint().equals("portrait")) {
-			 document = new Document(PageSize.A4, 5, 5, 5, 25);
-					         } else {
-					        	
-					        	document = new Document(PageSize.A4.rotate(), 5, 5, 20, 40);
-		  }
-			 return 	document;
+	public static Document doGenerateDocumentFormat() {
+
+		Document document = null;
+		BeanSession bSession = (BeanSession) getObjectValueModel(BEAN_SESSION);
+		if (bSession.getFormatPrint().equals("portrait")) {
+			document = new Document(PageSize.A4, 5, 5, 5, 25);
+		} else {
+			document = new Document(PageSize.A4.rotate(), 5, 5, 20, 40);
+		}
+		return document;
 
 	}
-
 	
 	public static  void  doGeneratePdfWriterFormat(Document document, FileOutputStream fs) throws Exception {
 		
 		   PdfWriter writer = PdfWriter.getInstance(document,  fs);
-		   BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);  
+		   BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION); 
+		   String data=(String) getObjectValueModel("printPdfEr");
 		  if(bSession.getFormatPrint().equals("portrait")) {
 		         TableHeaderNormale event = new TableHeaderNormale(bSession);
 	           //  writer.setPageEvent(event);

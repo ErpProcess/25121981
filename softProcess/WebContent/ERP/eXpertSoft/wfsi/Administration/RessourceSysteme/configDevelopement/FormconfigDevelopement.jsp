@@ -67,7 +67,7 @@ LoadAutoCompletAjax("sousmod_id","sousmod_libelle","fct_id","listSousModuleForAf
    <tr>  
    <td width="7%"><label>${json_properties}</label></td>  
    <td width="93%"  >  
-   <input id="json_properties" name="json_properties"     type="text"    size="2147483647"       maxlength="2147483647"        value="${detailBean.json_properties}"    nextElement="btValidx"              />  
+  <textarea id="json_properties"  name="json_properties"  cols="100"   rows="20"    autocomplete="off">${detailBean.json_properties}</textarea>      
   </td>  
    </tr>   
  </table>   

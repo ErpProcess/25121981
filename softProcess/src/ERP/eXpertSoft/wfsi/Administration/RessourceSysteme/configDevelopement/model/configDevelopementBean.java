@@ -1,5 +1,7 @@
 package ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.configDevelopement.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,10 +14,12 @@ import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
+import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.SousModule.model.SousModuleBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionUtilisateurs.Profile.model.ProfileBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;
+ 
 
 @JsonAutoDetect
 @Entity
@@ -29,12 +33,25 @@ public class configDevelopementBean extends GenericBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer config_id;
 
+	
+	
 	 
 
 	@Column
 	private String user_list = "";
+	
+	
 	@Column
-	private String json_properties = "";
+	private String api_action = "";
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "fct_id", insertable = true, updatable = true)
+	private FonctionBean modeBean   ;
+	
+	
+	@Column
+	private String json_properties  ;
 	
 	
 	@ManyToOne
@@ -84,10 +101,7 @@ public class configDevelopementBean extends GenericBean {
 		return user_list;
 	}
 
-	public void setJson_properties(String json_properties) {
-		this.json_properties = json_properties;
-	}
-
+	 
 	public EtablissementBean getFk_etab_Bean() {
 		return fk_etab_Bean;
 	}
@@ -104,8 +118,34 @@ public class configDevelopementBean extends GenericBean {
 	public void setProfile(ProfileBean profile) {
 		this.profile = profile;
 	}
+	
+
+	public String getApi_action() {
+		return api_action;
+	}
+
+	public void setApi_action(String api_action) {
+		this.api_action = api_action;
+	}
+
+	public FonctionBean getModeBean() {
+		return modeBean;
+	}
+
+	public void setModeBean(FonctionBean modeBean) {
+		this.modeBean = modeBean;
+	}
+
+	 
 
 	public String getJson_properties() {
 		return json_properties;
 	}
+
+	public void setJson_properties(String json_properties) {
+		this.json_properties = json_properties;
+	}
+ 
+
+ 
 }

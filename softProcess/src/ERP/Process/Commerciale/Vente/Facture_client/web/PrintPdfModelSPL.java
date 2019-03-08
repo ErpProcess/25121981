@@ -7,10 +7,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.util.StringUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
+ 
 import org.springframework.web.servlet.ModelAndView;
 
+ 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -33,9 +37,21 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
+import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.configDevelopement.web.configDevelopementActionManager;
+import groovy.lang.GroovyShell;
+import jdk.nashorn.internal.parser.JSONParser;
 
 
 public class PrintPdfModelSPL   extends GenericWeb  {
+	
+	public static void main(String[] args) {
+		 
+		GroovyShell shell = new GroovyShell();
+		
+		Object value = shell.evaluate("for (x=0; x<5; x++){ System.out.println(x);}; return x");
+		System.out.println(value);
+	 
+	}
 	
 	public    ModelAndView doPrintPDF_detaille() throws Exception   {
 		 
@@ -54,7 +70,9 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    		          };
 	    
 		try {
-			 Document document=GeneratePdf.doGenerateDocumentFormat();
+			 
+			
+			Document document=GeneratePdf.doGenerateDocumentFormat();
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
 	        doWriteHeaderDocument_PDF_NOT_PASY(document,fs,mapfieldBeanDetaille,bSession);
 	        doWriteEntete(document,denBean); 
@@ -166,8 +184,38 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    cellheder.setPaddingTop(15f);
 	    cellheder.setBorder(cellheder.NO_BORDER);
 	    tableheader.addCell(cellheder);
-		String entete= bs.getSoc_lib()+"\n\r"+bs.getSociete().getAdresse()+"\n\r"+"MF: "+bs.getSociete().getMatricule_fiscale()+
-                "\n\rRC :"+bs.getSociete().getRegistre_commerce()+"\n\r"+"TEL: "+bs.getSociete().getTelephone();
+	    
+ 		
+	
+	    
+	    GroovyShell shell = new GroovyShell();
+	    shell.setVariable("bs", bs);
+	    shell.setVariable("denBean", denBean);
+		
+		String printPdfEr = configDevelopementActionManager.doLoadingConfigDeveloppement();
+		 
+		JSONObject json    = new JSONObject(printPdfEr);
+		JSONObject sss     = json.getJSONObject("printFacture");
+		JSONObject lignes  = sss.getJSONObject("headerDocument");
+		String entete="";
+		if(!StringUtils.isBlank(lignes.getString("ligne1Body")))
+		entete+=shell.evaluate(lignes.getString("ligne1Body"))+"\n\r";
+		
+		if(!StringUtils.isBlank(lignes.getString("ligne2Body")))
+		entete+=shell.evaluate(lignes.getString("ligne2Body"))+"\n\r";
+
+		if(!StringUtils.isBlank(lignes.getString("ligne3Body")))
+		entete+=shell.evaluate(lignes.getString("ligne3Body"))+"\n\r";
+		
+		if(!StringUtils.isBlank(lignes.getString("ligne4Body")))
+		entete+=shell.evaluate(lignes.getString("ligne4Body"))+"\n\r";
+		
+		if(!StringUtils.isBlank(lignes.getString("ligne5Body")))
+		entete+=shell.evaluate(lignes.getString("ligne5Body"))+"\n\r";
+		
+//		if(!StringUtils.isBlank(lignes.getString("ligne6Body")))
+//		 entete+=shell.evaluate(lignes.getString("ligne6Body"))+"\n\r";
+		
 	    cellheder = new PdfPCell(new Phrase( entete.toUpperCase()  ,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
 	    cellheder.setColspan(86);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);

@@ -44,6 +44,8 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.MessageBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.template.MenuActionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.template.TemplateGeneric;
+import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.configDevelopement.model.configDevelopementBean;
+import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.configDevelopement.service.configDevelopementService;
 
 @Controller
 public class GenericWeb       {
@@ -190,12 +192,13 @@ public class GenericWeb       {
     public  static    ActionSpoorManager   actionSpoorManager = new  ActionSpoorManager() ;
      
      
-    public static   EntiteAdminService        serviceEntiteAdmin;
+    public     EntiteAdminService        serviceEntiteAdmin;
     @Autowired
 	public void setEntiteAdminService(EntiteAdminService serviceEntiteAdmin) {
 		this.serviceEntiteAdmin = serviceEntiteAdmin;
 	}
     
+   
     
     public static boolean ifFonctionEqual(String fonction) {
     	
@@ -1399,6 +1402,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 			setObjectValueModel(TEMP_CHEMIN_TITLE,temChemin);
 		  	
 			 this.doloadingLibelleSousModule();
+			 //this.doLoadingConfigDeveloppement();
 		  	
 	    	}
 	  
@@ -1417,7 +1421,9 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 	  
 	  
 	 
-	    public static    void doDefineSomeAction(Object beanTempNotGeneric,String nameact) throws Exception{
+	   
+
+		public static    void doDefineSomeAction(Object beanTempNotGeneric,String nameact) throws Exception{
 	        String HiddenAction= nameact;
 	        boolean  resulHid=searchActionBooleanInTemplate(beanTempNotGeneric, new GenericActionBean(),HiddenAction)? true:searchBooleanActionGeneric(new GenericActionBean(),HiddenAction);
 		     if(!resulHid)  throwNewException("out");
