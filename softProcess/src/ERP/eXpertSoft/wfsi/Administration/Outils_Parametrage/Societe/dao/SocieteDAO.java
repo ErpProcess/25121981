@@ -1,6 +1,5 @@
 package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.dao;
 
-import java.io.FileOutputStream;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -75,10 +74,11 @@ public class SocieteDAO extends  GenericWeb  {
 			if(insertBean!=null){
 				this.setBeanTrace(insertBean);
 				this.hibernateTemplate.save(insertBean);
+				beanUpdate.setFile_id(insertBean.getFile_id());
 			}
-			beanUpdate.setFile_id(insertBean.getFile_id());
+			
 			this.hibernateTemplate.update(beanUpdate);
-			this.saveTrace(beanUpdate);
+			//this.saveTrace(beanUpdate);
 			return true;
 		} catch (Exception ex) {
 			ex.printStackTrace();

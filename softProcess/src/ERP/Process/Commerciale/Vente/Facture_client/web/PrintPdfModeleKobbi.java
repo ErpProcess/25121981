@@ -1001,7 +1001,7 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 	  
 	  private void doWriteHeaderEtatEditionVente(Document document,int poucentage, String[][] mapFieldBean) throws Exception {
 			
-		  
+		  BeanSession bs= (BeanSession) getObjectValueModel(BEAN_SESSION);
 			PdfPTable table = new PdfPTable(mapFieldBean.length);
 		    int PaddingBottom=5;
 	        int[] columnWidths = new int[mapFieldBean.length] ;
@@ -1022,6 +1022,11 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 	    	     }else{
 	    	    	 titrehead=mapFieldBean[i][0];
 	    	     } 
+	    	     if(titrehead !=null &&  titrehead.equals("invoice") && bs.getSoc_id().equals("10"))   titrehead="Vente";
+	    	     if(titrehead !=null &&  titrehead.equals("prixUnit") && bs.getSoc_id().equals("10"))  titrehead="PrixUnit HT";
+	    	     if(titrehead !=null &&  titrehead.equals("total") && bs.getSoc_id().equals("10"))     titrehead="PrixUnit TTC";
+
+
 	    	   
 	    	    PdfPCell cell = new PdfPCell(new Phrase( titrehead==null?"-":   WordUtils.capitalize(titrehead) ,GeneratePdf.Bold_10_times_roman));
 			    cell.setHorizontalAlignment(Element.ALIGN_CENTER);

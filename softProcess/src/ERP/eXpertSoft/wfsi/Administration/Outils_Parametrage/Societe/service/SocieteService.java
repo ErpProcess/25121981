@@ -59,24 +59,18 @@ public class SocieteService  extends GenericWeb  {
 	@Transactional
 	public Boolean doUpdateRowData(SocieteBean updateBean){
 		
-		
-		if(daoSociete.updateSociete(updateBean)){
-		
-			return true;
-		}else{
-			return false;
-		}
+		 
+			return daoSociete.updateSociete(updateBean);
+		 
 			
 	}
 	
 	
 	@Transactional
 	public Boolean doDeleteRowData(SocieteBean deleteBean){
-		if(daoSociete.dodeleteSociete(deleteBean)){
-			return true;
-		}else{
-			return false;
-		}
+		 
+			return daoSociete.dodeleteSociete(deleteBean);
+		 
 			
 	}
  
