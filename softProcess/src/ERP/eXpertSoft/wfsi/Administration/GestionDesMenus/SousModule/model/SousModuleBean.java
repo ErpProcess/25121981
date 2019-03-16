@@ -29,17 +29,15 @@ import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Module.model.ModuleBea
 @Entity
 @Table(name = "sousmodule", schema = "administration")
 public class SousModuleBean implements Serializable,Cloneable{
-
-	 
  
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6950975766446109061L;
 
 
 
 
 	@Id
 	@GeneratedValue
-	@Column(name = "sousmod_id", unique = true, nullable = false)
+	@Column(name = "sousmod_id", unique = true )
 	private BigDecimal sousmod_id;
 	
 	

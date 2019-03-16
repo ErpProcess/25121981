@@ -286,7 +286,7 @@ public class ComplementAchatActionManager extends ComplementAchatTemplate {
 				    setObjectValueModel(NAME_LIST_G,LIST_DATA);
 			}
 			
-			genpdf.createPdfWithcellPaysage(lisData,mapFieldBean);
+			genpdf.createGenericPdfDocument(lisData,mapFieldBean);
 			getResponse().setContentType("text");
 			getResponse().setHeader("Cache-Control", "no-cache");
 			getResponse().setStatus(200);

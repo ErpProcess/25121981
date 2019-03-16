@@ -184,39 +184,8 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    cellheder.setPaddingTop(15f);
 	    cellheder.setBorder(cellheder.NO_BORDER);
 	    tableheader.addCell(cellheder);
-	    
- 		
-	
-	    
-	    GroovyShell shell = new GroovyShell();
-	    shell.setVariable("bs", bs);
-	    shell.setVariable("denBean", denBean);
-		
-		String printPdfEr = configDevelopementActionManager.doLoadingConfigDeveloppement();
-		 
-		JSONObject json    = new JSONObject(printPdfEr);
-		JSONObject sss     = json.getJSONObject("printFacture");
-		JSONObject lignes  = sss.getJSONObject("headerDocument");
-		String entete="";
-		if(!StringUtils.isBlank(lignes.getString("ligne1Body")))
-		entete+=shell.evaluate(lignes.getString("ligne1Body"))+"\n\r";
-		
-		if(!StringUtils.isBlank(lignes.getString("ligne2Body")))
-		entete+=shell.evaluate(lignes.getString("ligne2Body"))+"\n\r";
-
-		if(!StringUtils.isBlank(lignes.getString("ligne3Body")))
-		entete+=shell.evaluate(lignes.getString("ligne3Body"))+"\n\r";
-		
-		if(!StringUtils.isBlank(lignes.getString("ligne4Body")))
-		entete+=shell.evaluate(lignes.getString("ligne4Body"))+"\n\r";
-		
-		if(!StringUtils.isBlank(lignes.getString("ligne5Body")))
-		entete+=shell.evaluate(lignes.getString("ligne5Body"))+"\n\r";
-		
-//		if(!StringUtils.isBlank(lignes.getString("ligne6Body")))
-//		 entete+=shell.evaluate(lignes.getString("ligne6Body"))+"\n\r";
-		
-	    cellheder = new PdfPCell(new Phrase( entete.toUpperCase()  ,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
+	    JSONObject doc = configDevelopementActionManager.doLoadingConfigPrintDocument();		
+	    cellheder = new PdfPCell(new Phrase( doc.getString("entete").toUpperCase()  ,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
 	    cellheder.setColspan(86);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cellheder.setPaddingLeft(28f);

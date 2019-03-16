@@ -15,10 +15,10 @@ LoadAutoCompletAjax("sousmod_id","sousmod_libelle","fct_id","listSousModuleForAf
   <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
  <table class="tableStyleContent"  cellpadding="5" cellspacing="10"  id="tblData"     >
    
-   <tr>  
+   <tr ${displayNone} >  
    <td width="7%"><label>${config_id}</label></td>  
    <td width="93%"  >  
-   <input id="config_id" name="config_id"     type="text"    size="10"       maxlength="10"        value="${detailBean.config_id}"    nextElement="soc_id"    autofocus   required     />  
+   <input id="config_id" name="config_id"     type="hidden"    size="10"       maxlength="10"        value="${detailBean.config_id}"    nextElement="soc_id"           />  
   </td>  
    </tr>   
   
@@ -44,6 +44,13 @@ LoadAutoCompletAjax("sousmod_id","sousmod_libelle","fct_id","listSousModuleForAf
         <td >
         <input id="prf_id" name="profile.prf_id" type="text"     value="${detailBean.profile.prf_id}"      size="7"               maxlength="4"         />
         <input id="prf_libelle" name="profile.prf_libelle" type="text"     value="${detailBean.profile.prf_libelle}"     size="22"            />
+        </td>
+   </tr>
+   
+    <tr>
+   <td ><label >Action</label></td>
+        <td >
+        <input id="api_action" name="api_action" type="text"     value="${detailBean.api_action}"      size="30"                     />
         </td>
    </tr>
    

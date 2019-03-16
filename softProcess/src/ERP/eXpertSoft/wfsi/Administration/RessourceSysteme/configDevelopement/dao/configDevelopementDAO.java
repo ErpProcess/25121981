@@ -28,18 +28,27 @@ public class configDevelopementDAO extends GenericWeb {
 		List list_data = new ArrayList();
 		try {
 			String requette = " select  bean   FROM    configDevelopementBean    bean    WHERE     1=1       ";
+			
 			if (beanSearch.getConfig_id() != null)
 				requette += "   AND   bean.config_id = " + beanSearch.getConfig_id() + "       ";
+			
 			if (beanSearch.getFk_etab_Bean() != null
 					&& !StringUtils.isEmpty(beanSearch.getFk_etab_Bean().getPk_etab().getSoc_bean().getSoc_id()))
 				requette += "   AND   bean.fk_etab_Bean.pk_etab.soc_bean.soc_id= '"
 						+ beanSearch.getFk_etab_Bean().getPk_etab().getSoc_bean().getSoc_id() + "'        ";
+			
 			if (beanSearch.getFk_etab_Bean() != null
 					&& !StringUtils.isEmpty(beanSearch.getFk_etab_Bean().getPk_etab().getEtab_id()))
 				requette += "   AND   bean.fk_etab_Bean.pk_etab.etab_id= '"
 						+ beanSearch.getFk_etab_Bean().getPk_etab().getEtab_id() + "'        ";
+			
 			if (beanSearch.getSousMod() != null && beanSearch.getSousMod().getSousmod_id() != null)
 				requette += "   AND   bean.sousMod.sousmod_id = " + beanSearch.getSousMod().getSousmod_id() + "       ";
+			
+			
+			if ( !StringUtils.isEmpty( beanSearch.getApi_action() ))
+				requette += "   AND  bean.api_action = '" + beanSearch.getApi_action()+"'       ";
+			
 			list_data = session.createQuery(requette).list();
 			commitTransaction(session);
 		} catch (Exception e) {

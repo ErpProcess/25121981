@@ -250,7 +250,7 @@ public class TemplateGeneric extends GenericActionBean {
 			String [][]    mapFieldBean            =    (String[][]) getObjectValueModel(MAP_FIELD_BEAN) ;
 			GeneratePdf  genpdf= new GeneratePdf();
 			try {
-				genpdf.createPdfWithcellPaysage(lisData,mapFieldBean);
+				genpdf.createGenericPdfDocument(lisData,mapFieldBean);
 				getResponse().setContentType("text");
 				getResponse().setHeader("Cache-Control", "no-cache");
 				getResponse().setStatus(200);

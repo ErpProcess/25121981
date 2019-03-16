@@ -545,11 +545,12 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 	}
 	
 	private  void doWriteHeaderDocumentEditionvente(Document document,int poucentage, FileOutputStream fs ,BeanSession bSession) throws Exception {
-		    GeneratePdf.doGeneratePdfWriterFormat(document, fs);
-	        
-	       
+		
+		    
+		    
+		    PdfWriter writer = PdfWriter.getInstance(document,  fs);
+		    TableHeaderNormale event = new TableHeaderNormale(bSession);
 	        BeanSession  bs=(BeanSession) getObjectValueModel(BEAN_SESSION);
-	        
 	        document.addCreator(bs.getPack_libelle());
 		    document.addAuthor(bs.getMod_libelle());
 		    document.addTitle(bs.getFct_libelle()+"/"+bs.getSousmod_libelle_title());

@@ -25,6 +25,7 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
+import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.configDevelopement.web.configDevelopementActionManager;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -173,7 +174,7 @@ public class GeneratePdf extends  GenericWeb {
 	 
  
 
-	  public void createPdfWithcellPaysage(  List  lisData,String [][] mapFieldBean  )
+	  public void createGenericPdfDocument(  List  lisData,String [][] mapFieldBean  )
 		        throws Exception {
 		        File file = new File(getRequest().getRealPath("/")+"/temp/"+(String)getObjectValueModel(NAME_LIST_G)+getRequest().getSession().getId()+".pdf");
 		        FileOutputStream fs = new FileOutputStream(file);
@@ -501,22 +502,21 @@ public class GeneratePdf extends  GenericWeb {
 
 	}
 	
-	public static  void  doGeneratePdfWriterFormat(Document document, FileOutputStream fs) throws Exception {
+	public static  void  doGeneratePdfWriterFormat(Document document, FileOutputStream fs, JSONObject doc ) throws Exception {
 		
-		   PdfWriter writer = PdfWriter.getInstance(document,  fs);
-		   BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION); 
-		   String data=(String) getObjectValueModel("printPdfEr");
+		  PdfWriter writer = PdfWriter.getInstance(document,  fs);
+		  BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION); 
 		  if(bSession.getFormatPrint().equals("portrait")) {
 		         TableHeaderNormale event = new TableHeaderNormale(bSession);
-	           //  writer.setPageEvent(event);
+		         if(doc.getBoolean("pageEvent")) writer.setPageEvent(event);
 	       } else {
 	             TableHeaderPaysage event = new TableHeaderPaysage(bSession);
-			   //  writer.setPageEvent(event); 
+	             if(doc.getBoolean("pageEvent")) writer.setPageEvent(event);
 		    }
-
+		    
 	}
 	
-	public static  void  doGenerateEnteteDocument(Document document, FileOutputStream fs , int espaceImage , int espaceText ,  String textEntete) throws Exception {
+	public static  void  doGenerateEnteteDocument(Document document, FileOutputStream fs , int espaceImage , int espaceText ,  JSONObject doc  ) throws Exception {
 		
 		BeanSession  bs=(BeanSession) getObjectValueModel(BEAN_SESSION);
         
@@ -548,8 +548,8 @@ public class GeneratePdf extends  GenericWeb {
 		tableheader.addCell(cellheder);
 		
 
-	    
-	    cellheder = new PdfPCell(new Phrase(textEntete,Normal_10_times_roman));
+		
+	    cellheder = new PdfPCell(new Phrase(doc.getString("entete"),Normal_10_times_roman));
 	    cellheder.setColspan(espaceText);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cellheder.setPaddingLeft(20f);
@@ -565,9 +565,9 @@ public class GeneratePdf extends  GenericWeb {
 	 
 
 	public static  void doWriteHeaderDocument_PDF(Document document, FileOutputStream fs ,BeanSession bs) throws Exception {
-		doGeneratePdfWriterFormat(document, fs);
-		String textEntete=bs.getSoc_lib()+"\n\r"+bs.getEtab_lib()+"\n\r"+bs.getPrf_libelle();
-		doGenerateEnteteDocument(document, fs, 10, 80, textEntete);
+		 JSONObject doc = configDevelopementActionManager.doLoadingConfigPrintDocument();	
+		 doGeneratePdfWriterFormat(document,fs,doc);
+		 doGenerateEnteteDocument(document, fs, 10, 80,doc);
 	
 }
 	

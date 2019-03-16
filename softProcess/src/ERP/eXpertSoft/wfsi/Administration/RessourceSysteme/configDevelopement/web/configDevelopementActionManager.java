@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,6 +23,7 @@ import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.configDevelopement.se
 import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.configDevelopement.template.configDevelopementTemplate;
 import ERP.eXpertSoft.wfsi.framework_dev.JQuery_datatables_Version1.web.ActionDataTablesManager;
 import ERP.eXpertSoft.wfsi.jqueryoR.datatables.controller.AjaxDataTablesUtility;
+import groovy.lang.GroovyShell;
 
 public class configDevelopementActionManager extends configDevelopementTemplate {
 	
@@ -115,19 +117,51 @@ public ModelAndView doFetchDataEtablissement( )throws Throwable {
     return null;
 }
 
-public   static  String doLoadingConfigDeveloppement() throws Exception {
+public   static  JSONObject doLoadingConfigPrintDocument() throws Exception {
 	configDevelopementBean beanSearch = new configDevelopementBean();
 	BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
- 
 	beanSearch.getFk_etab_Bean().getPk_etab().setSoc_bean(bs.getSociete());
 	beanSearch.getFk_etab_Bean().getPk_etab().setEtab_id(bs.getEtab_id());
+	beanSearch.setApi_action("printDocument");
+	JSONObject jsonRe    = new JSONObject( );
 	List list=serviceconfigDevelopement.doFetchDatafromServer(beanSearch);
 	if(list!=null  &&   list.size()>0) {
     	configDevelopementBean sdsds=(configDevelopementBean) list.get(0);
-    	return  sdsds.getJson_properties();
+    	GroovyShell shell = new GroovyShell();
+   	    shell.setVariable("bs", bs);
+    	JSONObject json    = new JSONObject(sdsds.getJson_properties());
+		JSONObject document     = json.getJSONObject("printDocument");
+		JSONObject header       = document.getJSONObject("headerDocument");
+		String entete="";
+		if( header.has("ligne1Body")  &&   !StringUtils.isBlank(header.getString("ligne1Body")))
+		entete+=shell.evaluate(header.getString("ligne1Body"))+"\n\r";
+		
+		if( header.has("ligne2Body")  &&   !StringUtils.isBlank(header.getString("ligne2Body")))
+		entete+=shell.evaluate(header.getString("ligne2Body"))+"\n\r";
+
+		if( header.has("ligne3Body")  &&   !StringUtils.isBlank(header.getString("ligne3Body")))
+		entete+=shell.evaluate(header.getString("ligne3Body"))+"\n\r";
+		
+		if( header.has("ligne4Body")  &&   !StringUtils.isBlank(header.getString("ligne4Body")))
+		entete+=shell.evaluate(header.getString("ligne4Body"))+"\n\r";
+		
+		if( header.has("ligne5Body")  &&   !StringUtils.isBlank(header.getString("ligne5Body")))
+		entete+=shell.evaluate(header.getString("ligne5Body"))+"\n\r";
+		
+     	if( header.has("ligne6Body")  &&   !StringUtils.isBlank(header.getString("ligne6Body")))
+  		 entete+=shell.evaluate(header.getString("ligne6Body"))+"\n\r";
+    	
+    	if( document.has("pageEvent") )
+    		jsonRe.put("pageEvent", document.getBoolean("pageEvent"));
+    	else
+    		jsonRe.put("pageEvent", false);
+     	
+     	jsonRe.put("entete", entete);
+     	
+    	return  jsonRe;
     	
 	}else {
-		return "";
+		return null ;
 	}
 	
 
