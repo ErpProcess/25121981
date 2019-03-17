@@ -129,10 +129,14 @@ public class ArticleActionManager extends ArticleTemplate {
 		 
 		try {
 			doLoadingLibelleOtherSModule("52");
-			setObjectValueModel(FORM_BEAN, getObjectValueModel(MODEL_BEAN));
+			ArticleBean  beanArticle= new ArticleBean();
+			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+
+			beanArticle.getPk_article().setEtabBean(bs.getEtablissement());
+			setObjectValueModel(FORM_BEAN,beanArticle);
 			setObjectValueModel(SEARCH_BEAN, getObjectValueModel(MODEL_BEAN));
 			removeObjectModel((String) getObjectValueModel(NAME_LIST_G));
-			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+			 
 			
 			FamilleBean fBean = new FamilleBean();
  
@@ -215,6 +219,17 @@ public class ArticleActionManager extends ArticleTemplate {
 		}
 
 	}
+	
+	
+	public static  ModelAndView doResetForm() {
+		ArticleBean  beanArticle= new ArticleBean();
+		BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+
+		beanArticle.getPk_article().setEtabBean(bs.getEtablissement());
+		setObjectValueModel(FORM_BEAN,beanArticle);
+		return getViewAdd((String) getObjectValueModel("FORM_VIEW"));
+	}
+	
 	
 	 public ModelAndView uploadFile() throws Exception {
 	        String  chargement= " Chargment du fichier effectué avec succès  ";

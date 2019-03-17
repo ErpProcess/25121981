@@ -1,4 +1,7 @@
 <%@ include file="/Aceuil/esProcess.jsp"     %>
+<link   href="./jquery.multiselect.css" rel="stylesheet" />
+<script src="./jquery.multiselect.js"   ></script>
+    
 <script type="text/javascript"  >
 
 $(function() { 
@@ -52,7 +55,39 @@ function doAfficherCodeBar(levalde_type){
 		      
 		      <tr>
 		        <td  ><label>${ar_libelle}</label></td>
-		        <td   ><input id="ar_libelle" name="ar_libelle"  maxlength="100"   type="text"    size="48"    value="${detailBean.ar_libelle}"    nextElement="arcodbar"              />
+		        <td   >
+		        <input id="ar_libelle" name="ar_libelle"  maxlength="100"   type="text"    size="48"    value="${detailBean.ar_libelle}"    nextElement="arcodbar"  />
+		        				   
+    <select name="basic[]" multiple="multiple" class="3col active"  style="width: 100px;">
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
+        <option value="AZ">Arizona</option>
+        <option value="AR">Arkansas</option>
+        <option value="CA">California</option>
+        <option value="CO">Colorado</option>
+        <option value="CT">Connecticut</option>
+        <option value="DE">Delaware</option>
+        <option value="FL">Florida</option>
+        <option value="GA">Georgia</option>
+        <option value="HI">Hawaii</option>
+        <option value="ID">Idaho</option>
+    </select>
+
+    <script>
+    $(function () {
+        $('select[multiple].active.3col').multiselect({
+            columns: 3,
+            placeholder: 'Select States',
+            search: true,
+            searchOptions: {
+                'default': 'Search States'
+            },
+            selectAll: true
+        });
+
+    });
+</script> 
+
 		        </td>
 		      </tr>
 		      <tr>
@@ -232,6 +267,18 @@ function doAfficherCodeBar(levalde_type){
 				    <input id="clt_id" name="clt_id"           type="text"     size="10"             value=""   /> 
 					<input id="clt_lib" name="clt_lib"        type="text"      size="30"             value=""  />		  </td>  
 	           </tr> 
+	           
+	           <tr>  
+				   <td></td>  
+				   <td>
+
+				   
+				   
+				   </td>  
+	           </tr> 
+	           
+	           
+	          
 		      
 		     </table >
       </td> 

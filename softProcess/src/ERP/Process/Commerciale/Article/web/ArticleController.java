@@ -35,6 +35,7 @@ public class ArticleController extends ArticleActionManager {
 		
 		
 		if (i$_ACT_INIT_SERVLET )      return doInitServletAction();
+		if (i$_ACT_RESET_FORM)         return      doResetForm();    
 		if (i$_ACT_UPLOADER)           return      uploadFile();
 		if (i$_ACT_AJAX_FETCH)         return doFetchData(detailBean); 
 		if (i$_ACT_SELECT_ROW)         return doSelectRowArticle(); 
