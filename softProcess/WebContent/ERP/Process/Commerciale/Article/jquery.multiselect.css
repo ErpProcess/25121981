@@ -6,8 +6,8 @@
 .ms-options-wrap > button:focus,
 .ms-options-wrap > button {
     position: relative;
-    width: 50%;
     text-align: left;
+    width:100%;
     border: 1px solid #aaa;
     background-color: #fff;
     padding: 5px 20px 5px 5px;
@@ -45,24 +45,22 @@
 }
 
 .ms-options-wrap > .ms-options {
-    position: absolute;
-    left: 0;
-    width: 50%;
-    margin-top: 1px;
-    margin-bottom: 20px;
+    position:absolute;
+    margin-top: 0px;
+    margin-bottom: 90px;
     background: white;
-    z-index: 2000;
+    z-index: 9999999999999;
     border: 1px solid #aaa;
     overflow: auto;
     visibility: hidden;
 }
 
 .ms-options-wrap.ms-active > .ms-options {
-    visibility: visible
+    visibility: visible;
 }
 
 .ms-options-wrap > .ms-options > .ms-search input {
-    width: 50%;
+    width: 100%;
     padding: 4px 5px;
     border: none;
     border-bottom: 1px groove;
@@ -110,7 +108,7 @@
 .ms-options-wrap > .ms-options > ul label {
     position: relative;
     display: inline-block;
-    width: 50%;
+    width: 100%;
     padding: 4px 4px 4px 20px;
     margin: 1px 0;
     border: 1px dotted transparent;

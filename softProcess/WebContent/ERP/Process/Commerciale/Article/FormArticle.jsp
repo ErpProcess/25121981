@@ -10,8 +10,6 @@ if("${bs.fct_id}"=="2")  {
 document.getElementById("Tr_arcodbar").style.display="block";
 document.getElementById("Tr_arcodbar_t").style.display="block";
  } 
-LoadAutoCompletAjax_with_marGin("clt_id","clt_lib","depot_id","listClientInit","250","100"); 
-LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle",null,"listDepotStockageInit","250","100");  
 });
  
 
@@ -57,37 +55,6 @@ function doAfficherCodeBar(levalde_type){
 		        <td  ><label>${ar_libelle}</label></td>
 		        <td   >
 		        <input id="ar_libelle" name="ar_libelle"  maxlength="100"   type="text"    size="48"    value="${detailBean.ar_libelle}"    nextElement="arcodbar"  />
-		        				   
-    <select name="basic[]" multiple="multiple" class="3col active"  style="width: 100px;">
-        <option value="AL">Alabama</option>
-        <option value="AK">Alaska</option>
-        <option value="AZ">Arizona</option>
-        <option value="AR">Arkansas</option>
-        <option value="CA">California</option>
-        <option value="CO">Colorado</option>
-        <option value="CT">Connecticut</option>
-        <option value="DE">Delaware</option>
-        <option value="FL">Florida</option>
-        <option value="GA">Georgia</option>
-        <option value="HI">Hawaii</option>
-        <option value="ID">Idaho</option>
-    </select>
-
-    <script>
-    $(function () {
-        $('select[multiple].active.3col').multiselect({
-            columns: 3,
-            placeholder: 'Select States',
-            search: true,
-            searchOptions: {
-                'default': 'Search States'
-            },
-            selectAll: true
-        });
-
-    });
-</script> 
-
 		        </td>
 		      </tr>
 		      <tr>
@@ -114,11 +81,14 @@ function doAfficherCodeBar(levalde_type){
 		        </td>
 		      </tr>
 		      
-		      <tr>
+  <tr>
 		        <td  ><label>${fam_id}</label></td>
 		        <td    > 
-		         <script  >  $(function() { loadSelectAjax("fam_idX","list_FamilleArticle","fam_id","fam_lib","${detailBean.fam_art.fam_id}",true);})</script>
-		            <select  id="fam_idX"      name="fam_art.fam_id"           style="width: 180px;"      nextElement="artyp"        required   ></select>
+		         <script  >  $(function() { 
+		        	 loadSelectAjax("fam_idX","list_FamilleArticle","fam_id","fam_lib","${detailBean.fam_art.fam_id}",true);
+		         })
+		        	 </script>
+		            <select  id="fam_idX"      name="fam_art.fam_id"         style="width: 180px;"      nextElement="artyp"        required   ></select>
 		        </td>
 		      </tr>
 		     
@@ -257,26 +227,46 @@ function doAfficherCodeBar(levalde_type){
 		       <tr>  
 		   		<td  ><label>Dépôt</label></td>  
 		   		<td    >  
-					   <input id="depot_id"      name="depot_id"       type="text"    size="10"       maxlength="10"        value=""   />  
-					   <input id="depot_libelle" name="depot_libelle"      type="text"    size="30"       maxlength="10"        value=""          />	
+		   		
+		   		  <script  >$(function() { 
+		         loadSelectAjax("depotSelect","listDepotStockageInit","depot_id","depot_libelle","${detailBean.depot_id}",false); 
+		          })</script>
+		          
+		            <select  id="depotSelect"  name="depot_id"      style="width: 50%;"        multiple       ></select>   
+ 
+ 
+ 				
+				
+				
 				</td>  
 		       </tr> 
   				<tr>  
 				   <td ><label>Client</label></td>  
 				   <td  >  
-				    <input id="clt_id" name="clt_id"           type="text"     size="10"             value=""   /> 
-					<input id="clt_lib" name="clt_lib"        type="text"      size="30"             value=""  />		  </td>  
-	           </tr> 
-	           
-	           <tr>  
-				   <td></td>  
-				   <td>
+				  
+					
+					
+						  <script  >$(function() { 
+		         loadSelectAjax("clientSelect","listClientInit","clt_id","clt_lib","${detailBean.clt_id}",false); 
+		          })
+		          
+		          function abcZED(eeeeee){
+							  alert($('#clientSelect').val());
+						  }
+		          
+		          </script>
+		          
+		            <select  id="clientSelect"  name="clt_id"    multiple        onchange="abcZED(this.value)"    ></select>   
+ 
+ 
+ 
 
-				   
-				   
-				   </td>  
+					
+					  </td>  
 	           </tr> 
 	           
+	          		      
+		    
 	           
 	          
 		      
@@ -296,3 +286,18 @@ function doAfficherCodeBar(levalde_type){
  
 </ext:panel>
 </ext:body>
+ <script>
+$(function () {
+    $('select[multiple]').multiselect({
+        columns: 3,
+        placeholder: 'Select States',
+        search: true,
+        searchOptions: {
+            'default': 'Search States'
+        },
+        selectAll: true
+    });
+
+});
+
+</script>
