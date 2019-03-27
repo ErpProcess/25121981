@@ -759,7 +759,25 @@ public ModelAndView doLoadInfoVente(TarificationBean detailBean ) throws Excepti
 		
 		try {
 			List   lisData                         =    (List) getObjectValueModel((String) getObjectValueModel(NAME_LIST_G)) ;
-			String [][]    mapFieldBean            =    (String[][]) getObjectValueModel(MAP_FIELD_BEAN) ;
+			  
+			
+			    String [][]    mapFieldBean            = new String[][] { { "date_trf", "18" },
+				{ "fkCode_barre.pk.code_barre", "30" },{ "fkCode_barre.designation_libelle", "30" }  ,
+				 
+				{ "tarif_unit_vente", "30" }, { "taux_remise", "15" }, { "tvaBean.tva_libelle", "10" } };
+				
+				
+				 JSONObject propertieField = 
+					       new JSONObject("{"+
+		                   "\"date_trf\": {\"title\": \"date_trf\",\"width\": 15 ,\"type\":\"string\", \"size\": 10 , \"align\": 2 },"+
+		                   "\"fkCode_barre.pk.code_barre\": {\"title\": \"code_barre\",\"width\": 20 ,\"type\":\"string\", \"size\": 10 , \"align\": 2 },"+
+		                   "\"fkCode_barre.designation_libelle\": {\"title\": \"designation_libelle\",\"width\": 30 ,\"type\":\"string\", \"size\": 10 , \"align\": 2 },"+
+		                   "\"tarif_unit_vente\": {\"title\": \"tarif_unit_vente\" ,\"type\":\"montant3\", \"size\": 10 , \"align\": 1 },"+
+		                   "\"taux_remise\": {\"title\": \"taux_remise\" ,\"type\":\"integer\", \"size\": 10 , \"align\": 1 },"+
+		                   "\"tvaBean.tva_libelle\": {\"title\": \"tva_libelle\" ,\"type\":\"string\", \"size\": 10 , \"align\": 1 },"+
+		                     "}");
+			 setObjectValueModel("propertieField",propertieField);
+			 
 			File file = new File(getRequest().getRealPath("/")+"/temp/"+(String)getObjectValueModel(NAME_LIST_G)+getRequest().getSession().getId()+".pdf");
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
 	        String [][]    map_critere_de_recherche=    (String[][]) getObjectValueModel(MAP_CRITERE_DE_RECHERCHE) ;
@@ -779,7 +797,7 @@ public ModelAndView doLoadInfoVente(TarificationBean detailBean ) throws Excepti
 			genpdf.doWriteTitle_Table(document,title);
 			genpdf.doWrite_Header_Table(table,mapFieldBean);
 			
-			doWrite_Data_Table(lisData,table,mapFieldBean);
+			genpdf.doWrite_Data_Table(lisData,table,mapFieldBean);
 		    document.add(table);
 		    document.close();
 			getResponse().setContentType("text");

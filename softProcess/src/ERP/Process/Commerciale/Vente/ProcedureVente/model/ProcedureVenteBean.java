@@ -156,7 +156,8 @@ public class ProcedureVenteBean extends GenericBean {
 	private Double montant_vente_rendu;
 	
 	
-	
+	@Transient
+	private String fam_id;
 
 	@Column
 	private String vente_obs = "";
@@ -676,6 +677,14 @@ public class ProcedureVenteBean extends GenericBean {
 
 	public void setIsVente(Boolean isVente) {
 		this.isVente = isVente;
+	}
+
+	public String getFam_id() {
+		return fam_id;
+	}
+
+	public void setFam_id(String fam_id) {
+		this.fam_id = fam_id;
 	}
 
 	 

@@ -143,7 +143,7 @@ function doAfficherCodeBar(levalde_type){
 		        <td width="150px"><label>${etab_id}</label></td>
 		        <td    >
 		        <script >$(function() {   if( "${bs.fct_id}"=="1") { LoadOtherAutocompletesAjax("soc_idXX","i$_ACT_LOAD_ETAB","pk_etab.etab_id","etab_lib","possede_date_peremption");}});</script>
-		        <input idonly  id="pk_etab.etab_id"  name="pk_article.etabBean.pk_etab.etab_id"  size="7"  type="text"  value="${detailBean.pk_article.etabBean.pk_etab.etab_id}"      required   />
+		        <input idonly  id="pk_etab.etab_id"  name="pk_article.etabBean.pk_etab.etab_id"  size="4"  type="text"  value="${detailBean.pk_article.etabBean.pk_etab.etab_id}"      required   />
 		        <input idonly  id="etab_lib"         name="pk_article.etabBean.etab_lib"   type="text"  size="30"  value="${detailBean.pk_article.etabBean.etab_lib}"                   required />
 		        </td>
 		      </tr>
@@ -250,13 +250,10 @@ function doAfficherCodeBar(levalde_type){
 		         loadSelectAjax("clientSelect","listClientInit","clt_id","clt_lib","${detailBean.clt_id}",false); 
 		          })
 		          
-		          function abcZED(eeeeee){
-							  alert($('#clientSelect').val());
-						  }
-		          
+		           
 		          </script>
 		          
-		            <select  id="clientSelect"  name="clt_id"    multiple        onchange="abcZED(this.value)"    ></select>   
+		            <select  id="clientSelect"  name="clt_id"    multiple         ></select>   
  
  
  

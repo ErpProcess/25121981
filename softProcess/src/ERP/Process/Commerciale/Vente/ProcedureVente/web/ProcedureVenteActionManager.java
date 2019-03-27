@@ -899,24 +899,25 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	     tBean.setDernierPrix(true);
 	     tBean.setDate_trf3(searchBean.getVente_date());
 	     tBean.setCondition_cathegorie("'map'");
-	     
-	     tBean.setMethode_prix("   AND  (bean.tarif_lot is null or  bean.tarif_lot is false)  AND   bean.num_serie is null   AND  bean.depot.depot_id  is null   ");
-	     tBean.setMethode_prix2("  AND  (BA.tarif_lot is null   or  BA.tarif_lot is false)    AND   BA.num_serie is null     AND  bean.depot.depot_id  is null   ");
+	     tBean.getFkCode_barre().getPk().getAr_bean().getFam_art().setFam_id(searchBean.getFam_id());
+
+	    // tBean.setMethode_prix("   AND  (bean.tarif_lot is null or  bean.tarif_lot is false)  AND   bean.num_serie is null   AND  bean.depot.depot_id  is null   ");
+	     //tBean.setMethode_prix2("  AND  (BA.tarif_lot is null   or  BA.tarif_lot is false)    AND   BA.num_serie is null     AND  bean.depot.depot_id  is null   ");
          List<TarificationBean> list_Tarification_vente  = serviceTarification.doFetchDatafromServer(tBean);
          
 	    
  
 		 HashMap mapTarification_vente_article      =   serviceTarification.doTraiTerListTarif_vente(list_Tarification_vente);
 		 
-		 LieuxArticleBean   lieuxArticleBean = new LieuxArticleBean();
-		 lieuxArticleBean.getPk().setLieu(searchBean.getDepot());
-		 ClientArticleBean   cltBean = new ClientArticleBean();
-		 cltBean.getPk().setClient(searchBean.getClient());
+//		 LieuxArticleBean   lieuxArticleBean = new LieuxArticleBean();
+//		 lieuxArticleBean.getPk().setLieu(searchBean.getDepot());
+//		 ClientArticleBean   cltBean = new ClientArticleBean();
+//		 cltBean.getPk().setClient(searchBean.getClient());
 		 
-		 List<LieuxArticleBean>  list_LieuxArcticle    =   serviceArticle.doFindLieuxArcticle(lieuxArticleBean);
-		 List<ClientArticleBean> list_ProduitClient    =   serviceArticle.doFindProduitClient(cltBean);
-		 HashMap mapClientArticleBean                  =   ProcessUtil.getHashMap_code_bean(list_ProduitClient, "pk.ref.pk.code_barre");
-		 HashMap mapLieuxArticleBean                   =   ProcessUtil.getHashMap_code_bean(list_LieuxArcticle, "pk.ref.pk.code_barre");
+//		 List<LieuxArticleBean>  list_LieuxArcticle    =   serviceArticle.doFindLieuxArcticle(lieuxArticleBean);
+//		 List<ClientArticleBean> list_ProduitClient    =   serviceArticle.doFindProduitClient(cltBean);
+//		 HashMap mapClientArticleBean                  =   ProcessUtil.getHashMap_code_bean(list_ProduitClient, "pk.ref.pk.code_barre");
+//		 HashMap mapLieuxArticleBean                   =   ProcessUtil.getHashMap_code_bean(list_LieuxArcticle, "pk.ref.pk.code_barre");
 		 HashMap mapTarific_vente                      =   ProcessUtil.getHashMap_Key_List_FromList(list_Tarification_vente, "groupe.type_trf_id");
 		
 		 
@@ -937,7 +938,7 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	    	String Key=ta.getFkCode_barre().getPk().getCode_barre();
 	    	String article=(String) map_article.get(Key);
 	    	 
-	    	if(article==null  && mapClientArticleBean.get(Key)!=null  &&  mapLieuxArticleBean.get(Key)!=null){
+	    	if(article==null  ) {//&& mapClientArticleBean.get(Key)!=null  &&  mapLieuxArticleBean.get(Key)!=null){
 	    		list_article.add(ta.getFkCode_barre());
 	    		map_article.put(Key, "existe");
 	    	}
@@ -946,7 +947,7 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 		    	TarificationBean  ta=(TarificationBean)listTarif_public.get(i);
 		    	String Key=ta.getFkCode_barre().getPk().getCode_barre();
 		    	String ar=(String) map_article.get(Key);
-		    	if(ar==null  && mapClientArticleBean.get(Key)!=null  &&  mapLieuxArticleBean.get(Key)!=null  ){
+		    	if(ar==null  ) {// && mapClientArticleBean.get(Key)!=null  &&  mapLieuxArticleBean.get(Key)!=null  ){
 		    		list_article.add(ta.getFkCode_barre());
 		    	}
 		    }
@@ -973,21 +974,22 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	     tBean.setDernierPrix(true);
 	     tBean.setDate_trf3(searchBean.getVente_date());
 	     tBean.setCondition_cathegorie("'srv'");
-	     
-	     tBean.setMethode_prix("   AND  (bean.tarif_lot is null or  bean.tarif_lot is false)  AND   bean.num_serie is null   AND  bean.depot.depot_id  is null   ");
-	     tBean.setMethode_prix2("  AND  (BA.tarif_lot is null   or  BA.tarif_lot is false)    AND   BA.num_serie is null     AND  bean.depot.depot_id  is null   ");
+	     tBean.getFkCode_barre().getPk().getAr_bean().getFam_art().setFam_id(searchBean.getFam_id());
+
+	     //tBean.setMethode_prix("   AND  (bean.tarif_lot is null or  bean.tarif_lot is false)  AND   bean.num_serie is null   AND  bean.depot.depot_id  is null   ");
+	     //tBean.setMethode_prix2("  AND  (BA.tarif_lot is null   or  BA.tarif_lot is false)    AND   BA.num_serie is null     AND  bean.depot.depot_id  is null   ");
          List<TarificationBean> list_Tarification_vente  = serviceTarification.doFetchDatafromServer(tBean);
 		 HashMap mapTarification_vente_article      =   serviceTarification.doTraiTerListTarif_vente(list_Tarification_vente);
 		 
-		 LieuxArticleBean   lieuxServiceBean = new LieuxArticleBean();
-		 lieuxServiceBean.getPk().setLieu(searchBean.getDepot());
-		 ClientArticleBean   cltBean = new ClientArticleBean();
-		 cltBean.getPk().setClient(searchBean.getClient());
+//		 LieuxArticleBean   lieuxServiceBean = new LieuxArticleBean();
+//		 lieuxServiceBean.getPk().setLieu(searchBean.getDepot());
+//		 ClientArticleBean   cltBean = new ClientArticleBean();
+//		 cltBean.getPk().setClient(searchBean.getClient());
 		 
-		 List<LieuxArticleBean>  listLieuxService      =   serviceArticle.doFindLieuxArcticle(lieuxServiceBean);
-		 List<ClientArticleBean> listServiceClient     =   serviceArticle.doFindProduitClient(cltBean);
-		 HashMap mapClientArticleBean                  =   ProcessUtil.getHashMap_code_bean(listServiceClient, "pk.ref.pk.code_barre");
-		 HashMap mapLieuxArticleBean                   =   ProcessUtil.getHashMap_code_bean(listLieuxService, "pk.ref.pk.code_barre");
+//		 List<LieuxArticleBean>  listLieuxService      =   serviceArticle.doFindLieuxArcticle(lieuxServiceBean);
+//		 List<ClientArticleBean> listServiceClient     =   serviceArticle.doFindProduitClient(cltBean);
+//		 HashMap mapClientArticleBean                  =   ProcessUtil.getHashMap_code_bean(listServiceClient, "pk.ref.pk.code_barre");
+//		 HashMap mapLieuxArticleBean                   =   ProcessUtil.getHashMap_code_bean(listLieuxService, "pk.ref.pk.code_barre");
 		 HashMap mapTarific_vente                      =   ProcessUtil.getHashMap_Key_List_FromList(list_Tarification_vente, "groupe.type_trf_id");
 		
 		 
@@ -1008,7 +1010,7 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	    	String Key=ta.getFkCode_barre().getPk().getCode_barre();
 	    	String article=(String) mapService.get(Key);
 	    	 
-	    	if(article==null  && mapClientArticleBean.get(Key)!=null  &&  mapLieuxArticleBean.get(Key)!=null){
+	    	if(article==null ) { // && mapClientArticleBean.get(Key)!=null  &&  mapLieuxArticleBean.get(Key)!=null){
 	    		list_article.add(ta.getFkCode_barre());
 	    		mapService.put(Key, "existe");
 	    	}
@@ -1017,7 +1019,7 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 		    	TarificationBean  ta=(TarificationBean)listTarif_public.get(i);
 		    	String Key=ta.getFkCode_barre().getPk().getCode_barre();
 		    	String ar=(String) mapService.get(Key);
-		    	if(ar==null  && mapClientArticleBean.get(Key)!=null  &&  mapLieuxArticleBean.get(Key)!=null  ){
+		    	if(ar==null ) { //  && mapClientArticleBean.get(Key)!=null  &&  mapLieuxArticleBean.get(Key)!=null  ){
 		    		list_article.add(ta.getFkCode_barre());
 		    	}
 		    }
@@ -1044,9 +1046,9 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	     tBean.setDernierPrix(true);
 	     tBean.setDate_trf3(searchBean.getVente_date());
 	     tBean.setCondition_cathegorie("'mar','syn'");
-	     
-	     tBean.setMethode_prix("   AND  (bean.tarif_lot is null or  bean.tarif_lot is false)  AND   bean.num_serie is null   AND  bean.depot.depot_id  is null   ");
-	     tBean.setMethode_prix2("  AND  (BA.tarif_lot is null   or  BA.tarif_lot is false)    AND   BA.num_serie is null     AND  bean.depot.depot_id  is null   ");
+	     tBean.getFkCode_barre().getPk().getAr_bean().getFam_art().setFam_id(searchBean.getFam_id());
+	     //tBean.setMethode_prix("   AND  (bean.tarif_lot is null or  bean.tarif_lot is false)  AND   bean.num_serie is null   AND  bean.depot.depot_id  is null   ");
+	    // tBean.setMethode_prix2("  AND  (BA.tarif_lot is null   or  BA.tarif_lot is false)    AND   BA.num_serie is null     AND  bean.depot.depot_id  is null   ");
          List<TarificationBean> list_Tarification_vente  = serviceTarification.doFetchDatafromServer(tBean);
        
 	    
@@ -1058,10 +1060,10 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 		 ClientArticleBean   cltBean = new ClientArticleBean();
 		 cltBean.getPk().setClient(searchBean.getClient());
 		 
-		 List<LieuxArticleBean>  list_LieuxArcticle    =   serviceArticle.doFindLieuxArcticle(lieuxArticleBean);
-		 List<ClientArticleBean> list_ProduitClient    =   serviceArticle.doFindProduitClient(cltBean);
-		 HashMap mapClientArticleBean                  =   ProcessUtil.getHashMap_code_bean(list_ProduitClient, "pk.ref.pk.code_barre");
-		 HashMap mapLieuxArticleBean                   =   ProcessUtil.getHashMap_code_bean(list_LieuxArcticle, "pk.ref.pk.code_barre");
+//		 List<LieuxArticleBean>  list_LieuxArcticle    =   serviceArticle.doFindLieuxArcticle(lieuxArticleBean);
+//		 List<ClientArticleBean> list_ProduitClient    =   serviceArticle.doFindProduitClient(cltBean);
+//		 HashMap mapClientArticleBean                  =   ProcessUtil.getHashMap_code_bean(list_ProduitClient, "pk.ref.pk.code_barre");
+//		 HashMap mapLieuxArticleBean                   =   ProcessUtil.getHashMap_code_bean(list_LieuxArcticle, "pk.ref.pk.code_barre");
 		 HashMap mapTarific_vente                      =   ProcessUtil.getHashMap_Key_List_FromList(list_Tarification_vente, "groupe.type_trf_id");
 		
 		 
@@ -1082,18 +1084,18 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	    	String Key=ta.getFkCode_barre().getPk().getCode_barre();
 	    	String article=(String) map_article.get(Key);
 	    	 
-	    	if(article==null  && mapClientArticleBean.get(Key)!=null  &&  mapLieuxArticleBean.get(Key)!=null){
+	    	 if(article==null  ) { //&& mapClientArticleBean.get(Key)!=null  &&  mapLieuxArticleBean.get(Key)!=null){
 	    		list_article.add(ta.getFkCode_barre());
 	    		map_article.put(Key, "existe");
-	    	}
+	    	 }
 	    }
 		    for (int i = 0; i < listTarif_public.size(); i++) {
 		    	TarificationBean  ta=(TarificationBean)listTarif_public.get(i);
 		    	String Key=ta.getFkCode_barre().getPk().getCode_barre();
 		    	String ar=(String) map_article.get(Key);
-		    	if(ar==null  && mapClientArticleBean.get(Key)!=null  &&  mapLieuxArticleBean.get(Key)!=null  ){
+		    	 if(ar==null ) { //  && mapClientArticleBean.get(Key)!=null  &&  mapLieuxArticleBean.get(Key)!=null  ){
 		    		list_article.add(ta.getFkCode_barre());
-		    	}
+		    	 }
 		    }
 	     setObjectValueModel(LIST_ARTICLE_VENTE        , list_article);
 		 setObjectValueModel(LIST_ARTICLE_VENTE_ORIGINE, ProcessUtil.cloneList(list_article));

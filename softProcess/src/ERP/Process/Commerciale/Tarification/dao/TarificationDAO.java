@@ -63,6 +63,9 @@ public class TarificationDAO extends  GenericWeb    {
 		 if( !StringUtils.isEmpty(beanSearch.getFkCode_barre().getPk().getCode_barre()) )  
 			    requette+="   AND   bean.fkCode_barre.pk.code_barre = '"+beanSearch.getFkCode_barre().getPk().getCode_barre()+"'        ";
 		 
+		 if( !StringUtils.isEmpty(beanSearch.getFkCode_barre().getPk().getAr_bean().getFam_art().getFam_id()) )  
+			    requette+="   AND   bean.fkCode_barre.pk.ar_bean.fam_art.fam_id = '"+beanSearch.getFkCode_barre().getPk().getAr_bean().getFam_art().getFam_id()+"'        ";
+		 
 		 
 		 if( !StringUtils.isEmpty(beanSearch.getOperation()) &&    beanSearch.getTaux_remise()!=null  )  
 			    requette+="   AND   bean.taux_remise  "+beanSearch.getOperation()+"  "+beanSearch.getTaux_remise()+"       ";

@@ -36,9 +36,9 @@ public class TarificationTemplate extends TemplateGeneric {
 	public static String		LIST_DATA					= "Tarification-List";
 	public static String		NAME_GRID					= "Tarification-Grid";
 	public static String[][]	MapfieldBean				= new String[][] { { "date_trf", "18" },
-			{ "fkCode_barre.pk.code_barre", "30" },{ "fkCode_barre.designation_libelle", "30" } ,  { "groupe.type_trf_lib", "30" },
-			{ "cout.tarif_unit_article", "30" },
-			{ "tarif_unit_vente", "30" }, { "taux_remise", "15" }, { "tvaBean.tva_libelle", "10" },{ "modeBean.fct_libelle", "17" } };
+			{ "fkCode_barre.pk.code_barre", "30" },{ "fkCode_barre.designation_libelle", "30" }  ,
+	
+			{ "tarif_unit_vente", "30" }, { "taux_remise", "15" }, { "tvaBean.tva_libelle", "10" }  };
 	
 	 
 	

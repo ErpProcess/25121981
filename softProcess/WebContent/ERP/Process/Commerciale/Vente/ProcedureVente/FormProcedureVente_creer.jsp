@@ -15,7 +15,68 @@ var  config_header_foot_tableJQuey3 ='<"ui-toolbar ui-widget-header ui-corner-tl
 
 <script type="text/javascript">
 
+
+ 
+var mapEditableGenArticle = {            
+		"otab"   :oTable,
+        "table"  :"GRID_SAISIE_DETAIL_VENTE",
+        "list"   :"list_editable_proVente",
+        "id_name":"pk.fkcode_barre.pk.code_barre",
+        "url"    :"${urlloadDataTableAjax}",
+        "action" :"i$_ACT_LOAD_EDITABLE_TABLE_AJAX",
+        "mapCol" :[ 
+				       {      "sName": "indx_row"  ,"bSearchable": false  , "bSortable": false,"bVisible": false }, 
+				       
+				       {      "sName": "to_check"     ,"sWidth": "2%"   ,"bSortable": true     , "mRender": function( data, type, full){
+				              return  '<input  type="checkbox" value="'+data+'"   id=to_check'+full[2]+' name=to_check    '+data+'   onclick=doEnvoiDataV2(this,"'+full[2]+'")       nextElement="pk.code_barre'+full[2]+'"   >';}}, 
+				                  
+					   {      "sName": "pk.fkcode_barre.pk.code_barre"   ,"sWidth": "10%"    }, 
+					         
+					   {      "sName": "info"    ,"sWidth": "30%"   },   
+				   
+					    
+					   
+   			       {      "sName": "quantite_en_stock"        , "sWidth": "5%"     ,"bSearchable": true  , "bSortable": true,"bVisible": true  },           
+					                 
+					   {      "sName": "quantite"           ,   "bSortable": true       , "sWidth": "5%"        ,"mRender": function( data, type, full){  
+					          return '<input   type="number"      style="width:70px;"     id=quantite'+full[0]+'       name=quantite        value="'+data+'"       onblur=doEnvoiDataV2(this,"'+full[2]+'")     nextElement="quantite'+full[12]+'"     >'; }},   
+					  
+					   {      "sName": "unite"   ,"sWidth": "5%"     ,"bSearchable": true },
+					    
+					   {      "sTitle":"TVA" , "sName": "tarif.tvaBean.tva_libelle"  ,"sClass" : "alignCenter"  ,"sWidth": "5%"   , "bSortable": true ,"bVisible": true  },           
+					           
+					   {      "sTitle":"Prix U"    , "sName": "tarif.tarif_unit_vente"   ,"sWidth": "10%"    ,"sClass" : "alignRight"       , "bSortable": true 
+                           , "mRender":    function (data, type, full) {   if( $("#devX").val()=="191"  ||  $("#devX").val()=="192") return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },
+                           
+                    {      "sTitle":"remise"     , "sName": "taux_remise_ligne"     ,"sWidth": "7%"    ,"sClass" : "alignCenter"    , "bSortable": true    
+                           , "mRender": function (data, type, full) {  return addPourcentage(data);}  ,"bVisible": true    },           
+                 
+                    {      "sTitle":"Total H T" , "sName": "montant_ht_vente"    ,"sWidth": "10%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
+                           ,"mRender":    function (data, type, full) {    if( $("#devX").val()=="191"  ||  $("#devX").val()=="192")  return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },
+                   
+                    {      "sTitle":"Total TTC" , "sName": "montant_ttc_vente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
+                           ,"mRender":    function (data, type, full) {   if( $("#devX").val()=="191"  ||  $("#devX").val()=="192")   return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },         
+					   {      "sName": "indx_row_next"        ,"bSearchable": false  , "bSortable": false,"bVisible": false },       
+                         ]
+};
+                               
 $(document).ready(function () {
+ 
+
+	
+		 
+
+ LoadDataEditableFromServer_toolbarV22( oTable24, mapEditableGen2  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
+ config_header_foot_tableJQuey2   ,"toolbar_fourniture" ,contenu_toolbarJQuey2  );
+		 
+
+	 
+ LoadDataEditableFromServerPrestation( oTable24, mapEditableGenPrs  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
+ config_header_foot_tableJQuey3   ,"toolbar_Service" ,contenu_toolbarJQuey3  );
+		 
+	
+	
+	
 if(custumMessageBoxo!=""){
 
 var messageBoxx='Confirmer';
@@ -59,47 +120,6 @@ else  return " Veillez Remplir Le détaille de Vente ";
  
 }
 
-mapEditableGen = {            "otab"   :oTable,
-                               "table"  :"GRID_SAISIE_DETAIL_VENTE",
-                               "list"   :"list_editable_proVente",
-                               "id_name":"pk.fkcode_barre.pk.code_barre",
-                               "url"    :"${urlloadDataTableAjax}",
-                               "action" :"i$_ACT_LOAD_EDITABLE_TABLE_AJAX",
-                               "mapCol" :[ 
-									       {      "sName": "indx_row"  ,"bSearchable": false  , "bSortable": false,"bVisible": false }, 
-									       
-									       {      "sName": "to_check"     ,"sWidth": "2%"   ,"bSortable": true     , "mRender": function( data, type, full){
-									              return  '<input  type="checkbox" value="'+data+'"   id=to_check'+full[2]+' name=to_check    '+data+'   onclick=doEnvoiDataV2(this,"'+full[2]+'")       nextElement="pk.code_barre'+full[2]+'"   >';}}, 
-									                  
-										   {      "sName": "pk.fkcode_barre.pk.code_barre"   ,"sWidth": "10%"    }, 
-										         
-										   {      "sName": "info"    ,"sWidth": "30%"   },   
-									   
-										    
-										   
-				          			       {      "sName": "quantite_en_stock"        , "sWidth": "5%"     ,"bSearchable": true  , "bSortable": true,"bVisible": true  },           
-										                 
-										   {      "sName": "quantite"           ,   "bSortable": true       , "sWidth": "5%"        ,"mRender": function( data, type, full){  
-										          return '<input   type="number"      style="width:70px;"     id=quantite'+full[0]+'       name=quantite        value="'+data+'"       onblur=doEnvoiDataV2(this,"'+full[2]+'")     nextElement="quantite'+full[12]+'"     >'; }},   
-										  
-										   {      "sName": "unite"   ,"sWidth": "5%"     ,"bSearchable": true },
-										    
-										   {      "sTitle":"TVA" , "sName": "tarif.tvaBean.tva_libelle"  ,"sClass" : "alignCenter"  ,"sWidth": "5%"   , "bSortable": true ,"bVisible": true  },           
-										           
-										   {      "sTitle":"Prix U"    , "sName": "tarif.tarif_unit_vente"   ,"sWidth": "10%"    ,"sClass" : "alignRight"       , "bSortable": true 
-	                                              , "mRender":    function (data, type, full) {   if( $("#devX").val()=="191"  ||  $("#devX").val()=="192") return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },
-	                                              
-	                                       {      "sTitle":"remise"     , "sName": "taux_remise_ligne"     ,"sWidth": "7%"    ,"sClass" : "alignCenter"    , "bSortable": true    
-	                                              , "mRender": function (data, type, full) {  return addPourcentage(data);}  ,"bVisible": true    },           
-	                                    
-	                                       {      "sTitle":"Total H T" , "sName": "montant_ht_vente"    ,"sWidth": "10%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
-	                                              ,"mRender":    function (data, type, full) {    if( $("#devX").val()=="191"  ||  $("#devX").val()=="192")  return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },
-	                                      
-	                                       {      "sTitle":"Total TTC" , "sName": "montant_ttc_vente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
-	                                              ,"mRender":    function (data, type, full) {   if( $("#devX").val()=="191"  ||  $("#devX").val()=="192")   return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },         
-										   {      "sName": "indx_row_next"        ,"bSearchable": false  , "bSortable": false,"bVisible": false },       
-	                                            ]
-                               };
     
 var oTable23;
 var oTable24;
@@ -327,6 +347,7 @@ function getSuivant(panelName){
     
 if(!teste_required()) return ;
 
+
  
 $("#choixPanel").val(panelName);
   
@@ -350,30 +371,30 @@ $("#clt_lib").autocomplete({
     }
 });
 
-$("#depot_id").autocomplete({ 
-    maxResults: 10,
-    source: function(request, response) {
-        var results = $.ui.autocomplete.filter(src, request.term);
-        response(results.slice(0, this.options.maxResults));
-    }
-});
+// $("#depot_id").autocomplete({ 
+//     maxResults: 10,
+//     source: function(request, response) {
+//         var results = $.ui.autocomplete.filter(src, request.term);
+//         response(results.slice(0, this.options.maxResults));
+//     }
+// });
 
-$("#depot_libelle").autocomplete({ 
-    maxResults: 10,
-    source: function(request, response) {
-        var results = $.ui.autocomplete.filter(src, request.term);
-        response(results.slice(0, this.options.maxResults));
-    }
-});
+// $("#depot_libelle").autocomplete({ 
+//     maxResults: 10,
+//     source: function(request, response) {
+//         var results = $.ui.autocomplete.filter(src, request.term);
+//         response(results.slice(0, this.options.maxResults));
+//     }
+// });
 
   $('#devX').attr("readonly","readonly");
   $('#clt_id').attr("readonly","readonly");
   $('#clt_lib').attr("readonly","readonly");
-  $('#depot_id').attr("readonly","readonly");
-  $('#depot_libelle').attr("readonly","readonly");
+//   $('#depot_id').attr("readonly","readonly");
+//   $('#depot_libelle').attr("readonly","readonly");
   $('#GRID_SAISIE_DETAIL_VENTE').css('display','block');
   Ext.getCmp('sdsfgrgrgpll').show();
-  Ext.getCmp('btnnext').disable();
+//   Ext.getCmp('btnnext').disable();
  // document.getElementById('btnnext').disabled=true;
      
    
@@ -381,20 +402,21 @@ $("#depot_libelle").autocomplete({
  Ext.getCmp('RET_GRID').setTitle(' Détaille Vente ');
     
 if(panelName=='article'){
- Ext.getCmp("RET_GRID").show();
- LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
- config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
+	
+	Ext.getCmp("RET_GRID").show();
+	LoadDataEditableFromServer_toolbar( mapEditableGenArticle  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
+	config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
+	
 }
 
 if(panelName=='fourniture'){
-  LoadDataEditableFromServer_toolbarV22( oTable24, mapEditableGen2  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
-  config_header_foot_tableJQuey2   ,"toolbar_fourniture" ,contenu_toolbarJQuey2  );
+	 otab_otra2.fnAdjustColumnSizing();
+ 
 }
 
 if(panelName=='prestation'){
- LoadDataEditableFromServerPrestation( oTable24, mapEditableGenPrs  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
-  config_header_foot_tableJQuey3   ,"toolbar_Service" ,contenu_toolbarJQuey3  );
-}
+	otab_otraPrestation.fnAdjustColumnSizing();
+ }
 
 
 
@@ -406,7 +428,7 @@ function doExcuteFnAfterGrid( dataSS ){
       var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_ACTUALISER_TABLE','json',false);
      
       
-       $('#'+mapEditableGen["table"]+' tbody tr').each(function () {
+       $('#'+mapEditableGenArticle["table"]+' tbody tr').each(function () {
           //var qsdqsqd = $(this).find('td:eq(1)').find(':input[type="text"]').eq(0).attr('value') ;
             var qsdqsqd = $(this).find('td:eq(1)').html() ;
             var QteNew="Qte"+qsdqsqd;
@@ -507,7 +529,7 @@ function doExcuteFnAfterGrid( dataSS ){
 		   <td  ><label>Famille</label></td>  
 		   <td   > 
 		   <script  >  $(function() { loadSelectAjax("fam_idX","listFamArticleOfvente","fam_id","fam_lib","",true);})</script>
-		   <select  id="fam_idX"      name="fam_art.fam_id"           style="width: 180px;"      nextElement="artyp"            ></select>
+		   <select  id="fam_idX"      name="fam_id"           style="width: 180px;"      nextElement="artyp"            ></select>
 		   
 		   </td>  
 		   <td   >&nbsp;</td>

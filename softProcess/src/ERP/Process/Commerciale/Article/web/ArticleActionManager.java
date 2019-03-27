@@ -172,6 +172,10 @@ public class ArticleActionManager extends ArticleTemplate {
 			HashMap mapTva =  ProcessUtil.getHashMap_code_bean(list_tvList, "tva_id");
 			setObjectValueModel("mapTva", mapTva);
 			setObjectValueModel("list_tvList",list_tvList);
+			
+			
+			setObjectValueModel("listDepotStockageInit" , daoDepotStockage.doFindListDepotStockage(DepotStockageBean.class.newInstance()));
+			setObjectValueModel("listClientInit"        ,serviceClient.doFetchDatafromServer(ClientBean.class.newInstance()));
 			 
 			Code_barreBean searchBeanx=new Code_barreBean();
 		    //searchBeanx.getPk().getAr_bean().getPk_article().setAr_id(ar_id) ;
@@ -186,11 +190,6 @@ public class ArticleActionManager extends ArticleTemplate {
 			}
 			
 			if (bs.getFct_id().equals(Fn_Nouveau)) { 
-				 
-				setObjectValueModel("listDepotStockageInit" , daoDepotStockage.doFindListDepotStockage(DepotStockageBean.class.newInstance()));
-				setObjectValueModel("listClientInit" ,serviceClient.doFetchDatafromServer(ClientBean.class.newInstance()));
-				 
-				
 				return getViewAdd(FORM_VIEW);
 				
 			}else if(bs.getFct_id().equals(Fn_Client)){	

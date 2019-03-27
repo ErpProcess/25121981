@@ -396,85 +396,89 @@ public class ProcessFormatNbr  extends GenericWeb  {
 	 
 	public static Double  ArrondissmentDouble(Double mnt ) {
  
-		if(mnt.doubleValue()==0)  return new Double(0);
-		String mntString=mnt.toString();
-		 
-		int index=mntString.indexOf(".");
+		if(mnt.doubleValue()==0) 
+			return new Double(0);
+		else
+			return mnt;
 		
-		if(index!=-1) {
-			 String mntStringApresVirgul=mntString.substring(index+1);
-			 NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
-			
-			 
-			if(mntStringApresVirgul.length()==1  ||  mntStringApresVirgul.length()==2 ) { 
-				 String sNumberFormat = numberFormat.format(mnt).replace(numberFormat.getCurrency().getSymbol(), "");
-				 int virgule=sNumberFormat.indexOf(",");
-				 int index2= sNumberFormat.indexOf(".");
-				 sNumberFormat= cleanEspace(sNumberFormat); 
-				 if(virgule!=-1 && index2==-1 ) {
-					 sNumberFormat= sNumberFormat.replace(",", "."); 
-				 }
-				 if(virgule!=-1 && index2!=-1 ) {
-					 sNumberFormat= sNumberFormat.replace(",", ""); 
-				 }
-				 return Double.parseDouble(sNumberFormat);	 
-			}
-			 
-			if(mntStringApresVirgul.length()==3 ) {
-			
-			  if( mntStringApresVirgul.endsWith("1") ||   mntStringApresVirgul.endsWith("2")  ||   mntStringApresVirgul.endsWith("8") ||   mntStringApresVirgul.endsWith("9") ) {
-				  
-					
-				  
-					 String sNumberFormat = numberFormat.format(mnt).replace(numberFormat.getCurrency().getSymbol(), "");
-					 int virgule=sNumberFormat.indexOf(",");
-					 int index2= sNumberFormat.indexOf(".");
-					 sNumberFormat= cleanEspace(sNumberFormat);
-					 if(virgule!=-1 && index2==-1 ) {
-						 sNumberFormat= sNumberFormat.replace(",", "."); 
-					 }
-					 if(virgule!=-1 && index2!=-1 ) {
-						 sNumberFormat= sNumberFormat.replace(",", ""); 
-					 }
-					 
-					 return Double.parseDouble(sNumberFormat);	 
-			  }
-				
-			  if( mntStringApresVirgul.endsWith("3") ||   mntStringApresVirgul.endsWith("4")  ) {
-					
-				  
-					 String sNumberFormat = numberFormat.format(mnt).replace(numberFormat.getCurrency().getSymbol(), "");
-					 int virgule=sNumberFormat.indexOf(",");
-					 int index2= sNumberFormat.indexOf(".");
-					 sNumberFormat= cleanEspace(sNumberFormat);
-					 if(virgule!=-1 && index2==-1 ) {
-						 sNumberFormat= sNumberFormat.replace(",", "."); 
-					 }
-					 if(virgule!=-1 && index2!=-1 ) {
-						 sNumberFormat= sNumberFormat.replace(",", ""); 
-					 }
-					 return Double.parseDouble(sNumberFormat+"5");	 
-					 
-					 
-			  }
-			  
-			  
-			  if( mntStringApresVirgul.endsWith("6") ||   mntStringApresVirgul.endsWith("7")  ) {
-				     
-				  StringBuffer aBuffer = new StringBuffer(mntStringApresVirgul);
-				  aBuffer.setCharAt(aBuffer.length()-1, '5');
-				  
-				  String apresVirgule="."+aBuffer.toString();
-				  String montantInteger =mntString.substring(0, index);
-				  montantInteger=montantInteger.replace(",", "");
-				  montantInteger=montantInteger.replaceAll(" ", ""); 
-				  String montant =montantInteger+apresVirgule;
-				  return Double.parseDouble(montant);
-				  
-			  }
-			}
-		}
-		 return mnt;
+//		String mntString=mnt.toString();
+//		 
+//		int index=mntString.indexOf(".");
+//		
+//		if(index!=-1) {
+//			 String mntStringApresVirgul=mntString.substring(index+1);
+//			 NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+//			
+//			 
+//			if(mntStringApresVirgul.length()==1  ||  mntStringApresVirgul.length()==2 ) { 
+//				 String sNumberFormat = numberFormat.format(mnt).replace(numberFormat.getCurrency().getSymbol(), "");
+//				 int virgule=sNumberFormat.indexOf(",");
+//				 int index2= sNumberFormat.indexOf(".");
+//				 sNumberFormat= cleanEspace(sNumberFormat); 
+//				 if(virgule!=-1 && index2==-1 ) {
+//					 sNumberFormat= sNumberFormat.replace(",", "."); 
+//				 }
+//				 if(virgule!=-1 && index2!=-1 ) {
+//					 sNumberFormat= sNumberFormat.replace(",", ""); 
+//				 }
+//				 return Double.parseDouble(sNumberFormat);	 
+//			}
+//			 
+//			if(mntStringApresVirgul.length()==3 ) {
+//			
+//			  if( mntStringApresVirgul.endsWith("1") ||   mntStringApresVirgul.endsWith("2")  ||   mntStringApresVirgul.endsWith("8") ||   mntStringApresVirgul.endsWith("9") ) {
+//				  
+//					
+//				  
+//					 String sNumberFormat = numberFormat.format(mnt).replace(numberFormat.getCurrency().getSymbol(), "");
+//					 int virgule=sNumberFormat.indexOf(",");
+//					 int index2= sNumberFormat.indexOf(".");
+//					 sNumberFormat= cleanEspace(sNumberFormat);
+//					 if(virgule!=-1 && index2==-1 ) {
+//						 sNumberFormat= sNumberFormat.replace(",", "."); 
+//					 }
+//					 if(virgule!=-1 && index2!=-1 ) {
+//						 sNumberFormat= sNumberFormat.replace(",", ""); 
+//					 }
+//					 
+//					 return Double.parseDouble(sNumberFormat);	 
+//			  }
+//				
+//			  if( mntStringApresVirgul.endsWith("3") ||   mntStringApresVirgul.endsWith("4")  ) {
+//					
+//				  
+//					 String sNumberFormat = numberFormat.format(mnt).replace(numberFormat.getCurrency().getSymbol(), "");
+//					 int virgule=sNumberFormat.indexOf(",");
+//					 int index2= sNumberFormat.indexOf(".");
+//					 sNumberFormat= cleanEspace(sNumberFormat);
+//					 if(virgule!=-1 && index2==-1 ) {
+//						 sNumberFormat= sNumberFormat.replace(",", "."); 
+//					 }
+//					 if(virgule!=-1 && index2!=-1 ) {
+//						 sNumberFormat= sNumberFormat.replace(",", ""); 
+//					 }
+//					 return Double.parseDouble(sNumberFormat+"5");	 
+//					 
+//					 
+//			  }
+//			  
+//			  
+//			  if( mntStringApresVirgul.endsWith("6") ||   mntStringApresVirgul.endsWith("7")  ) {
+//				     
+//				  StringBuffer aBuffer = new StringBuffer(mntStringApresVirgul);
+//				  aBuffer.setCharAt(aBuffer.length()-1, '5');
+//				  
+//				  String apresVirgule="."+aBuffer.toString();
+//				  String montantInteger =mntString.substring(0, index);
+//				  montantInteger=montantInteger.replace(",", "");
+//				  montantInteger=montantInteger.replaceAll(" ", ""); 
+//				  String montant =montantInteger+apresVirgule;
+//				  return Double.parseDouble(montant);
+//				  
+//			  }
+//			}
+//		}
+//		 return mnt;
 		  
 	}
 	

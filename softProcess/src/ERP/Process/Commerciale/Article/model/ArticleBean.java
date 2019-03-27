@@ -122,7 +122,7 @@ public class ArticleBean extends GenericBean {
 	
 	
 	@Transient
-	private Integer  depot_id;
+	private String  depot_id;
 	
 	@Transient
 	private String clt_id ;
@@ -458,11 +458,13 @@ public class ArticleBean extends GenericBean {
 		this.prix_vente = prix_vente;
 	}
 
-	public Integer getDepot_id() {
+	 
+
+	public String getDepot_id() {
 		return depot_id;
 	}
 
-	public void setDepot_id(Integer depot_id) {
+	public void setDepot_id(String depot_id) {
 		this.depot_id = depot_id;
 	}
 

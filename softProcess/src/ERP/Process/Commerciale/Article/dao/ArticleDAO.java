@@ -289,24 +289,51 @@ public class ArticleDAO extends  GenericWeb    {
 					session.save(beanSaveTarifVente);
 				}
 				
-				if(beanSave.getDepot_id()!=null) {
-					LieuxArticleBean lieuxArticleBean = new LieuxArticleBean();
-					lieuxArticleBean.getPk().setRef(bCode_barreBean);
+				 
+		        if(!StringUtils.isEmpty(beanSave.getDepot_id()) ) {
+					
 					List listDepotStockageInit=(List) getObjectValueModel("listDepotStockageInit" );
 					HashMap  mapDepo=ProcessUtil.getHashMap_code_bean(listDepotStockageInit, "depot_id");
-					lieuxArticleBean.getPk().setLieu((DepotStockageBean) mapDepo.get(String.valueOf(beanSave.getDepot_id())));
-					setBeanTrace(lieuxArticleBean);
-					session.save(lieuxArticleBean);
+					if(beanSave.getDepot_id().indexOf(",")!=-1) {
+						String[] idDepots= beanSave.getDepot_id().split(",");
+						for(int i = 0 ; i < idDepots.length ; i++){
+							LieuxArticleBean lieuxArticleBean = new LieuxArticleBean();
+							lieuxArticleBean.getPk().setRef(bCode_barreBean);
+							lieuxArticleBean.getPk().setLieu((DepotStockageBean) mapDepo.get(String.valueOf(idDepots[i])));
+							setBeanTrace(lieuxArticleBean);
+							session.save(lieuxArticleBean);
+						}
+						
+					}else {
+						LieuxArticleBean lieuxArticleBean = new LieuxArticleBean();
+						lieuxArticleBean.getPk().setRef(bCode_barreBean);
+						lieuxArticleBean.getPk().setLieu((DepotStockageBean) mapDepo.get(String.valueOf(beanSave.getDepot_id())));
+						setBeanTrace(lieuxArticleBean);
+						session.save(lieuxArticleBean);
+					}
+					
+					
 				}
 				
 				if(!StringUtils.isEmpty(beanSave.getClt_id()) ) {
-					ClientArticleBean clientArticleBean = new ClientArticleBean();
 					List listClientInit=(List) getObjectValueModel("listClientInit"  );
 					HashMap  mapClt=ProcessUtil.getHashMap_code_bean(listClientInit, "clt_id");
-					clientArticleBean.getPk().setRef(bCode_barreBean);
-					clientArticleBean.getPk().setClient( (ClientBean) mapClt.get(beanSave.getClt_id()) );
-					setBeanTrace(clientArticleBean);
-					session.save(clientArticleBean);
+					if(beanSave.getClt_id().indexOf(",")!=-1) {
+						String[] idClients= beanSave.getClt_id().split(",");
+						for(int i = 0 ; i < idClients.length ; i++){
+						    ClientArticleBean clientArticleBean = new ClientArticleBean();
+							clientArticleBean.getPk().setRef(bCode_barreBean);
+							clientArticleBean.getPk().setClient( (ClientBean) mapClt.get(idClients[i]) );
+							setBeanTrace(clientArticleBean);
+							session.save(clientArticleBean);
+						}
+					}else {
+						ClientArticleBean clientArticleBean = new ClientArticleBean();
+						clientArticleBean.getPk().setRef(bCode_barreBean);
+						clientArticleBean.getPk().setClient( (ClientBean) mapClt.get(beanSave.getClt_id()) );
+						setBeanTrace(clientArticleBean);
+						session.save(clientArticleBean);
+					}
 				}
 			}
 				

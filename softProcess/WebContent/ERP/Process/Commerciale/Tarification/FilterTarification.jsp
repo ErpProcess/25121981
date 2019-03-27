@@ -13,7 +13,7 @@ $(document).ready(function (){
     
    
   
-              <tr  >  
+              <tr  style="display: none;" >  
 	            <td width="10%"><label>Tarif_id</label></td>  
 			    <td width="29%" ><input id="tarif_vente_id" name="tarif_vente_id"     type="text"    size="17"       maxlength="17"        value="${searchBean.tarif_vente_id}"></td> 
 	            <td width="38%" style="display: none;" ><label>${ar_id} </label>
@@ -84,7 +84,7 @@ $(document).ready(function (){
    <input id="num_serie" name="num_serie"     type="text"    size="17"       maxlength="17"        value="${searchBean.num_serie}"                    />  </td>  
    </tr> 
    
-   <tr>  
+   <tr  style="display: none;"    >  
    <td width="10%"><label>${prix_unit_achat}</label></td>  
    <td colspan="3"  >  
    <input id="prix_unit_achat" name="cout.tarif_unit_article"     type="text"    size="17"       maxlength="17"        value="${searchBean.cout.tarif_unit_article}"    nextElement="type_trf_id"              />  </td>  
@@ -98,7 +98,7 @@ $(document).ready(function (){
    </tr>  
    
    
-    <tr>  
+    <tr    style="display: none;"   >  
    <td width="10%"><label>Taux remise</label></td>  
    <td colspan="3"  >  
    <input id="operation" name="operation"     type="text"    size="7"   value="${searchBean.operation}"  > 
