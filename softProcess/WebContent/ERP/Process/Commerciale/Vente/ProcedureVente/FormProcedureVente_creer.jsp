@@ -64,15 +64,12 @@ $(document).ready(function () {
  
 
 	
+ //Ext.getCmp("RET_GRID").show();
+ LoadDataEditableFromServer_toolbar( mapEditableGenArticle  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
+ config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
 		 
 
- LoadDataEditableFromServer_toolbarV22( oTable24, mapEditableGen2  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
- config_header_foot_tableJQuey2   ,"toolbar_fourniture" ,contenu_toolbarJQuey2  );
-		 
 
-	 
- LoadDataEditableFromServerPrestation( oTable24, mapEditableGenPrs  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
- config_header_foot_tableJQuey3   ,"toolbar_Service" ,contenu_toolbarJQuey3  );
 		 
 	
 	
@@ -399,23 +396,27 @@ $("#clt_lib").autocomplete({
      
    
    
- Ext.getCmp('RET_GRID').setTitle(' Détaille Vente ');
+//Ext.getCmp('RET_GRID').setTitle(' Détaille Vente ');
     
 if(panelName=='article'){
-	
-	Ext.getCmp("RET_GRID").show();
-	LoadDataEditableFromServer_toolbar( mapEditableGenArticle  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
-	config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
-	
+	 otab_otra.fnAdjustColumnSizing();
 }
 
 if(panelName=='fourniture'){
+     if(otab_otra2!=null &&  otab_otra2!=undefined)
 	 otab_otra2.fnAdjustColumnSizing();
+     else
+     LoadDataEditableFromServer_toolbarV22( oTable24, mapEditableGen2  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
+     config_header_foot_tableJQuey2   ,"toolbar_fourniture" ,contenu_toolbarJQuey2  );
  
 }
 
 if(panelName=='prestation'){
-	otab_otraPrestation.fnAdjustColumnSizing();
+	  if(otab_otraPrestation!=null &&  otab_otraPrestation!=undefined)
+	    otab_otraPrestation.fnAdjustColumnSizing();
+	  else
+	 LoadDataEditableFromServerPrestation( oTable24, mapEditableGenPrs  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
+	 config_header_foot_tableJQuey3   ,"toolbar_Service" ,contenu_toolbarJQuey3  );
  }
 
 
@@ -596,9 +597,9 @@ function doExcuteFnAfterGrid( dataSS ){
     </ext:panel>
 	 
 	 
-	 <ext:tabPanel   border="false"        id="sdsfgrgrgpll"    >
-	         <ext:panel   id="RET_GRID"   bodyStyle="background: none;"    onActivate="getSuivant('article')"  height="500"    border="false"      title="Détaille vente"    >
-			    <table id="GRID_SAISIE_DETAIL_VENTE" class="display" width="100%"   style="display: none;"  >
+	 <ext:tabPanel   border="false"        id="sdsfgrgrgpll"   activeTab="RET_GRID"  >
+	         <ext:panel   id="RET_GRID"      bodyStyle="background: none;"    onActivate="getSuivant('article')"  height="500"    border="false"      title="Détaille vente"    >
+			    <table id="GRID_SAISIE_DETAIL_VENTE" class="display" width="100%"    >
 			  
 			      <thead   >
 			      
@@ -815,7 +816,7 @@ function doExcuteFnAfterGrid( dataSS ){
 <script type="text/javascript">
 //Ext.getCmp("tab").child('#id').tab.hide()
 Ext.onReady(function(){
-Ext.getCmp('sdsfgrgrgpll').hide();
+Ext.getCmp('sdsfgrgrgpll').show();
 //var tabPanel = Ext.getCmp('sdsfgrgrgpll');
 //tabPanel.hideTabStripItem("RET_GRIDX"); // with tab id
  
