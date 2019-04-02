@@ -16,7 +16,7 @@ public static String  id_entite        = "ach_non_id";
 /********************************************************************Data Grid********************************************************************/ 
 public static String  LIST_DATA         = "AchatDivers-List";
 public static String  NAME_GRID         = "AchatDivers-Grid";
-public static String [][] MapfieldBean  = new String[][]{{ "ach_non_id", "30" },{ "libelle_achat", "70" },{ "prix_achat", "30" },{ "observation", "30" },{ "date_achat", "30" },{ "etab_id", "30" }};
+public static String [][] MapfieldBean  = new String[][]{ { "date_achat", "20" },{ "libelle_achat", "70" },{ "prix_achat", "20" },{ "observation", "50" } };
 /********************************************************************View Jsp********************************************************************/
 public static String FORM_VIEW          = "FormAchatDivers";
 public static String FILTER_VIEW        = "FilterAchatDivers";
