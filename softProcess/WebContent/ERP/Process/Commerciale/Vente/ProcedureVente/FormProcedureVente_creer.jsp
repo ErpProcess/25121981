@@ -715,8 +715,40 @@ function doExcuteFnAfterGrid( dataSS ){
 				 
 				
                </script>
-			    
-			    
+	         </ext:panel>
+	         <ext:panel   id="RET_GRID_PRESTATION"    onActivate="getSuivant('prestation')"      bodyStyle="background: none;"    border="false"  height="400"  hideCollapseTool="true"  title="Prestation"    >
+	          <script>$(function() {loadSelectAjax("devXYZ","list_devise","dev_id","dev_libelle","${detailSrvBean.deviseSrv.dev_id}",true); })</script>
+		      <label>Devise</label><select    required   id="devXYZ"  name="deviseSrv.dev_id"   style="width: 180px;"  ></select>
+	          <table id="GRID_SAISIE_PRESATATION" class="display" width="100%"    >
+			      <thead   >
+			       <tr style="border-color:#a9bfd3;background-color:#d0def0;"   >
+					
+						<th></th>
+						<th><input   type="checkbox"   id="Cheked_unCheked1"               name="Cheked_unCheked"      ></th>
+						<th><input   type="text"       id="codeFocusPrestation"    requiredPrestation        name="code_barreService"       style="width: 95%;"        requiredy ></th>
+						<th><input   type="text"       id="XnextFocusPrestation"   requiredPrestation        name="XnextFocusPrestation"    style="width: 95%;"        requiredy ></th>
+		                <th><input  type="number"      id="quantitePrestation"     requiredPrestation        name="quantiteService"       min="1"    value="1"    style="width: 150px;"              requiredx ></th>
+						<th><select   id="isVentePrestation"  name="isVentePrestation"   > <option  value="true"  > Vente </option><option value="false">Dépense </option>  </select> </th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+					
+					 <tr> 
+						<th></th>
+						<th></th>
+						<th>Référence</th>
+						<th>Désignation</th>
+						<th>Qté</th>
+						<th>P.U.V</th>
+						<th>T.H.T</th>
+						<th></th>
+						<th></th>
+				    </tr>
+				    
+				 </thead>
+				 </table>
 	         </ext:panel>
 	         <ext:panel   id="RET_GRIDX"   bodyStyle="background: none;"  onActivate="getSuivant('fourniture')"  border="false"   height="400"   hideCollapseTool="true"  title="Fourniture de vente"    >
 	            <script>$(function() {loadSelectAjax("devXY","list_devise","dev_id","dev_libelle","${detailFrnBean.deviseFr.dev_id}",true); })</script>
@@ -771,44 +803,6 @@ function doExcuteFnAfterGrid( dataSS ){
 				    return  items; 
 				}
                </script>	
-	         </ext:panel>
-	         
-	         
-	         
-	         <ext:panel   id="RET_GRID_PRESTATION"    onActivate="getSuivant('prestation')"      bodyStyle="background: none;"    border="false"  height="400"  hideCollapseTool="true"  title="Prestation"    >
-	         
-	          <script>$(function() {loadSelectAjax("devXYZ","list_devise","dev_id","dev_libelle","${detailSrvBean.deviseSrv.dev_id}",true); })</script>
-		      <label>Devise</label><select    required   id="devXYZ"  name="deviseSrv.dev_id"   style="width: 180px;"  ></select>
-	          <table id="GRID_SAISIE_PRESATATION" class="display" width="100%"    >
-			      <thead   >
-			       <tr style="border-color:#a9bfd3;background-color:#d0def0;"   >
-					
-						<th></th>
-						<th><input   type="checkbox"   id="Cheked_unCheked1"               name="Cheked_unCheked"      ></th>
-						<th><input   type="text"       id="codeFocusPrestation"    requiredPrestation        name="code_barreService"       style="width: 95%;"        requiredy ></th>
-						<th><input   type="text"       id="XnextFocusPrestation"   requiredPrestation        name="XnextFocusPrestation"    style="width: 95%;"        requiredy ></th>
-		                <th><input  type="number"      id="quantitePrestation"     requiredPrestation        name="quantiteService"       min="1"    value="1"    style="width: 150px;"              requiredx ></th>
-						<th><select   id="isVentePrestation"  name="isVentePrestation"   > <option  value="true"  > Vente </option><option value="false">Dépense </option>  </select> </th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-					</tr>
-					
-					 <tr> 
-						<th></th>
-						<th></th>
-						<th>Référence</th>
-						<th>Désignation</th>
-						<th>Qté</th>
-						<th>P.U.V</th>
-						<th>T.H.T</th>
-						<th></th>
-						<th></th>
-				    </tr>
-				    
-				 </thead>
-				 </table>
 	         </ext:panel>
    	 </ext:tabPanel>
 </ext:panel>
