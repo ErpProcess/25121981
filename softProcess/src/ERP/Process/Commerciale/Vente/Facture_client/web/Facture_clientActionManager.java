@@ -1084,8 +1084,8 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			 element.put("td1","4");
 			 element.put("value1","Total TTC");
 			 element.put("td2","5");
-			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(total_mnt_gen,rowBean.getDevise(),true, false) );
-			 json.put("vente_mnt_total",   ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(total_mnt_gen,rowBean.getDevise(),true, false) );
+			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(total_mnt_gen,rowBean.getDevise(),false, true) );
+			 json.put("vente_mnt_total",   ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(total_mnt_gen,rowBean.getDevise(),false, true) );
 			 beanTotal.setTotal_facture(ProcessFormatNbr.FormatDouble_ParameterChiffre(total_mnt_gen,pattern));
 			 list_total.put(element);
 			  

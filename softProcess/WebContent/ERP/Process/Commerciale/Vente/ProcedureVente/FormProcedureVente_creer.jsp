@@ -195,9 +195,7 @@ function doEnvoiDataV3(element,value_id_de_la_ligne){
                            
 $(document).ready(function (){
 $('input[id="quantite_stock"]').val('');
-LoadAutoCompletAjax_with_marGin("clt_id","clt_lib","depot_id","list_client_for_vente","250","100"); 
 LoadAutoCompletAjax_with_marGin("pk.code_barre","designation_libelle","quantiteX","list_article_proVente","350","250");
-
 LoadAutoCompletGridV2_withMG("pk.code_barre","designation_libelle","list_article_vente_fourniture","codeFocuso","XnextFocuso","quantite_stockxc","350","250");
 LoadAutoCompletGridV2_withMG("pk.code_barre","designation_libelle","list_article_vente_service","codeFocusPrestation","XnextFocusPrestation","quantitePrestation","350","250")
 LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle","vente_obs","list_depot_stock","250","100");  
@@ -207,7 +205,7 @@ LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle","vente_obs","list_dep
  
  
 function onChange_select(Xcode2d){
-if(Xcode2d=="clt_id" ||  Xcode2d=="depot_id"     ) return;
+if(   Xcode2d=="depot_id"     ) return;
  
    
 	if(Xcode2d=="designation_libelle"  ||   Xcode2d=="pk.code_barre"  ){
@@ -351,22 +349,22 @@ $("#choixPanel").val(panelName);
 var jsonText=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_LOAD_TARIF_CLIENT','text',false);
  
   
-$("#clt_id").autocomplete({ 
-    maxResults: 10,
-    source: function(request, response) {
-        var results = $.ui.autocomplete.filter(src, request.term);
-        response(results.slice(0, this.options.maxResults));
-    }
-});
+// $("#clt_id").autocomplete({ 
+//     maxResults: 10,
+//     source: function(request, response) {
+//         var results = $.ui.autocomplete.filter(src, request.term);
+//         response(results.slice(0, this.options.maxResults));
+//     }
+// });
 
 
-$("#clt_lib").autocomplete({ 
-    maxResults: 10,
-    source: function(request, response) {
-        var results = $.ui.autocomplete.filter(src, request.term);
-        response(results.slice(0, this.options.maxResults));
-    }
-});
+// $("#clt_lib").autocomplete({ 
+//     maxResults: 10,
+//     source: function(request, response) {
+//         var results = $.ui.autocomplete.filter(src, request.term);
+//         response(results.slice(0, this.options.maxResults));
+//     }
+// });
 
 // $("#depot_id").autocomplete({ 
 //     maxResults: 10,
@@ -384,9 +382,9 @@ $("#clt_lib").autocomplete({
 //     }
 // });
 
-  $('#devX').attr("readonly","readonly");
-  $('#clt_id').attr("readonly","readonly");
-  $('#clt_lib').attr("readonly","readonly");
+ // $('#devX').attr("readonly","readonly");
+//   $('#clt_id').attr("readonly","readonly");
+//   $('#clt_lib').attr("readonly","readonly");
 //   $('#depot_id').attr("readonly","readonly");
 //   $('#depot_libelle').attr("readonly","readonly");
   $('#GRID_SAISIE_DETAIL_VENTE').css('display','block');
@@ -399,7 +397,11 @@ $("#clt_lib").autocomplete({
 //Ext.getCmp('RET_GRID').setTitle(' Détaille Vente ');
     
 if(panelName=='article'){
+	if(otab_otra!=null &&   otab_otra!= undefined)
 	 otab_otra.fnAdjustColumnSizing();
+	else
+	  LoadDataEditableFromServer_toolbar( mapEditableGenArticle  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
+	 config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
 }
 
 if(panelName=='fourniture'){
@@ -486,9 +488,10 @@ function doExcuteFnAfterGrid( dataSS ){
 		   
 		    <tr>  
 		   <td width="10%"><label>${clt_id}</label></td>  
-		   <td  >  
-		    <input id="clt_id" name="client.clt_id"           type="text"     size="10"             value="${detailBean.client.clt_id}"         nextElement="vente_libelle"   required    /> 
-			<input id="clt_lib" name="client.clt_lib"        type="text"      size="30"             value="${detailBean.client.clt_lib}"        nextElement="vente_libelle"   required    />		  </td>  
+		   <td  > 	
+		   <script  >  $(function() { loadSelectAjax("clt_idx","list_client_for_vente","clt_id","clt_lib","${detailBean.client.clt_id}",true);})</script>
+		   <select  id="clt_idx"      name="client.clt_id"           style="width: 180px;"               ></select>
+			 </td>  
 		   <td  >&nbsp;</td>
 		   <td  >&nbsp;</td>
 	       <td  ><label>Total T.T.C</label> </td>
@@ -715,8 +718,12 @@ function doExcuteFnAfterGrid( dataSS ){
 				 
 				
                </script>
+			    
+			    
 	         </ext:panel>
+	         
 	         <ext:panel   id="RET_GRID_PRESTATION"    onActivate="getSuivant('prestation')"      bodyStyle="background: none;"    border="false"  height="400"  hideCollapseTool="true"  title="Prestation"    >
+	         
 	          <script>$(function() {loadSelectAjax("devXYZ","list_devise","dev_id","dev_libelle","${detailSrvBean.deviseSrv.dev_id}",true); })</script>
 		      <label>Devise</label><select    required   id="devXYZ"  name="deviseSrv.dev_id"   style="width: 180px;"  ></select>
 	          <table id="GRID_SAISIE_PRESATATION" class="display" width="100%"    >
@@ -804,6 +811,10 @@ function doExcuteFnAfterGrid( dataSS ){
 				}
                </script>	
 	         </ext:panel>
+	         
+	         
+	         
+	         
    	 </ext:tabPanel>
 </ext:panel>
 </ext:body>

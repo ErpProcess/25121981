@@ -50,7 +50,14 @@
    <td width="93%"  >  
     <input id="clt_pays" name="clt_pays"     type="text"    size="40"       maxlength="500"        value="${detailBean.clt_pays}"         /> 
   </td>  
-   </tr>  
+   </tr> 
+    
+      <tr>  
+   <td width="7%"><label>matricule fiscale</label></td>  
+   <td width="93%"  >  
+   <input id="clt_obs" name="clt_obs"     type="text"    size="100"       maxlength="100"        value="${detailBean.clt_obs}"    nextElement="clt_bank"              />  
+  </td>  
+   </tr>   
    
     <tr>
 		        <td ><label>Exonérer</label></td>
@@ -112,12 +119,7 @@
    <input id="clt_numcpt" name="clt_numcpt"     type="text"    size="20"       maxlength="20"        value="${detailBean.clt_numcpt}"    nextElement="clt_obs"              />  
   </td>  
    </tr>   
-   <tr>  
-   <td width="7%"><label>${clt_obs}</label></td>  
-   <td width="93%"  >  
-   <input id="clt_obs" name="clt_obs"     type="text"    size="100"       maxlength="100"        value="${detailBean.clt_obs}"    nextElement="clt_bank"              />  
-  </td>  
-   </tr>   
+
    <tr style="display: none;"  >  
    <td width="7%"     ><label>${clt_bank}</label></td>  
    <td width="93%"  >  
