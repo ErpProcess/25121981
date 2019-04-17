@@ -31,7 +31,9 @@ public class ResponsableLieuDAO extends  GenericWeb    {
 	    			requette+="   AND   bean.pk.usr.usr_id = '"+beanSearch.getPk().getUsr().getUsr_id()+"'        ";    
  			   
  			   if(  (beanSearch.getOrdre()!=null) )  
-	    			requette+="   AND   bean.ordre ="+beanSearch.getOrdre()+"       "; 
+	    			 requette+="   AND   bean.ordre ="+beanSearch.getOrdre()+"       "; 
+ 			   
+ 			        requette +=this.setSocieteEtabFetch(beanSearch,"bean.pk.depot.fk_etab_Bean", false);
  			   
  			   
  			        requette+="   ORDER BY  bean.ordre  asc       "; 

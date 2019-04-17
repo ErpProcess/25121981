@@ -2,6 +2,7 @@ package ERP.Process.Commerciale.Vente.Facture_client.web;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -266,7 +267,9 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    cell.setBorder(cell.NO_BORDER);
 	    tableTopHeader.addCell(cell);
 	    
-	    cell = new PdfPCell(new Phrase(  " : "+ProcessDate.getCurrentTimeStamp(denBean.getFact_date()) ,GeneratePdf.Normal_10_times_roman));
+	    Date  dateFact =denBean.getFact_date_edition()!=null?denBean.getFact_date_edition():denBean.getFact_date();
+	    
+	    cell = new PdfPCell(new Phrase(  " : "+ProcessDate.getCurrentTimeStamp(dateFact) ,GeneratePdf.Normal_10_times_roman));
 	    cell.setColspan(27);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);

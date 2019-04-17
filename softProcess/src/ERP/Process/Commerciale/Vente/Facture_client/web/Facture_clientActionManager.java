@@ -1379,7 +1379,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	    cell.setBorder(cell.NO_BORDER);
 	    tableTopHeader.addCell(cell);
 	    
-	    cell = new PdfPCell(new Phrase(  " : "+ProcessDate.getCurrentTimeStamp(denBean.getFact_date()) ,GeneratePdf.FONT_12_normal));
+	    cell = new PdfPCell(new Phrase(  " : "+ProcessDate.getCurrentTimeStamp(denBean.getFact_date_edition()!=null?denBean.getFact_date_edition():denBean.getFact_date()) ,GeneratePdf.FONT_12_normal));
 	    cell.setColspan(27);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_LEFT);

@@ -231,6 +231,8 @@ public class Facture_clientDAO extends  GenericWeb    {
 			beanSave.setCpt_bank(beanSaveS.getCpt_bank());
 			beanSave.getEtat_reg().setData_id("fnon");
 			beanSave.setObservation(beanSaveS.getObservation());
+			beanSave.setFact_date(beanSaveS.getFact_date());
+			beanSave.setFact_date_edition(beanSaveS.getFact_date_edition());
 			session.save(beanSave);
 			saveTrace(beanSave);
 			List listOfmyData   =(List) getObjectValueModel( Facture_clientTemplate.LIST_DATA_DET_FACT);

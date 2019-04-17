@@ -17,7 +17,7 @@ var  config_header_foot_tableJQuey3 ='<"ui-toolbar ui-widget-header ui-corner-tl
 
 
  
-var mapEditableGenArticle = {            
+var mapEditableGen = {            
 		"otab"   :oTable,
         "table"  :"GRID_SAISIE_DETAIL_VENTE",
         "list"   :"list_editable_proVente",
@@ -36,7 +36,7 @@ var mapEditableGenArticle = {
 				   
 					    
 					   
-   			       {      "sName": "quantite_en_stock"        , "sWidth": "5%"     ,"bSearchable": true  , "bSortable": true,"bVisible": true  },           
+   			           {      "sName": "quantite_en_stock"        , "sWidth": "5%"     ,"bSearchable": true  , "bSortable": true,"bVisible": true  },           
 					                 
 					   {      "sName": "quantite"           ,   "bSortable": true       , "sWidth": "5%"        ,"mRender": function( data, type, full){  
 					          return '<input   type="number"      style="width:70px;"     id=quantite'+full[0]+'       name=quantite        value="'+data+'"       onblur=doEnvoiDataV2(this,"'+full[2]+'")     nextElement="quantite'+full[12]+'"     >'; }},   
@@ -48,15 +48,15 @@ var mapEditableGenArticle = {
 					   {      "sTitle":"Prix U"    , "sName": "tarif.tarif_unit_vente"   ,"sWidth": "10%"    ,"sClass" : "alignRight"       , "bSortable": true 
                            , "mRender":    function (data, type, full) {   if( $("#devX").val()=="191"  ||  $("#devX").val()=="192") return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },
                            
-                    {      "sTitle":"remise"     , "sName": "taux_remise_ligne"     ,"sWidth": "7%"    ,"sClass" : "alignCenter"    , "bSortable": true    
+                       {      "sTitle":"remise"     , "sName": "taux_remise_ligne"     ,"sWidth": "7%"    ,"sClass" : "alignCenter"    , "bSortable": true    
                            , "mRender": function (data, type, full) {  return addPourcentage(data);}  ,"bVisible": true    },           
                  
-                    {      "sTitle":"Total H T" , "sName": "montant_ht_vente"    ,"sWidth": "10%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
+                       {      "sTitle":"Total H T" , "sName": "montant_ht_vente"    ,"sWidth": "10%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
                            ,"mRender":    function (data, type, full) {    if( $("#devX").val()=="191"  ||  $("#devX").val()=="192")  return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },
                    
-                    {      "sTitle":"Total TTC" , "sName": "montant_ttc_vente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
+                       {      "sTitle":"Total TTC" , "sName": "montant_ttc_vente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
                            ,"mRender":    function (data, type, full) {   if( $("#devX").val()=="191"  ||  $("#devX").val()=="192")   return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },         
-					   {      "sName": "indx_row_next"        ,"bSearchable": false  , "bSortable": false,"bVisible": false },       
+					    {      "sName": "indx_row_next"        ,"bSearchable": false  , "bSortable": false,"bVisible": false },       
                          ]
 };
                                
@@ -65,7 +65,7 @@ $(document).ready(function () {
 
 	
  //Ext.getCmp("RET_GRID").show();
- LoadDataEditableFromServer_toolbar( mapEditableGenArticle  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
+ LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
  config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
 		 
 
@@ -161,7 +161,10 @@ var mapEditableGen2 = {        "otab"   :oTable23,
 										   {      "sName": "indx_row_next"        ,"bSearchable": false  , "bSortable": false,"bVisible": false },       
 	                                            ]
  
-                               };                    
+                               };
+ 
+
+
 function doEnvoiDataV3(element,value_id_de_la_ligne){
 	if($(element).attr('type')=="checkbox")
 	    element.value=element.checked==false?"":"checked";
@@ -400,7 +403,7 @@ if(panelName=='article'){
 	if(otab_otra!=null &&   otab_otra!= undefined)
 	 otab_otra.fnAdjustColumnSizing();
 	else
-	  LoadDataEditableFromServer_toolbar( mapEditableGenArticle  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
+	  LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
 	 config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
 }
 
@@ -431,7 +434,7 @@ function doExcuteFnAfterGrid( dataSS ){
       var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_ACTUALISER_TABLE','json',false);
      
       
-       $('#'+mapEditableGenArticle["table"]+' tbody tr').each(function () {
+       $('#'+mapEditableGen["table"]+' tbody tr').each(function () {
           //var qsdqsqd = $(this).find('td:eq(1)').find(':input[type="text"]').eq(0).attr('value') ;
             var qsdqsqd = $(this).find('td:eq(1)').html() ;
             var QteNew="Qte"+qsdqsqd;
