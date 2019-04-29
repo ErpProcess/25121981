@@ -133,7 +133,8 @@ function doCheked_unCheked(element){
 $(document).ready(function () {
 
 LoadAutoCompletAjax("clt_id","clt_lib","dev_lib","list_client_devis");  
-LoadAutoCompletAjax("pk.code_barre","designation_libelle","quantite","list_article_devVente"); 
+//LoadAutoCompletAjax("pk.code_barre","designation_libelle","quantite",""); 
+LoadAutoCompletAjax_with_marGin("pk.code_barre","designation_libelle","quantite","list_article_devVente","500","250");
  
  //LoadOtherAutocompletesAjax("clt_id","i$_ACT_LOAD_TARIF_CLIENT",,,"");
 

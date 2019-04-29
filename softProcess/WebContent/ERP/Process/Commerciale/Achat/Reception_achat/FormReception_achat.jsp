@@ -11,7 +11,7 @@ return  retournX ==""?"":"Veillez Remplir le détaille de la réception";
 
 
 $(document).ready(function (){
-LoadAutoCompletAjax_with_marGin("pk.code_barre","designation_libelle","quantite","list_article_recp_achat","400","500");
+LoadAutoCompletAjax_with_marGin("pk.code_barre","designation_libelle","quantite","list_article_recp_achat","500","250");
 //LoadOtherAutocompletesAjax("pk.code_barre","i$_ACT_LOAD_LOT_ARTICLE","num_lot","date_peremption","quantite");
 });
 $(document).ready(function () {

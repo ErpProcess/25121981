@@ -102,7 +102,7 @@ function doCheked_unCheked(element){
 
 $(document).ready(function () {
 LoadAutoCompletAjax("clt_id","clt_lib","dev_lib","list_client_cmd_clt");  
-LoadAutoCompletAjax_with_marGin("pk.code_barre","designation_libelle","quantite","list_article_CmdVente","350","200");
+LoadAutoCompletAjax_with_marGin("pk.code_barre","designation_libelle","quantite","list_article_CmdVente","500","250");
 LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle","vente_obs","list_depot_stock_cmd","250","100");
 });
 

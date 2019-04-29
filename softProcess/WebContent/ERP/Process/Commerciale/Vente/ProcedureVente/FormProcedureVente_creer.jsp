@@ -198,9 +198,9 @@ function doEnvoiDataV3(element,value_id_de_la_ligne){
                            
 $(document).ready(function (){
 $('input[id="quantite_stock"]').val('');
-LoadAutoCompletAjax_with_marGin("pk.code_barre","designation_libelle","quantiteX","list_article_proVente","350","250");
-LoadAutoCompletGridV2_withMG("pk.code_barre","designation_libelle","list_article_vente_fourniture","codeFocuso","XnextFocuso","quantite_stockxc","350","250");
-LoadAutoCompletGridV2_withMG("pk.code_barre","designation_libelle","list_article_vente_service","codeFocusPrestation","XnextFocusPrestation","quantitePrestation","350","250")
+LoadAutoCompletAjax_with_marGin("pk.code_barre","designation_libelle","quantiteX","list_article_proVente","500","250");
+LoadAutoCompletGridV2_withMG("pk.code_barre","designation_libelle","list_article_vente_fourniture","codeFocuso","XnextFocuso","quantite_stockxc","500","250");
+LoadAutoCompletGridV2_withMG("pk.code_barre","designation_libelle","list_article_vente_service","codeFocusPrestation","XnextFocusPrestation","quantitePrestation","500","250")
 LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle","vente_obs","list_depot_stock","250","100");  
 });                                                                                         
  
