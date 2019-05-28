@@ -82,12 +82,17 @@ public class Stock_articleActionManager extends Stock_articleTemplate {
 			
 			setObjectValueModel(LIST_ARTICLE_CODE_BARRE , serviceCode_barre.doFetchDatafromServerNew(searchBeanx));
 			
-			
+			bs.setPrefix_sousmod_libelle_title("-");
 			if (bs.getFct_id().equals("1") || bs.getFct_id().equals("5")  ) {
 				return getViewAdd((String) getObjectValueModel("FORM_VIEW"));
-			} else {
+			}else if(bs.getFct_id().equals(Fn_etat_stock) ) {
+				bs.setSousmod_libelle_title("");
+				bs.setFct_libelle(StringUtils.capitalize(bs.getFct_libelle()));
+				bs.setPrefix_sousmod_libelle_title("");
+				return getViewFilterAjax(FILTER_VIEW_PAR_DATE);
+			}else {
+				bs.setSousmod_libelle_title("mouvement stock");
 				return getViewFilterAjax((String) getObjectValueModel("FILTER_VIEW"));
-
 			}
 
 		} catch (Exception e) {

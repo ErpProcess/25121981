@@ -33,6 +33,8 @@ public static String [][] MapfieldBean  = new String[][]{
 /********************************************************************View Jsp********************************************************************/
 public static String FORM_VIEW          = "FormStock_article";
 public static String FILTER_VIEW        = "FilterStock_article";
+public static String FILTER_VIEW_PAR_DATE        = "FilterStock_articleParDate";
+ 
 public static String LIST_VIEW          = "ListStock_article";
 
 

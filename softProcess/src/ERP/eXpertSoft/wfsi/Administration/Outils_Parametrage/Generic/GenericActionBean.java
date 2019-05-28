@@ -149,6 +149,7 @@ public class GenericActionBean extends GenericWeb implements Serializable,Clonea
 	public static String  Fn_État_des_ventes="41";
 	public static String  Fn_Corriger="42";
 	public static String  Fn_charger_file="43";
+	public static String  Fn_etat_stock="44";
 
  
 	
