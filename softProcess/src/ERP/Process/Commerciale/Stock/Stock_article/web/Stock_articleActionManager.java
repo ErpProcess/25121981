@@ -85,6 +85,8 @@ public class Stock_articleActionManager extends Stock_articleTemplate {
 			bs.setPrefix_sousmod_libelle_title("-");
 			if (bs.getFct_id().equals("1") || bs.getFct_id().equals("5")  ) {
 				return getViewAdd((String) getObjectValueModel("FORM_VIEW"));
+			}else if(bs.getFct_id().equals(Fn_Corriger) ) {
+				return getViewFilterAjax(FILTER_VIEW_PAR_DATE);
 			}else if(bs.getFct_id().equals(Fn_etat_stock) ) {
 				bs.setSousmod_libelle_title("");
 				bs.setFct_libelle(StringUtils.capitalize(bs.getFct_libelle()));

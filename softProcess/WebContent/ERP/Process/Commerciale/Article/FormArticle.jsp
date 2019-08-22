@@ -209,17 +209,26 @@ function doAfficherCodeBar(levalde_type){
 		      
 		      
 		      <tr>
-		        <td ><label>Prix_Achat</label></td>
+		        <td ><label>Prix_Achat</label>  <button type="button" value="ass"  onclick="loadDat()"></button></td>
 		        <td > 
-		        <label>HTV</label><input  id="prix_achat"  name="prix_achat"   type="montant3"    value=""              /> <br>
+		        <label>HTV</label><input  id="prix_achat"  name="prix_achat"         type="montant3"    value=""              /><br>
+		        <script type="text/javascript"> 
+		        function loadDat(){
+		        	  var jsonText = doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_LOAD_PRIX_ARTICLE_TTC','json',false);
+		        	  $('#prix_achatttc').val(jsonText.prix_achatttc);
+		        	  $('#prix_ventettc').val(jsonText.prix_ventettc);
+		        }
+		      
+		        
+		        </script>
 		        <label>TTC</label><input  id="prix_achatttc"  name="prix_achatttc"   type="montant3"    value=""              /> 
 		        </td>
 		      </tr>
-		      
+		    
 		      <tr>
 		        <td ><label>Prix_Vente</label></td>
 		        <td > 
-		         <label>HTV</label><input  id="prix_vente"  name="prix_vente"      type="montant3"     value=""              /><br>
+		         <label>HTV</label><input  id="prix_vente"  name="prix_vente"         type="montant3"     value=""              /><br>
 		         <label>TTC</label><input  id="prix_ventettc"  name="prix_ventettc"   type="montant3"    value=""              />  
 		        </td>
 		      </tr>

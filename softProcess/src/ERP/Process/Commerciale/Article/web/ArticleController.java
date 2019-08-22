@@ -34,6 +34,10 @@ public class ArticleController extends ArticleActionManager {
 		ModelAndView model = doInitGenericAction(request, response,new ArticleTemplate());
 		
 		
+		
+		
+		if (i$_ACT_LOAD_PRIX_ARTICLE_TTC )      return doLoadPrixArticleTTC(detailBean);
+		
 		if (i$_ACT_INIT_SERVLET )      return doInitServletAction();
 		if (i$_ACT_RESET_FORM)         return      doResetForm();    
 		if (i$_ACT_UPLOADER)           return      uploadFile();

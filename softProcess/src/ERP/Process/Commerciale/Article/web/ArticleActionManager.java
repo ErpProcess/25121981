@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import ERP.Process.Commerciale.Achat.Facture_Fournisseur.model.FileFactureFournisseur;
 import ERP.Process.Commerciale.Article.model.ArticleBean;
@@ -37,6 +38,7 @@ import ERP.Process.Commerciale.Stock.DepotStockage.model.DepotStockageBean;
 import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
 import ERP.Process.Commerciale.Vente.Client.service.ClientService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Data_entite_simple.service.Data_entite_simpleService;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.service.EtablissementService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
@@ -122,6 +124,39 @@ public class ArticleActionManager extends ArticleTemplate {
     } 
 	
     @Autowired  public  TVAService                serviceTVA ;
+    
+    
+    
+     
+    
+   
+	public ModelAndView doLoadPrixArticleTTC(ArticleBean detailBean ) throws Exception{
+		try {
+			Double doubleAchatHT= ProcessFormatNbr.FormatDouble_Troischiffre(detailBean.getPrix_achat()) ;
+			Double doubleVenteHT= ProcessFormatNbr.FormatDouble_Troischiffre(detailBean.getPrix_vente()) ;
+			
+			List<TVABean> list_tvList = serviceTVA.doFetchDatafromServer(new TVABean());
+			HashMap mapTva =  ProcessUtil.getHashMap_code_bean(list_tvList, "tva_id");
+			TVABean  tvabean=(TVABean) mapTva.get(String.valueOf(detailBean.getTva().getTva_id()));
+			
+			Double leTvaAchat=ProcessNumber.getMontantTvaByMontantHT(doubleAchatHT, tvabean, new DeviseBean());
+			Double leTvaVente=ProcessNumber.getMontantTvaByMontantHT(doubleVenteHT,tvabean, new DeviseBean());
+			Double mntAchatTTC=ProcessNumber.addition(doubleAchatHT, leTvaAchat);
+			Double mntVenteTTC=ProcessNumber.addition(doubleVenteHT, leTvaVente);
+			JsonObject data = new JsonObject();
+			data.addProperty("prix_achatttc",   ProcessFormatNbr.FormatDouble_To_String_Troischiffre(mntAchatTTC) );
+			data.addProperty("prix_ventettc",   ProcessFormatNbr.FormatDouble_To_String_Troischiffre(mntVenteTTC) );
+		    getResponse().setContentType(JSON_CONTENT_TYPE);
+			getResponse().getWriter().print(data.toString());
+				 
+		} catch (Exception e) {
+			getResponse().setStatus(500);
+			getResponse().setContentType(JSON_CONTENT_TYPE);
+			getResponse().getWriter().print(e.getMessage());
+		}
+		return null;
+	}
+    
 	
 	public     ModelAndView doInitServletAction() {
 

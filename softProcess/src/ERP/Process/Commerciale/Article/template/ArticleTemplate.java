@@ -81,6 +81,7 @@ public class ArticleTemplate extends TemplateGeneric {
 	public static String FORM_SITUATION_ARTICLE = "form_situation_article";
 
 	public static boolean i$_ACT_INIT_SERVLET = false;
+	public static boolean i$_ACT_LOAD_PRIX_ARTICLE_TTC = false;
 	
 	public static boolean i$_ACT_UPLOADER = false;
 	
