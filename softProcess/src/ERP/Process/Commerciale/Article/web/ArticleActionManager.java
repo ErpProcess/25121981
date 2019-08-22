@@ -144,8 +144,11 @@ public class ArticleActionManager extends ArticleTemplate {
 			Double mntAchatTTC=ProcessNumber.addition(doubleAchatHT, leTvaAchat);
 			Double mntVenteTTC=ProcessNumber.addition(doubleVenteHT, leTvaVente);
 			JsonObject data = new JsonObject();
-			data.addProperty("prix_achatttc",   ProcessFormatNbr.FormatDouble_To_String_Troischiffre(mntAchatTTC) );
-			data.addProperty("prix_ventettc",   ProcessFormatNbr.FormatDouble_To_String_Troischiffre(mntVenteTTC) );
+			data.addProperty("prix_achatttc",  mntAchatTTC==null|| mntAchatTTC.doubleValue()==0?"":
+					ProcessFormatNbr.FormatDouble_To_String_Troischiffre(mntAchatTTC) );
+			
+			data.addProperty("prix_ventettc",   mntVenteTTC==null|| mntVenteTTC.doubleValue()==0?"":
+					ProcessFormatNbr.FormatDouble_To_String_Troischiffre(mntVenteTTC) );
 		    getResponse().setContentType(JSON_CONTENT_TYPE);
 			getResponse().getWriter().print(data.toString());
 				 

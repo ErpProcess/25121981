@@ -209,7 +209,7 @@ function doAfficherCodeBar(levalde_type){
 		      
 		      
 		      <tr>
-		        <td ><label>Prix_Achat</label>  <button type="button" value="ass"  onclick="loadDat()"></button></td>
+		        <td ><label>Prix_Achat</label>&nbsp; <button type="button" value="ass"  onclick="loadDat()">&#187;</button></td>
 		        <td > 
 		        <label>HTV</label><input  id="prix_achat"  name="prix_achat"         type="montant3"    value=""              /><br>
 		        <script type="text/javascript"> 
@@ -226,7 +226,7 @@ function doAfficherCodeBar(levalde_type){
 		      </tr>
 		    
 		      <tr>
-		        <td ><label>Prix_Vente</label></td>
+		        <td ><label>Prix_Vente</label>&nbsp; <button type="button" value="ass"  onclick="loadDat()">&#187;</button></td>
 		        <td > 
 		         <label>HTV</label><input  id="prix_vente"  name="prix_vente"         type="montant3"     value=""              /><br>
 		         <label>TTC</label><input  id="prix_ventettc"  name="prix_ventettc"   type="montant3"    value=""              />  
