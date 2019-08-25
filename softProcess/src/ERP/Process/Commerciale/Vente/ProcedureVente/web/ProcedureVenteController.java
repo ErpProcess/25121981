@@ -15,6 +15,7 @@ import ERP.Process.Commerciale.Vente.ProcedureVente.model.DetProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.template.ProcedureVenteTemplate;
 import ERP.Process.Commerciale.Vente.Service.model.ServiceBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 
 @Controller
 public class ProcedureVenteController  extends ProcedureVenteActionManager   {
@@ -37,6 +38,7 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
     	try{
     		
            ModelAndView model=doInitGenericAction(request,response,new ProcedureVenteTemplate());
+           BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
            
 		          if (i$_ACT_INIT_SERVLET )         return      doInitServletAction(); 
 		          
@@ -94,6 +96,7 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 		    	  
 		    	  if (i$_ACT_FACTURER)              return      doFacturerData(beanVente);
 		    	  
+		    	  if (i$_ACT_PRINT_FACTURE_FROM_VENTE &&  bs.getSoc_id().equals("10"))    return      doPrintFactureSPL();
 		    	  
 		    	  if (i$_ACT_CORRIGER)              return      doCorrigerData(beanVente,fVenteBean,service);
 		          

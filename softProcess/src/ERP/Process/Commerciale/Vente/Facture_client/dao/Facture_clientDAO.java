@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import ERP.Process.Commerciale.ParametrageCommerciale.ModeReglement.model.ModeReglementBean;
 import ERP.Process.Commerciale.Vente.EditionVente.model.EditionVenteBean;
 import ERP.Process.Commerciale.Vente.Facture_avoir_client.dao.Facture_avoir_clientDAO;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Det_Fact_ClientBean;
@@ -226,7 +227,13 @@ public class Facture_clientDAO extends  GenericWeb    {
 			beanSave.setTotal_facture(   beanTotal.getTotal_facture());
 			beanSave.setNet_a_payer( beanTotal.getNet_a_payer());
 			beanSave.setFacture_remise(beanTotal.getFacture_remise());
+			 
+			if(beanSaveS.getModReg()!=null && beanSaveS.getModReg().getMod_id()!=null)
 			beanSave.setModReg(beanSaveS.getModReg());
+			else
+		    beanSave.setModReg(null);
+			
+			
 			beanSave.setFact_ref_id(beanSaveS.getFact_ref_id());
 			beanSave.setCpt_bank(beanSaveS.getCpt_bank());
 			beanSave.getEtat_reg().setData_id("fnon");

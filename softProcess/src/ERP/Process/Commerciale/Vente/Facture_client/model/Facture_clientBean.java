@@ -43,13 +43,11 @@ public class Facture_clientBean extends GenericBean {
 	private String fact_ref_id = "";
 	 
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST) 
 	@JoinColumn(name = "mod_reg_id", insertable = true, updatable = true)
-	private ModeReglementBean   modReg = new ModeReglementBean();
+	private ModeReglementBean   modReg ;
 	
-	 
-	
-
+ 
 	@ManyToOne
 	@JoinColumn(name = "clt_id", insertable = true, updatable = true)
 	private ClientBean  client = new ClientBean();

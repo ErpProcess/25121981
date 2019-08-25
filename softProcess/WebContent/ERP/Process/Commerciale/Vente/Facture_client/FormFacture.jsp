@@ -75,7 +75,7 @@ $(document).ready(function (){
           <td><label>Mode Reg</label></td>
           <td> 
            <script>   $(function() {  loadSelectAjax("reg_modXX","list_mode_reglment_facture","mod_id","mod_libelle","${detailBean.modReg.mod_id}",true);  })</script>
-           <select    id="reg_modXX"  name="modReg.mod_id"     required     style="width: 180px;"      nextelement="reg_nbr_echeance"        ></select>
+           <select    id="reg_modXX"  name="modReg.mod_id"           style="width: 180px;"      nextelement="reg_nbr_echeance"        ></select>
           </td>
         </tr>
         <tr>
@@ -96,7 +96,7 @@ $(document).ready(function (){
         </tr>
         <tr>
           <td ><label>${fact_date_edition}</label></td>
-          <td  ><input id="fact_date_edition" name="fact_date_edition"   libre   readonly="readonly"     type="datepicker"    size="13"       maxlength="13"        value="${detailBean.fact_date_edition}"    nextElement="montant_timbre_fisc"              />
+          <td  ><input id="fact_date_edition" name="fact_date_edition"   libre       type="datepicker"    size="13"       maxlength="13"        value="${detailBean.fact_date_edition}"    nextElement="montant_timbre_fisc"              />
           </td>
           <td  ><label>Total TTC </label></td>
           <td   ><input id="total_facture"     name="total_facture"  style="text-align: right;"    type="montant3"    size="25"    libre="libre"   readonly="readonly"      maxlength="50"        value="${detailBean.total_facture}"    nextelement="btValidx"></td>

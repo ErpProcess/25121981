@@ -24,8 +24,8 @@ public class  ModeReglementBean   extends  GenericBean {
 	 */
 	private static final long serialVersionUID = -4109360959227914856L;
 
-	@Id
-	@Column
+	 @Id
+	 @Column
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private Integer  mod_id  ; 
 	 

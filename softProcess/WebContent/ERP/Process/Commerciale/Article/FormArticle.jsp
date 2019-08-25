@@ -51,21 +51,13 @@ function doAfficherCodeBar(levalde_type){
 		        </td>
 		      </tr>
 		      
-		      <tr>
-		        <td  ><label>${ar_libelle}</label></td>
-		        <td   >
-		        <input id="ar_libelle" name="ar_libelle"  maxlength="100"   type="text"    size="48"    value="${detailBean.ar_libelle}"    nextElement="arcodbar"  />
-		        </td>
-		      </tr>
-		      <tr>
-		      
 		       <tr  >
 		        <td  ><label>Type Code</label></td>
 		        <td    ><table>
 		            <tr>
 		              <td>
 		                 <script  >$(function() {loadSelectAjax("artypX","list_type_article","data_id","data_libelle","${detailBean.bean_artyp.data_id}",true); })</script>
-		                 <select  idonly   id="artypX"  name="bean_artyp.data_id"  onchange="doAfficherCodeBar(this.value)"  style="width: 180px;"  ></select>
+		                 <select  idonly   id="artypX"  name="bean_artyp.data_id"  onchange="doAfficherCodeBar(this.value)"  style="width: 180px;"  required  ></select>
 		                </td>
 		                
 		                <td    id="Tr_arcodbar_t"  style="display: none;margin-left: 35px;" valign="top"> 
@@ -80,6 +72,17 @@ function doAfficherCodeBar(levalde_type){
 		       
 		        </td>
 		      </tr>
+		      
+		      
+		      <tr>
+		        <td  ><label>${ar_libelle}</label></td>
+		        <td   >
+		        <input id="ar_libelle" name="ar_libelle"  maxlength="100"   type="text"    size="48"    value="${detailBean.ar_libelle}"  required     nextElement="arcodbar"  />
+		        </td>
+		      </tr>
+		      <tr>
+		      
+		      
 		      
   <tr>
 		        <td  ><label>${fam_id}</label></td>
@@ -110,20 +113,48 @@ function doAfficherCodeBar(levalde_type){
 		      </tr>
 		      
 		      
-		      <tr>
-		        <td  ><label>${stock_minimum}</label></td>
-		        <td    ><input id="stock_minimum" name="stock_minimum" style="width: 179px;"  nextElement="btValidx"   value="${detailBean.stock_minimum}"  />
-		        </td>
-		      </tr>
-		      <tr>
-		        <td  ><label>${stock_maximum}</label></td>
-		        <td    ><input id="stock_maximum" name="stock_maximum"  style="width: 179px;"   nextElement="btValidx"    value="${detailBean.stock_maximum}" />
+		       <tr>
+		        <td ><label>Tva</label></td>
+		        <td > 
+		        <script  >$(function() {    loadSelectAjax("tva_idXX","list_tvList","tva_id","tva_libelle","${detailBean.tva.tva_id}",false); })</script>
+		        <select  id="tva_idXX"  name="tva.tva_id"           style="width: 200px;"     onchange="loadDat();"          ></select>   
 		        </td>
 		      </tr>
 		      
+		      
+		      <tr>
+		        <td ><label>Prix_Achat</label>&nbsp; <button type="button" value="ass"  onclick="loadDat()">&#187;</button></td>
+		        <td > 
+		        <label>HTV</label><input  id="prix_achat"  name="prix_achat"         type="montant3"    value=""  size="17"    onblur="loadDat()"  nextElement="prix_vente"        />
+		         <br> <br>
+		        <script type="text/javascript"> 
+		        function loadDat(){
+		        	  var jsonText = doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_LOAD_PRIX_ARTICLE_TTC','json',false);
+		        	  $('#prix_achatttc').val(jsonText.prix_achatttc);
+		        	  $('#prix_ventettc').val(jsonText.prix_ventettc);
+		        }
+		      
+		        
+		        </script>
+		        <label>TTC</label><input  id="prix_achatttc"  name="prix_achatttc"   type="montant3"   size="17"   value=""              /> 
+		        </td>
+		      </tr>
+		    
+		      <tr>
+		        <td ><label>Prix_Vente</label>&nbsp; <button type="button" value="ass"  onclick="loadDat()">&#187;</button></td>
+		        <td > 
+		         <label>HTV</label><input  id="prix_vente"  name="prix_vente"         type="montant3"  size="17"   value=""     onblur="loadDat()"  nextElement="ar_obs"         />
+		         <br> <br>
+		         <label>TTC</label><input  id="prix_ventettc"  name="prix_ventettc"   type="montant3"   size="17"  value=""              />  
+		        </td>
+		      </tr>
+		      
+		      
+		    
+		      
 		      <tr>
 		        <td ><label>${ar_obs}</label></td>
-		        <td ><textarea id="ar_obs" name="ar_obs" rows="5" cols="50"     >${detailBean.ar_obs}</textarea>
+		        <td ><textarea id="ar_obs" name="ar_obs" rows="5" cols="50"   nextElement="btValidx"   >${detailBean.ar_obs}</textarea>
 		        </td>
 		      </tr>
 		    </table>
@@ -164,10 +195,7 @@ function doAfficherCodeBar(levalde_type){
 		        <td ><input isboolean  id="initialiser_au_inv" name="initialiser_au_inv"    type="checkbox"    value="${detailBean.initialiser_au_inv}"   /> 
 		        </td>
 		      </tr>
-		      
-		      
-		      
-		      
+	 
 		       <tr>
 		        <td ><label>Par Lot</label></td>
 		        <td ><input isboolean  id="par_lot" name="par_lot"    type="checkbox"    value="${detailBean.par_lot}"   /> 
@@ -199,40 +227,7 @@ function doAfficherCodeBar(levalde_type){
 		           <select  id="mode_choix_prix_venteX"  name="mode.data_id"   readonly       style="width: 200px;"       libre      ></select>   
 		        </td>
 		      </tr>
-		      <tr>
-		        <td ><label>Tva</label></td>
-		        <td > 
-		        <script  >$(function() {    loadSelectAjax("tva_idXX","list_tvList","tva_id","tva_libelle","${detailBean.tva.tva_id}",false); })</script>
-		        <select  id="tva_idXX"  name="tva.tva_id"           style="width: 200px;"               ></select>   
-		        </td>
-		      </tr>
-		      
-		      
-		      <tr>
-		        <td ><label>Prix_Achat</label>&nbsp; <button type="button" value="ass"  onclick="loadDat()">&#187;</button></td>
-		        <td > 
-		        <label>HTV</label><input  id="prix_achat"  name="prix_achat"         type="montant3"    value=""              /><br>
-		        <script type="text/javascript"> 
-		        function loadDat(){
-		        	  var jsonText = doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_LOAD_PRIX_ARTICLE_TTC','json',false);
-		        	  $('#prix_achatttc').val(jsonText.prix_achatttc);
-		        	  $('#prix_ventettc').val(jsonText.prix_ventettc);
-		        }
-		      
-		        
-		        </script>
-		        <label>TTC</label><input  id="prix_achatttc"  name="prix_achatttc"   type="montant3"    value=""              /> 
-		        </td>
-		      </tr>
-		    
-		      <tr>
-		        <td ><label>Prix_Vente</label>&nbsp; <button type="button" value="ass"  onclick="loadDat()">&#187;</button></td>
-		        <td > 
-		         <label>HTV</label><input  id="prix_vente"  name="prix_vente"         type="montant3"     value=""              /><br>
-		         <label>TTC</label><input  id="prix_ventettc"  name="prix_ventettc"   type="montant3"    value=""              />  
-		        </td>
-		      </tr>
-		      
+		     
 		       <tr>  
 		   		<td  ><label>Dépôt</label></td>  
 		   		<td    >  
@@ -261,19 +256,22 @@ function doAfficherCodeBar(levalde_type){
 		          
 		           
 		          </script>
-		          
 		            <select  id="clientSelect"  name="clt_id"    multiple         ></select>   
- 
- 
- 
-
-					
 					  </td>  
 	           </tr> 
 	           
 	          		      
 		    
-	           
+	             <tr>
+		        <td  ><label>${stock_minimum}</label></td>
+		        <td    ><input id="stock_minimum" name="stock_minimum" style="width: 179px;"  nextElement="btValidx"   value="${detailBean.stock_minimum}"  />
+		        </td>
+		      </tr>
+		      <tr>
+		        <td  ><label>${stock_maximum}</label></td>
+		        <td    ><input id="stock_maximum" name="stock_maximum"  style="width: 179px;"       value="${detailBean.stock_maximum}" />
+		        </td>
+		      </tr>
 	          
 		      
 		     </table >

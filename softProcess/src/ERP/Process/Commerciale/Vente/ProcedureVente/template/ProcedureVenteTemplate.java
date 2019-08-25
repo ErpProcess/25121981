@@ -177,6 +177,8 @@ public static boolean i$_ACT_SELECT_ROW = false;
 public static boolean i$_ACT_VALIDER = false;
 public static boolean i$_ACT_ACTUALISER_LIST_CORR = false;
 public static boolean i$_ACT_PRINT_DETAILLE = false;
+public static boolean i$_ACT_PRINT_FACTURE_FROM_VENTE = false;
+
 public static boolean i$_ACT_EXPORT_DETAILLE = false;
 public static boolean i$_ACT_SERVIR= false;
 public static boolean i$_ACT_FETCH_AJAX_SERVIR= false;

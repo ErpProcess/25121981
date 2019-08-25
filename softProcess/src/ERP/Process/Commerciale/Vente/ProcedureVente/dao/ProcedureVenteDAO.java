@@ -514,19 +514,19 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				HashMap resultTrai_generic=traitement_for_lot_generic(beanUpdate,detBean,list_lot_article,session);
 				String  resultMessage = (String) resultTrai_generic.get("retournErreur");
 				Boolean resultretour  = (Boolean) resultTrai_generic.get("retour");
-				if(!resultretour) 
-					throwNewException(resultMessage+"Pour l'article:"+detBean.getPk().getFkcode_barre().getPk().getCode_barre()+" / "+
-							detBean.getPk().getFkcode_barre().getDesignation_libelle());
+//				if(!resultretour) 
+//					throwNewException(resultMessage+"Pour l'article:"+detBean.getPk().getFkcode_barre().getPk().getCode_barre()+" / "+
+//							detBean.getPk().getFkcode_barre().getDesignation_libelle());
 				}
 				
-				if( list_lot_article!=null &&  list_lot_article.size()>0 && chaine.length()>0 ) {
+				//if( list_lot_article!=null &&  list_lot_article.size()>0 && chaine.length()>0 ) {
 					boolean resul=traitement_for_stock(beanUpdate,detBean,map_resultat_stock,session);
-					if(!resul){
-						throwNewException("Stock zero _ article:"+detBean.getPk().getFkcode_barre().getPk().getCode_barre()+" / "+
-								detBean.getPk().getFkcode_barre().getDesignation_libelle());
-						 
-					}
-				}
+//					if(!resul){
+//						throwNewException("Stock zero _ article:"+detBean.getPk().getFkcode_barre().getPk().getCode_barre()+" / "+
+//								detBean.getPk().getFkcode_barre().getDesignation_libelle());
+//						 
+//					}
+				//}
 				session.saveOrUpdate(detBean);
 				
 			}
@@ -842,8 +842,8 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			   beanSerie.getPk().setDepot(beanUpd.getDepot());
 			   list_lot_article=serviceDocumentLot.doFetchDatafromServer(beanSerie);
 			   
-			  if(list_lot_article==null ||  list_lot_article.size()==0)
-				   throwNewException(" il existe un ou plusieur  article(s) sans Lot ");
+//			  if(list_lot_article==null ||  list_lot_article.size()==0)
+//				   throwNewException(" il existe un ou plusieur  article(s) sans Lot ");
 			   
 			
 		} catch (Exception e) {
@@ -882,7 +882,8 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			    
 			    String date_vente =  ProcessDate.getStringFormatDate(beanUpdate.getVente_date());// forcer a date system
 			    String pattern ="0.000";
-				if( beanUpdate.getDevise().getDev_id().intValue()==191  ||  beanUpdate.getDevise().getDev_id().intValue()==192   ){
+			    
+				if(beanUpdate.getDevise()!=null &&  beanUpdate.getDevise().getDev_id().intValue()==191  ||  beanUpdate.getDevise().getDev_id().intValue()==192   ){
 					pattern ="0.00";
 				}
 				 
@@ -893,15 +894,14 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
 				detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 			    Double prix_unit_moyen_pond = new Double(0);
-				 if(map_article_jour.get(key_trait)==null) {
-					 
-					 return false;
-					
-					 
-				 }else{
-					
-					 Stock_articleBean stock         = (Stock_articleBean)map_article_jour.get(key_trait);
-					 
+			    Stock_articleBean stock         = new Stock_articleBean();
+//			    if(map_article_jour.get(key_trait)==null) {
+//			    	return false;
+//			    }
+				 if(map_article_jour.get(key_trait)!=null) {
+					 stock         = (Stock_articleBean)map_article_jour.get(key_trait);
+				 }  
+		 
 					 prix_unit_moyen_pond            = stock.getCout_unitaire_moyen_pondere()!=null?stock.getCout_unitaire_moyen_pondere(): new Double(0);
 					 
 					 String  date_stock              = ProcessDate.getStringFormatDate(stock.getPk().getDate_stock());
@@ -926,10 +926,10 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 					 Double tot_Stock_Mnt_tva_vente  = ProcessNumber.addition(Stock_montant_tva_V , Vmnt_tva_vente);
 					 
 					 
-					 if(sold_stock_jr.doubleValue()<0){
-					    return false;
-						    
-					 } 
+//					 if(sold_stock_jr.doubleValue()<0){
+//					    return false;
+//						    
+//					 } 
 					 
 					 if(date_vente.equals(date_stock)){
 						 
@@ -1009,7 +1009,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				 		 
 					 session.createQuery(qString).executeUpdate();
 				 
-				 }
+				 
 			 
 		} catch (Exception e) {
 			 resultat= false;
@@ -1711,73 +1711,13 @@ public Boolean doSaveFacture( ProcedureVenteBean detailBean, List  liste_detaill
 		try {
 			 ProcedureVenteBean beanUpdate=(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
 			 beanUpdate.setFifo(detailBean.getFifo());
-			   boolean  sup=ProcessDate.isStrictementSuperieur(beanUpdate.getVente_date(), BDateTime.getDateActuel());
-			    if(sup)
-			    	throwNewException(" Date vente "+ProcessDate.getStringFormatDate(beanUpdate.getVente_date())+"Sup a date system");
-			   
-			   List <DetProcedureVenteBean> listOfmyData=(List) getObjectValueModel(ProcedureVenteTemplate.LIST_EDITABLE_VENTE);
-			 
-			   String chaine="";
-			   for(DetProcedureVenteBean beanvente:listOfmyData){
-				   if(  !StringUtils.isEmpty(  beanvente.getPk().getFkcode_barre().getPk().getAr_bean().getCathegorie().getData_id()) &&  
-							  beanvente.getPk().getFkcode_barre().getPk().getAr_bean().getCathegorie().getData_id().equals("mar") 	)
-					   
-				 chaine=chaine+"'"+beanvente.getPk().getFkcode_barre().getPk().getCode_barre()+"',";
-			   }
-			   chaine.length(); 
-			   List     list_lot_article   = new ArrayList();
-			   HashMap  map_resultat_stock = new HashMap();
-			   if(chaine.length()>0){
-				   chaine=chaine.substring(0, chaine.length()-1);
-			       list_lot_article   = doGetLot_artcicle(beanUpdate,chaine);
-			       map_resultat_stock = doGetStock_artcicle(beanUpdate,chaine);
-			     }
-			    
-		  
-			
-			    for (int i = 0; i < listOfmyData.size(); i++) {
-					DetProcedureVenteBean detBean  = (DetProcedureVenteBean) listOfmyData.get(i);
-					detBean.getPk().setVente(beanUpdate);
-					detBean.setQuantite_confirmer(detBean.getQuantite());
-					
-					 if(  !StringUtils.isEmpty(  detBean.getPk().getFkcode_barre().getPk().getAr_bean().getCathegorie().getData_id()) &&  
-							 detBean.getPk().getFkcode_barre().getPk().getAr_bean().getCathegorie().getData_id().equals("syn") 	
-							 ) continue;
-					 
-					
-					boolean resultTrai_personnaliser=false;//traitement_for_lot_personnaliser(beanUpdate,detBean,session);
-					
-					if(!resultTrai_personnaliser && (list_lot_article!=null &&  list_lot_article.size()>0) ) {
-					HashMap resultTrai_generic=traitement_for_lot_generic(beanUpdate,detBean,list_lot_article,session);
-					String  resultMessage = (String) resultTrai_generic.get("retournErreur");
-					Boolean resultretour  = (Boolean) resultTrai_generic.get("retour");
-					if(!resultretour) 
-						throwNewException(resultMessage+"Pour l'article:"+detBean.getPk().getFkcode_barre().getPk().getCode_barre()+" / "+
-								detBean.getPk().getFkcode_barre().getDesignation_libelle());
-					}
-					if( list_lot_article!=null &&  list_lot_article.size()>0 && chaine.length()>0 ) {
-						boolean resul=traitement_for_stock(beanUpdate,detBean,map_resultat_stock,session);
-						if(!resul){
-							throwNewException("Stock zero _ article:"+detBean.getPk().getFkcode_barre().getPk().getCode_barre()+" / "+
-									detBean.getPk().getFkcode_barre().getDesignation_libelle());
-							 
-						}
-					}
-					session.saveOrUpdate(detBean);
-					
-				}
-				this.setUpdateValueFieldTraceOject(beanUpdate);
-				session.saveOrUpdate(beanUpdate);
-			 
-		       if( !StringUtils.isBlank( beanUpdate.getCommande().getCmd_id()) ){
-			     session.createQuery("    UPDATE   CommandeclientBean b  set   b.modeBean.fct_id="+GenericActionBean.Fn_Facturer+"  " +
-			     		"       where   b.cmd_id='"+beanUpdate.getCommande().getCmd_id()+"'    ").executeUpdate();
-		       }
-		       
-			
+		     result  = TraitementVenteArticleMarchandise(detailBean,session);
+		     List <DetFournitureVenteBean> listOfmyData=(List) getObjectValueModel(ProcedureVenteTemplate.LIST_EDITABLE_FOURNITURE_VENTE);
+			 if(listOfmyData!=null  &&  listOfmyData.size()>0){
+					TraitementFournitureVente(listOfmyData,detailBean,session);
+			 }
 		    HashMap  mapclientBen   =(HashMap) getObjectValueModel(ProcedureVenteTemplate.MAP_CLIENT_BEN);
 		    ClientBean  cliBean = (ClientBean) mapclientBen.get(detailBean.getClient().getClt_id());
-		    	
 		    ProcedureVenteBean beanTotal =(ProcedureVenteBean) getObjectValueModel(ProcedureVenteTemplate.BEAN_TOTAL);
 		    Facture_clientBean beanSaveS = new Facture_clientBean();
 		    beanSaveS.setFact_date(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()));
@@ -1793,6 +1733,12 @@ public Boolean doSaveFacture( ProcedureVenteBean detailBean, List  liste_detaill
 			beanSaveS.setAvance_montant_vente(beanTotal.getAvance_montant_vente());
 			beanSaveS.getEtat_reg().setData_id("fnon");
 			daoNumSequentiel.getNumSeqSimple(beanSaveS,"fact_clt_id",session,"F");
+			
+			if(beanSaveS.getModReg()!=null && beanSaveS.getModReg().getMod_id()!=null)
+				beanSaveS.setModReg(beanSaveS.getModReg());
+				else
+			beanSaveS.setModReg(null);
+			beanSaveS.setDevise(beanUpdate.getDevise());
 			setBeanTrace(beanSaveS);
 			session.save(beanSaveS);
 			//saveTrace(beanSaveS);
@@ -1825,7 +1771,8 @@ public Boolean doSaveFacture( ProcedureVenteBean detailBean, List  liste_detaill
 				 
 			}
 			if(!result_detaille)throwNewException("err_inser_deaill");
-				
+			setObjectValueModel("factureImprimer", beanSaveS);
+			setObjectValueModel("detailFcatureImprimer", liste_detaille_facture);
 			//saveTraceVersion_Master_detailles(listOfmyData, Facture_clientTemplate.MapfieldBean_detaille, Facture_clientTemplate.id_entite_detaille, Facture_clientTemplate.entite_detaille);
 			result = true;
 			commitTransaction(session);

@@ -171,6 +171,34 @@ public class ArticleActionManager extends ArticleTemplate {
 			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 
 			beanArticle.getPk_article().setEtabBean(bs.getEtablissement());
+			beanArticle.setStock_minimum(new Double(1));
+			beanArticle.setStock_maximum(new Double(500));
+			beanArticle.setPar_lot(true);
+			if(bs.getSociete().getTva_default()!=null) {
+				TVABean tvaff = new TVABean();
+				tvaff.setTva_id(bs.getSociete().getTva_default());
+				beanArticle.setTva(tvaff);
+			}
+			
+			
+			
+		 
+			Entite_etat_commercialeBean bean_artyp = new Entite_etat_commercialeBean();
+			bean_artyp.setData_id("UA");
+			beanArticle.setBean_artyp(bean_artyp);
+			
+			Entite_etat_commercialeBean bean_mode_cal = new Entite_etat_commercialeBean();
+			bean_mode_cal.setData_id("htv");
+			beanArticle.setBean_mode_cal(bean_mode_cal);
+			 
+			
+			UniteBean unitBean = new UniteBean();
+			unitBean.setUnite_id(97);
+			beanArticle.setUnitBean(unitBean);
+			
+			Entite_etat_commercialeBean mode = new Entite_etat_commercialeBean();
+			Entite_etat_commercialeBean choix = new Entite_etat_commercialeBean();
+			 
 			setObjectValueModel(FORM_BEAN,beanArticle);
 			setObjectValueModel(SEARCH_BEAN, getObjectValueModel(MODEL_BEAN));
 			removeObjectModel((String) getObjectValueModel(NAME_LIST_G));

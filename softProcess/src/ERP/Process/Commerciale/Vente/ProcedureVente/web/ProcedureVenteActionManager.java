@@ -48,6 +48,10 @@ import ERP.Process.Commerciale.Vente.Commandeclient.model.CommandeclientBean;
 import ERP.Process.Commerciale.Vente.Commandeclient.model.DetCmdCltBean;
 import ERP.Process.Commerciale.Vente.Commandeclient.service.CommandeclientService;
 import ERP.Process.Commerciale.Vente.Commandeclient.template.CommandeclientTemplate;
+import ERP.Process.Commerciale.Vente.Facture_client.model.Facture_clientBean;
+import ERP.Process.Commerciale.Vente.Facture_client.template.Facture_clientTemplate;
+import ERP.Process.Commerciale.Vente.Facture_client.web.Facture_clientActionManager;
+import ERP.Process.Commerciale.Vente.Facture_client.web.PrintPdfModelSPL;
 import ERP.Process.Commerciale.Vente.FournitureVente.model.DetFournitureVenteBean;
 import ERP.Process.Commerciale.Vente.FournitureVente.model.FournitureVenteBean;
 import ERP.Process.Commerciale.Vente.FournitureVente.service.FournitureVenteService;
@@ -1173,14 +1177,14 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 				if(llis!=null  &&  llis.size()>0){
 				    beanR=(Stock_articleBean) llis.get(0);
 				    quantite_en_stock=beanR.getSolde_stock();
-				    if(quantite_en_stock.doubleValue()==0)
-				    	throwNewException("cet article n'est pas disponible en stock");
-				    if(quantite_en_stock.doubleValue()<detailBean.getQuantiteX().doubleValue())
-				    	throwNewException("cette quantite n'est pas disponible en stock");
+//				    if(quantite_en_stock.doubleValue()==0)
+//				    	throwNewException("cet article n'est pas disponible en stock");
+//				    if(quantite_en_stock.doubleValue()<detailBean.getQuantiteX().doubleValue())
+//				    	throwNewException("cette quantite n'est pas disponible en stock");
 				    
 				}else{
 				    beanR= new Stock_articleBean();
-				    throwNewException("cet article n'est pas disponible en stock");
+				   // throwNewException("cet article n'est pas disponible en stock");
 				} 
 			 }
 			
@@ -1360,14 +1364,14 @@ public   ModelAndView doAdd_row_Fourniture( ProcedureVenteBean detailBean  ) thr
 				if(llis!=null  &&  llis.size()>0){
 				    beanR=(Stock_articleBean) llis.get(0);
 				    quantite_en_stock=beanR.getSolde_stock();
-				    if(quantite_en_stock.doubleValue()==0)
-				    	throwNewException("cet article n'est pas disponible en stock");
-				    if(quantite_en_stock.doubleValue()<  detailBean.getQuantiteFourniture().doubleValue())
-				    	throwNewException("cette quantite n'est pas disponible en stock");
+//				    if(quantite_en_stock.doubleValue()==0)
+//				    	throwNewException("cet article n'est pas disponible en stock");
+//				    if(quantite_en_stock.doubleValue()<  detailBean.getQuantiteFourniture().doubleValue())
+//				    	throwNewException("cette quantite n'est pas disponible en stock");
 				    
 				}else{
 				    beanR= new Stock_articleBean();
-				    throwNewException("cet article n'est pas disponible en stock");
+				   // throwNewException("cet article n'est pas disponible en stock");
 				} 
 			 }
 			
@@ -2107,11 +2111,43 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		setObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE  , new  ArrayList<DetFournitureVenteBean>());
 	    throwNewException("Facture ok");
 	 	} catch (Exception e) {
+	 		
 	 	displayException(e);
+	 	if(e.getMessage().equals("Facture ok"))
+        TransfertError(e);
 	 }
 	return getViewAfterAdd(FORM_VIEW_CREER);
 		}
 	
+	
+	public ModelAndView doPrintFactureSPL() throws Exception {
+		PrintPdfModelSPL print = new PrintPdfModelSPL();
+		try {
+			List   lisData=  (List) getObjectValueModel("detailFcatureImprimer") ;
+			List <TVABean> list_des_tva=  (List) getObjectValueModel(LIST_DES_TVA);
+			Facture_clientBean    factureImprimer= (Facture_clientBean) getObjectValueModel("factureImprimer") ;
+			setObjectValueModel(Facture_clientTemplate.LIST_DATA_DET_FACT, lisData) ;
+			setObjectValueModel(Facture_clientTemplate.LIST_DES_TVA, list_des_tva) ;
+			setObjectValueModel(FORM_BEAN,factureImprimer ) ;
+			setObjectValueModel(Facture_clientTemplate.BEAN_TOTAL_FACTURE_CLIENT, factureImprimer);
+			Facture_clientActionManager fManager = new Facture_clientActionManager();
+			fManager.doTraitmentTotal(factureImprimer);
+			print.doPrintPDF_detaille();
+			
+			setObjectValueModel("detailFcatureImprimer", new ArrayList<>()) ;
+			setObjectValueModel(LIST_DES_TVA , new ArrayList<>() );
+			setObjectValueModel("factureImprimer" , new Facture_clientBean()) ;
+			setObjectValueModel(Facture_clientTemplate.LIST_DATA_DET_FACT, new ArrayList<>()) ;
+			setObjectValueModel(Facture_clientTemplate.LIST_DES_TVA, new ArrayList<>()) ;
+			setObjectValueModel(FORM_BEAN,new ProcedureVenteBean()) ;
+			setObjectValueModel(Facture_clientTemplate.BEAN_TOTAL_FACTURE_CLIENT, new Facture_clientBean());
+			
+		} catch (Exception e) {
+			displayException(e);
+		}
+		return null;
+	}
+	 
 	
 	
 	
@@ -3236,7 +3272,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			 
 			 json.put("list_tva", listDataTva);
 			 setObjectValueModel("mapTvaImpression", mapTvaImpression);
-			
+			  
 			  
 			 JSONObject  element = new JSONObject();
 			 element.put("td1","4");

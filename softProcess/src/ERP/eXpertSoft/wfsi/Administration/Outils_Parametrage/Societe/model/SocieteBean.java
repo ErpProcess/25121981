@@ -43,6 +43,12 @@ public class SocieteBean implements Serializable,Cloneable {
 	
 	@Column 
 	private BigDecimal soc_ordre  ;
+	
+	
+	@Column 
+	private Integer tva_default  ;
+	
+	
 	 
 	public BigDecimal getFile_id() {
 		return file_id;
@@ -388,6 +394,14 @@ public class SocieteBean implements Serializable,Cloneable {
 
 	public void setCode_cl(String code_cl) {
 		this.code_cl = code_cl;
+	}
+
+	public Integer getTva_default() {
+		return tva_default;
+	}
+
+	public void setTva_default(Integer tva_default) {
+		this.tva_default = tva_default;
 	}
 
 	 

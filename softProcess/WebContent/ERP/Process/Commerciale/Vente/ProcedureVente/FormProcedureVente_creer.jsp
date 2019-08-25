@@ -36,17 +36,27 @@ var mapEditableGen = {
 				   
 					    
 					   
-   			           {      "sName": "quantite_en_stock"        , "sWidth": "5%"     ,"bSearchable": true  , "bSortable": true,"bVisible": true  },           
+   			           {      "sName": "quantite_en_stock"        , "sWidth": "3%"     ,"bSearchable": true  , "bSortable": true,"bVisible": true  },           
 					                 
 					   {      "sName": "quantite"           ,   "bSortable": true       , "sWidth": "5%"        ,"mRender": function( data, type, full){  
 					          return '<input   type="number"      style="width:70px;"     id=quantite'+full[0]+'       name=quantite        value="'+data+'"       onblur=doEnvoiDataV2(this,"'+full[2]+'")     nextElement="quantite'+full[12]+'"     >'; }},   
 					  
-					   {      "sName": "unite"   ,"sWidth": "5%"     ,"bSearchable": true },
+					   {      "sName": "unite"   ,"sWidth": "5%"     ,"bSearchable": true ,  "bVisible": false   },
 					    
 					   {      "sTitle":"TVA" , "sName": "tarif.tvaBean.tva_libelle"  ,"sClass" : "alignCenter"  ,"sWidth": "5%"   , "bSortable": true ,"bVisible": true  },           
 					           
 					   {      "sTitle":"Prix U"    , "sName": "tarif.tarif_unit_vente"   ,"sWidth": "10%"    ,"sClass" : "alignRight"       , "bSortable": true 
-                           , "mRender":    function (data, type, full) {   if( $("#devX").val()=="191"  ||  $("#devX").val()=="192") return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },
+                           , "mRender":    function (data, type, full) {
+//                         	   if( $("#devX").val()=="191"  ||  $("#devX").val()=="192") 
+//                         		   return  formatNumberJsXC(data,2); 
+//                         	   else  
+//                         		   return formatNumberJsXC(data,3); 
+
+                        	   return '<input   type="montant3"      style="width:100%;"     id=tarif_unit_vente'+full[0]+'       name=tarif.tarif_unit_vente        value="'+formatNumberJsXC(data,3)+'"       onblur=doEnvoiDataV2(this,"'+full[2]+'")          >'; 
+                          	   } 
+					   
+					         
+					   },
                            
                        {      "sTitle":"remise"     , "sName": "taux_remise_ligne"     ,"sWidth": "7%"    ,"sClass" : "alignCenter"    , "bSortable": true    
                            , "mRender": function (data, type, full) {  return addPourcentage(data);}  ,"bVisible": true    },           
@@ -74,7 +84,7 @@ $(document).ready(function () {
 	
 	
 	
-if(custumMessageBoxo!=""){
+if(custumMessageBoxo!=""  &&  custumMessageBoxo !="Facture ok"){
 
 var messageBoxx='Confirmer';
 
@@ -90,7 +100,39 @@ Ext.MessageBox.show({
            icon: Ext.MessageBox.QUESTION
        });
 }  
+
+
+if(custumMessageBoxo!="" &&  custumMessageBoxo=="Facture ok"){
+	
+	Ext.MessageBox.show({
+        title:'Imprimer facture',
+        msg: custumMessageBoxo,
+        buttons: {ok:'Imprimer',no:'Retour'}  ,
+        fn: getActionImprimer,
+        animateTarget: 'mb4',
+        icon: Ext.MessageBox.QUESTION
+    });
+	
+}
+
 });
+
+function getActionImprimer(btn){
+ 
+     if( btn=="no" ){
+         var hidvente="i$_ACT_RESET_FORM";
+	 $("#myformToServeur").find('input[name="HiddenAction"]').val(hidvente);
+	 $("#myformToServeur").attr("action",contexPath+"${tmlx.url}");
+     $("#myformToServeur").submit();
+     }else{
+         var url = contexPath+"${tmlx.url}?HiddenAction=i$_ACT_PRINT_FACTURE_FROM_VENTE";
+     	 genericPdfProcess(url);  
+     }
+     
+
+}
+
+
 function getActionBox(btn){
      $("#ssSQZ_father").mask("Veuillez Patientez...");
       var hidvente="i$_ACT_COMMIT";
@@ -612,7 +654,7 @@ function doExcuteFnAfterGrid( dataSS ){
 					<tr style="border-color:#a9bfd3;background-color:#d0def0;"   >
 					
 						<th></th>
-						<th><input   type="checkbox"   id="Cheked_unCheked"       name="Cheked_unCheked"                onclick="doCheked_unCheked(this)"     ></th>
+						<th width="5px"><input   type="checkbox"   id="Cheked_unCheked"       name="Cheked_unCheked"                onclick="doCheked_unCheked(this)"     ></th>
 						<th><input   type="text"       id="pk.code_barre"         name="code_barreX"           style="width: 95%;"        requiredx ></th>
 						<th><input   type="text"       id="designation_libelle"   name="designation_libelle"   style="width: 95%;"        requiredx ></th>
 						<th ><input  type="number"     id="quantite_stock"        name="quantite_stock"        style="width: 93%;"        libre readonly="readonly"        ></th>

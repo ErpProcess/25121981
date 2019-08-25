@@ -841,8 +841,6 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		return getViewFilterAjax_Vente(FILTER_VIEW_VENTE);
 	}
 	
-	
-	
 	@SuppressWarnings("unchecked")
 	public ModelAndView doCalculer_Total(Facture_clientBean detailBean ) throws Exception {
 		try {
@@ -850,7 +848,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			Facture_clientBean   rowBean = (Facture_clientBean) getObjectValueModel(FORM_BEAN);
 			List <Det_Fact_ClientBean >List_detaille= new ArrayList<Det_Fact_ClientBean>();
 			String pattern ="0.000";
-	    	if( rowBean.getDevise().getDev_id().intValue()==191  ||  rowBean.getDevise().getDev_id().intValue()==192   ){
+	    	if(rowBean.getDevise() !=null  && ( rowBean.getDevise().getDev_id().intValue()==191  ||  rowBean.getDevise().getDev_id().intValue()==192 )  ){
 					pattern ="0.00";
 			} 
 			
@@ -861,7 +859,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			if(rowBean.getClient().getClt_exonorer().booleanValue()==true) {
 				timbre= new Double(0);
 			}
-			if(bs.getFct_id().equals(Fn_Générer)   ){
+			if(bs.getFct_id().equals(Fn_Générer)  ||  bs.getFct_id().equals(Fn_Facturer)   ){
 				 List_detaille=(List<Det_Fact_ClientBean>) getObjectValueModel(LIST_DATA_DET_FACT);
 			}else{
 				List_detaille=serviceFacture.doFetchDetaillefromServer(rowBean);
@@ -1112,6 +1110,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			 json.put("list_total", list_total);
 			 setObjectValueModel("list_total", list_total);
 			 setObjectValueModel(BEAN_TOTAL_FACTURE_CLIENT, beanTotal);
+			 
 			 getResponse().setContentType(JSON_CONTENT_TYPE);      
 			 getResponse().getWriter().write(json.toString());
 			
@@ -1120,8 +1119,291 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			getResponse().getWriter().print(e.getMessage());
 		}
 		return null;
+	}
 	
+	@SuppressWarnings("unchecked")
+	public void doTraitmentTotal(Facture_clientBean detailBean ) throws Exception {
+		try {
+			BeanSession bs                =(BeanSession)getObjectValueModel(BEAN_SESSION);
+			 
+			List <Det_Fact_ClientBean >List_detaille= new ArrayList<Det_Fact_ClientBean>();
+			String pattern ="0.000";
+			 HashMap  mapDevise= (HashMap) getObjectValueModel("map_devise");
+			if(detailBean.getDevise() !=null  &&  mapDevise!=null) {
+				   DeviseBean devise =(DeviseBean) mapDevise.get( String.valueOf(detailBean.getDevise().getDev_id()) );
+				   detailBean.setDevise(devise);
+			}
 		 
+		  
+		     
+	    	if(  ( detailBean.getDevise().getDev_id().intValue()==191  ||  detailBean.getDevise().getDev_id().intValue()==192 )  ){
+					pattern ="0.00";
+			} 
+			
+			Double getAvance_montant_vente  = detailBean.getAvance_montant_vente()==null?new Double(0):detailBean.getAvance_montant_vente();
+			Double avance                   = ProcessFormatNbr.FormatDouble_ParameterChiffre(getAvance_montant_vente,pattern);
+			Double timbre                   = ProcessFormatNbr.FormatDouble_ParameterChiffre(bs.getSociete().getMontant_timbre_fiscal(),pattern);
+			 
+			if(detailBean.getClient().getClt_exonorer().booleanValue()==true) {
+				timbre= new Double(0);
+			}
+			if(bs.getFct_id().equals(Fn_Générer)  ||  bs.getFct_id().equals(Fn_Facturer)   ){
+				 List_detaille=(List<Det_Fact_ClientBean>) getObjectValueModel(LIST_DATA_DET_FACT);
+			}else{
+				List_detaille=serviceFacture.doFetchDetaillefromServer(detailBean);
+				getAvance_montant_vente  = detailBean.getAvance_montant_vente()==null?new Double(0):detailBean.getAvance_montant_vente();
+				avance                   = ProcessFormatNbr.FormatDouble_ParameterChiffre(getAvance_montant_vente,pattern);
+			}
+			
+			setObjectValueModel(LIST_DATA_DET_FACT, List_detaille);
+			setObjectValueModel(LIST_DATA_DET_FACT_CLONE, ProcessUtil.cloneList(List_detaille) );  
+			
+			
+			Double totalre_mise          			  =  new Double(0);
+			Double tot_ht_brute =new Double(0);
+			Double tot_ht_net    =new Double(0);
+			Double tot_tva=new Double(0);
+			Double tot_qte=new Double(0);
+			Double tot_qteBox=new Double(0);
+			
+			
+			HashMap   map_des_Tva = new HashMap();
+			for (int i = 0; i < List_detaille.size(); i++) {
+				Det_Fact_ClientBean  beanLigne=List_detaille.get(i);
+				
+				 
+				/*****************************************le cout ********************************************/
+	    		Double getQuantiteX       = beanLigne.getQuantite()==null?new Double(0):beanLigne.getQuantite();
+	    		Double getQuantiteBox       = beanLigne.getNbrBoxes()==null?new Double(0):beanLigne.getNbrBoxes();
+	    		Double                 qte= ProcessFormatNbr.FormatDouble_ParameterChiffre(getQuantiteX,pattern);
+	    		/*Double  cout              = beanLigne.getTarif().getCout()==null?new Double(0):beanLigne.getTarif().getCout().getTarif_unit_article(,pattern);
+	    		Double	Prixcout          = cout==null?new Double(0):cout;
+	    		Double le_cout            = ProcessNumber.PRODUIT(Prixcout, qte);
+	    		le_cout					  = ProcessFormatNbr.FormatDouble_ParameterChiffre(le_cout);*/
+	    		
+	    		/*****************************************  setInfo  ********************************************/
+	    		
+	    		/*****************************************  setInfo  ********************************************/
+	    		Double priUnitvente=ProcessFormatNbr.FormatDouble_ParameterChiffre(beanLigne.getTarif_unit_vente(),pattern);
+	    		/*****************************************Prix Unit Brute reel********************************************/
+	    		Double montant_ht_vente_brute=ProcessNumber.PRODUIT(priUnitvente, qte);
+	    		montant_ht_vente_brute=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente_brute,pattern);
+	    		beanLigne.setMontant_ht_vente_reel(montant_ht_vente_brute);
+	    		tot_qte         =ProcessNumber.addition(tot_qte, qte);
+	    		
+	    		Double       qteBox= ProcessFormatNbr.FormatDouble_ParameterChiffre(getQuantiteBox,pattern);
+	    		tot_qteBox      =ProcessNumber.addition(tot_qteBox, qteBox);
+	    		
+	    		
+				tot_ht_brute=ProcessNumber.addition(tot_ht_brute, montant_ht_vente_brute);
+	    		 
+	    		/*******************************************Remise********************************************************/
+				 
+				Double taux_remiseligne     = beanLigne.getTaux_remise_ligne()==null?new Double(0):beanLigne.getTaux_remise_ligne();
+				taux_remiseligne=ProcessFormatNbr.FormatDouble_ParameterChiffre(taux_remiseligne,pattern);
+				beanLigne.setTaux_remise_ligne(taux_remiseligne);
+				Double montant_Remise_Ligne  = ProcessNumber.Pourcentage(beanLigne.getMontant_ht_vente_reel(), taux_remiseligne);
+				beanLigne.setMontant_remise_ligne(ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_Remise_Ligne,pattern));
+				totalre_mise=ProcessNumber.addition(totalre_mise, montant_Remise_Ligne);
+ 
+    		    /*******************************************montant_ht_vente *********************************************/   
+    		    
+    		    tot_ht_net=ProcessNumber.addition(tot_ht_net, beanLigne.getMontant_ht_vente());
+	    		
+	    		/*********************************************montant_tva_vente ******************************************/
+	    		 
+	    		tot_tva=ProcessNumber.addition(tot_tva, beanLigne.getMontant_tva_vente());
+	    		
+	    		/*********************************************montant_ttc_vente *******************************************/
+	    		Double  montant_ttc_vente=ProcessNumber.addition(beanLigne.getMontant_ht_vente(), beanLigne.getMontant_tva_vente());
+	    		beanLigne.setMontant_ttc_vente(montant_ttc_vente);
+	    		
+	    		/*********************************************montant_benefice *******************************************/
+	    		/*if(le_cout.doubleValue()>0){
+	    		Double	 montant_benefice = ProcessNumber.SOUSTRACTION(montant_ht_vente, le_cout);
+	    		montant_benefice          =ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_benefice);
+	    		beanLigne.setMontant_benefice(montant_benefice);
+	    		marge_benefice_vente=ProcessNumber.addition(marge_benefice_vente, montant_benefice);*/
+	    		//}
+	    		/**********************************************************************************************************/
+				 
+				
+				List  listTva = (List) map_des_Tva.get(beanLigne.getTvaBean().getTva_libelle());
+				if(listTva==null)listTva= new ArrayList();
+				listTva.add(beanLigne);
+				map_des_Tva.put(beanLigne.getTvaBean().getTva_libelle(), listTva);
+				
+				/**********************************************************************************************************/
+			}
+			
+			 Facture_clientBean    beanTotal = new Facture_clientBean();
+			 beanTotal.setAvance_montant_vente(avance)  ; 
+			 beanTotal.setTotnbrBox(tot_qteBox);
+			 beanTotal.setTotal_quantite(String.valueOf(tot_qte));
+			 //beanTotal.setMarge_benefice_vente(ProcessFormatNbr.FormatDouble_ParameterChiffre(marge_benefice_vente));
+			 JSONObject json        = new JSONObject();
+			 JSONArray  listDataTva = new JSONArray();
+			 JSONArray  list_total  = new JSONArray();
+			  
+			 JSONObject  el_zero = new JSONObject();
+			 el_zero.put("td1","0");
+			 el_zero.put("value1","");
+			 listDataTva.put(el_zero);
+				 
+				 /*********************************************************ENTETE***************************************************/
+			 el_zero = new JSONObject();
+			 el_zero.put("td1","0");
+			 el_zero.put("value1","Taux");
+			 el_zero.put("td2","1");
+			 el_zero.put("value2","Base");
+			 el_zero.put("td3","2");
+			 el_zero.put("value3","Montant");
+			 listDataTva.put(el_zero);
+				 
+				 /********************************************************************************************************************/
+				 
+				 HashMap   mapTvaImpression = new HashMap();
+				 
+				 
+				 Double    total_leTva  = new Double(0);
+				 List <TVABean> list_des_tva=  (List) getObjectValueModel(LIST_DES_TVA);
+				 Double le_Ht_Net  = new Double(0);
+				 Double le_Ht_Reel  = new Double(0);
+				 for (int j = 0; j < list_des_tva.size(); j++) {
+					 TVABean beanTva=list_des_tva.get(j);
+					 
+					 if(map_des_Tva.get(beanTva.getTva_libelle())!=null){
+						 List listTva  =(List) map_des_Tva.get(beanTva.getTva_libelle());
+						 String  tva   = beanTva.getTva_libelle();
+						  	
+						 Double le_Ht_netLigne  = new Double(0);
+					     Double leTva  = new Double(0);
+					 	 for (int i = 0; i < listTva.size(); i++) {
+					 		Det_Fact_ClientBean  bean=(Det_Fact_ClientBean) listTva.get(i);
+					 		le_Ht_netLigne=ProcessNumber.addition(le_Ht_netLigne, bean.getMontant_ht_vente());
+							le_Ht_Net=ProcessNumber.addition(le_Ht_Net, bean.getMontant_ht_vente());
+							le_Ht_Reel=ProcessNumber.addition(le_Ht_Reel, bean.getMontant_ht_vente_reel());
+							leTva=ProcessNumber.addition(leTva, bean.getMontant_tva_vente());
+						 }
+					 	 total_leTva=  ProcessNumber.addition(total_leTva, leTva);
+						 
+						 JSONObject  element = new JSONObject();
+						 element.put("td1","0");
+						 element.put("value1",String.valueOf(tva));
+					     
+					     String base=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(le_Ht_netLigne,pattern);
+					     
+						 element.put("td2","1");
+						 element.put("value2",base);
+					     
+						 element.put("td3","2");
+						 String tvaB=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(leTva,pattern);
+						  
+						 element.put("value3",tvaB);
+						 listDataTva.put(element);
+						 mapTvaImpression.put(tva, base+"£"+tvaB);
+					 }
+				 }
+			 
+			 json.put("list_tva", listDataTva);
+			 setObjectValueModel("mapTvaImpression", mapTvaImpression);
+			
+			  
+			 JSONObject  element = new JSONObject();
+			 element.put("td1","4");
+			 element.put("value1","Brut.H.T");
+			 element.put("td2","5");
+			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(le_Ht_Reel,pattern));
+			 list_total.put(element);
+			 
+			 /*if( detailBean.getTaux_remise_alacaisse()!=null  &&  le_Ht_Reel.doubleValue() >0 ){
+				 remise_ala_caisse  = ProcessNumber.Pourcentage(le_Ht_Reel, detailBean.getTaux_remise_alacaisse());
+				 remise_ala_caisse  = ProcessFormatNbr.FormatDouble_ParameterChiffre(remise_ala_caisse);
+			 }*/
+			 //beanTotal.setVente_remise_alacaisse(remise_ala_caisse);
+			 totalre_mise  = ProcessFormatNbr.FormatDouble_ParameterChiffre(totalre_mise,pattern);
+			 beanTotal.setFacture_remise(totalre_mise); 
+			 json.put("vente_remise",  ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(totalre_mise,pattern));	
+			 element = new JSONObject();
+			 element.put("td1","4");
+			 element.put("value1","Remise");
+			 element.put("td2","5");
+			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(totalre_mise, pattern));
+			 list_total.put(element);
+			
+			 
+			 element = new JSONObject();
+			 element.put("td1","4");
+			 element.put("value1","Net.H.T");
+			 element.put("td2","5");
+			 Double ht_apres_remise =  ProcessNumber.SOUSTRACTION(le_Ht_Reel, totalre_mise)  ;
+			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(ht_apres_remise,pattern));
+			 list_total.put(element);
+			 beanTotal.setTotal_ht_fact(ProcessFormatNbr.FormatDouble_ParameterChiffre(ht_apres_remise,pattern));
+			 
+			
+			 
+			 
+			 
+			
+			 element = new JSONObject();
+			 element.put("td1","4");
+			 element.put("value1"," Total TVA");
+			 element.put("td2","5");
+			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(total_leTva,pattern));
+			 beanTotal.setTotal_tva_fact(ProcessFormatNbr.FormatDouble_ParameterChiffre(total_leTva,pattern));
+			 list_total.put(element);
+			 
+			 
+			 Double total_mnt_gen=ProcessNumber.addition(ht_apres_remise, total_leTva);
+			 element = new JSONObject();
+			 element.put("td1","4");
+			 element.put("value1","Timbre");
+			 element.put("td2","5");
+			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(timbre,pattern));
+			 list_total.put(element);
+			 total_mnt_gen=ProcessNumber.addition(total_mnt_gen,timbre);
+			 beanTotal.setMnt_timb_fisc(timbre);
+		
+			 
+			 element = new JSONObject();
+			 element.put("td1","4");
+			 element.put("value1","Total TTC");
+			 element.put("td2","5");
+			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(total_mnt_gen,detailBean.getDevise(),false, true) );
+			 json.put("vente_mnt_total",   ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(total_mnt_gen,detailBean.getDevise(),false, true) );
+			 beanTotal.setTotal_facture(ProcessFormatNbr.FormatDouble_ParameterChiffre(total_mnt_gen,pattern));
+			 list_total.put(element);
+			  
+			 
+			 element = new JSONObject();
+			 element.put("td1","4");
+			 element.put("value1","Avance");
+			 element.put("td2","5");
+			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(avance,pattern));
+			 list_total.put(element);
+			 
+			 
+			 element = new JSONObject();
+			 element.put("td1","4");
+			 element.put("value1","Net à payer");
+			 element.put("td2","5");
+			 Double net_a_payer=ProcessNumber.SOUSTRACTION(total_mnt_gen, avance);
+			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(net_a_payer,pattern));
+			 beanTotal.setNet_a_payer(ProcessFormatNbr.FormatDouble_ParameterChiffre(net_a_payer,pattern));
+			 json.put("vente_mnt_net_a_payer",   ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(net_a_payer,pattern));
+			 list_total.put(element);
+			   
+			 
+			 json.put("list_total", list_total);
+			 setObjectValueModel("list_total", list_total);
+			 setObjectValueModel(BEAN_TOTAL_FACTURE_CLIENT, beanTotal);
+		 
+			
+		} catch (Exception e) {
+			throw e;
+		}
+ 
 		 
 	}
 	
