@@ -23,6 +23,8 @@ import ERP.Process.Commerciale.Stock.Stock_article.dao.Stock_articleDAO;
 import ERP.Process.Commerciale.Stock.Stock_article.model.IncidentStock_articleBean;
 import ERP.Process.Commerciale.Stock.Stock_article.model.MouvementStockBean;
 import ERP.Process.Commerciale.Stock.Stock_article.model.Stock_articleBean;
+import ERP.Process.Commerciale.Tarification.model.TarificationBean;
+import ERP.Process.Commerciale.Type_tarification.model.Type_tarificationBean;
 import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Det_Fact_ClientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Detail_mvt_vente_articleBean;
@@ -213,7 +215,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				for (Iterator iter = setMap_deriver_vente.iterator(); iter.hasNext();) {
 					String codeBarr = (String) iter.next();
 					DeriverOperationVente dVente = (DeriverOperationVente) map_deriver_vente.get(codeBarr);
-					if(dVente!=null) {
+					if(dVente!=null ) {
 						this.setBeanTrace(dVente);
 						session.save(dVente);
 					}
@@ -230,10 +232,43 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				detBean.getPk().setVente(beanSave);
 				if( map_deriver_vente!=null   &&  map_deriver_vente.size() >0 ) {
 					DeriverOperationVente dVente = (DeriverOperationVente) map_deriver_vente.get(detBean.getPk().getFkcode_barre().getPk().getCode_barre());
-					if(dVente!=null) {
+					if(dVente!=null  ) {
 						detBean.setDrv(dVente);
 					}
 				}
+				if(detBean.isPrix_vente_is_changed()) {
+					TarificationBean  tarifOrigin =   detBean.getTarif() ;
+					TarificationBean  tarifNew = new TarificationBean();
+					
+					
+					HashMap  mapclient  =  (HashMap)getObjectValueModel( ProcedureVenteTemplate.MAP_CLIENT_BEN);
+					ClientBean  ben     =  (ClientBean) mapclient.get(beanSave.getClient().getClt_id());
+					Type_tarificationBean groupe = new Type_tarificationBean();
+					groupe.setType_trf_lib(BDateTime.getDateActuel_system()+" "+ProcessDate.getTime(new Date())+" "+ben.getClt_id()+"/"+ben.getClt_lib());
+					setBeanTrace(groupe);
+					session.save(groupe);
+					
+					tarifNew.setGroupe(groupe);
+					tarifNew.setBean_cal(tarifOrigin.getBean_cal());
+					tarifNew.setFkCode_barre(tarifOrigin.getFkCode_barre());
+					tarifNew.setDevise(tarifOrigin.getDevise());
+					tarifNew.setTvaBean(tarifOrigin.getTvaBean());
+					tarifNew.setDepot(null);
+					tarifNew.setDate_trf(beanSave.getVente_date());
+					tarifNew.setTarif_unit_vente(tarifOrigin.getTarif_unit_vente());
+					tarifNew.setValeur_de_laTva(ProcessNumber.getMontantTvaByMontantHT(tarifOrigin.getTarif_unit_vente(), tarifOrigin.getTvaBean(), new DeviseBean()));
+					tarifNew.setTarif_unit_vente_tt(ProcessNumber.getMontantTTCByMontantHT(tarifOrigin.getTarif_unit_vente(), tarifOrigin.getTvaBean(),  new DeviseBean() ));
+					tarifNew.setTarif_lot(null);
+					tarifNew.setNum_serie(null);
+					daoNumSequentiel.getNumSeqSimple(tarifNew,"tarif_vente_id",session);
+					if(tarifOrigin.getCout()!=null && (tarifOrigin.getCout().getTarif_prim_id()==null || tarifOrigin.getCout().getTarif_prim_id().equals("")))
+					tarifNew.setCout(null);
+					this.setBeanTrace(tarifNew);
+					session.save(tarifNew);
+					
+					detBean.setTarif(tarifNew);  
+				}
+					
 				session.save(detBean);
 				result_detaille=true;
 			}

@@ -299,7 +299,13 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 				devBean.setVente_date(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()) );
 				devBean.setDepot(depot);
 				devBean.setDevise(bs.getSociete().getDeviseVente());
-				devBean.setClient((ClientBean) list_client_d.get(0));
+			
+				if(bs.getSoc_id().equals("10")) {
+					ClientBean cBean = new ClientBean();
+					cBean.setClt_id("cpass");
+					devBean.setClient(cBean);
+				}
+					
 				setObjectValueModel("beanInito",  ProcessUtil.cloneObject(devBean)  );
 				setObjectValueModel(FORM_BEAN, devBean);
 				return getViewAdd(FORM_VIEW_CREER);
@@ -709,6 +715,9 @@ public   ModelAndView doActualiser_GRID( ProcedureVenteBean bean ) throws Except
 		    		
 		    		
 		    		Double priUnitvente=ProcessFormatNbr.FormatDouble_ParameterChiffre(ss.getTarif_unit_vente(),pattern);
+		    		if(priUnitvente.doubleValue()!=newBean.getPrix_vente_origin()) {
+		    			newBean.setPrix_vente_is_changed(true);
+		    		}
 		    		
 		    		DeriverUnite  drvUnite=newBean.getPk().getFkcode_barre().getPk().getAr_bean().getUnitBean().getDrv();
 		    		newBean.setUnite(newBean.getPk().getFkcode_barre().getPk().getAr_bean().getUnitBean().getUnite_lib());
@@ -1051,6 +1060,7 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	     tBean.setDate_trf3(searchBean.getVente_date());
 	     tBean.setCondition_cathegorie("'mar','syn'");
 	     tBean.getFkCode_barre().getPk().getAr_bean().getFam_art().setFam_id(searchBean.getFam_id());
+	     tBean.setGroupe(ben.getTyp_trfBean());
 	     //tBean.setMethode_prix("   AND  (bean.tarif_lot is null or  bean.tarif_lot is false)  AND   bean.num_serie is null   AND  bean.depot.depot_id  is null   ");
 	    // tBean.setMethode_prix2("  AND  (BA.tarif_lot is null   or  BA.tarif_lot is false)    AND   BA.num_serie is null     AND  bean.depot.depot_id  is null   ");
          List<TarificationBean> list_Tarification_vente  = serviceTarification.doFetchDatafromServer(tBean);
@@ -1206,8 +1216,6 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 		 
 			Double getTaux_remise_alacaisse = detailBean.getTaux_remise_alacaisse()==null?new Double(0):detailBean.getTaux_remise_alacaisse();
 			TarificationBean ss= definitionTarification_devente(  detailBean,bCode_barreBean,beancl);
-			
-			
 			 
 	    	if(ss!=null){
 	     
@@ -1216,7 +1224,7 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	    		
 	    		DeriverUnite  drvUnite=cBean.getPk().getAr_bean().getUnitBean().getDrv();
 	    		beanLigne.setUnite(cBean.getPk().getAr_bean().getUnitBean().getUnite_lib());
-	    		if(drvUnite!=null) {
+	    		if(drvUnite!=null && drvUnite.getDrv_id()!=null) {
 	    			List <DetDeriverUnite> listDrv = serviceUnite.doFetchDetDeriverUniteByDrvId(drvUnite.getDrv_id())  ;
 	    			for (int r = 0; r < listDrv.size();r++) {
 	    				DetDeriverUnite deUnite = listDrv.get(r);
@@ -1229,7 +1237,6 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 	    				map_deriver_vente.put(detailBean.getCode_barreX(), dVente);
 	    				beanLigne.setUnite(cBean.getPk().getAr_bean().getUnitBean().getUnite_lib()+":"+ qteOpe);
 					}
-	    				
 	    		} 
 	    		
 	    	
@@ -1251,7 +1258,8 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 				String natureprix="<br>"+" <p style='color:red;margin-left:20%;font-size:8px;'># Prix "+lot+" * "+groupe+"</p>";
 				beanLigne.setInfo(libelle_desi+natureprix);
 	    		Double priUnitvente=ProcessFormatNbr.FormatDouble_ParameterChiffre(ss.getTarif_unit_vente(),pattern); 
-	    		  
+	    		
+	    		beanLigne.setPrix_vente_origin(    priUnitvente );
 	    		
 	    		
 	    		/*****************************************Prix Unit Brute reel********************************************/

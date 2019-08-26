@@ -105,14 +105,21 @@ public class ProcessNumber {
 	public static Double getMontantTvaByMontantHT(Double montantHTva, TVABean tvaBean, DeviseBean devise) throws Exception {
 		Double   tvaValue          = ProcessNumber.DIVISION(tvaBean.getTva_value(), 100) ;
 		Double valeur_de_laTva     = ProcessNumber.PRODUIT(montantHTva,tvaValue);
-		return valeur_de_laTva;
+		return ProcessFormatNbr.FormatDouble_Troischiffre(valeur_de_laTva);
+	}
+	
+	public static Double getMontantTTCByMontantHT(Double montantHTva, TVABean tvaBean, DeviseBean devise) throws Exception {
+		Double   tvaValue          = ProcessNumber.DIVISION(tvaBean.getTva_value(), 100) ;
+		Double valeur_de_laTva     = ProcessNumber.PRODUIT(montantHTva,tvaValue);
+		Double mntTTc     = ProcessNumber.addition(valeur_de_laTva,montantHTva);
+		return  ProcessFormatNbr.FormatDouble_Troischiffre(mntTTc);
 	}
 	
 	public static Double getMontantHTByMontantTTC(Double montantTTC, TVABean tvaBean, DeviseBean devise) throws Exception {
 		Double   tvaValue        = ProcessNumber.DIVISION(tvaBean.getTva_value(), 100) ;
 		Double   MntUnitTTC      = ProcessNumber.addition(1.000, tvaValue) ;
 		Double   montantHT       = ProcessNumber.DIVISION(montantTTC,MntUnitTTC);
-		return montantHT;
+		return ProcessFormatNbr.FormatDouble_Troischiffre(montantHT);
 	}
 	
 

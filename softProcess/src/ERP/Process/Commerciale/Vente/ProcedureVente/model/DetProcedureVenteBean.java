@@ -104,8 +104,25 @@ public class DetProcedureVenteBean extends GenericBean {
 	private Double montant_ttc_vente;
 	
 	
+	@Transient
+	private Double prix_vente_origin;
 	
 	
+	@Transient
+	private boolean prix_vente_is_changed =false;
+	
+	
+	
+	
+	
+	public boolean isPrix_vente_is_changed() {
+		return prix_vente_is_changed;
+	}
+
+	public void setPrix_vente_is_changed(boolean prix_vente_is_changed) {
+		this.prix_vente_is_changed = prix_vente_is_changed;
+	}
+
 	public Double getCout_unit_moyen_pondere() {
 		return cout_unit_moyen_pondere;
 	}
@@ -177,6 +194,14 @@ public class DetProcedureVenteBean extends GenericBean {
 	
 	
  
+	public Double getPrix_vente_origin() {
+		return prix_vente_origin;
+	}
+
+	public void setPrix_vente_origin(Double prix_vente_origin) {
+		this.prix_vente_origin = prix_vente_origin;
+	}
+
 	public PkDetProcedureVente getPk() {
 		return pk;
 	}
