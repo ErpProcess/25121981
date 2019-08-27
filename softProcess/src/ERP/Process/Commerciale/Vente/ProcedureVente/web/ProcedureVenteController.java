@@ -112,8 +112,6 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 		          
 		          if (i$_ACT_RETOUR_LIST_SERVIR)    return      doRetourToList_SERVIR();
 		          
-		         
-		          
 		          
 		          if (i$_ACT_PRINT_PDF_DETAILLE)    return      doPrintPDF_detaille(); 
 		          

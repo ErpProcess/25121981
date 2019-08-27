@@ -39,7 +39,7 @@ var mapEditableGen = {
    			           {      "sName": "quantite_en_stock"        , "sWidth": "3%"     ,"bSearchable": true  , "bSortable": true,"bVisible": true  },           
 					                 
 					   {      "sName": "quantite"           ,   "bSortable": true       , "sWidth": "5%"        ,"mRender": function( data, type, full){  
-					          return '<input   type="number"      style="width:70px;"     id=quantite'+full[0]+'       name=quantite        value="'+data+'"       onblur=doEnvoiDataV2(this,"'+full[2]+'")     nextElement="quantite'+full[12]+'"     >'; }},   
+					          return '<input   type="number"      style="width:70px;"     id=quantite'+full[0]+'       name=quantite        value="'+data+'"       onblur=doEnvoiDataV2(this,"'+full[2]+'")        >'; }},   
 					  
 					   {      "sName": "unite"   ,"sWidth": "5%"     ,"bSearchable": true ,  "bVisible": false   },
 					    
@@ -52,7 +52,7 @@ var mapEditableGen = {
 //                         	   else  
 //                         		   return formatNumberJsXC(data,3); 
 
-                        	   return '<input   type="montant3"      style="width:100%;"     id=tarif_unit_vente'+full[0]+'       name=tarif.tarif_unit_vente        value="'+formatNumberJsXC(data,3)+'"       onblur=doEnvoiDataV2(this,"'+full[2]+'")          >'; 
+                        	   return '<input   type="montant3"      style="width:100%;"     id=tarif_unit_vente'+full[0]+'       name=tarif.tarif_unit_vente        value="'+formatNumberJsXC(data,3)+'"       onblur=doEnvoiDataV2(this,"'+full[2]+'")      >'; 
                           	   } 
 					   
 					         
@@ -84,7 +84,7 @@ $(document).ready(function () {
 	
 	
 	
-if(custumMessageBoxo!=""  &&  custumMessageBoxo !="Facture ok"){
+if(custumMessageBoxo!=""  &&  custumMessageBoxo !="Facturation effectuée avec succès"  &&  custumMessageBoxo !="Confirmation effectuée avec succès"  ){
 
 var messageBoxx='Confirmer';
 
@@ -101,11 +101,25 @@ Ext.MessageBox.show({
        });
 }  
 
+if(custumMessageBoxo!=""  &&  custumMessageBoxo =="Confirmation effectuée avec succès"){
 
-if(custumMessageBoxo!="" &&  custumMessageBoxo=="Facture ok"){
-	
 	Ext.MessageBox.show({
-        title:'Imprimer facture',
+        title:'Imprimer Bon de Livraison',
+        msg: custumMessageBoxo,
+        buttons: {ok:'Imprimer BL',no:'Retour'}  ,
+        fn: getActionImprimerBL,
+        animateTarget: 'mb4',
+        icon: Ext.MessageBox.QUESTION
+    });
+	}  
+
+
+
+
+
+if(custumMessageBoxo!="" &&  custumMessageBoxo=="Facturation effectuée avec succès"){
+	Ext.MessageBox.show({
+        title:'Imprimer Facture',
         msg: custumMessageBoxo,
         buttons: {ok:'Imprimer',no:'Retour'}  ,
         fn: getActionImprimer,
@@ -128,9 +142,23 @@ function getActionImprimer(btn){
          var url = contexPath+"${tmlx.url}?HiddenAction=i$_ACT_PRINT_FACTURE_FROM_VENTE";
      	 genericPdfProcess(url);  
      }
-     
-
 }
+
+
+function getActionImprimerBL(btn){
+	 
+    if( btn=="no" ){
+        var hidvente="i$_ACT_RESET_FORM";
+	 $("#myformToServeur").find('input[name="HiddenAction"]').val(hidvente);
+	 $("#myformToServeur").attr("action",contexPath+"${tmlx.url}");
+    $("#myformToServeur").submit();
+    }else{
+        var url = contexPath+"${tmlx.url}?HiddenAction=i$_ACT_PRINT_PDF_DETAILLE";
+    	 genericPdfProcess(url);  
+    }
+}
+
+
 
 
 function getActionBox(btn){
@@ -145,7 +173,10 @@ function getActionBox(btn){
 }
 
 function control_de_liste(){
-	
+// 	 if(otab_otra2) otab_otra2.fnAdjustColumnSizing();
+ 	 if(otab_otra) otab_otra.fnAdjustColumnSizing();
+// 	 if(otab_otraPrestation) otab_otraPrestation.fnAdjustColumnSizing();
+	 
 var     retournX = doGenerate_methode_ajaxWithReturn('POST',urls_Generic_def+"?nameList=list_editable_proVente",'i$_ACT_VERIF_LIST','text',false);
 if(retournX=="")  return "";
 

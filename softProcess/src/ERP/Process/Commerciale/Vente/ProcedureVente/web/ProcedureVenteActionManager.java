@@ -2072,7 +2072,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 
 	public ModelAndView doAddData(ProcedureVenteBean detailBean, FournitureVenteBean    fVenteBean , ServiceBean    service ) throws Throwable {
 	     try {
-				setObjectValueModel(FORM_BEAN, detailBean);
+				 
 				setObjectValueModel("detailFrnBean", fVenteBean);
 				setObjectValueModel("detailSrvBean", service);
 	            serviceProcedureVente.doCreateRowData(detailBean,fVenteBean,service);
@@ -2092,15 +2092,17 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	    ServiceBean  srvBean=	(ServiceBean) getObjectValueModel("detailSrvBean");
 	    FournitureVenteBean  frnBean=	(FournitureVenteBean) getObjectValueModel("detailFrnBean");
 	    serviceProcedureVente.doConfirmRowData(detailBean,frnBean,srvBean); 
-	    ProcedureVenteBean  devBean = (ProcedureVenteBean) getObjectValueModel("beanInito");
-		setObjectValueModel(FORM_BEAN, devBean);
-		List  <DetProcedureVenteBean>listGridEditable_VENTE=  new  ArrayList<DetProcedureVenteBean>();
-		setObjectValueModel(LIST_EDITABLE_VENTE, listGridEditable_VENTE);
-		setObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE  , new  ArrayList<DetFournitureVenteBean>());
-		setObjectValueModel(LIST_EDITABLE_PRESTATION  , new  ArrayList<DetServiceBean>());
-	    throwNewException("validation ok ");
+//	    ProcedureVenteBean  devBean = (ProcedureVenteBean) getObjectValueModel("beanInito");
+//		setObjectValueModel(FORM_BEAN, devBean);
+//		List  <DetProcedureVenteBean>listGridEditable_VENTE=  new  ArrayList<DetProcedureVenteBean>();
+//		setObjectValueModel(LIST_EDITABLE_VENTE, listGridEditable_VENTE);
+//		setObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE  , new  ArrayList<DetFournitureVenteBean>());
+//		setObjectValueModel(LIST_EDITABLE_PRESTATION  , new  ArrayList<DetServiceBean>());
+	    throwNewException("Confirmation effectuée avec succès");
 	 	} catch (Exception e) {
-	 	displayException(e);
+		 	displayException(e);
+		 	if(e.getMessage().equals("Confirmation effectuée avec succès"))
+	        TransfertError(e);
 	 }
 	return getViewAfterAdd(FORM_VIEW_CREER);
 		}
@@ -2117,11 +2119,10 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		setObjectValueModel(LIST_EDITABLE_VENTE, listGridEditable_VENTE);
 		setObjectValueModel(LIST_EDITABLE_PRESTATION  , new  ArrayList<DetServiceBean>());
 		setObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE  , new  ArrayList<DetFournitureVenteBean>());
-	    throwNewException("Facture ok");
+	    throwNewException("Facturation effectuée avec succès");
 	 	} catch (Exception e) {
-	 		
 	 	displayException(e);
-	 	if(e.getMessage().equals("Facture ok"))
+	 	if(e.getMessage().equals("Facturation effectuée avec succès"))
         TransfertError(e);
 	 }
 	return getViewAfterAdd(FORM_VIEW_CREER);
@@ -2198,11 +2199,13 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	public ModelAndView doConfirmData(ProcedureVenteBean beanUpBean, FournitureVenteBean    fVenteBean , ServiceBean    service) {	 
 		 	try {
 		 serviceProcedureVente.doConfirmRowData(beanUpBean,fVenteBean,service); 
-		 remove_row_from_list(LIST_DATA); 
-		 removeObjectModel(FORM_BEAN);
-		 throwNewException("validation ok ");
+//		 remove_row_from_list(LIST_DATA); 
+//		 removeObjectModel(FORM_BEAN);
+		 throwNewException("Confirmation effectuée avec succès");
 	 	} catch (Exception e) {
-	 	displayException(e);
+		 	displayException(e);
+		 	if(e.getMessage().equals("Confirmation effectuée avec succès"))
+	        TransfertError(e);
 	 }
 	return getViewList_Ajax(FILTER_VIEW);
 		}
@@ -2484,6 +2487,9 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		List   list_detailleService    =  (List<DetServiceBean>) getObjectValueModel(LIST_EDITABLE_PRESTATION);   
 		 
 		ProcedureVenteBean      denBean= (ProcedureVenteBean) getObjectValueModel(FORM_BEAN) ;
+		HashMap  mapclient  =  (HashMap)getObjectValueModel( ProcedureVenteTemplate.MAP_CLIENT_BEN);
+		ClientBean  ben     =  (ClientBean) mapclient.get(denBean.getClient().getClt_id());
+		denBean.setClient(ben);
 		File file = new File(getRequest().getRealPath("/")+"/temp/"+LIST_EDITABLE_VENTE+getRequest().getSession().getId()+".pdf");
 	    FileOutputStream fs = new FileOutputStream(file);
 	    GeneratePdf  genpdf= new GeneratePdf();
@@ -2547,6 +2553,12 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	          doWrite_Tva_Total_Piece(lisData,document);  
 	        }
 	        document.close();
+	        ProcedureVenteBean  devBean = (ProcedureVenteBean) getObjectValueModel("beanInito");
+			setObjectValueModel(FORM_BEAN, devBean);
+			List  <DetProcedureVenteBean>listGridEditable_VENTE=  new  ArrayList<DetProcedureVenteBean>();
+			setObjectValueModel(LIST_EDITABLE_VENTE, listGridEditable_VENTE);
+			setObjectValueModel(LIST_EDITABLE_PRESTATION  , new  ArrayList<DetServiceBean>());
+			setObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE  , new  ArrayList<DetFournitureVenteBean>());
 			getResponse().setContentType("text");
 			getResponse().setHeader("Cache-Control", "no-cache");
 			getResponse().setStatus(200);

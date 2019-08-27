@@ -209,19 +209,19 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			beanSave.setVente_mnt_total(beanTotal.getVente_mnt_total());
 			beanSave.setMarge_benefice_vente(beanTotal.getMarge_benefice_vente());
 			session.save(beanSave);
-			HashMap  map_deriver_vente  =(HashMap) getObjectValueModel(ProcedureVenteTemplate.MAP_DERIVER_VENTE);
-			if( map_deriver_vente!=null   &&  map_deriver_vente.size() >0 ) {
-				Set setMap_deriver_vente=map_deriver_vente.keySet();
-				for (Iterator iter = setMap_deriver_vente.iterator(); iter.hasNext();) {
-					String codeBarr = (String) iter.next();
-					DeriverOperationVente dVente = (DeriverOperationVente) map_deriver_vente.get(codeBarr);
-					if(dVente!=null ) {
-						this.setBeanTrace(dVente);
-						session.save(dVente);
-					}
-				}
-			}
-			
+//			HashMap  map_deriver_vente  =(HashMap) getObjectValueModel(ProcedureVenteTemplate.MAP_DERIVER_VENTE);
+//			if( map_deriver_vente!=null   &&  map_deriver_vente.size() >0 ) {
+//				Set setMap_deriver_vente=map_deriver_vente.keySet();
+//				for (Iterator iter = setMap_deriver_vente.iterator(); iter.hasNext();) {
+//					String codeBarr = (String) iter.next();
+//					DeriverOperationVente dVente = (DeriverOperationVente) map_deriver_vente.get(codeBarr);
+//					if(dVente!=null ) {
+//						this.setBeanTrace(dVente);
+//						session.save(dVente);
+//					}
+//				}
+//			}
+//			
 			//this.saveTraceVersion1( beanSave  , ProcedureVenteTemplate.MapfieldBean  , ProcedureVenteTemplate.id_entite_pricipale  , ProcedureVenteTemplate.entites);
 			
 			boolean result_detaille = false;
@@ -230,12 +230,12 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				if( detBean.getQuantite()==null) { continue; }
 				if( detBean.getQuantite()==0 ||  detBean.getQuantite()<0) { continue;}
 				detBean.getPk().setVente(beanSave);
-				if( map_deriver_vente!=null   &&  map_deriver_vente.size() >0 ) {
-					DeriverOperationVente dVente = (DeriverOperationVente) map_deriver_vente.get(detBean.getPk().getFkcode_barre().getPk().getCode_barre());
-					if(dVente!=null  ) {
-						detBean.setDrv(dVente);
-					}
-				}
+//				if( map_deriver_vente!=null   &&  map_deriver_vente.size() >0 ) {
+//					DeriverOperationVente dVente = (DeriverOperationVente) map_deriver_vente.get(detBean.getPk().getFkcode_barre().getPk().getCode_barre());
+//					if(dVente!=null  ) {
+//						detBean.setDrv(dVente);
+//					}
+//				}
 				if(detBean.isPrix_vente_is_changed()) {
 					TarificationBean  tarifOrigin =   detBean.getTarif() ;
 					TarificationBean  tarifNew = new TarificationBean();
@@ -286,6 +286,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			
 			 result = true;
 			 commitTransaction(session);
+			 setObjectValueModel(FORM_BEAN, beanSave);
 		 } catch (Exception e) {  
 			 result = false;
 		     if (sessionIsTrue(session)) 
@@ -1026,7 +1027,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 					  detail_Bean.setCout_unit_moyen_pondere(prix_unit_moyen_pond);
 					  detail_Bean.setMvt_stock(mvtStock);
 					 
-					  session.update(detail_Bean);   
+					  session.saveOrUpdate(detail_Bean);   
 					 
 					 String qString=""+
 					 "   UPDATE  Stock_articleBean  bean    set   bean.solde_stock = bean.solde_stock - "+ProcessFormatNbr.FormatDouble_ParameterChiffre(Vqte_vente,pattern)+" , " +
@@ -1321,7 +1322,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						 Double qteRes=ProcessNumber.PRODUIT(qte, new Double(1));
 						 mvtBean.setQuantite_operation(qteRes);
 						 mvtBean.setTarif_operation_id(detBean.getTarif().getTarif_vente_id());
-						 session.save(mvtBean);
+						 session.saveOrUpdate(mvtBean);
 						 Double res_diff=ProcessNumber.SOUSTRACTION(serieBean.getQuantite(), mayQ);
 						 serieBean.setQuantite(res_diff);
 						 
@@ -1330,7 +1331,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						 if(res_diff>0)
 							 serieBean.getEtat().setData_id("mod");
 						 
-						 session.update(serieBean);
+						 session.saveOrUpdate(serieBean);
 						 resultat=true;
 						 break;
 				     }
@@ -1351,10 +1352,10 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						 mvtBean.setTarif_operation_id(detBean.getTarif().getTarif_vente_id());
 						 Double resto=ProcessNumber.SOUSTRACTION(mayQ,  serieBean.getQuantite());
 						 mayQ=resto;
-						 session.save(mvtBean);
+						 session.saveOrUpdate(mvtBean);
 						 serieBean.setQuantite(new Double(0));
 						 serieBean.getEtat().setData_id("ter");
-						 session.update(serieBean);
+						 session.saveOrUpdate(serieBean);
 						 resultat=true;
 						 continue;
 				    	 
@@ -1374,14 +1375,14 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						 Double qteRes=ProcessNumber.PRODUIT(qte, new Double(1));
 						 mvtBean.setQuantite_operation(qteRes);
 						 mvtBean.setTarif_operation_id(detBean.getTarif().getTarif_vente_id());
-						 session.save(mvtBean);
+						 session.saveOrUpdate(mvtBean);
 						 
 						 
 					     serieBean.getEtat().setData_id("ter");
 						 
 						 
 						 serieBean.setQuantite(new Double(0));
-						 session.update(serieBean);
+						 session.saveOrUpdate(serieBean);
 						  
 						 resultat=true;
 						 break;
