@@ -136,7 +136,7 @@ function doAfficherCodeBar(levalde_type){
 		      
 		        
 		        </script>
-		        <label>TTC</label><input  id="prix_achatttc"  name="prix_achatttc"   type="montant3"   size="17"   value=""              /> 
+		        <label>TTC</label><input  id="prix_achatttc"  name="prix_achatttc"   type="montant3"   size="17"   value=""         readonly="readonly"     libre      /> 
 		        </td>
 		      </tr>
 		    
@@ -145,7 +145,7 @@ function doAfficherCodeBar(levalde_type){
 		        <td > 
 		         <label>HTV</label><input  id="prix_vente"  name="prix_vente"         type="montant3"  size="17"   value=""     onblur="loadDat()"  nextElement="ar_obs"         />
 		         <br> <br>
-		         <label>TTC</label><input  id="prix_ventettc"  name="prix_ventettc"   type="montant3"   size="17"  value=""              />  
+		         <label>TTC</label><input  id="prix_ventettc"  name="prix_ventettc"   type="montant3"   size="17"  value=""      readonly="readonly"     libre    />  
 		        </td>
 		      </tr>
 		      

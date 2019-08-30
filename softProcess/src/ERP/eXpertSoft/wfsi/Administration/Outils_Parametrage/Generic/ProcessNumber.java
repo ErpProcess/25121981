@@ -9,7 +9,7 @@ public class ProcessNumber {
 	public static <T extends Number> double addition (T one, T two) throws Exception{
 		try {
 			  if(one==null)one= (T) new Double(0);
-			  if(two==null)one= (T) new Double(0);
+			  if(two==null)two= (T) new Double(0);
 			
 			 return one.doubleValue() + two.doubleValue(); 
 			
@@ -24,7 +24,7 @@ public class ProcessNumber {
 		try {
 			
 			 if(one==null)one= (T) new Double(0);
-			  if(two==null)one= (T) new Double(0);
+			  if(two==null)two= (T) new Double(0);
 			  
 			 return one.doubleValue() * two.doubleValue(); 
 			
@@ -38,7 +38,7 @@ public class ProcessNumber {
 		try {
 			
 			 if(one==null)one= (T) new Double(0);
-			  if(two==null)one= (T) new Double(0);
+			  if(two==null)two= (T) new Double(0);
 			 
 			 return one.doubleValue() - two.doubleValue(); 
 			
@@ -53,7 +53,7 @@ public class ProcessNumber {
 			
 			
 			 if(one==null)one= (T) new Double(1);
-			  if(two==null)one= (T) new Double(1);
+			  if(two==null)two= (T) new Double(1);
 			 
 			 return one.doubleValue() / two.doubleValue(); 
 			

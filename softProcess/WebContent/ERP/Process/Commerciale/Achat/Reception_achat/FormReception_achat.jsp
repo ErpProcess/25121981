@@ -9,6 +9,35 @@ var     retournX = doGenerate_methode_ajaxWithReturn('POST',urls_Generic_def+"?n
 return  retournX ==""?"":"Veillez Remplir le détaille de la réception";
 }
 
+if(custumMessageBoxo!=""  &&  custumMessageBoxo =="Reception effectuée avec succès"  ){
+
+	var messageBoxx='Confirmer';
+
+	if("${bs.fct_id}"=="27")
+	messageBoxx='Facturer';
+
+	Ext.MessageBox.show({
+	           title:'Enregistrement Valider',
+	           msg: custumMessageBoxo,
+	           buttons: {ok:messageBoxx,no:'Retour'}  ,
+	           fn: getActionBox,
+	           animateTarget: 'mb4',
+	           icon: Ext.MessageBox.QUESTION
+	       });
+ }  
+ 
+function getActionBox(btn){
+    $("#ssSQZ_father").mask("Veuillez Patientez...");
+     var hidvente="i$_ACT_COMMIT";
+    if("${bs.fct_id}"=="27") hidvente="i$_ACT_FACTURER"; 
+   
+    if( btn=="no" ) hidvente="i$_ACT_RESET_FORM";
+	 $("#myformToServeur").find('input[name="HiddenAction"]').val(hidvente);
+	 $("#myformToServeur").attr("action",contexPath+"${tmlx.url}");
+    $("#myformToServeur").submit(); 
+}
+ 
+ 
 
 $(document).ready(function (){
 LoadAutoCompletAjax_with_marGin("pk.code_barre","designation_libelle","quantite","list_article_recp_achat","500","250");
@@ -54,12 +83,29 @@ $(document).ready(function () {
 								 {      "sWidth": "10%"  , "sName": "quantite"              , "sWidth": "10%"    , "bSortable": true    , "bSearchable": true      ,"mRender": function( data, type, full){  
 										          return '<input   type="number"       id=quantite'+full[2]+'    name=quantite    value="'+data+'"    style="width: 90px;"        onblur=doEnvoiDataV2(this,"'+full[2]+'")     nextElement="unite_id'+full[2]+'"     >'; }},   
 										  
-								 {      "sName": "pk.fkCode_barre.pk.ar_bean.unitBean.unite_lib"    , "sWidth": "10%"       , "bSortable": true    , "bSearchable": true      },
+								 {      "sName": "pk.fkCode_barre.pk.ar_bean.unitBean.unite_lib"    , "sWidth": "10%"       , "bSortable": true    , "bSearchable": true  , "bVisible": false     },
 										           
 										           
-								 {      "sTitle":"Prix U"  , "sName": "tarif.tarif_unit_article"   , "sWidth": "10%"       , "bSortable": true    , "bSearchable": true      ,"sClass" : "alignRight" 
-	                                              , "mRender": function (data, type, full) {return formatNumberJs(data,3);}  ,"bVisible": true   },     
-	                                    
+// 								 {      "sTitle":"Prix U"  , "sName": "tarif.tarif_unit_article"   , "sWidth": "10%"       , "bSortable": true  
+									 //, "bSearchable": true      ,"sClass" : "alignRight" 
+// 	                                   , "mRender": function (data, type, full) {return formatNumberJs(data,3);}  ,"bVisible": true   },     
+	                             
+	                            
+	                                              {      "sTitle":"Prix U"    , "sName": "tarif.tarif_unit_article"   ,"sWidth": "10%"    ,"sClass" : "alignRight"       , "bSortable": true 
+	                                                  , "mRender":    function (data, type, full) {
+//	                                                	   if( $("#devX").val()=="191"  ||  $("#devX").val()=="192") 
+//	                                                		   return  formatNumberJsXC(data,2); 
+//	                                                	   else  
+//	                                                		   return formatNumberJsXC(data,3); 
+
+	                                               	   return '<input   type="montant3"      style="width:100%;"     id=tarif_unit_article'+full[0]+'       name=tarif.tarif_unit_article        value="'+formatNumberJsXC(data,3)+'"       onblur=doEnvoiDataV2(this,"'+full[2]+'")      >'; 
+	                                                 	   } 
+	                       					   
+	                       					         
+	                       					   },                  
+	                                              
+	                                              
+	                                              
 	                                              
 	                             {      "sTitle":"Mnt_T_H_A" , "sName": "montant_ht_achat"  ,"sClass" : "alignRight"     , "sWidth": "10%"        , "bSortable": true    , "bSearchable": true   
 	                                              ,"mRender": function (data, type, full) {return formatNumberJs(data,3);}  ,"bVisible": true    },        

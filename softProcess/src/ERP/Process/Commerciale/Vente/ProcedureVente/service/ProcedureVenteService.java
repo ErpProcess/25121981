@@ -62,6 +62,11 @@ public class ProcedureVenteService  extends GenericWeb  {
 		return daoProcedureVente.doFindDetailleListProcedureVenteEdition(beanSearch);
 	}
 	
+	 
+	public void doRetourModeOrigin( String entite, String mode , String idRow ) throws Exception {
+		 daoProcedureVente.doRetourModeOrigin(entite, mode, idRow);
+	}
+	
 	
 	
 	

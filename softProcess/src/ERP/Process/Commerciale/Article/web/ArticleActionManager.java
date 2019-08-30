@@ -179,10 +179,6 @@ public class ArticleActionManager extends ArticleTemplate {
 				tvaff.setTva_id(bs.getSociete().getTva_default());
 				beanArticle.setTva(tvaff);
 			}
-			
-			
-			
-		 
 			Entite_etat_commercialeBean bean_artyp = new Entite_etat_commercialeBean();
 			bean_artyp.setData_id("UA");
 			beanArticle.setBean_artyp(bean_artyp);
@@ -200,6 +196,7 @@ public class ArticleActionManager extends ArticleTemplate {
 			Entite_etat_commercialeBean choix = new Entite_etat_commercialeBean();
 			 
 			setObjectValueModel(FORM_BEAN,beanArticle);
+			setObjectValueModel("formBeanInitArticle", ProcessUtil.cloneObject(beanArticle) );
 			setObjectValueModel(SEARCH_BEAN, getObjectValueModel(MODEL_BEAN));
 			removeObjectModel((String) getObjectValueModel(NAME_LIST_G));
 			 
@@ -657,8 +654,13 @@ public class ArticleActionManager extends ArticleTemplate {
 			
 			if(serviceArticle.doCreateRowData(detailBean)){
 			removeObjectModel(FORM_BEAN); 
+			if(bs.getFct_id().equals(Fn_Nouveau)) {
+				setObjectValueModel(FORM_BEAN, getObjectValueModel("formBeanInitArticle") );
+			}
 			throwNewException("ins01");
 			} 
+			
+			
 	     	}catch(Exception e){
 	     		displayException(e);
 		    } 

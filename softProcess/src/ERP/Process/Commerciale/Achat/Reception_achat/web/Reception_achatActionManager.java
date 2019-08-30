@@ -373,6 +373,11 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		    		double priUnitachat=ProcessFormatNbr.FormatDouble_Troischiffre(tarif.getTarif_unit_article());
 		    		double qte=ProcessFormatNbr.FormatDouble_Troischiffre(newBean.getQuantite());
 		    		
+		    		 
+		    		if(priUnitachat!=newBean.getPrix_achat_origin().doubleValue()) {
+		    			newBean.setPrix_achat_is_changed(true);
+		    		}
+		    		
 		    		double montant_ht_achat=ProcessNumber.PRODUIT(priUnitachat, qte);
 		    		newBean.setMontant_ht_achat(ProcessFormatNbr.FormatDouble_Troischiffre(montant_ht_achat));
 		    		
@@ -477,6 +482,10 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			TarificationPrtvArticleBean  ss  =(TarificationPrtvArticleBean) mapTarification.get(code_barre);
 	    	if(ss!=null){
 	    		Double priUnitachat=ProcessFormatNbr.FormatDouble_Troischiffre(ss.getTarif_unit_article());
+	    		
+	    		newBean.setPrix_achat_origin(  priUnitachat );
+	    		
+	    		
 	    		Double qte=ProcessFormatNbr.ConvertStringToDouble(quantite);
 	    		Double montant_ht_achat=ProcessNumber.PRODUIT(priUnitachat, qte);
 	    		       montant_ht_achat=ProcessFormatNbr.FormatDouble_Troischiffre(montant_ht_achat);
@@ -1175,9 +1184,11 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		try {
 			serviceReception_achat.doCreateRowData(detailBean);
 			setObjectValueModel(FORM_BEAN, detailBean);
-			throwNewException("ins01");
+			throwNewException("Reception effectuée avec succès");
 		} catch (Exception e) {
-			displayException(e);
+      	  displayException(e);
+      	  if(e.getMessage().equals("Reception effectuée avec succès"))
+      	  TransfertError(e);
 		}
 		return getViewAdd_Commit(FORM_VIEW_EDIT);
 	}
@@ -1247,7 +1258,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			rBeanS.setAchat_date(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()));
 			setObjectValueModel(FORM_BEAN,rBeanS);
 			setObjectValueModel(LIST_EDITABLE_RECEP_ACHAT      , new ArrayList<Det_reception_achatBean>());
-			throwNewException("validaTion Ok !");
+			throwNewException("Confirmation effectuée avec succès");
 		} catch (Exception e) {
 			displayException(e);
 		}

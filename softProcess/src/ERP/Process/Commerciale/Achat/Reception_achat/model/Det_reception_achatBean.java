@@ -99,7 +99,12 @@ public class Det_reception_achatBean  extends  GenericBean{
 	@Column
 	private Date date_peremption;
 	
+	@Transient
+	private Double prix_achat_origin;
 	
+	
+	@Transient
+	private boolean prix_achat_is_changed =false;
 	
 
 	public Date getDate_fabrication() {
@@ -268,6 +273,22 @@ public class Det_reception_achatBean  extends  GenericBean{
 
 	public void setMvt_stock(MouvementStockBean mvt_stock) {
 		this.mvt_stock = mvt_stock;
+	}
+
+	public Double getPrix_achat_origin() {
+		return prix_achat_origin;
+	}
+
+	public void setPrix_achat_origin(Double prix_achat_origin) {
+		this.prix_achat_origin = prix_achat_origin;
+	}
+
+	public boolean isPrix_achat_is_changed() {
+		return prix_achat_is_changed;
+	}
+
+	public void setPrix_achat_is_changed(boolean prix_achat_is_changed) {
+		this.prix_achat_is_changed = prix_achat_is_changed;
 	}
 
 	 

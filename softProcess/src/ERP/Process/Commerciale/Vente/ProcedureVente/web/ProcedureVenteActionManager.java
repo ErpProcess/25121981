@@ -673,7 +673,7 @@ public   ModelAndView doActualiserGridFourniture( ProcedureVenteBean bean ) thro
 	 
 	}
 	
-public   ModelAndView doActualiser_GRID( ProcedureVenteBean bean ) throws Exception{
+public   ModelAndView doActualiser_GRID( ProcedureVenteBean detailBean ) throws Exception{
 		
 		try {
  			List listOData=(List) getObjectValueModel(LIST_EDITABLE_VENTE);
@@ -681,11 +681,33 @@ public   ModelAndView doActualiser_GRID( ProcedureVenteBean bean ) throws Except
 			JsonObject data = new JsonObject();
 			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 			String pattern ="0.000";
-			if( bean.getDevise().getDev_id().intValue()==191  ||  bean.getDevise().getDev_id().intValue()==192   ){
+			if( detailBean.getDevise().getDev_id().intValue()==191  ||  detailBean.getDevise().getDev_id().intValue()==192   ){
 				pattern ="0.00";
 			}
-			Double getTaux_remise_alacaisse = bean.getTaux_remise_alacaisse()==null?new Double(0):bean.getTaux_remise_alacaisse();
+			
+		 
+			Double remise_ala_caisse    			  =  new Double(0);
+			Double totalre_mise          			  =  new Double(0);
+			Double remise_ligne_pr_la_caisse          =  new Double(0);
+			Double avance                   = new Double(0);
+			Double getTaux_remise_alacaisse = detailBean.getTaux_remise_alacaisse()==null?new Double(0):detailBean.getTaux_remise_alacaisse();
+			Double getAvance_montant_vente  = detailBean.getAvance_montant_vente()==null?new Double(0):detailBean.getAvance_montant_vente();
+			Double getMontant_vente_recu    = detailBean.getMontant_vente_recu()==null?new Double(0):detailBean.getMontant_vente_recu();
 			getTaux_remise_alacaisse =ProcessFormatNbr.FormatDouble_ParameterChiffre(getTaux_remise_alacaisse,pattern);
+			
+			
+			Double tot_ht_brute =new Double(0);
+			Double tot_ht_net    =new Double(0);
+			Double tot_ttc    =new Double(0);
+			Double tot_tva=new Double(0);
+		    Double tot_qte=new Double(0);
+			Double marge_benefice_vente=new Double(0);
+			 
+			
+			 ProcedureVenteBean    beanTotal = new ProcedureVenteBean();
+			 beanTotal.setAvance_montant_vente(avance)  ; 
+			 beanTotal.setMarge_benefice_vente(ProcessFormatNbr.FormatDouble_ParameterChiffre(marge_benefice_vente,pattern));
+			
 			
 			for (int i = 0; i < listOData.size(); i++) {
 				DetProcedureVenteBean  newBean= (DetProcedureVenteBean) listOData.get(i);
@@ -743,7 +765,7 @@ public   ModelAndView doActualiser_GRID( ProcedureVenteBean bean ) throws Except
 		    		Double montant_ht_vente_brute=ProcessNumber.PRODUIT(priUnitvente, qte);
 		    		montant_ht_vente_brute=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente_brute,pattern);
 		    		newBean.setMontant_ht_vente_reel(montant_ht_vente_brute);
-		    		 
+		    		tot_ht_brute=ProcessNumber.addition(tot_ht_brute, montant_ht_vente_brute);
 		    		/*******************************************Remise********************************************************/
 		    		
 		    		Double taux_remiseligne     = ss.getTaux_remise()==null?new Double(0):ss.getTaux_remise();
@@ -752,52 +774,58 @@ public   ModelAndView doActualiser_GRID( ProcedureVenteBean bean ) throws Except
 					newBean.setTaux_remise_ligne(tot_taux);
 					Double montant_Remise_Ligne  = ProcessNumber.Pourcentage(newBean.getMontant_ht_vente_reel(), tot_taux);
 					newBean.setMontant_Remise_Ligne(ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_Remise_Ligne,pattern));
-
+					totalre_mise=ProcessNumber.addition(totalre_mise, montant_Remise_Ligne);
 	    		    /*******************************************montant_ht_vente *********************************************/   
 	    		    
 	    		    Double montant_ht_vente=ProcessNumber.SOUSTRACTION(montant_ht_vente_brute, montant_Remise_Ligne);
 	    		    montant_ht_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente,pattern);
 		    		newBean.setMontant_ht_vente(ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente,pattern));
-		    		
+		    		tot_ht_net=ProcessNumber.addition(tot_ht_net, montant_ht_vente);
 		    		/*********************************************montant_tva_vente ******************************************/
 		    		 
 		    		 
 		    		Double montant_tva_vente= ProcessNumber.getMontantTvaByMontantHT(montant_ht_vente,ss.getTvaBean(),new DeviseBean());
 		    		montant_tva_vente=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_tva_vente,pattern);
 		    		newBean.setMontant_tva_vente(montant_tva_vente);
-		    		
+		    		tot_tva=ProcessNumber.addition(tot_tva, montant_tva_vente); 
 		    		/*********************************************montant_ttc_vente *******************************************/
 		    		
 		    		Double  montant_ttc_vente=ProcessNumber.addition(montant_ht_vente, montant_tva_vente);
 		    		newBean.setMontant_ttc_vente(montant_ttc_vente);
-		    		
+		    		tot_ttc=ProcessNumber.addition(tot_ttc, montant_ttc_vente);    
 		    		/*********************************************montant_benefice *******************************************/
 		    		if(le_cout.doubleValue()>0){
 		    		Double	 montant_benefice = ProcessNumber.SOUSTRACTION(montant_ht_vente, le_cout);
 		    		montant_benefice          =ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_benefice,pattern);
 		    		newBean.setMontant_benefice(montant_benefice);
+		    		marge_benefice_vente=ProcessNumber.addition(marge_benefice_vente, montant_benefice);
 		    		}
 		    		/**********************************************************************************************************/
 		    		         
 		    		 String Elm=ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(montant_ht_vente, pattern)  ;     
 		    		 data.addProperty(newBean.getPk().getFkcode_barre().getPk().getCode_barre(),Elm);
-		    		
-		    	     
 	    				         
 		    	}
 		     	 
 			}
-			  if(bean.getNext_Focus()!=null &&  !bean.getNext_Focus().equals("")){
-				  setObjectValueModel("next_Focus", bean.getNext_Focus());
-			  }
+			
+			 beanTotal.setVente_remise_alacaisse(remise_ala_caisse);
+			 totalre_mise  = ProcessFormatNbr.FormatDouble_ParameterChiffre(totalre_mise,pattern);
+			 beanTotal.setVente_remise(totalre_mise); 
+			 if(detailBean.getNext_Focus()!=null &&  !detailBean.getNext_Focus().equals("")){
+				  setObjectValueModel("next_Focus", detailBean.getNext_Focus());
+			 }
+			 beanTotal.setVente_mnt_total(ProcessFormatNbr.FormatDouble_ParameterChiffre(tot_ttc,pattern));
+			 beanTotal.setVente_mnt_tva(ProcessFormatNbr.FormatDouble_ParameterChiffre(tot_tva,pattern));
+			 beanTotal.setVente_mnt_ht(ProcessFormatNbr.FormatDouble_ParameterChiffre(tot_ht_net,pattern));
+			 setObjectValueModel(BEAN_TOTAL, beanTotal);
+			 String ssss=(String) getObjectValueModel("next_Focus");
+			 if(ssss!=null &&  !ssss.equals(""))
+			 data.addProperty("next_Focus",ssss);
 			  
-			  String ssss=(String) getObjectValueModel("next_Focus");
-			  if(ssss!=null &&  !ssss.equals(""))
-			  data.addProperty("next_Focus",ssss);
-			  
-			  getResponse().setContentType(JSON_CONTENT_TYPE);
+			 getResponse().setContentType(JSON_CONTENT_TYPE);
 			  getResponse().getWriter().print(data.toString());
-			} catch (Exception e) {
+		    } catch (Exception e) {
 				getResponse().setStatus(500);
 				getResponse().setContentType(HTML_CONTENT_TYPE);
 				PrintWriter out = getResponse().getWriter();
@@ -2079,16 +2107,19 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	            throwNewException("ins01");
 	          } catch (Exception e) {
 	        	  displayException(e);
-	        	 if(e.getMessage().equals("ins01"))
-	        	 TransfertError(e);
+	        	  serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Créer, detailBean.getVente_id());
+	        	  if(e.getMessage().equals("ins01")) 
+	        	    TransfertError(e);
+	        	  
 	          }
 	        return getViewAdd_Commit(FORM_VIEW_CREER);
 		}
 	
 	
-	public ModelAndView doCommitData(   ProcedureVenteBean beanUpfBean, FournitureVenteBean    fVenteBean , ServiceBean    service) {	 
+	public ModelAndView doCommitData(   ProcedureVenteBean beanUpfBean, FournitureVenteBean    fVenteBean , ServiceBean    service) throws Exception {	 
+		
+		 ProcedureVenteBean  detailBean=	(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
 	 	try {
-	    ProcedureVenteBean  detailBean=	(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
 	    ServiceBean  srvBean=	(ServiceBean) getObjectValueModel("detailSrvBean");
 	    FournitureVenteBean  frnBean=	(FournitureVenteBean) getObjectValueModel("detailFrnBean");
 	    serviceProcedureVente.doConfirmRowData(detailBean,frnBean,srvBean); 
@@ -2101,16 +2132,21 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	    throwNewException("Confirmation effectuée avec succès");
 	 	} catch (Exception e) {
 		 	displayException(e);
-		 	if(e.getMessage().equals("Confirmation effectuée avec succès"))
-	        TransfertError(e);
-	 }
+		 	if(e.getMessage().equals("Confirmation effectuée avec succès")) {
+	           TransfertError(e);
+		 	}else {
+		 		 serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Créer, detailBean.getVente_id());
+		 	}
+	   }
+	 	
 	return getViewAfterAdd(FORM_VIEW_CREER);
 		}
 	
 	
-	public ModelAndView doFacturerData(ProcedureVenteBean beanUpfBean) {	 
+	public ModelAndView doFacturerData(ProcedureVenteBean beanUpfBean) throws Exception {	 
+		
+		  ProcedureVenteBean  detailBean=	(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
 	 	try {
-	    ProcedureVenteBean  detailBean=	(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
 	    BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 	    serviceProcedureVente.doCharger_la_facture(detailBean); 
 	    ProcedureVenteBean  devBean = (ProcedureVenteBean) getObjectValueModel("beanInito");
@@ -2122,8 +2158,11 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	    throwNewException("Facturation effectuée avec succès");
 	 	} catch (Exception e) {
 	 	displayException(e);
-	 	if(e.getMessage().equals("Facturation effectuée avec succès"))
-        TransfertError(e);
+	 	 if(e.getMessage().equals("Facturation effectuée avec succès")) {
+            TransfertError(e);
+	 	  }else {
+	 		 serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Créer, detailBean.getVente_id());
+	 	  }
 	 }
 	return getViewAfterAdd(FORM_VIEW_CREER);
 		}
@@ -2196,16 +2235,21 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		}
 	
 	
-	public ModelAndView doConfirmData(ProcedureVenteBean beanUpBean, FournitureVenteBean    fVenteBean , ServiceBean    service) {	 
+	public ModelAndView doConfirmData(ProcedureVenteBean beanUpBean, FournitureVenteBean    fVenteBean , ServiceBean    service) throws Exception {	
+		 ProcedureVenteBean beanUpdate=(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
 		 	try {
+		 		
 		 serviceProcedureVente.doConfirmRowData(beanUpBean,fVenteBean,service); 
 //		 remove_row_from_list(LIST_DATA); 
 //		 removeObjectModel(FORM_BEAN);
 		 throwNewException("Confirmation effectuée avec succès");
 	 	} catch (Exception e) {
 		 	displayException(e);
-		 	if(e.getMessage().equals("Confirmation effectuée avec succès"))
+		 	if(e.getMessage().equals("Confirmation effectuée avec succès")) {
 	        TransfertError(e);
+	 	      }else {
+	 		 serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Créer, beanUpdate.getVente_id());
+	 	    }
 	 }
 	return getViewList_Ajax(FILTER_VIEW);
 		}
@@ -3343,17 +3387,17 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			 
 			 Double total_mnt_gen=ProcessNumber.addition(ht_apres_remise, total_leTva);
 			 if(bs.getFct_id().equals(Fn_Facturer)){
-			 Double timbre=ProcessFormatNbr.FormatDouble_ParameterChiffre(bs.getSociete().getMontant_timbre_fiscal(),pattern);
-			 element = new JSONObject();
-			 element.put("td1","4");
-			 element.put("value1","Timbre");
-			 element.put("td2","5");
-			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(timbre,pattern));
-			 list_total.put(element);
-			 total_mnt_gen=ProcessNumber.addition(total_mnt_gen,timbre);
-			 beanTotal.setMontant_timbre_fiscal(timbre);
+				 Double timbre=ProcessFormatNbr.FormatDouble_ParameterChiffre(bs.getSociete().getMontant_timbre_fiscal(),pattern);
+				 element = new JSONObject();
+				 element.put("td1","4");
+				 element.put("value1","Timbre");
+				 element.put("td2","5");
+				 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(timbre,pattern));
+				 list_total.put(element);
+				 total_mnt_gen=ProcessNumber.addition(total_mnt_gen,timbre);
+				 beanTotal.setMontant_timbre_fiscal(timbre);
 			 }
-			 setObjectValueModel(BEAN_TOTAL, beanTotal);    
+			 
 			 
 		
 			 

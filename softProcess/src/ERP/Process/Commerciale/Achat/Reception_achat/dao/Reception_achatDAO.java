@@ -2,6 +2,7 @@ package ERP.Process.Commerciale.Achat.Reception_achat.dao;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Repository;
 import ERP.Process.Commerciale.Achat.Reception_achat.model.Det_reception_achatBean;
 import ERP.Process.Commerciale.Achat.Reception_achat.model.Reception_achatBean;
 import ERP.Process.Commerciale.Achat.Reception_achat.template.Reception_achatTemplate;
+import ERP.Process.Commerciale.Fournisseur.model.FournisseurBean;
+import ERP.Process.Commerciale.GrpTarifPrimitiv.model.GrpTarifPrimitivBean;
 import ERP.Process.Commerciale.Stock.DocumentLot.model.SerieArticletBean;
 import ERP.Process.Commerciale.Stock.DocumentLot.service.DocumentLotService;
 import ERP.Process.Commerciale.Stock.Inventaire.dao.InventaireDAO;
@@ -26,13 +29,18 @@ import ERP.Process.Commerciale.Stock.Stock_article.model.Stock_articleBean;
 import ERP.Process.Commerciale.Tarification.dao.TarificationDAO;
 import ERP.Process.Commerciale.Tarification.model.TarificationBean;
 import ERP.Process.Commerciale.TarificationLot.model.TarificationLotBean;
- 
+import ERP.Process.Commerciale.TarificationPrtvArticle.model.TarificationPrtvArticleBean;
+import ERP.Process.Commerciale.Type_tarification.model.Type_tarificationBean;
+import ERP.Process.Commerciale.Vente.Client.model.ClientBean;
+import ERP.Process.Commerciale.Vente.ProcedureVente.template.ProcedureVenteTemplate;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericActionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel.dao.NumSequentielDAO;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BDateTime;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 
 @Repository
@@ -187,6 +195,35 @@ public class Reception_achatDAO extends GenericWeb {
 				if( detBean.getQuantite()==null) { continue; }
 				if( detBean.getQuantite()==0 ||  detBean.getQuantite()<0) { continue;}
 				detBean.getPk().setRecepBean(beanSave);
+				
+				if(detBean.isPrix_achat_is_changed()) {
+					TarificationPrtvArticleBean  tarifOrigin =   detBean.getTarif() ;
+					TarificationPrtvArticleBean  tarifNew = new TarificationPrtvArticleBean();
+				 
+					HashMap  mapfrs =  (HashMap)getObjectValueModel( Reception_achatTemplate.HASHMAP_FRS);
+					FournisseurBean  ben     =  (FournisseurBean) mapfrs.get(beanSave.getFrsBean().getFrs_id());
+					GrpTarifPrimitivBean groupe = new GrpTarifPrimitivBean();
+					groupe.setGrp_trf_lib(BDateTime.getDateActuel_system()+" "+ProcessDate.getTime(new Date())+" "+ben.getFrs_id()+"/"+ben.getFrsref());
+					setBeanTrace(groupe);
+					session.save(groupe);
+					
+					tarifNew.setGroupe(groupe);
+					tarifNew.setMode_cal(tarifOrigin.getMode_cal());
+					tarifNew.setFkCode_barre(tarifOrigin.getFkCode_barre());
+					tarifNew.setDevise(tarifOrigin.getDevise());
+					tarifNew.setTvaBean(tarifOrigin.getTvaBean());
+					 
+					tarifNew.setDate_prim_trf(beanSave.getAchat_date());
+					tarifNew.setTarif_unit_article(tarifOrigin.getTarif_unit_article());
+					tarifNew.setValeur_tva(ProcessNumber.getMontantTvaByMontantHT(tarifOrigin.getTarif_unit_article(), tarifOrigin.getTvaBean(), new DeviseBean()));
+					tarifNew.setTarif_unit_ttc(ProcessNumber.getMontantTTCByMontantHT(tarifOrigin.getTarif_unit_article(), tarifOrigin.getTvaBean(),  new DeviseBean() ));
+					 
+					daoNumSequentiel.getNumSeqSimple(tarifNew,"tarif_prim_id",session);
+					this.setBeanTrace(tarifNew);
+					session.save(tarifNew);
+					detBean.setTarif(tarifNew);  
+				}
+				
 				session.persist(detBean);
 				result_detaille=true;
 			}

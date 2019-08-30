@@ -206,7 +206,14 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			beanSave.setVente_remise(beanTotal.getVente_remise());
 			beanSave.setVente_mnt_ht(beanTotal.getVente_mnt_ht());
 			beanSave.setVente_mnt_tva(beanTotal.getVente_mnt_tva());
-			beanSave.setVente_mnt_total(beanTotal.getVente_mnt_total());
+			
+			 if(bs.getFct_id().equals(GenericActionBean.Fn_Facturer)){
+			  Double timbre=ProcessFormatNbr.FormatDouble_ParameterChiffre(bs.getSociete().getMontant_timbre_fiscal(),"0.000");
+			  Double getVente_mnt_total=  ProcessNumber.SOUSTRACTION(beanTotal.getVente_mnt_total(), timbre )   ;
+			  beanSave.setVente_mnt_total(getVente_mnt_total);
+			 }else {
+				 beanSave.setVente_mnt_total(beanTotal.getVente_mnt_total()); 
+			 }
 			beanSave.setMarge_benefice_vente(beanTotal.getMarge_benefice_vente());
 			session.save(beanSave);
 //			HashMap  map_deriver_vente  =(HashMap) getObjectValueModel(ProcedureVenteTemplate.MAP_DERIVER_VENTE);
@@ -378,6 +385,19 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			 }  
 			return result;
 		}
+	
+	public void doRetourModeOrigin( String entite, String mode , String idRow ) throws Exception {
+	    Session session =  openSessionHibernate(sessionFactory);
+		try {  
+			 session.createQuery(  " UPDATE  "+entite+" b  set    b.modeBean.fct_id="+mode+"    where   b.vente_id='"+idRow+"' "  ).executeUpdate();
+			 commitTransaction(session);
+		 } catch (Exception e) {  
+		     rollbackTransaction(session) ;
+		     throw e;  
+		 } finally {  
+			 session.close();  
+		 }  
+	}
 	 
 	private void TraitementFournitureVente(List <DetFournitureVenteBean> listOfmyData,ProcedureVenteBean beanUp, Session session) throws Exception {
 		   ProcedureVenteBean beanUpdate=(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
@@ -541,7 +561,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 					  detBean.getPk().getFkcode_barre().getPk().getAr_bean().getCathegorie().getData_id().equals("syn") )continue;
 				 
 					 
-				detBean.getPk().setVente(beanUpdate);
+				detBean.getPk().setVente( beanUpdate );
 				detBean.setQuantite_confirmer(detBean.getQuantite());
 				boolean resultTrai_personnaliser=false;   //traitement_for_lot_personnaliser(beanUpdate,detBean,session);
 				
@@ -556,7 +576,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				}
 				
 				//if( list_lot_article!=null &&  list_lot_article.size()>0 && chaine.length()>0 ) {
-					boolean resul=traitement_for_stock(beanUpdate,detBean,map_resultat_stock,session);
+				boolean resul=traitement_for_stock(beanUpdate,detBean,map_resultat_stock,session);
 //					if(!resul){
 //						throwNewException("Stock zero _ article:"+detBean.getPk().getFkcode_barre().getPk().getCode_barre()+" / "+
 //								detBean.getPk().getFkcode_barre().getDesignation_libelle());
@@ -571,7 +591,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 		 
 	       if( !StringUtils.isBlank( beanUpdate.getCommande().getCmd_id()) ){
 		     session.createQuery("    UPDATE   CommandeclientBean b  set   b.modeBean.fct_id="+GenericActionBean.Fn_Livrer+"  " +
-		     		"       where   b.cmd_id='"+beanUpdate.getCommande().getCmd_id()+"'    ").executeUpdate();
+		     		"                 where   b.cmd_id='"+beanUpdate.getCommande().getCmd_id()+"'    ").executeUpdate();
 	       }
 		return true;
 	}
@@ -1745,6 +1765,7 @@ public Boolean doSaveFacture( ProcedureVenteBean detailBean, List  liste_detaill
 	    
 		boolean result = false;
 		try {
+			 BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 			 ProcedureVenteBean beanUpdate=(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
 			 beanUpdate.setFifo(detailBean.getFifo());
 		     result  = TraitementVenteArticleMarchandise(detailBean,session);
@@ -1762,7 +1783,11 @@ public Boolean doSaveFacture( ProcedureVenteBean detailBean, List  liste_detaill
 			beanSaveS.getTypefact().setType_fact_id(new Integer(1));
 			beanSaveS.setTotal_ht_fact(beanTotal.getVente_mnt_ht());
 			beanSaveS.setTotal_tva_fact(beanTotal.getVente_mnt_tva());
-			beanSaveS.setTotal_facture(beanTotal.getVente_mnt_total());
+			
+			Double timbre=ProcessFormatNbr.FormatDouble_ParameterChiffre(bs.getSociete().getMontant_timbre_fiscal(),"0.000");
+			Double getVente_mnt_total=  ProcessNumber.addition(beanTotal.getVente_mnt_total(), timbre )   ;
+			beanSaveS.setTotal_facture(getVente_mnt_total);
+			
 			beanSaveS.setNet_a_payer(beanTotal.getVente_mnt_net_a_payer());
 			beanSaveS.setFacture_remise(beanTotal.getVente_remise());
 			beanSaveS.setMnt_timb_fisc(beanTotal.getMontant_timbre_fiscal());
