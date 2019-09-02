@@ -150,7 +150,13 @@ public   static  JSONObject doLoadingConfigPrintDocument() throws Exception {
 		
      	if( header.has("ligne6Body")  &&   !StringUtils.isBlank(header.getString("ligne6Body")))
   		 entete+=shell.evaluate(header.getString("ligne6Body"))+"\n\r";
+     	
+     	if( header.has("ligne6Body")  &&   !StringUtils.isBlank(header.getString("ligne6Body")))
+     		 entete+=shell.evaluate(header.getString("ligne6Body"))+"\n\r";
     	
+     	if( document.has("espaceTotalDesous") )
+     		jsonRe.put("espaceTotalDesous", document.getInt("espaceTotalDesous"));
+ 
     	if( document.has("pageEvent") )
     		jsonRe.put("pageEvent", document.getBoolean("pageEvent"));
     	else

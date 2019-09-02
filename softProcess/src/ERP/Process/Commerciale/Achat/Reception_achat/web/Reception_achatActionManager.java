@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.persistence.Column;
+
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.write.WritableSheet;
@@ -40,6 +42,7 @@ import ERP.Process.Commerciale.Stock.ResponsableLieu.model.ResponsableLieuBean;
 import ERP.Process.Commerciale.Stock.ResponsableLieu.service.ResponsableLieuService;
 import ERP.Process.Commerciale.TarificationPrtvArticle.dao.TarificationPrtvArticleDAO;
 import ERP.Process.Commerciale.TarificationPrtvArticle.model.TarificationPrtvArticleBean;
+import ERP.Process.Commerciale.Vente.ProcedureVente.model.DetProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.model.DeviseBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Devise.service.DeviseService;
@@ -334,7 +337,14 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			List listOData=(List) getObjectValueModel(LIST_EDITABLE_RECEP_ACHAT);
 			JsonObject data = new JsonObject();
 			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-		  
+			Reception_achatBean bTotal = 	(Reception_achatBean) getObjectValueModel(BEAN_TOTAL );
+			bTotal = new Reception_achatBean();
+			Double achat_mnt_ht = new Double(0);
+			
+			Double achat_mnt_tva = new Double(0);
+			
+		 
+			
 			for (int i = 0; i < listOData.size(); i++) {
 				Det_reception_achatBean  newBean= (Det_reception_achatBean) listOData.get(i);
 				
@@ -374,7 +384,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		    		double qte=ProcessFormatNbr.FormatDouble_Troischiffre(newBean.getQuantite());
 		    		
 		    		 
-		    		if(priUnitachat!=newBean.getPrix_achat_origin().doubleValue()) {
+		    		if(newBean.getPrix_achat_origin()!=null   &&  priUnitachat!=newBean.getPrix_achat_origin().doubleValue()) {
 		    			newBean.setPrix_achat_is_changed(true);
 		    		}
 		    		
@@ -386,14 +396,23 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 	    		           montant_tva_achat=ProcessFormatNbr.FormatDouble_Troischiffre(montant_tva_achat);
 	    		           newBean.setMontant_tva_achat(montant_tva_achat);
 	    		           
+	    		     achat_mnt_ht =  ProcessNumber.addition(achat_mnt_ht, montant_ht_achat);    
+	    		     achat_mnt_tva =  ProcessNumber.addition(achat_mnt_tva, montant_tva_achat);    
+	    		 
+	    		     
+	    		     
+	    		    
 	    		           
 		    		 Double number=ProcessFormatNbr.FormatDouble_Troischiffre(montant_ht_achat);          
 		    		 String Elm=ProcessFormatNbr.FormatDouble_To_String_Troischiffre(number)  ;     
 		    		 data.addProperty(newBean.getPk().getFkCode_barre().getPk().getCode_barre(),Elm);
 		    		 newBean.setTarif(tarif);
-		    	     
-	    				         
 		    	}
+ 
+		    	bTotal.setAchat_mnt_ht(achat_mnt_ht);
+		    	bTotal.setAchat_mnt_tva(achat_mnt_tva);
+		    	bTotal.setAchat_mnt_total( ProcessNumber.addition(achat_mnt_ht, achat_mnt_tva));
+		    	setObjectValueModel(BEAN_TOTAL, bTotal);
 		     	 
 			}
 			  getResponse().setContentType(JSON_CONTENT_TYPE);
@@ -738,15 +757,19 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			double total_mntAPayer  = ProcessNumber.SOUSTRACTION(total_mnt_genX, avance_montant_achat);
 			 
 			
-			Reception_achatBean  reBean= new Reception_achatBean();
+			Reception_achatBean reBean = 	(Reception_achatBean) getObjectValueModel(BEAN_TOTAL );
+			reBean = new Reception_achatBean();
+			
 			reBean.setTotal_mnt_ht(ProcessFormatNbr.FormatDouble_To_String_Troischiffre(tot_ht));
 			reBean.setTotal_mnt_tva(ProcessFormatNbr.FormatDouble_To_String_Troischiffre(tot_tva));
 			reBean.setAvance_montant_achat(avance_montant_achat);
-			
 			reBean.setTotal_mnt_gen(ProcessFormatNbr.FormatDouble_To_String_Troischiffre(total_mntAPayer));
-			
 			reBean.setTotal_quantite(ProcessFormatNbr.Convert_using_Double_toString(tot_qte));
 			
+			reBean.setAchat_mnt_ht(tot_ht);
+			reBean.setAchat_mnt_tva(tot_tva);
+			reBean.setAchat_mnt_total( ProcessNumber.addition(tot_ht, tot_tva));
+			 
 			setObjectValueModel(BEAN_TOTAL, reBean);
 			
 			JsonObject data = new JsonObject();
@@ -850,6 +873,10 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 				 }
 				 
 				 List_det_recep_achat=serviceReception_achat.doFetchDeatil_reception_fromServer(rowBeans);
+				 
+				  for (Det_reception_achatBean  dBean : List_det_recep_achat) {
+					 dBean.setPrix_achat_origin(dBean.getTarif().getTarif_unit_article());
+				  }
 				 HashMap  map_reception=ProcessUtil.getHashMap_code_bean(List_det_recep_achat, "pk.fkCode_barre.pk.code_barre");
 				 setObjectValueModel(FORM_BEAN, rowBeans);
 				 HashMap  mapTeste= new HashMap();

@@ -78,7 +78,6 @@ public class Reception_achatController  extends Reception_achatActionManager   {
 		          if (i$_ACT_RETOUR_TO_LIST_OF_SERVIR) 
 		        	                                return      doRetourToList_SERVIR(); 
 		          
-		          
 		          if (i$_ACT_CALCUL_TOTAL)          return      doCalculer_Total();
 		          
 		          

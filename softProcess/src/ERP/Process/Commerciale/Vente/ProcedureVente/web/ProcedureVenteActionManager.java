@@ -300,11 +300,11 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 				devBean.setDepot(depot);
 				devBean.setDevise(bs.getSociete().getDeviseVente());
 			
-				if(bs.getSoc_id().equals("10")) {
-					ClientBean cBean = new ClientBean();
-					cBean.setClt_id("cpass");
-					devBean.setClient(cBean);
-				}
+			 
+				 ClientBean cBean = new ClientBean();
+				 cBean.setClt_typ("pass");
+				 devBean.setClient(daoClient.doFindListClient(cBean).get(0));
+				 
 					
 				setObjectValueModel("beanInito",  ProcessUtil.cloneObject(devBean)  );
 				setObjectValueModel(FORM_BEAN, devBean);
@@ -737,7 +737,7 @@ public   ModelAndView doActualiser_GRID( ProcedureVenteBean detailBean ) throws 
 		    		
 		    		
 		    		Double priUnitvente=ProcessFormatNbr.FormatDouble_ParameterChiffre(ss.getTarif_unit_vente(),pattern);
-		    		if(priUnitvente.doubleValue()!=newBean.getPrix_vente_origin()) {
+		    		if( newBean.getPrix_vente_origin()!=null &&  priUnitvente.doubleValue()!=newBean.getPrix_vente_origin()) {
 		    			newBean.setPrix_vente_is_changed(true);
 		    		}
 		    		
@@ -2411,6 +2411,9 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 				 } 
 				 setObjectValueModel(FORM_BEAN, rowBeans);
 				 List_detaille_vente  =  serviceProcedureVente.doFetch_detDatafromServer(rowBeans);
+				 for (DetProcedureVenteBean  dBean : List_detaille_vente) {
+					 dBean.setPrix_vente_origin(dBean.getTarif().getTarif_unit_vente());
+				}
 				 FournitureVenteBean fourBean= new FournitureVenteBean();
 				 fourBean.setVenteFrn(rowBeans);
 				 List <DetFournitureVenteBean>listDetFournitureVente  =  serviceFournitureVente.doFetchDetailFourniturefromServer(fourBean);
@@ -2570,7 +2573,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	        		          { "montant_ht_vente", "50" }
 	          };
 		try {
-			 Document document=GeneratePdf.doGenerateDocumentFormat();
+			Document document=GeneratePdf.doGenerateDocumentFormat();
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
 	        genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
 	        

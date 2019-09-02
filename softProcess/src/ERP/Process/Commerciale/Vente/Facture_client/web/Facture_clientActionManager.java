@@ -1503,12 +1503,12 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		
 			Document document = new Document(PageSize.A4, 5, 5, 5, 25);
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
-	        genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
+	        JSONObject doc = genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
 	        
 	        doWriteEntete(document,denBean); 
 	        doWrite_Header_ContentTable(document,96,MapfieldBean_detaille);
-	        doWrite_Data_Table (denBean,lisData,document,96,MapfieldBean_detaille);
-	        doWrite_Tva_Total_Piece(lisData,document);  ;  
+	        doWrite_Data_Table (denBean,lisData,document,96,MapfieldBean_detaille,doc);
+	        doWrite_Tva_Total_Piece(lisData,document,doc);   
 	        
 	        
 	        Facture_clientBean  reBean= (Facture_clientBean) getObjectValueModel(BEAN_TOTAL_FACTURE_CLIENT);
@@ -1773,11 +1773,11 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 }
 	
 	
-  public   void doWrite_Data_Table(Facture_clientBean    denBean, List lisData, Document document,int poucentage,String[][] mapFieldBean) throws Exception, SecurityException {
+  public   void doWrite_Data_Table(Facture_clientBean    denBean, List lisData, Document document,int poucentage,String[][] mapFieldBean,  JSONObject doc) throws Exception, SecurityException {
 	  
 	    PdfPTable table = new PdfPTable(mapFieldBean.length);
 		String pattern ="0.000";
-    	if( denBean.getDevise().getDev_id().intValue()==191  ||  denBean.getDevise().getDev_id().intValue()==192   ){
+    	if( denBean.getDevise()!=null  && ( denBean.getDevise().getDev_id().intValue()==191  ||  denBean.getDevise().getDev_id().intValue()==192   ) ){
 				pattern ="0.00";
 		} 
 	    int PaddingBottom=5;
@@ -1831,7 +1831,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		   /********************************************************************************************************/
          int sizelist=lisData.size();
          int toolha=sizelist*20;
-         int resul=380 - toolha;
+         int resul=    doc.getInt("espaceTotalDesous") - toolha;
          float toul_contenu_tab=Float.valueOf(String.valueOf(resul));
          /********************************************************************************************************/
           
@@ -1965,7 +1965,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	}
 	
 	
-	  public void doWrite_Tva_Total_Piece(List   lisData,Document document) throws Exception {
+	  public void doWrite_Tva_Total_Piece(List   lisData,Document document , JSONObject doc) throws Exception {
 		
 		try {
 			 

@@ -30,6 +30,8 @@ public class ClientDAO extends GenericWeb {
 	@Transactional
 	public List<ClientBean> doFindListClient(ClientBean beanSearch) throws Exception {
 		
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
 		
 		String requette = " select  bean   FROM    ClientBean    bean    WHERE     1=1       ";
 		
@@ -48,6 +50,9 @@ public class ClientDAO extends GenericWeb {
 		if (!StringUtils.isEmpty(beanSearch.getClt_tel()))
 			requette += "   AND   bean.clt_tel = '"+beanSearch.getClt_tel()+"'        ";
 		
+		if (!StringUtils.isEmpty(beanSearch.getClt_typ()))
+			requette += "   AND   bean.clt_typ = '"+beanSearch.getClt_typ()+"'        ";
+		
 		
 		if (!StringUtils.isEmpty(beanSearch.getClt_fax()))
 			requette += "   AND   bean.clt_fax = '"+beanSearch.getClt_fax()+"'        ";
@@ -63,7 +68,7 @@ public class ClientDAO extends GenericWeb {
 		   
 		   
 		 
-		 List<ClientBean> list2 =  getHibernateSession(sessionFactory).createQuery(requette).list();
+		 List<ClientBean> list2 =  session.createQuery(requette).list();
 		 
 		return list2;
 	}

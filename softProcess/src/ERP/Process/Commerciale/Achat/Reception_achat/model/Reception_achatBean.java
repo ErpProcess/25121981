@@ -24,98 +24,109 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean
 @JsonAutoDetect
 @Entity
 @Table(name = "reception_achat", schema = "achat")
-public class Reception_achatBean extends  GenericBean{
- 
+public class Reception_achatBean extends GenericBean {
+
 	private static final long serialVersionUID = 6466769670171738250L;
- 
+
 	@Id
 	@Column
 	private String achat_id = "";
-	
-	
+
 	@Column
-	private  Date achat_date;
-	
+	private Date achat_date;
 
 	@ManyToOne
 	@JoinColumn(name = "depot_id", insertable = true, updatable = true)
 	private DepotStockageBean depot = new DepotStockageBean();
-	
-	
-	@ManyToOne 
+
+	@ManyToOne
 	@JoinColumn(name = "dem_achat_id", insertable = true, updatable = true)
-	private Demande_achatBean dem_achat = new Demande_achatBean ();
-	
+	private Demande_achatBean dem_achat = new Demande_achatBean();
+
 	@Column
 	private Double avance_montant_achat;
-	
-	
+
+	public Double getAchat_mnt_ht() {
+		return achat_mnt_ht;
+	}
+
+	public void setAchat_mnt_ht(Double achat_mnt_ht) {
+		this.achat_mnt_ht = achat_mnt_ht;
+	}
+
+	public Double getAchat_mnt_tva() {
+		return achat_mnt_tva;
+	}
+
+	public void setAchat_mnt_tva(Double achat_mnt_tva) {
+		this.achat_mnt_tva = achat_mnt_tva;
+	}
+
+	public Double getAchat_mnt_total() {
+		return achat_mnt_total;
+	}
+
+	public void setAchat_mnt_total(Double achat_mnt_total) {
+		this.achat_mnt_total = achat_mnt_total;
+	}
+
 	@Column
 	private String achat_libelle = "";
-	 
-	
-	
+
+	@Column
+	private Double achat_mnt_ht;
+	@Column
+	private Double achat_mnt_tva;
+	@Column
+	private Double achat_mnt_total;
+
 	@Transient
-	private  String condition_etat_achat="";
-	
-	
+	private String condition_etat_achat = "";
+
 	@Transient
-	private  String total_mnt_ht="";
-	
-	
+	private String total_mnt_ht = "";
+
 	@Transient
-	private  String total_mnt_tva="";
-	
-	
+	private String total_mnt_tva = "";
+
 	@Transient
-	private  String total_mnt_gen="";
-	
-	
+	private String total_mnt_gen = "";
+
 	@Transient
-	private  String total_quantite="";
-	
-	
+	private String total_quantite = "";
+
 	@Transient
-	private  String achat_date2="";
-	 
-	
+	private String achat_date2 = "";
+
 	@Transient
-	private  String demande_id="";
-	
-	
-	@ManyToOne 
-	@JoinColumn(name = "frs_id", insertable = true, updatable = true)
-	private FournisseurBean      frsBean =  new FournisseurBean();
-	
-	
+	private String demande_id = "";
+
 	@ManyToOne
-	@JoinColumns({
-		 @JoinColumn(name = "etab_id", insertable = true, updatable = true,referencedColumnName="etab_id"),
-	     @JoinColumn(name = "soc_id", insertable = true, updatable = true,referencedColumnName="soc_id"),
-	})
+	@JoinColumn(name = "frs_id", insertable = true, updatable = true)
+	private FournisseurBean frsBean = new FournisseurBean();
+
+	@ManyToOne
+	@JoinColumns({ @JoinColumn(name = "etab_id", insertable = true, updatable = true, referencedColumnName = "etab_id"),
+			@JoinColumn(name = "soc_id", insertable = true, updatable = true, referencedColumnName = "soc_id"), })
 	private EtablissementBean fk_etab_Bean = new EtablissementBean();
-	
-	 
-	 
-	@ManyToOne 
+
+	@ManyToOne
 	@JoinColumn(name = "mode_op", insertable = true, updatable = true)
-	private FonctionBean  modeBean =  new FonctionBean();
-	
-	@ManyToOne 
+	private FonctionBean modeBean = new FonctionBean();
+
+	@ManyToOne
 	@JoinColumn(name = "dev_id", insertable = true, updatable = true)
-	private DeviseBean  devise  ;
-	
-	
+	private DeviseBean devise;
+
 	@Column
-	private java.sql.Time time_cre ;
-	
-	
+	private java.sql.Time time_cre;
+
 	@Column
-	private java.sql.Time time_mod ;
-	
+	private java.sql.Time time_mod;
+
 	@Column
 	private String achat_obs = "";
-	 
+
 	@Column
 	private Date date_cre;
 	@Column
@@ -127,16 +138,15 @@ public class Reception_achatBean extends  GenericBean{
 
 	@Transient
 	private String indx_row = "";
-	
+
 	@Transient
 	private String indx_row_next = "";
-	
+
 	@Transient
 	private String to_check = "";
-	
+
 	@Transient
 	private String id_entite = "";
-
 
 	public String getIndx_row() {
 		return indx_row;
@@ -178,9 +188,6 @@ public class Reception_achatBean extends  GenericBean{
 		return achat_libelle;
 	}
 
-  
- 
-
 	public DeviseBean getDevise() {
 		return devise;
 	}
@@ -197,10 +204,6 @@ public class Reception_achatBean extends  GenericBean{
 		return achat_obs;
 	}
 
-	 
-
-	 
-
 	public void setUsr_cre(String usr_cre) {
 		this.usr_cre = usr_cre;
 	}
@@ -209,8 +212,6 @@ public class Reception_achatBean extends  GenericBean{
 		return usr_cre;
 	}
 
- 
-
 	public void setUsr_mod(String usr_mod) {
 		this.usr_mod = usr_mod;
 	}
@@ -218,8 +219,6 @@ public class Reception_achatBean extends  GenericBean{
 	public String getUsr_mod() {
 		return usr_mod;
 	}
-
-	 
 
 	public FournisseurBean getFrsBean() {
 		return frsBean;
@@ -236,10 +235,6 @@ public class Reception_achatBean extends  GenericBean{
 	public void setFk_etab_Bean(EtablissementBean fk_etab_Bean) {
 		this.fk_etab_Bean = fk_etab_Bean;
 	}
-
-	 
-
-	 
 
 	public String getTotal_mnt_ht() {
 		return total_mnt_ht;
@@ -272,8 +267,6 @@ public class Reception_achatBean extends  GenericBean{
 	public void setTotal_quantite(String total_quantite) {
 		this.total_quantite = total_quantite;
 	}
-
-	 
 
 	public java.sql.Time getTime_cre() {
 		return time_cre;
@@ -379,11 +372,4 @@ public class Reception_achatBean extends  GenericBean{
 		this.date_mod = date_mod;
 	}
 
-	 
-
-	 
-
-	 
-
-	 
 }

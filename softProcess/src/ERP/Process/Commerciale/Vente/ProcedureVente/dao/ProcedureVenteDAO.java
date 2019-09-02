@@ -1669,6 +1669,39 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						bxe.setDrv(dVente);
 					}
 				}
+				
+				if(bxe.isPrix_vente_is_changed()) {
+					TarificationBean  tarifOrigin =   bxe.getTarif() ;
+					TarificationBean  tarifNew = new TarificationBean();
+					
+					
+					HashMap  mapclient  =  (HashMap)getObjectValueModel( ProcedureVenteTemplate.MAP_CLIENT_BEN);
+					ClientBean  ben     =  (ClientBean) mapclient.get(beanUpdate.getClient().getClt_id());
+					Type_tarificationBean groupe = new Type_tarificationBean();
+					groupe.setType_trf_lib(BDateTime.getDateActuel_system()+" "+ProcessDate.getTime(new Date())+" "+ben.getClt_id()+"/"+ben.getClt_lib());
+					setBeanTrace(groupe);
+					session.save(groupe);
+					
+					tarifNew.setGroupe(groupe);
+					tarifNew.setBean_cal(tarifOrigin.getBean_cal());
+					tarifNew.setFkCode_barre(tarifOrigin.getFkCode_barre());
+					tarifNew.setDevise(tarifOrigin.getDevise());
+					tarifNew.setTvaBean(tarifOrigin.getTvaBean());
+					tarifNew.setDepot(null);
+					tarifNew.setDate_trf(beanUpdate.getVente_date());
+					tarifNew.setTarif_unit_vente(tarifOrigin.getTarif_unit_vente());
+					tarifNew.setValeur_de_laTva(ProcessNumber.getMontantTvaByMontantHT(tarifOrigin.getTarif_unit_vente(), tarifOrigin.getTvaBean(), new DeviseBean()));
+					tarifNew.setTarif_unit_vente_tt(ProcessNumber.getMontantTTCByMontantHT(tarifOrigin.getTarif_unit_vente(), tarifOrigin.getTvaBean(),  new DeviseBean() ));
+					tarifNew.setTarif_lot(null);
+					tarifNew.setNum_serie(null);
+					daoNumSequentiel.getNumSeqSimple(tarifNew,"tarif_vente_id",session);
+					if(tarifOrigin.getCout()!=null && (tarifOrigin.getCout().getTarif_prim_id()==null || tarifOrigin.getCout().getTarif_prim_id().equals("")))
+					tarifNew.setCout(null);
+					this.setBeanTrace(tarifNew);
+					session.save(tarifNew);
+					bxe.setTarif(tarifNew);  
+				}
+				
 				session.save(bxe);
 			}
 			

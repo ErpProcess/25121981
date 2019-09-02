@@ -185,6 +185,13 @@ public class Reception_achatDAO extends GenericWeb {
 			List listOfmyData=(List) getObjectValueModel( Reception_achatTemplate.LIST_EDITABLE_RECEP_ACHAT);
 			if (bs.getFct_id().equals(GenericActionBean.Fn_Servir)){
 			beanSave.setFrsBean(beanSave.getDem_achat().getFrsBean());
+			} 
+			
+			Reception_achatBean bTotalAchat = (Reception_achatBean) getObjectValueModel(Reception_achatTemplate.BEAN_TOTAL);
+			if(bTotalAchat!=null) { 
+			beanSave.setAchat_mnt_ht(bTotalAchat.getAchat_mnt_ht());
+			beanSave.setAchat_mnt_tva(bTotalAchat.getAchat_mnt_tva());
+			beanSave.setAchat_mnt_total(bTotalAchat.getAchat_mnt_total());
 			}
 			session.persist(beanSave);
 			this.saveTrace(beanSave) ; 
@@ -242,7 +249,9 @@ public class Reception_achatDAO extends GenericWeb {
 		     throw e;  
 		 } finally {  
 			 session.close();  
+		
 		 }  
+		
 		return result;
 	}
 	

@@ -564,11 +564,11 @@ public class GeneratePdf extends  GenericWeb {
 	
 	 
 
-	public static  void doWriteHeaderDocument_PDF(Document document, FileOutputStream fs ,BeanSession bs) throws Exception {
+	public  static  JSONObject  doWriteHeaderDocument_PDF(Document document, FileOutputStream fs ,BeanSession bs) throws Exception {
 		 JSONObject doc = configDevelopementActionManager.doLoadingConfigPrintDocument();	
 		 doGeneratePdfWriterFormat(document,fs,doc);
 		 doGenerateEnteteDocument(document, fs, 10, 80,doc);
-	
+		 return doc; 
 }
 	
 	
