@@ -143,6 +143,8 @@ public static boolean i$_ACT_RESET_FORM = false;
 public static boolean i$_ACT_CORRIGER = false;
 
 public static boolean i$_ACT_CALCUL_TOTAL = false;
+
+public static boolean i$_ACT_CALCUL_TOTAL_GRID = false;
 public static boolean i$_ACT_CALCUL_TOTAL_FOURNITURE = false;
 
 public static boolean i$_ACT_STOCKER = false;

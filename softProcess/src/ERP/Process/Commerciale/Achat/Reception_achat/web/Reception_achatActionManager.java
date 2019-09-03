@@ -727,11 +727,8 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 	public ModelAndView doCalculerTotalGrid( Reception_achatBean detailBean ) throws Exception {
 		
 		try {
-			JsonObject data = new JsonObject();
-			Double dsds= (Double) getObjectValueModel("totGrid");
-			data.addProperty("totMntList",  ProcessFormatNbr.FormatDouble_To_String_Troischiffre(dsds)  );
-		    getResponse().setContentType(JSON_CONTENT_TYPE);
-			getResponse().getWriter().print(data.toString());
+			Double totGrid= (Double) getObjectValueModel("totGrid");
+			getResponse().getWriter().print(ProcessFormatNbr.FormatDouble_To_String_Troischiffre(totGrid));
 		} catch (Exception e) {
 			getResponse().setContentType(HTML_CONTENT_TYPE);
 			getResponse().getWriter().print(e.getMessage());

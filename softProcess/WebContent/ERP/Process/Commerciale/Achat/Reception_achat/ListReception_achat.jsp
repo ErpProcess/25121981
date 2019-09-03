@@ -18,7 +18,7 @@
 </script> 
  
 <jsp:include  page="${context_path}/dataGridSetting/dataGridConfig.jsp" />
-
+<!--  getResponse().setContentType(HTML_CONTENT_TYPE); -->
 <table id="${nameGrid}"   class="display"  style="width: 100%;"  > 
 			    <tfoot>
 		                    <tr  > 
@@ -35,9 +35,8 @@
 			    
 			     <script type="text/javascript">
 					function doLoaderDataFooter( nRow,aData, iStart, iEnd){
-					    var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_CALCUL_TOTAL_GRID','json',false);
-					    var totMntList     =json["totMntList"];
-				        var firstitems  = {"5":"Total"    ,"5":totMntList   };
+					    var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_CALCUL_TOTAL_GRID','text',false);
+				        var firstitems  = {"4":"Total"    ,"5":json   };
 				        var items       = {"A":firstitems };
 				    return  items; 
 				}

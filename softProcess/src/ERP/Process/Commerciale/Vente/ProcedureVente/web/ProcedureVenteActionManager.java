@@ -9,21 +9,21 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Transient;
-
-import jxl.Workbook;
-import jxl.WorkbookSettings;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
-
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.metadata.GenericTableMetaDataProvider;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonObject;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+
+import ERP.Process.Commerciale.Achat.Reception_achat.model.Reception_achatBean;
 import ERP.Process.Commerciale.Article.model.ClientArticleBean;
 import ERP.Process.Commerciale.Article.model.LieuxArticleBean;
 import ERP.Process.Commerciale.Article.service.ArticleService;
@@ -60,7 +60,6 @@ import ERP.Process.Commerciale.Vente.ProcedureVente.model.DetProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.model.ProcedureVenteBean;
 import ERP.Process.Commerciale.Vente.ProcedureVente.service.ProcedureVenteService;
 import ERP.Process.Commerciale.Vente.ProcedureVente.template.ProcedureVenteTemplate;
-import ERP.Process.Commerciale.Vente.ReglementFactClt.model.ReglementFactCltBean;
 import ERP.Process.Commerciale.Vente.Service.model.DetServiceBean;
 import ERP.Process.Commerciale.Vente.Service.model.ServiceBean;
 import ERP.Process.Commerciale.Vente.Service.service.ServiceService;
@@ -81,16 +80,10 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BDateTime;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.exportExcel.WriteExcel;
 import ERP.eXpertSoft.wfsi.jqueryoR.datatables.controller.AjaxDataTablesUtility;
-
-import com.google.gson.JsonObject;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.html.WebColors;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
+import jxl.Workbook;
+import jxl.WorkbookSettings;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
    
 	 
@@ -1938,6 +1931,13 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
 				}
 				 
 				List listDataSrv = serviceProcedureVente.doFetchDatafromServer(searchBean);
+				Double totgrid= new Double(0);
+				 
+				for (int i = 0; i < listDataSrv.size(); i++) {
+					ProcedureVenteBean  reBean	=(ProcedureVenteBean) listDataSrv.get(i);
+					totgrid=ProcessNumber.addition(totgrid,  ProcessFormatNbr.FormatDouble_Troischiffre(reBean.getVente_mnt_total()) );
+				}
+				setObjectValueModel("totGridVente", totgrid);
 				setObjectValueModel(SEARCH_BEAN, searchBean);
 				AjaxDataTablesUtility.doInitJQueryGrid(listDataSrv);
 	 		} catch (Exception e) {
@@ -3176,6 +3176,22 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		}
 		return null;
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public ModelAndView doCalculerTotalGrid( ProcedureVenteBean detailBean ) throws Exception {
+		
+		try {
+			Double totGrid= (Double) getObjectValueModel("totGridVente");
+			getResponse().getWriter().print(ProcessFormatNbr.FormatDouble_To_String_Troischiffre(totGrid));
+		} catch (Exception e) {
+			getResponse().setContentType(HTML_CONTENT_TYPE);
+			getResponse().getWriter().print(e.getMessage());
+		}
+		return null;
+	}
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	public ModelAndView doCalculerTotal(ProcedureVenteBean detailBean ) throws Exception {
