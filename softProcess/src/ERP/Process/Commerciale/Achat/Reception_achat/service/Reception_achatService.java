@@ -9,6 +9,8 @@ import ERP.Process.Commerciale.Achat.Reception_achat.dao.Reception_achatDAO;
 import ERP.Process.Commerciale.Achat.Reception_achat.model.Det_reception_achatBean;
 import ERP.Process.Commerciale.Achat.Reception_achat.model.Reception_achatBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel.dao.NumSequentielDAO;
 @Service
 public class Reception_achatService  extends GenericWeb  {
@@ -26,13 +28,15 @@ public class Reception_achatService  extends GenericWeb  {
 	
 	@Transactional(readOnly=true)
 	public List<Reception_achatBean> doFetchDatafromServer(Reception_achatBean beanSearch) throws Exception {
-		
+		Double totgrid= new Double(0);
 		List <Reception_achatBean >listDataSrv =daoReception_achat.doFindListReception_achat(beanSearch);
 		for (int i = 0; i < listDataSrv.size(); i++) {
 			Reception_achatBean  reBean	=(Reception_achatBean) listDataSrv.get(i);
 			if(reBean.getDem_achat()!=null)
 				reBean.setDemande_id(reBean.getDem_achat().getDem_achat_id());
+			totgrid=ProcessNumber.addition(totgrid,  ProcessFormatNbr.FormatDouble_Troischiffre(reBean.getAchat_mnt_total()) );
 		}
+		setObjectValueModel("totGrid", totgrid);
 		return listDataSrv;
 	}
 	

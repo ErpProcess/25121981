@@ -110,6 +110,8 @@ public static String  LIST_VIEW          = "ListReception_achat";
 
 public static boolean i$_ACT_INIT_SERVLET = false;
 public static boolean i$_ACT_CALCUL_TOTAL = false;
+public static boolean i$_ACT_CALCUL_TOTAL_GRID = false;
+
 public static boolean i$_ACT_STOCKER = false;
 public static boolean i$_ACT_PRINT_PDF = false;
 public static boolean i$_ACT_ANNULER = false;

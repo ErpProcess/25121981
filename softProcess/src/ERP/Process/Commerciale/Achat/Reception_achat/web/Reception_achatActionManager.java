@@ -655,8 +655,8 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 				 searchBean.setCondition_etat_achat("    AND  bean.modeBean.fct_id   in ('"+Fn_Confirmer+"'  )   ");
 			  }
 			 
-			 
 			List listDataSrv = serviceReception_achat.doFetchDatafromServer(searchBean);
+			 
 			setObjectValueModel(SEARCH_BEAN, searchBean);
 			AjaxDataTablesUtility.doInitJQueryGrid(listDataSrv);
 			
@@ -721,6 +721,23 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		return getViewFilterAjax_Servir(FILTER_VIEW_CMD);
 	}
 
+	
+	
+	@SuppressWarnings("unchecked")
+	public ModelAndView doCalculerTotalGrid( Reception_achatBean detailBean ) throws Exception {
+		
+		try {
+			JsonObject data = new JsonObject();
+			Double dsds= (Double) getObjectValueModel("totGrid");
+			data.addProperty("totMntList",  ProcessFormatNbr.FormatDouble_To_String_Troischiffre(dsds)  );
+		    getResponse().setContentType(JSON_CONTENT_TYPE);
+			getResponse().getWriter().print(data.toString());
+		} catch (Exception e) {
+			getResponse().setContentType(HTML_CONTENT_TYPE);
+			getResponse().getWriter().print(e.getMessage());
+		}
+		return null;
+	}
 	
 	@SuppressWarnings("unchecked")
 	public ModelAndView doCalculer_Total() throws Exception {

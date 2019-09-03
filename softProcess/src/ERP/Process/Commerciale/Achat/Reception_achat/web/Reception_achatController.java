@@ -92,10 +92,12 @@ public class Reception_achatController  extends Reception_achatActionManager   {
 		    	  if (i$_ACT_RECEPTION)             return      doRecep_Data(detailBean);
 		    	  
 		    	  if (i$_ACT_STOCKER  )             return      doStockerData(detailBean);
-		    	  
 		     
 		      	  if (i$_ACT_COMMIT)                return      doCommitData(detailBean);
+		      	  
+		          if (i$_ACT_CALCUL_TOTAL_GRID)     return      doCalculerTotalGrid(detailBean);
 		    	  
+		      	
 		    	  
 		    	  if (i$_ACT_ANNULER)               return      doAnnulerData(detailBean);
 		    	 
