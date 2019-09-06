@@ -138,6 +138,9 @@ public static boolean i$_ACT_INIT_SERVLET     = false;
 public static boolean i$_ACT_FETCH_AJAX_VENTE = false;
 public static boolean i$_ACT_GEN_FACTURE      = false;
 public static boolean i$_ACT_CALCUL_TOTAL     = false;
+public static boolean i$_ACT_CALCUL_TOTAL_GRID= false;
+
+
 public static boolean i$_ACT_SELECT_ROW       = false;
 public static boolean i$_ACT_CONFIRM          = false;
 public static boolean i$_ACT_ENVOYER          = false;

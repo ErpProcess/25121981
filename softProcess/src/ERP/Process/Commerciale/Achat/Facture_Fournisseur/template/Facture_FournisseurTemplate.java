@@ -69,7 +69,7 @@ public static String FILTER_VIEW_RECEP_ACHAT        = "FilterReception_achat";
 
 public static boolean i$_ACT_UPLOADER = false;
 public static boolean i$_ACT_AFFICHE_DOC = false;
-
+public static boolean i$_ACT_CALCUL_TOTAL_GRID= false;
 
 
 public static boolean i$_ACT_INIT_SERVLET = false;

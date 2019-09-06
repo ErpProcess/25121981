@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
+import ERP.Process.Commerciale.Achat.Reception_achat.model.Reception_achatBean;
 import ERP.Process.Commerciale.Code_barre.model.Code_barreBean;
 import ERP.Process.Commerciale.Entite_etat_commerciale.model.Entite_etat_commercialeBean;
 import ERP.Process.Commerciale.Entite_etat_commerciale.service.Entite_etat_commercialeService;
@@ -51,6 +52,7 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel.dao.NumSequentielDAO;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.model.TVABean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.service.TVAService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BDateTime;
@@ -81,6 +83,12 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	@Autowired
 	public void setServiceFacture(Facture_clientService serviceFacture) {
 	    this.serviceFacture = serviceFacture;
+	}
+	
+	private NumSequentielDAO daoNumSequentiel;
+	@Autowired
+	public void setDaoNumSequentiel(NumSequentielDAO daoNumSequentiel) {
+		this.daoNumSequentiel = daoNumSequentiel;
 	}
 	
 	private ProcedureVenteService  serviceProcedureVente;
@@ -233,6 +241,12 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 					//TODO  teste is false for  find  facture in  list   a supp into entity reglment 
 				}  
 				List listDataSrv = serviceFacture.doFetchDatafromServer(searchBean);
+				Double totGridFctClient = new Double(0);
+				for (int i = 0; i < listDataSrv.size(); i++) {
+					Facture_clientBean  reBean	=(Facture_clientBean) listDataSrv.get(i);
+					totGridFctClient=ProcessNumber.addition(totGridFctClient,  ProcessFormatNbr.FormatDouble_Troischiffre(reBean.getTotal_facture()) );
+				}
+				setObjectValueModel("totGridFctClient", totGridFctClient);
 				
 				setObjectValueModel(SEARCH_BEAN, searchBean);
 				AjaxDataTablesUtility.doInitJQueryGrid(listDataSrv);
@@ -2109,6 +2123,20 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		}
 	
 	}
+	  
+		@SuppressWarnings("unchecked")
+		public ModelAndView doCalculerTotalGrid( Facture_clientBean detailBean ) throws Exception {
+			
+			try {
+				Double totGridFctClient= (Double) getObjectValueModel("totGridFctClient");
+				getResponse().getWriter().print(ProcessFormatNbr.FormatDouble_To_String_Troischiffre(totGridFctClient));
+				//removeObjectModel("totGridFctClient");
+			} catch (Exception e) {
+				getResponse().setContentType(HTML_CONTENT_TYPE);
+				getResponse().getWriter().print(e.getMessage());
+			}
+			return null;
+		}
 	
 	public ModelAndView doUpdateData(Facture_clientBean beanUpBean) {	 
 		 	try {
@@ -2120,13 +2148,16 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		 }
 		return getViewList_Ajax(FILTER_VIEW);
 			}
-	public ModelAndView doDeleteData(Facture_clientBean beanDelBean) {
+	public ModelAndView doDeleteData(Facture_clientBean beanDelBean) throws Throwable {
 	    try {
 	     serviceFacture.doDeleteRowData(beanDelBean);
 	     remove_row_from_list(LIST_DATA);
 	     throwNewException("sup01");
 	       } catch (Exception e) {
 	       displayException(e);
+	       if(e.getMessage().equals("sup01")) {
+	    	   daoNumSequentiel.doDecrementeNumSeq("fact_clt_id"); 
+    	   }
 	       }
 	    return getViewList_Ajax(FILTER_VIEW);
 	   }

@@ -49,6 +49,9 @@ public class Facture_FournisseurController  extends Facture_FournisseurActionMan
                   
                   if (i$_ACT_CALCUL_TOTAL)          return      doCalculer_Total(detailBean);
                   
+		          if (i$_ACT_CALCUL_TOTAL_GRID)     return      doCalculerTotalGrid(detailBean);
+
+                  
 		          if (i$_ACT_ADD)                   return      doAddData(detailBean);
 		          
 		          if (ACT_NAVIGATE)  				return      getViewConsult_Pdf_ex(FORM_VIEW);

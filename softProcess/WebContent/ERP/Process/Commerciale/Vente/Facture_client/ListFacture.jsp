@@ -15,4 +15,27 @@
   { "sTitle": "${_mode}"            ,"sName": "modeBean.fct_libelle"                     ,"sWidth": "8%"   , "bSortable": "true"   },  
   ];
 </script> 
- <jsp:include  page="${context_path}/dataGridSetting/dataGridConfig-v1.jsp" />   
+ <jsp:include  page="${context_path}/dataGridSetting/dataGridConfig.jsp" />
+ 
+<table id="${nameGrid}"   class="display"  style="width: 100%;"  > 
+			    <tfoot>
+		                    <tr  > 
+								<td colspan="3"></td>
+								<td ></td>
+								<td ></td>
+								<td ></td>
+								<td ></td>
+								<td ></td>
+								<td ></td>
+						    </tr>
+				 </tfoot>
+			    </table>
+			    
+<script type="text/javascript">
+					function doLoaderDataFooter( nRow,aData, iStart, iEnd){
+					    var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_CALCUL_TOTAL_GRID','text',false);
+				        var firstitems  = {"2":"Total"    ,"3":json   };
+				        var items       = {"A":firstitems };
+				    return  items; 
+				}
+ </script>

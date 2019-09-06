@@ -77,6 +77,11 @@ public class ProcedureVenteService  extends GenericWeb  {
 	}
 	
 	@Transactional
+	public void doDecrementeValue( String code_num_attribute) throws Exception {
+		  daoNumSequentiel.doDecrementeNumSeq(code_num_attribute);
+	}
+	
+	@Transactional
 	public void  doUpdateRowData(ProcedureVenteBean updateBean)  throws Exception {
 		daoProcedureVente.doUpdateProcedureVente(updateBean); 
 	}

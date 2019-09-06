@@ -132,7 +132,7 @@ public class Facture_clientService  extends GenericWeb  {
 	 return result; 
 	}
 	
-	
+	 
 	
 	@Transactional
 	public Boolean doDeleteRowData(Facture_clientBean deleteBean) throws Exception {

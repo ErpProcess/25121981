@@ -370,6 +370,118 @@ public class NumSequentielDAO extends  GenericWeb implements INumSequentielDAO {
 	}
 	
 	
+	
+	public void  doDecrementeNumSeq( String code_num_attribute  ) throws Exception {
+		
+		String master_num=" select  numbean    FROM  Num_seqBean numbean  WHERE  numbean.code_num='"+code_num_attribute+"'      ";
+		
+		try {
+			
+			List <Num_seqBean> list_num_seq=hibernateTemplate.find(master_num);
+			Num_seqBean  beanMaster=list_num_seq.get(0);
+			BeanSession  bs=(BeanSession) getObjectValueModel(BEAN_SESSION);
+			int nbr_chiffre= beanMaster.getNbr_chiffre().intValue();
+			  
+			 String req=" select  bean    FROM  NumSequentielBean bean     WHERE   bean.pknumseqbean.code_num ='"+code_num_attribute+"'      ";
+			  
+			 
+			 if( beanMaster.getType_num().indexOf("numero")>-1) {
+				    req+="";
+			  }
+			 
+			  if( beanMaster.getType_num().indexOf("etab_id")>-1) {
+				    req+=
+				    	   "       AND   bean.pknumseqbean.etab_id  ='"+bs.getEtab_id()+"'         ";
+			  }
+			 
+			  if( beanMaster.getType_num().indexOf("soc_id")>-1) {
+				    req+=
+				    	  "       AND   bean.pknumseqbean.soc_id   ='"+bs.getSoc_id()+"'          ";
+			   } 
+		    if( beanMaster.getType_num().indexOf("annee")>-1) {
+				    req+=
+				        "       AND   bean.pknumseqbean.annee    ='"+BDateTime.getAnneeString()+"'     ";
+			}
+			 
+			if( beanMaster.getType_num().indexOf("mois")>-1) {
+			      req+=
+			        "           AND   bean.pknumseqbean.mois     ='"+BDateTime.getMoisString()+"'      ";
+			 }
+			
+			if(code_num_attribute.equals("soc_id") ||  code_num_attribute.equals("pk_etab.etab_id") )
+				req=" select  bean    FROM  NumSequentielBean bean     WHERE   bean.pknumseqbean.code_num ='"+code_num_attribute+"'      ";
+			
+			List<NumSequentielBean> list_detail=hibernateTemplate.find(req);
+			
+			NumSequentielBean bean_detail = new NumSequentielBean();
+			String numSeq_Resultat="";
+			
+			if(list_detail!=null  &&  list_detail.size()>0){
+			    bean_detail=list_detail.get(0);
+			    String res=bean_detail.getNumero();
+				int numSeq=Integer.parseInt(res);
+				int NumSqSuivant=numSeq-1;
+				int lengthNumSqSuivant=String.valueOf(NumSqSuivant).length();
+				 
+				int lesZero=nbr_chiffre-lengthNumSqSuivant;
+				String zero_wette="";
+				for (int i = 0; i <lesZero; i++) {
+					zero_wette=zero_wette+"0";
+				}
+				numSeq_Resultat=zero_wette+String.valueOf(NumSqSuivant);
+				bean_detail.setNumero(numSeq_Resultat);
+				bean_detail.setJour(BDateTime.getJourString());
+				hibernateTemplate.update(bean_detail);
+				
+			}
+//			else{
+//				
+//				int les_Zero=nbr_chiffre;
+//				    les_Zero=les_Zero-1;
+//				
+//				String zero_wette="";
+//				for (int i = 0; i <les_Zero; i++) {
+//					zero_wette=zero_wette+"0";
+//				}
+//				bean_detail.setNumero(zero_wette+"1");
+//				bean_detail.getPknumseqbean().setCode_num(code_num_attribute);
+//				bean_detail.getPknumseqbean().setAnnee(BDateTime.getAnneeString());
+//				bean_detail.getPknumseqbean().setMois(BDateTime.getMoisString());
+//				bean_detail.setJour(BDateTime.getJourString());
+//				bean_detail.getPknumseqbean().setSoc_id(bs.getSoc_id());
+//				bean_detail.getPknumseqbean().setEtab_id(bs.getEtab_id());
+//				hibernateTemplate.save(bean_detail);
+//			}
+			
+			
+//			String prefix=beanMaster.getPrefix()!=null && !beanMaster.getPrefix().equals("")?beanMaster.getPrefix():"";
+//			
+//			 if(beanMaster.getType_num().indexOf(";")<0){
+//				 
+//				 String paramter=bean_detail.getNumero()!=null?bean_detail.getNumero():"";
+//				        paramter=prefix+paramter;
+//				 GenericWeb.setValueOject_with_name_field(bean , code_num_attribute ,paramter);
+//				 
+//			 }else{
+//				 
+//				String[]  num_final= beanMaster.getType_num().split(";");
+//				String elment_data="";
+//				for (int i = 0; i < num_final.length; i++) {
+//					String   ssss=(String) GenericWeb.getValueOject_with_name_field(bean_detail, num_final[i]);
+//					elment_data+=ssss;
+//				}
+//				elment_data+=bean_detail.getNumero();
+//				elment_data=prefix+elment_data;
+//			    GenericWeb.setValueOject_with_name_field(bean , code_num_attribute ,elment_data);
+//			    
+//			 }
+			 
+			
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public String  getNumSeqWithPrefixM(Object bean,String code_num_attribute,String  prefix ,int nbr_chiffre ) {
 		String req=" select  bean    FROM  NumSequentielBean bean      WHERE  " +

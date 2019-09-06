@@ -33,6 +33,7 @@ import ERP.Process.Commerciale.Achat.Reception_achat.template.Reception_achatTem
 import ERP.Process.Commerciale.Code_barre.model.Code_barreBean;
 import ERP.Process.Commerciale.Fournisseur.model.FournisseurBean;
 import ERP.Process.Commerciale.Fournisseur.service.FournisseurService;
+import ERP.Process.Commerciale.Vente.Facture_client.model.Facture_clientBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.GenerationPdf.GeneratePdf;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
@@ -152,6 +153,14 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 			} 
 			
 			List listDataSrv = serviceFacture_Fournisseur.doFetchDatafromServer(searchBean);
+			
+			Double totGridfrs = new Double(0);
+			for (int i = 0; i < listDataSrv.size(); i++) {
+				Facture_FournisseurBean  reBean	=(Facture_FournisseurBean) listDataSrv.get(i);
+				totGridfrs=ProcessNumber.addition(totGridfrs,  ProcessFormatNbr.FormatDouble_Troischiffre(reBean.getTotal_facture()) );
+			}
+			setObjectValueModel("totGridfrs", totGridfrs);
+			
 			setObjectValueModel(LIST_DATA, listDataSrv);
 			setObjectValueModel(SEARCH_BEAN, searchBean);
 			AjaxDataTablesUtility.doInitJQueryGrid(listDataSrv);
@@ -881,6 +890,20 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 	
 	}
 
+	  
+	  @SuppressWarnings("unchecked")
+		public ModelAndView doCalculerTotalGrid( Facture_FournisseurBean detailBean ) throws Exception {
+			
+			try {
+				Double totGridfrs= (Double) getObjectValueModel("totGridfrs");
+				getResponse().getWriter().print(ProcessFormatNbr.FormatDouble_To_String_Troischiffre(totGridfrs));
+				//removeObjectModel("totGridfrs");
+			} catch (Exception e) {
+				getResponse().setContentType(HTML_CONTENT_TYPE);
+				getResponse().getWriter().print(e.getMessage());
+			}
+			return null;
+		}
 	
 	@SuppressWarnings("unchecked")
 	public ModelAndView doCalculer_Total(Facture_FournisseurBean detadilBean ) throws Exception {

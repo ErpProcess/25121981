@@ -65,6 +65,8 @@ public class Facture_clientController  extends Facture_clientActionManager   {
 		          if (i$_ACT_IMPRIMER_EXPORT_KB &&  bs.getSoc_id().equals("6"))     return      doPrintExportManchaKobbi();
 		          
 		          
+		          if (i$_ACT_CALCUL_TOTAL_GRID)      return      doCalculerTotalGrid(detailBean);
+
 
 	              //if (i$_ACT_EXPORT_XLS_DETAILLE)   return      doPrintPDF_detaille();
 	              

@@ -165,7 +165,11 @@ function processUpload(){
 		                 <select  required   id="devVente"  name="deviseVente.dev_id"   style="width: 180px;"  ></select>
 		                 </td>
              <td width="8%"><label >formatage </label></td>
-             <td  width="20%" ><input id="formatage" name="formatage"   type="text"  required    value="${detailBean.formatage}">             </td>
+             <td  width="20%" ><input id="formatage" name="formatage"   type="text"  required    value="${detailBean.formatage}">          
+             <br>
+                     tva_default     <input id="tva_default"   name="tva_default"     type="text"     size="10"   value="${detailBean.tva_default}"    libre readonly="readonly"   />
+               
+              </td>
          </tr>
    
           </table>

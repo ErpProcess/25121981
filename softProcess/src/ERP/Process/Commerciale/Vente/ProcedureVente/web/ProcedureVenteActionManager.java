@@ -2255,15 +2255,19 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		}
 
 	
-	public ModelAndView doDeleteData(ProcedureVenteBean beanDelBean) {
+	public ModelAndView doDeleteData(ProcedureVenteBean beanDelBean) throws Exception {
+		
+		ProcedureVenteBean beanDean =(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
 	    try {
-	    	ProcedureVenteBean beanDean =(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
 	        serviceProcedureVente.doDeleteRowData(beanDean);
 			remove_row_from_list(LIST_DATA);
 			removeObjectModel(FORM_BEAN);
-	     throwNewException("sup01");
+	        throwNewException("sup01");
 	       } catch (Exception e) {
-	       displayException(e);
+	         displayException(e);
+	           if(e.getMessage().equals("sup01")) {
+	    		   serviceProcedureVente.doDecrementeValue("vente_id");
+	    	   }
 	       }
 	    return getViewList_Ajax(FILTER_VIEW);
 	   }
