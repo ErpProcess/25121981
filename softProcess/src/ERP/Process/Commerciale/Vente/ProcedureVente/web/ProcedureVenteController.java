@@ -42,6 +42,8 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
            
 		          if (i$_ACT_INIT_SERVLET )         return      doInitServletAction(); 
 		          
+		          if (i$_ACT_VERIF_LIST)            return      doTeste_List();
+		          
 		          if (i$_ACT_SELECT_ROW)            return      doSelectDetailleRow();
 		          
 		          if (i$_ACT_AJAX_FETCH)            return      doFetchData(beanVente);

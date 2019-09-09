@@ -10,6 +10,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel.model.NumSeqReserve;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel.model.NumSequentielBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel.model.Num_seqBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BDateTime;
@@ -586,6 +587,32 @@ public class NumSequentielDAO extends  GenericWeb implements INumSequentielDAO {
 
 	}
 
+	public void doInsertNumSequentielReseve(NumSeqReserve numSeqReserve) {
+
+		try {
+			hibernateTemplate.save(numSeqReserve);
+			//this.saveTrace(beanDelete, "usr_id");
+			 
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		 
+		}
+
+	}
+	
+	public List<NumSeqReserve> doFetchNumSequentielReseve(NumSeqReserve numSeqReserve) throws Exception {
+
+		String requette="   FROM  NumSeqReserve  bean    WHERE    bean.code_num='"+numSeqReserve.getCode_num()+"'    ";
+		 
+		  requette +=this.setSocieteEtabFetch(numSeqReserve,"bean.fk_etab_Bean", false);
+		try {
+			return   hibernateTemplate.find(requette);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+
+	}
 	 
 
 }

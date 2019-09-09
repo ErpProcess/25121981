@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -71,6 +72,8 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel.dao.NumSequentielDAO;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel.model.NumSeqReserve;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.model.TVABean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.service.TVAService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Unite.model.DeriverUnite;
@@ -106,6 +109,12 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 		this.serviceService = serviceService;
 	}
 	
+	
+	private NumSequentielDAO daoNumSequentiel;
+	@Autowired
+	public void setDaoNumSequentiel(NumSequentielDAO daoNumSequentiel) {
+		this.daoNumSequentiel = daoNumSequentiel;
+	}
 	
 	private      DepotStockageService       serviceDepotStockage;
 	@Autowired
@@ -195,6 +204,47 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 	@Autowired
 	public void setServiceUnite(UniteService serviceUnite) {
 		this.serviceUnite = serviceUnite;
+	}
+	
+   public   ModelAndView doTeste_List( ) throws Exception{
+		
+		try {
+	 
+		 
+			NumSeqReserve numSeqReserve  = new NumSeqReserve();
+	    	numSeqReserve.setCode_num("vente_id");
+	    	String message="";
+	    	 
+	    	
+	    	List list_editable_vente=(List) getObjectValueModel(LIST_EDITABLE_VENTE);
+	    	List list_editable_fourniture_vente=(List) getObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE);
+	    	List list_editable_prestation=(List) getObjectValueModel(LIST_EDITABLE_PRESTATION);
+	    	
+		     if(  (list_editable_vente==null || list_editable_vente.size()==0)  &&
+		    	  (list_editable_fourniture_vente==null || list_editable_fourniture_vente.size()==0) &&
+		    	  (list_editable_prestation==null || list_editable_prestation.size()==0) ) {
+			   message="Détaille vente est vide ";			
+		     }else {
+		    	 
+		    	 List lisnum=daoNumSequentiel.doFetchNumSequentielReseve(numSeqReserve); 
+			    	if(lisnum!=null  &&   lisnum.size()>0) {
+			    		message="<"+((NumSeqReserve )lisnum.get(0)).getNumero();
+			    	} 
+		     }
+		     
+		     
+		     
+			  getResponse().setContentType(HTML_CONTENT_TYPE);
+			  getResponse().getWriter().print(message);
+			} catch (Exception e) {
+				getResponse().setStatus(500);
+				getResponse().setContentType(HTML_CONTENT_TYPE);
+				PrintWriter out = getResponse().getWriter();
+				out.println(e.getMessage());
+			    out.close();
+			}
+			return null;
+	 
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -2266,7 +2316,12 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	       } catch (Exception e) {
 	         displayException(e);
 	           if(e.getMessage().equals("sup01")) {
-	    		   serviceProcedureVente.doDecrementeValue("vente_id");
+		    	   NumSeqReserve numSeqReserve  = new NumSeqReserve();
+		    	   numSeqReserve.setCode_num("vente_id");
+		    	   numSeqReserve.setFk_etab_Bean(beanDean.getFk_etab_Bean());
+		    	   numSeqReserve.setNumero(beanDean.getVente_id());
+		    	   numSeqReserve.setDate_time_cre(new Date());
+		    	   daoNumSequentiel.doInsertNumSequentielReseve(numSeqReserve); 
 	    	   }
 	       }
 	    return getViewList_Ajax(FILTER_VIEW);

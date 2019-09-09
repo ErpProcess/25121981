@@ -151,14 +151,43 @@ function doValidAction() {
 
     if(!teste_required()) return ;
     if (typeof control_de_liste !== 'undefined' && typeof control_de_liste === 'function'){
-		  var retour_Teste_List= control_de_liste();
-		  if(retour_Teste_List!="")  {  alertExt("Erreur",retour_Teste_List,"4"); return;    }
+		  var retour= control_de_liste();
+		  
+		  if(retour!="" &&  !retour.startsWith("<") )  {  alertExt("Erreur",retour,"4"); return;    }
+		  
+		  
+		  if(retour!="" &&  retour.startsWith("<") )  {
+			  var numreserve = 'utilisé ce numero'+ retour;
+			  
+			  Ext.MessageBox.show({
+			        title:'Enregistrement',
+			        msg: ' Choisir un numéro de vente',
+			        buttons: {ok:numreserve,no:'Numero Suivant'}  ,
+			        fn: getActionbtnuik,
+			        animateTarget: 'mb4',
+			        icon: Ext.MessageBox.QUESTION
+			    });
+			  return;  
+			  }
     }  
      $("#ssSQZ_father").mask("Veuillez Patientez...");
 	 $("#myformToServeur").find('input[name="HiddenAction"]').val("${tml.act_doValid}");
 	 $("#myformToServeur").attr("action",contexPath+"${tmlx.url}");
      $("#myformToServeur").submit(); 
      
+}
+
+
+function getActionbtnuik(btn){
+	 
+    if( btn=="no" ){
+   	    $("#myformToServeur").attr("action",contexPath+"${tmlx.url}");
+    }else{
+    	$("#myformToServeur").attr("action",contexPath+"${tmlx.url}"+"numero="+btn);
+    }
+    $("#ssSQZ_father").mask("Veuillez Patientez...");
+	$("#myformToServeur").find('input[name="HiddenAction"]').val("${tml.act_doValid}");
+    $("#myformToServeur").submit(); 
 }
 
 function doCommitAction() {

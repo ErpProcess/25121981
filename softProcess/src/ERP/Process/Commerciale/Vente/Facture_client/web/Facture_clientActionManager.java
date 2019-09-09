@@ -1,7 +1,9 @@
 package ERP.Process.Commerciale.Vente.Facture_client.web;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -53,6 +55,7 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessForm
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel.dao.NumSequentielDAO;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.NumSequentiel.model.NumSeqReserve;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.model.TVABean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.service.TVAService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BDateTime;
@@ -1585,6 +1588,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			getResponse().setHeader("Cache-Control", "no-cache");
 			getResponse().setStatus(200);
 			getResponse().getWriter().write(LIST_DATA_DET_FACT+getRequest().getSession().getId()+".pdf");
+			setObjectValueModel(LIST_DATA_DET_FACT, new ArrayList<>() );
 		} catch (Exception e) {
 			displayException((Exception) e);
 		} 
@@ -2156,7 +2160,13 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	       } catch (Exception e) {
 	       displayException(e);
 	       if(e.getMessage().equals("sup01")) {
-	    	   daoNumSequentiel.doDecrementeNumSeq("fact_clt_id"); 
+	    	   Facture_clientBean   beandelfact = (Facture_clientBean) getObjectValueModel(FORM_BEAN);
+	    	   NumSeqReserve numSeqReserve  = new NumSeqReserve();
+	    	   numSeqReserve.setCode_num("fact_clt_id");
+	    	   numSeqReserve.setFk_etab_Bean(beandelfact.getEtablissment());
+	    	   numSeqReserve.setNumero(beandelfact.getFact_clt_id());
+	    	   numSeqReserve.setDate_time_cre(new Date());
+	    	   daoNumSequentiel.doInsertNumSequentielReseve(numSeqReserve); 
     	   }
 	       }
 	    return getViewList_Ajax(FILTER_VIEW);

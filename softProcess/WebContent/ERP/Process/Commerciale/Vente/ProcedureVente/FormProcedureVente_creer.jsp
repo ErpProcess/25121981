@@ -174,20 +174,11 @@ function getActionBox(btn){
 
 function control_de_liste(){
 // 	 if(otab_otra2) otab_otra2.fnAdjustColumnSizing();
- 	 if(otab_otra) otab_otra.fnAdjustColumnSizing();
+  if(otab_otra) otab_otra.fnAdjustColumnSizing();
 // 	 if(otab_otraPrestation) otab_otraPrestation.fnAdjustColumnSizing();
-	 
-var     retournX = doGenerate_methode_ajaxWithReturn('POST',urls_Generic_def+"?nameList=list_editable_proVente",'i$_ACT_VERIF_LIST','text',false);
-if(retournX=="")  return "";
-
-      retournX = doGenerate_methode_ajaxWithReturn('POST',urls_Generic_def+"?nameList=list_editable_fournitureVente",'i$_ACT_VERIF_LIST','text',false);
-if(retournX=="")  return "";
-
-retournX = doGenerate_methode_ajaxWithReturn('POST',urls_Generic_def+"?nameList=list_editable_prestation",'i$_ACT_VERIF_LIST','text',false);
-if(retournX=="")  return "";
-
-else  return " Veillez Remplir Le détaille de Vente ";
  
+var  verifNum =doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_VERIF_LIST','text',false);
+return verifNum;
 }
 
     
