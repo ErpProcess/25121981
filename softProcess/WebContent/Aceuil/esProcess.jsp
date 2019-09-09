@@ -147,26 +147,39 @@ select[readonly] option{
    $(".se-pre-con").fadeOut("slow");
 });
 
+
 function doValidAction() {
 
     if(!teste_required()) return ;
     if (typeof control_de_liste !== 'undefined' && typeof control_de_liste === 'function'){
 		  var retour= control_de_liste();
 		  
-		  if(retour!="" &&  !retour.startsWith("<") )  {  alertExt("Erreur",retour,"4"); return;    }
+		  if(retour!="" &&  !retour.startsWith("©") )  {  alertExt("Erreur",retour,"4"); return;    }
 		  
 		  
-		  if(retour!="" &&  retour.startsWith("<") )  {
-			  var numreserve = 'utilisé ce numero'+ retour;
-			  
+		  if(retour!="" &&  retour.startsWith("©") )  {
+			  var tabOfNumero = retour.split("©");
+			  var numrf="";
+			  var maselect='<select >';
+			  for (var z = 0; z < tabOfNumero.length ; z++) {
+				 if(tabOfNumero[z]!==null &&  tabOfNumero[z]!==undefined    &&   tabOfNumero[z]!== ""  ){
+					 maselect+= '<option  value="'+tabOfNumero[z]+'">'+tabOfNumero[z]+'</option>';
+					 if(numrf=="")numrf=tabOfNumero[z];
+			       }
+			   }
+			  maselect+='</select>';
 			  Ext.MessageBox.show({
-			        title:'Enregistrement',
-			        msg: ' Choisir un numéro de vente',
-			        buttons: {ok:numreserve,no:'Numero Suivant'}  ,
-			        fn: getActionbtnuik,
-			        animateTarget: 'mb4',
-			        icon: Ext.MessageBox.QUESTION
-			    });
+		      title:'Enregistrement',
+		      msg: ' Choisir un Numéro de vente déja Supprimé : '+maselect,
+		      buttons: {ok:'Ancien numéro',no:'Nouveau Numéro'}  ,
+// 		      fn:  getActionbtnuik(buttonId,numrf) ,
+		      //fn: showResultText.createDelegate(this, tabOfNumero, true),
+		      fn: function (btn){
+		    	  if (btn == 'ok') shf(numrf); else shf('NULL');
+		  	   },
+		      animateTarget: 'mb4',
+		      icon: Ext.MessageBox.QUESTION
+		 });
 			  return;  
 			  }
     }  
@@ -177,17 +190,30 @@ function doValidAction() {
      
 }
 
+ 
+function shf(fdfff){
 
-function getActionbtnuik(btn){
+alert(fdfff);
+}
+
+function getActionbtnuik(btn, text){
+	
+	   
+	    if (btn == 'no') {
+	        alert(text  );
+	    }
+	    if (btn == 'ok') {
+	    	 alert(text  );
+	    }
 	 
-    if( btn=="no" ){
-   	    $("#myformToServeur").attr("action",contexPath+"${tmlx.url}");
-    }else{
-    	$("#myformToServeur").attr("action",contexPath+"${tmlx.url}"+"numero="+btn);
-    }
-    $("#ssSQZ_father").mask("Veuillez Patientez...");
-	$("#myformToServeur").find('input[name="HiddenAction"]').val("${tml.act_doValid}");
-    $("#myformToServeur").submit(); 
+//     if( btn=="no" ){
+//    	    $("#myformToServeur").attr("action",contexPath+"${tmlx.url}");
+//     }else{
+//     	$("#myformToServeur").attr("action",contexPath+"${tmlx.url}"+"numero="+btn);
+//     }
+//     $("#ssSQZ_father").mask("Veuillez Patientez...");
+// 	$("#myformToServeur").find('input[name="HiddenAction"]').val("${tml.act_doValid}");
+//     $("#myformToServeur").submit(); 
 }
 
 function doCommitAction() {

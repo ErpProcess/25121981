@@ -211,8 +211,7 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 		try {
 	 
 		 
-			NumSeqReserve numSeqReserve  = new NumSeqReserve();
-	    	numSeqReserve.setCode_num("vente_id");
+			
 	    	String message="";
 	    	 
 	    	
@@ -225,10 +224,14 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 		    	  (list_editable_prestation==null || list_editable_prestation.size()==0) ) {
 			   message="Détaille vente est vide ";			
 		     }else {
+		    	 NumSeqReserve numSeqReserve  = new NumSeqReserve();
+			    	numSeqReserve.setCode_num("vente_id");
 		    	 
-		    	 List lisnum=daoNumSequentiel.doFetchNumSequentielReseve(numSeqReserve); 
+		    	 List<NumSeqReserve> lisnum=daoNumSequentiel.doFetchNumSequentielReseve(numSeqReserve); 
 			    	if(lisnum!=null  &&   lisnum.size()>0) {
-			    		message="<"+((NumSeqReserve )lisnum.get(0)).getNumero();
+			    		for (NumSeqReserve numSeqReser  : lisnum) {
+			    			message+="©"+numSeqReser.getNumero();
+						}
 			    	} 
 		     }
 		     
