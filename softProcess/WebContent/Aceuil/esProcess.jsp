@@ -147,9 +147,13 @@ select[readonly] option{
    $(".se-pre-con").fadeOut("slow");
 });
 
+var numrReserve=null;
 
+function getNum(Gnumo){
+	numrReserve=Gnumo;
+}
 function doValidAction() {
-
+	numrReserve=null;
     if(!teste_required()) return ;
     if (typeof control_de_liste !== 'undefined' && typeof control_de_liste === 'function'){
 		  var retour= control_de_liste();
@@ -159,23 +163,23 @@ function doValidAction() {
 		  
 		  if(retour!="" &&  retour.startsWith("©") )  {
 			  var tabOfNumero = retour.split("©");
-			  var numrf="";
-			  var maselect='<select >';
+	 
+			  var maselect='<select onchange="getNum(this.value);" >';
 			  for (var z = 0; z < tabOfNumero.length ; z++) {
 				 if(tabOfNumero[z]!==null &&  tabOfNumero[z]!==undefined    &&   tabOfNumero[z]!== ""  ){
 					 maselect+= '<option  value="'+tabOfNumero[z]+'">'+tabOfNumero[z]+'</option>';
-					 if(numrf=="")numrf=tabOfNumero[z];
+					 if(numrReserve==null)numrReserve=tabOfNumero[z];
 			       }
 			   }
 			  maselect+='</select>';
 			  Ext.MessageBox.show({
 		      title:'Enregistrement',
 		      msg: ' Choisir un Numéro de vente déja Supprimé : '+maselect,
-		      buttons: {ok:'Ancien numéro',no:'Nouveau Numéro'}  ,
+		      buttons: {ok:'Ancien Numéro',no:'Nouveau Numéro'}  ,
 // 		      fn:  getActionbtnuik(buttonId,numrf) ,
 		      //fn: showResultText.createDelegate(this, tabOfNumero, true),
 		      fn: function (btn){
-		    	  if (btn == 'ok') shf(numrf); else shf('NULL');
+		    	  if (btn == 'ok') shf(numrReserve); else shf(null);
 		  	   },
 		      animateTarget: 'mb4',
 		      icon: Ext.MessageBox.QUESTION
@@ -192,8 +196,10 @@ function doValidAction() {
 
  
 function shf(fdfff){
-
-alert(fdfff);
+	 $("#ssSQZ_father").mask("Veuillez Patientez...");
+	 $("#myformToServeur").find('input[name="HiddenAction"]').val("${tml.act_doValid}");
+	 $("#myformToServeur").attr("action",contexPath+"${tmlx.url}"+"?numios="+fdfff);
+     $("#myformToServeur").submit(); 
 }
 
 function getActionbtnuik(btn, text){

@@ -613,6 +613,22 @@ public class NumSequentielDAO extends  GenericWeb implements INumSequentielDAO {
 		}
 
 	}
+	
+	public  void doDeleteNumSequentielReseve(NumSeqReserve numSeqReserve) throws Exception {
+
+		String requette="  DELETE FROM  NumSeqReserve  bean    WHERE   "
+				+ "     bean.code_num='"+numSeqReserve.getCode_num()+"'   and   "
+						+ "   bean.numero='"+numSeqReserve.getNumero()+"'   ";
+		 
+		  requette +=this.setSocieteEtabFetch(numSeqReserve,"bean.fk_etab_Bean", false);
+		try {
+			  hibernateTemplate.bulkUpdate(requette);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			 
+		}
+
+	}
 	 
 
 }
