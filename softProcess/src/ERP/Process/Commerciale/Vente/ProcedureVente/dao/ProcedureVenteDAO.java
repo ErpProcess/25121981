@@ -1795,6 +1795,8 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 public Boolean doSaveFacture( ProcedureVenteBean detailBean, List  liste_detaille_facture) throws Exception {
 	    
 		Session session =  openSessionHibernate(sessionFactory);
+		
+		 
 	    
 		boolean result = false;
 		try {

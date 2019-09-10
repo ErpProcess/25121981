@@ -73,10 +73,11 @@ public class ProcedureVenteService  extends GenericWeb  {
 	@Transactional
 	public void doCreateRowData(ProcedureVenteBean detailBean, FournitureVenteBean    fVenteBean , ServiceBean    service) throws Exception {
 		 String numios= getRequest().getParameter("numios");
-		   if(numios==null || numios.equals("null") )
+		   if(numios==null || numios.equals("null") ) {
 		  daoNumSequentiel.getNumSeqSimple(detailBean,"vente_id");
-		   else
+		   }else {
 		  detailBean.setVente_id(numios);
+		   }
 	      daoProcedureVente.doSaveProcedureVente(detailBean,fVenteBean,service);
 	}
 	

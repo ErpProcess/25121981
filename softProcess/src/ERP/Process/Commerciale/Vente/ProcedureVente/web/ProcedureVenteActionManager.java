@@ -208,6 +208,9 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 	
    public   ModelAndView doTeste_List( ) throws Exception{
 		
+	   
+		 BeanSession  bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+ 
 		try {
 	 
 		 
@@ -224,6 +227,8 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 		    	  (list_editable_prestation==null || list_editable_prestation.size()==0) ) {
 			   message="Détaille vente est vide ";			
 		     }else {
+		    	 
+		    	 if(  bs.getFct_id().equals(Fn_Créer)  ||  bs.getFct_id().equals(Fn_Facturer) ) {
 		    	 NumSeqReserve numSeqReserve  = new NumSeqReserve();
 			    	numSeqReserve.setCode_num("vente_id");
 		    	 
@@ -233,8 +238,8 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 			    			message+="©"+numSeqReser.getNumero();
 						}
 			    	} 
+		         }
 		     }
-		     
 		     
 		     
 			  getResponse().setContentType(HTML_CONTENT_TYPE);
