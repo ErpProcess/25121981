@@ -26,9 +26,12 @@ import org.hibernate.SessionFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.JsonObject;
 
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Module.model.ModuleBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.SousModule.model.SousModuleBean;
@@ -1550,17 +1553,24 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 		}
    }
     
-	public   static   void displayException(Exception e){
+	public   static   JsonObject   displayException(Exception e){
 		
 		 MessageBean error       = new MessageBean();
 		 String  codeerr="";
-		 
+		 JsonObject errorObject = new JsonObject();
 		  try {
 			     BeanSession  bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 			     String name_entite=bs.getSousmod_libelle_title();
 				 String name_fct=bs.getFct_libelle();
 			     Throwable  ex=getRootCause(e.getCause());
-			     codeerr=ex==null?e.getMessage():ex.toString();
+			     if(ex!=null &&  ex  instanceof  PSQLException) {
+			    	 PSQLException  exff=  (PSQLException) ex;
+			    	 errorObject.addProperty("SQLState", exff.getSQLState());
+			    	 codeerr=exff.getMessage();
+			     }else {
+			    	 codeerr=ex==null?e.getMessage():ex.toString();
+			     }
+			    
 				 if(codeerr.equals("out")){
 				    Object tempSubModule= getObjectValueModel(NAME_TEMPLATE);
 					pbHidAction(tempSubModule);
@@ -1630,6 +1640,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 					 setObjectValueModel(MESSAGERROR, error.getMessage()!=null?error.getMessage():"Veuillez contacter votre administrateur système !");
 				 }
 			}  
+		  return errorObject;
 	}
 	
 	

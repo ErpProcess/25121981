@@ -135,6 +135,8 @@ public static String LIST_VIEW          = "ListFacture";
 /************************************************************************************************************************************************/
 
 public static boolean i$_ACT_INIT_SERVLET     = false;
+public static boolean i$_ACT_VERIF_LIST     = false;
+
 public static boolean i$_ACT_FETCH_AJAX_VENTE = false;
 public static boolean i$_ACT_GEN_FACTURE      = false;
 public static boolean i$_ACT_CALCUL_TOTAL     = false;

@@ -13,6 +13,7 @@ import ERP.Process.Commerciale.Vente.Facture_client.dao.Facture_clientDAO;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Det_Fact_ClientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Facture_clientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.model.MvtVente_articleBean;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericActionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessUtil;
 @Service
@@ -100,53 +101,23 @@ public class Facture_clientService  extends GenericWeb  {
 	
 	
 	@Transactional
-	public Boolean doCreateRowData(Facture_clientBean insertBean) throws Exception {
-		 boolean result = false;
-		 try {
-			 
-			  
-		       if(daoFacture.doSaveFacture(insertBean)){
-		       result = true;
-		       }else{
-		    	result = false;  
-		       }
-		 } catch (Exception e) { 
-			 result = false;
-			 throw e;
-		}
-		return result; 
+	public void doCreateRowData(Facture_clientBean insertBean) throws Exception {
+		daoFacture.doSaveFacture(insertBean);
+		daoFacture.doUpdateProcedureVente(insertBean);
+		
+	
 	}
+	
+	
 	@Transactional
-	public Boolean  doUpdateRowData(Facture_clientBean updateBean)  throws Exception {
-		 boolean result = false;
-		 try {
-		if(daoFacture.doExcuterTransaction(updateBean)){
-		    result = true;
-		       }else{
-		    	result = false;  
-		     }
-		 } catch (Exception e) { 
-			 result = false;
-			 throw e;
-		}
-	 return result; 
+	public void  doUpdateRowData(Facture_clientBean updateBean)  throws Exception {
+		daoFacture.doExcuterTransaction(updateBean);
 	}
 	
 	 
 	
 	@Transactional
-	public Boolean doDeleteRowData(Facture_clientBean deleteBean) throws Exception {
-		 boolean result = false;
-		 try {
-		    if(daoFacture.doDeleteFacture(deleteBean)){
-		        result = true;
-		      }else{
-		    	result = false;  
-		     }
-		 } catch (Exception e) { 
-			 result = false;
-			 throw e;
-		}
-   return result; 
+	public void doDeleteRowData(Facture_clientBean deleteBean) throws Exception {
+		daoFacture.doDeleteFacture(deleteBean);
 	}
 }

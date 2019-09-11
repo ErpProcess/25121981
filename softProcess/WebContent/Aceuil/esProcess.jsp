@@ -202,25 +202,7 @@ function shf(fdfff){
      $("#myformToServeur").submit(); 
 }
 
-function getActionbtnuik(btn, text){
-	
-	   
-	    if (btn == 'no') {
-	        alert(text  );
-	    }
-	    if (btn == 'ok') {
-	    	 alert(text  );
-	    }
-	 
-//     if( btn=="no" ){
-//    	    $("#myformToServeur").attr("action",contexPath+"${tmlx.url}");
-//     }else{
-//     	$("#myformToServeur").attr("action",contexPath+"${tmlx.url}"+"numero="+btn);
-//     }
-//     $("#ssSQZ_father").mask("Veuillez Patientez...");
-// 	$("#myformToServeur").find('input[name="HiddenAction"]').val("${tml.act_doValid}");
-//     $("#myformToServeur").submit(); 
-}
+
 
 function doCommitAction() {
     

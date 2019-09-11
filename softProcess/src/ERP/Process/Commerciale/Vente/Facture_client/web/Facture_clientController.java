@@ -33,6 +33,8 @@ public class Facture_clientController  extends Facture_clientActionManager   {
            BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
            
                   if (i$_ACT_INIT_SERVLET )         return      doInitServletAction();  
+                  
+                  if (i$_ACT_VERIF_LIST)            return      doTesteList();
 		         
 		          if (i$_ACT_AJAX_FETCH)            return      doFetchData(detailBean);
 		          

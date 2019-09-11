@@ -40,16 +40,23 @@ var  TYPIO=Ext.MessageBox.INFO;
 
 
 $(document).ready(function () {
+	
 if(MyMessageBoxo!=""){
- 
+	var iconMessageBox = Ext.MessageBox.INFO;
+	var titreMessageBox="INFO";
+	
+	if(MyMessageBoxo.startsWith("ERREUR")){
+		iconMessageBox = Ext.MessageBox.ERROR;
+		titreMessageBox="ERREUR";
+     } 
  Ext.MessageBox.show({
-           title:"Enregistrement Valider",
+           title:titreMessageBox,
            msg: MyMessageBoxo ,
            //buttons: Ext.MessageBox.YES,
-           buttons: Ext.Msg.OK,
+           buttons:   Ext.Msg.OK ,
            width:600,
            animEl: "mb4",
-           icon: Ext.MessageBox.INFO
+           icon: iconMessageBox
 });
 }  
 });

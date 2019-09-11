@@ -1,6 +1,7 @@
 package ERP.Process.Commerciale.Vente.Facture_client.web;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -140,6 +141,46 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		  public void setServiceModeReglement(ModeReglementService serviceModeReglement) {
 		      this.serviceModeReglement = serviceModeReglement;
 		  } 
+		  
+		  
+		   public   ModelAndView doTesteList( ) throws Exception{
+				
+			   
+				 BeanSession  bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+		 
+				try {
+					
+			    	String message="";
+			    	
+				    	 if(  bs.getFct_id().equals(Fn_Générer) ) {
+				    	 NumSeqReserve numSeqReserve  = new NumSeqReserve();
+					     numSeqReserve.setCode_num("fact_clt_id");
+				    	 
+				    	 List<NumSeqReserve> lisnum=daoNumSequentiel.doFetchNumSequentielReseve(numSeqReserve); 
+					    	if(lisnum!=null  &&   lisnum.size()>0) {
+					    		for (NumSeqReserve numSeqReser  : lisnum) {
+					    			message+="©"+numSeqReser.getNumero();
+								}
+					    	} 
+				         }
+				    
+				     
+				     
+					  getResponse().setContentType(HTML_CONTENT_TYPE);
+					  getResponse().getWriter().print(message);
+					} catch (Exception e) {
+						getResponse().setStatus(500);
+						getResponse().setContentType(HTML_CONTENT_TYPE);
+						PrintWriter out = getResponse().getWriter();
+						out.println(e.getMessage());
+					    out.close();
+					}
+					return null;
+			 
+			}
+		   
+		   
+		   
 	public    ModelAndView doInitServletAction() {
 
 		
@@ -1498,7 +1539,18 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	            serviceFacture.doCreateRowData(detailBean);
 	            throwNewException("ins01");
 	          } catch (Exception e) {
-	        	  if(e.getMessage().equals("ins01"))  insert=true;
+	        	  if(e.getMessage().equals("ins01")) {
+	        		  insert=true;
+	        		  String numios= getRequest().getParameter("numios");
+		        	    if(  numios!=null &&  !numios.equals("null") ) {
+		        	    	Facture_clientBean beanSave= (Facture_clientBean) getObjectValueModel(FORM_BEAN );
+		        	        NumSeqReserve numSeqReserve  = new NumSeqReserve();
+		  		    	    numSeqReserve.setCode_num("fact_clt_id");
+		  		    	    numSeqReserve.setFk_etab_Bean(beanSave.getEtablissment());
+		  		    	    numSeqReserve.setNumero(numios);
+		        	        daoNumSequentiel.doDeleteNumSequentielReseve(numSeqReserve); 
+		        	    }
+	        	  }
 	            displayException(e);
 	          }
 	          

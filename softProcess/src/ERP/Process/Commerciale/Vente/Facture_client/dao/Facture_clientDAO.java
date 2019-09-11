@@ -216,12 +216,19 @@ public class Facture_clientDAO extends  GenericWeb    {
 	    
 		boolean result = false;
 		try {
-			//BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
-			
+ 			
 			Facture_clientBean beanSave= (Facture_clientBean) getObjectValueModel(FORM_BEAN );
 			setBeanTrace(beanSave);
 			beanSave.getTypefact().setType_fact_id(new Integer(1));
-			daoNumSequentiel.getNumSeqSimple(beanSave,"fact_clt_id",session,"F");
+			
+			String numios= getRequest().getParameter("numios");
+			
+			  if(numios==null || numios.equals("null") ) {
+				   daoNumSequentiel.getNumSeqSimple(beanSave,"fact_clt_id",session,"F");
+			  }else {
+				   beanSave.setFact_clt_id(numios);
+			  }
+			 
 			 
 			Facture_clientBean beanTotal =(Facture_clientBean) getObjectValueModel(Facture_clientTemplate.BEAN_TOTAL_FACTURE_CLIENT);
 			beanSave.setTotal_facture(   beanTotal.getTotal_facture());
@@ -260,9 +267,6 @@ public class Facture_clientDAO extends  GenericWeb    {
 					Detail_mvt_vente_articleBean  bDetail_mvt_vente = (Detail_mvt_vente_articleBean) lisdet.get(j);
 					bDetail_mvt_vente.getPk().setMvt_vente(mvt_vente);
 					session.save(bDetail_mvt_vente);
-					session.createQuery( " UPDATE  ProcedureVenteBean b  set  " +
-							"            b.modeBean.fct_id="+GenericActionBean.Fn_Facturer+" , b.factclient.fact_clt_id='"+beanSave.getFact_clt_id()+"' " +
-									"     where   b.vente_id='"+bDetail_mvt_vente.getPk().getVente().getVente_id()+"' ").executeUpdate();
 				}
 				detBean.getPk().setFactclient(beanSave);
 				detBean.getPk().setMvtVente(mvt_vente);
@@ -375,5 +379,34 @@ public class Facture_clientDAO extends  GenericWeb    {
 		 }  
 		return result;
 	    
+	}
+
+
+
+	
+
+	public void doUpdateProcedureVente(Facture_clientBean insertBean) {
+         Session session =  openSessionHibernate(sessionFactory);
+		try {
+			Facture_clientBean beanSave= (Facture_clientBean) getObjectValueModel(FORM_BEAN );
+			List listOfmyData   =(List) getObjectValueModel( Facture_clientTemplate.LIST_DATA_DET_FACT);
+			for (int i = 0; i < listOfmyData.size(); i++) {
+				Det_Fact_ClientBean detBean=(Det_Fact_ClientBean) listOfmyData.get(i);
+				List lisdet=detBean.getPk().getMvtVente().getList_detail_mvt_vente();
+				for (int j = 0; j < lisdet.size(); j++) {
+					Detail_mvt_vente_articleBean  bDetail_mvt_vente = (Detail_mvt_vente_articleBean) lisdet.get(j);
+					session.createQuery( " UPDATE  ProcedureVenteBean b  set  " +
+							"              b.modeBean.fct_id="+GenericActionBean.Fn_Facturer+" , b.factclient.fact_clt_id='"+beanSave.getFact_clt_id()+"' " +
+									"      where   b.vente_id='"+bDetail_mvt_vente.getPk().getVente().getVente_id()+"' ").executeUpdate();
+				}
+			}
+			commitTransaction(session);
+		 } catch (Exception e) {  
+		 
+		    	 rollbackTransaction(session) ;
+		     throw e;  
+		 } finally {  
+			 session.close();  
+		 }  
 	}
 }

@@ -50,13 +50,13 @@ $(document).ready(function (){
  LoadAutoCompletAjax("cptbanribrs","cptbanribrib","btValidx","list_cpt_bank_fact");
  LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
  config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  ); 
- 
- 
-
 });                                                                                         
  
  
- 
+function control_de_liste(){
+var  verifNum =doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_VERIF_LIST','text',false);
+return verifNum;
+}
  
 								                        
  </script>

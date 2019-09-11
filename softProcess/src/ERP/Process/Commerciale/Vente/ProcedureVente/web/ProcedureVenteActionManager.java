@@ -2169,13 +2169,13 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	        	  if(e.getMessage().equals("ins01")) {
 	        	    TransfertError(e);
 	        	    String numios= getRequest().getParameter("numios");
-	        	    if(numios==null || numios.equals("null") ) {
+	        	    if(  numios!=null &&  !numios.equals("null") ) {
 	        	    	ProcedureVenteBean beanSave=  (ProcedureVenteBean) getObjectValueModel(FORM_BEAN  );
-	        	       NumSeqReserve numSeqReserve  = new NumSeqReserve();
-	  		    	   numSeqReserve.setCode_num("vente_id");
-	  		    	   numSeqReserve.setFk_etab_Bean(beanSave.getFk_etab_Bean());
-	  		    	   numSeqReserve.setNumero(numios);
-	        	       daoNumSequentiel.doDeleteNumSequentielReseve(numSeqReserve); 
+	        	        NumSeqReserve numSeqReserve  = new NumSeqReserve();
+	  		    	    numSeqReserve.setCode_num("vente_id");
+	  		    	    numSeqReserve.setFk_etab_Bean(beanSave.getFk_etab_Bean());
+	  		    	    numSeqReserve.setNumero(numios);
+	        	        daoNumSequentiel.doDeleteNumSequentielReseve(numSeqReserve); 
 	        	    }
 	        	  }
 	          }
