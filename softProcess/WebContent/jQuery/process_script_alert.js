@@ -44,8 +44,7 @@ $(document).ready(function () {
 if(MyMessageBoxo!=""){
 	var iconMessageBox = Ext.MessageBox.INFO;
 	var titreMessageBox="INFO";
-	
-	if(MyMessageBoxo.startsWith("ERREUR")){
+	if(MyMessageBoxo.startsWith("ERREUR") ||   MyMessageBoxo.startsWith("ERROR") ){
 		iconMessageBox = Ext.MessageBox.ERROR;
 		titreMessageBox="ERREUR";
      } 

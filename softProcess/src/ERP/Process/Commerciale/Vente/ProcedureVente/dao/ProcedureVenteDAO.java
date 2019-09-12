@@ -1829,7 +1829,7 @@ public Boolean doSaveFacture( ProcedureVenteBean detailBean, List  liste_detaill
 			beanSaveS.setAvance_montant_vente(beanTotal.getAvance_montant_vente());
 			beanSaveS.getEtat_reg().setData_id("fnon");
 			
-			String numios= getRequest().getParameter("numiosFactures");
+			String numios= getRequest().getParameter("numiosFacture");
 			
 			  if(numios==null || numios.equals("null") ) {
 				   daoNumSequentiel.getNumSeqSimple(beanSaveS,"fact_clt_id",session,"F");

@@ -190,7 +190,8 @@ function getActionBox(btn){
 		      msg: ' Voulez vous Choisir un Numéro Déja Supprimé : '+maselectFact,
 		      buttons: {ok:'Ancien Numéro',no:'Nouveau Numéro'}  ,
 		      fn: function (btn){
-		    	  if (btn == 'ok') actFacto(numrReserveFact); else actFacto(null);
+		    	  
+		    	  if (btn == 'ok') actFactoData(numrReserveFact); else actFactoData(null);
 		  	   },
 		      animateTarget: 'mb4',
 		      icon: Ext.MessageBox.QUESTION
@@ -210,10 +211,12 @@ function getActionBox(btn){
 }
 
 
-function actFacto(nfac){
+function actFactoData(nfact){
+	  
 	 $("#ssSQZ_father").mask("Veuillez Patientez...");
 	 $("#myformToServeur").find('input[name="HiddenAction"]').val("i$_ACT_FACTURER");
-	 $("#myformToServeur").attr("action",contexPath+"${tmlx.url}"+"?numiosFacture="+nfac);
+	 $("#myformToServeur").attr("action",contexPath+"${tmlx.url}"+"?numiosFacture="+nfact);
+	 alert(contexPath+"${tmlx.url}"+"?numiosFacture="+nfact);
      $("#myformToServeur").submit(); 
 }
 
