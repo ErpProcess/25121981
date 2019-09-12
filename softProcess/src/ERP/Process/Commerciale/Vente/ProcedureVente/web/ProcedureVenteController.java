@@ -42,7 +42,11 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
            
 		          if (i$_ACT_INIT_SERVLET )         return      doInitServletAction(); 
 		          
-		          if (i$_ACT_VERIF_LIST)            return      doTeste_List();
+		          if (i$_ACT_VERIF_LIST)            return      doTesteListVente();
+		          
+		          if (i$_ACT_VERIF_LIST_FACT)       return      doTesteListFacture();
+		          
+		          
 		          
 		          if (i$_ACT_SELECT_ROW)            return      doSelectDetailleRow();
 		          

@@ -206,41 +206,77 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 		this.serviceUnite = serviceUnite;
 	}
 	
-   public   ModelAndView doTeste_List( ) throws Exception{
+	
+	   public   ModelAndView doTesteListVente( ) throws Exception{
+			
+		   
+			 BeanSession  bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+	 
+			try {
+		 
+			 
+				
+		    	String message="";
+		    	 
+		    	
+		    	List list_editable_vente=(List) getObjectValueModel(LIST_EDITABLE_VENTE);
+		    	List list_editable_fourniture_vente=(List) getObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE);
+		    	List list_editable_prestation=(List) getObjectValueModel(LIST_EDITABLE_PRESTATION);
+		    	
+			     if(  (list_editable_vente==null || list_editable_vente.size()==0)  &&
+			    	  (list_editable_fourniture_vente==null || list_editable_fourniture_vente.size()==0) &&
+			    	  (list_editable_prestation==null || list_editable_prestation.size()==0) ) {
+				   message="Détaille vente est vide ";			
+			     }else {
+			    	 
+			    	 if(  bs.getFct_id().equals(Fn_Créer)  ||  bs.getFct_id().equals(Fn_Facturer) ) {
+			    	 NumSeqReserve numSeqReserve  = new NumSeqReserve();
+				    	numSeqReserve.setCode_num("vente_id");
+			    	 
+			    	 List<NumSeqReserve> lisnum=daoNumSequentiel.doFetchNumSequentielReseve(numSeqReserve); 
+				    	if(lisnum!=null  &&   lisnum.size()>0) {
+				    		for (NumSeqReserve numSeqReser  : lisnum) {
+				    			message+="©"+numSeqReser.getNumero();
+							}
+				    	} 
+			         }
+			     }
+			     
+			     
+				  getResponse().setContentType(HTML_CONTENT_TYPE);
+				  getResponse().getWriter().print(message);
+				} catch (Exception e) {
+					getResponse().setStatus(500);
+					getResponse().setContentType(HTML_CONTENT_TYPE);
+					PrintWriter out = getResponse().getWriter();
+					out.println(e.getMessage());
+				    out.close();
+				}
+				return null;
+		 
+		}
+	   
+	   
+   public   ModelAndView doTesteListFacture( ) throws Exception{
 		
 	   
-		 BeanSession  bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+		 
  
 		try {
 	 
 		 
 			
 	    	String message="";
+	   	    NumSeqReserve numSeqReserve  = new NumSeqReserve();
+	    	numSeqReserve.setCode_num("fact_clt_id");
+ 	        List<NumSeqReserve> lisnum=daoNumSequentiel.doFetchNumSequentielReseve(numSeqReserve); 
+	    	if(lisnum!=null  &&   lisnum.size()>0) {
+	    		for (NumSeqReserve numSeqReser  : lisnum) {
+	    			message+="©"+numSeqReser.getNumero();
+				}
+	    	} 
+	    	
 	    	 
-	    	
-	    	List list_editable_vente=(List) getObjectValueModel(LIST_EDITABLE_VENTE);
-	    	List list_editable_fourniture_vente=(List) getObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE);
-	    	List list_editable_prestation=(List) getObjectValueModel(LIST_EDITABLE_PRESTATION);
-	    	
-		     if(  (list_editable_vente==null || list_editable_vente.size()==0)  &&
-		    	  (list_editable_fourniture_vente==null || list_editable_fourniture_vente.size()==0) &&
-		    	  (list_editable_prestation==null || list_editable_prestation.size()==0) ) {
-			   message="Détaille vente est vide ";			
-		     }else {
-		    	 
-		    	 if(  bs.getFct_id().equals(Fn_Créer)  ||  bs.getFct_id().equals(Fn_Facturer) ) {
-		    	 NumSeqReserve numSeqReserve  = new NumSeqReserve();
-			    	numSeqReserve.setCode_num("vente_id");
-		    	 
-		    	 List<NumSeqReserve> lisnum=daoNumSequentiel.doFetchNumSequentielReseve(numSeqReserve); 
-			    	if(lisnum!=null  &&   lisnum.size()>0) {
-			    		for (NumSeqReserve numSeqReser  : lisnum) {
-			    			message+="©"+numSeqReser.getNumero();
-						}
-			    	} 
-		         }
-		     }
-		     
 		     
 			  getResponse().setContentType(HTML_CONTENT_TYPE);
 			  getResponse().getWriter().print(message);
@@ -2227,6 +2263,16 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	 	displayException(e);
 	 	 if(e.getMessage().equals("Facturation effectuée avec succès")) {
             TransfertError(e);
+            String numios= getRequest().getParameter("numiosFacture");
+    	    if(  numios!=null &&  !numios.equals("null") ) {
+    	        NumSeqReserve numSeqReserve  = new NumSeqReserve();
+		    	numSeqReserve.setCode_num("fact_clt_id");
+		    	numSeqReserve.setFk_etab_Bean(detailBean.getFk_etab_Bean());
+		    	numSeqReserve.setNumero(numios);
+    	        daoNumSequentiel.doDeleteNumSequentielReseve(numSeqReserve); 
+    	    }
+            
+            
 	 	  }else {
 	 		 serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Créer, detailBean.getVente_id());
 	 	  }

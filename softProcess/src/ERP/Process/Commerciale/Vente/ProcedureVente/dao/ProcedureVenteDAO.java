@@ -1828,7 +1828,19 @@ public Boolean doSaveFacture( ProcedureVenteBean detailBean, List  liste_detaill
 			beanSaveS.setMnt_timb_fisc(beanTotal.getMontant_timbre_fiscal());
 			beanSaveS.setAvance_montant_vente(beanTotal.getAvance_montant_vente());
 			beanSaveS.getEtat_reg().setData_id("fnon");
-			daoNumSequentiel.getNumSeqSimple(beanSaveS,"fact_clt_id",session,"F");
+			
+			String numios= getRequest().getParameter("numiosFactures");
+			
+			  if(numios==null || numios.equals("null") ) {
+				   daoNumSequentiel.getNumSeqSimple(beanSaveS,"fact_clt_id",session,"F");
+			  }else {
+				  beanSaveS.setFact_clt_id(numios);
+			  }
+			 
+			  
+			  
+			  
+		 
 			
 			if(beanSaveS.getModReg()!=null && beanSaveS.getModReg().getMod_id()!=null)
 				beanSaveS.setModReg(beanSaveS.getModReg());

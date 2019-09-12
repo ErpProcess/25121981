@@ -159,16 +159,61 @@ function getActionImprimerBL(btn){
 }
 
 
+var numrReserveFact=null;
 
+function getNumFact(GnumoFact){
+	numrReserveFact=GnumoFact;
+}
 
 function getActionBox(btn){
-     $("#ssSQZ_father").mask("Veuillez Patientez...");
-      var hidvente="i$_ACT_COMMIT";
-     if("${bs.fct_id}"=="27") hidvente="i$_ACT_FACTURER"; 
     
-     if( btn=="no" ) hidvente="i$_ACT_RESET_FORM";
+      var hidvente="i$_ACT_COMMIT";
+      
+      
+     if("${bs.fct_id}"=="27") {
+    	 hidvente="i$_ACT_FACTURER"; 
+    	 var  verifNumFac =doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_VERIF_LIST_FACT','text',false);
+
+		  if(verifNumFac!="" &&  verifNumFac.startsWith("©") )  {
+			  var tabOfNumeroFact = verifNumFac.split("©");
+	 
+			  var maselectFact='<select onchange="getNumFact(this.value);" >';
+			  for (var z = 0; z < tabOfNumeroFact.length ; z++) {
+				 if(tabOfNumeroFact[z]!==null &&  tabOfNumeroFact[z]!==undefined    &&   tabOfNumeroFact[z]!== ""  ){
+					 maselectFact+= '<option  value="'+tabOfNumeroFact[z]+'">'+tabOfNumeroFact[z]+'</option>';
+					 if(numrReserveFact==null)numrReserveFact=tabOfNumeroFact[z];
+			       }
+			   }
+			  maselectFact+='</select>';
+			  Ext.MessageBox.show({
+		      title:'INFO',
+		      msg: ' Voulez vous Choisir un Numéro Déja Supprimé : '+maselectFact,
+		      buttons: {ok:'Ancien Numéro',no:'Nouveau Numéro'}  ,
+		      fn: function (btn){
+		    	  if (btn == 'ok') actFacto(numrReserveFact); else actFacto(null);
+		  	   },
+		      animateTarget: 'mb4',
+		      icon: Ext.MessageBox.QUESTION
+		 });
+			  return;  
+			  }
+
+     }
+     if( btn=="no" ){ 
+    	 hidvente="i$_ACT_RESET_FORM";
+     }
+     
+     $("#ssSQZ_father").mask("Veuillez Patientez...");
 	 $("#myformToServeur").find('input[name="HiddenAction"]').val(hidvente);
 	 $("#myformToServeur").attr("action",contexPath+"${tmlx.url}");
+     $("#myformToServeur").submit(); 
+}
+
+
+function actFacto(nfac){
+	 $("#ssSQZ_father").mask("Veuillez Patientez...");
+	 $("#myformToServeur").find('input[name="HiddenAction"]').val("i$_ACT_FACTURER");
+	 $("#myformToServeur").attr("action",contexPath+"${tmlx.url}"+"?numiosFacture="+nfac);
      $("#myformToServeur").submit(); 
 }
 
