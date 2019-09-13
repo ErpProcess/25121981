@@ -216,7 +216,6 @@ function actFactoData(nfact){
 	 $("#ssSQZ_father").mask("Veuillez Patientez...");
 	 $("#myformToServeur").find('input[name="HiddenAction"]').val("i$_ACT_FACTURER");
 	 $("#myformToServeur").attr("action",contexPath+"${tmlx.url}"+"?numiosFacture="+nfact);
-	 alert(contexPath+"${tmlx.url}"+"?numiosFacture="+nfact);
      $("#myformToServeur").submit(); 
 }
 
@@ -571,10 +570,10 @@ function doExcuteFnAfterGrid( dataSS ){
   
   <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
   
-   <ext:panel  border="false"    bodyStyle="background: none;"       title="&nbsp;&nbsp;&nbsp;"   collapsible="true"  height="350"  >
+   <ext:panel  border="false"    bodyStyle="background: none;"        height="300"  >
    
-        <ext:toolbar         toolbarType="bbar"   > 
-        <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuivant('article')"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar>
+<%--         <ext:toolbar         toolbarType="bbar"   >  --%>
+<%--         <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuivant('article')"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar> --%>
     
      <table class="tableStyleContent"  cellpadding="4" cellspacing="4"  id="tblData"   width="100%"  border="0" >  
 		   <tr>  

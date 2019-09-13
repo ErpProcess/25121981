@@ -2281,7 +2281,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		}
 	
 	
-	public ModelAndView doPrintFactureSPL() throws Exception {
+	public ModelAndView doPrintFactureByBonLivraison() throws Exception {
 		PrintPdfModelSPL print = new PrintPdfModelSPL();
 		try {
 			List   lisData=  (List) getObjectValueModel("detailFcatureImprimer") ;

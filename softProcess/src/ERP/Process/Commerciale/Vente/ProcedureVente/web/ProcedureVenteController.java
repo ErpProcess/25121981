@@ -102,7 +102,7 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 		    	  
 		    	  if (i$_ACT_FACTURER)              return      doFacturerData(beanVente);
 		    	  
-		    	  if (i$_ACT_PRINT_FACTURE_FROM_VENTE &&  bs.getSoc_id().equals("10"))    return      doPrintFactureSPL();
+		    	  if (i$_ACT_PRINT_FACTURE_FROM_VENTE )    return      doPrintFactureByBonLivraison();
 		    	  
 		    	  if (i$_ACT_CORRIGER)              return      doCorrigerData(beanVente,fVenteBean,service);
 		          
