@@ -564,102 +564,8 @@ function doExcuteFnAfterGrid( dataSS ){
  } 							                        
  </script>
  
-  
-  <ext:body  >  
-  
-  
-  <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
-  
-   <ext:panel  border="false"    bodyStyle="background: none;"        height="300"  >
-   
-<%--         <ext:toolbar         toolbarType="bbar"   >  --%>
-<%--         <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuivant('article')"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar> --%>
-    
-     <table class="tableStyleContent"  cellpadding="4" cellspacing="4"  id="tblData"   width="100%"  border="0" >  
-		   <tr>  
-		   <td width="10%"><label><input id="choixPanel" name="choixPanel"  type="hidden"     >     ${vente_id}</label></td>  
-		   <td  width="39%" >  
-		   <input id="vente_id" name="vente_id"     type="text"    size="15"             value="${detailBean.vente_id}"    nextElement="vente_libelle"       libre     readonly="readonly"        />		  </td>  
-		   <td width="13%"  >  </td>
-		   <td width="6%"  ></td>
-		   <td width="10%"  ><label>Remise.caisse </label>
-		   <input id="taux_remise_alacaisse" name="taux_remise_alacaisse"      style="width: 50px;"     type="number"    min="0"  max="100"       libre="libre"      value="${detailBean.taux_remise_alacaisse}"    nextelement="designation_libelle"  onblur="getSuivant('article');" />
-		   <label>%</label>
-		   </td>
-		   <td width="18%" align="right"    ><input id="vente_remise_alacaisse" name="vente_remise_alacaisse"   style="height: 30px;font-size: 18px;"     type="montant3"    size="17"    libre      readonly="readonly"       value="${detailBean.vente_remise_alacaisse}"   ></td>
-		   </tr>   
-		   
-		   <tr>  
-		   <td  ><label>${vente_date}</label></td>  
-		   <td    >
-		   <fmt:formatDate pattern="dd/MM/yyyy"  value="${detailBean.vente_date}"   var="detailavente_date"/> 
-		   <input id="vente_date" name="vente_date"     type="datepicker"    size="13"    libre            maxlength="13"        value="${detailavente_date}"    nextElement="depot_id"     required       />		  </td>  
-		   <td       >&nbsp;</td>
-		   <td ><label></label></td>
-		   <td ><label>Total.remise </label></td>
-		   <td align="right" ><input id="vente_remise" name="vente_remise"    style="height: 30px;font-size: 18px;"      type="montant3"    size="17"    libre      readonly="readonly"      value="${detailBean.vente_remise}" /></td>
-		   </tr>   
-		   
-		    <tr>  
-		   <td width="10%"><label>${clt_id}</label></td>  
-		   <td  > 	
-		   <script  >  $(function() { loadSelectAjax("clt_idx","list_client_for_vente","clt_id","clt_lib","${detailBean.client.clt_id}",true);})</script>
-		   <select  id="clt_idx"      name="client.clt_id"           style="width: 180px;"               ></select>
-			 </td>  
-		   <td  >&nbsp;</td>
-		   <td  >&nbsp;</td>
-	       <td  ><label>Total T.T.C</label> </td>
-	       <td align="right"  ><input id="vente_mnt_total" name="vente_mnt_total"     type="montant3"    size="17"    libre  readonly="readonly"           value="${detailBean.vente_mnt_total}"    nextelement="designation_libelle"   style="height: 30px;font-size: 18px;" /></td>
-	       </tr> 
-		   
-		    <tr>  
-		   <td width="10%"><label>${vente_libelle}</label></td>  
-		   <td  >  
-		    <input id="vente_libelle" name="vente_libelle"           type="text"     size="45"             value="${detailBean.vente_libelle}"         nextElement="depot_id"   autofocus     />		  </td>  
-		   <td  >&nbsp;</td>
-		   <td  >&nbsp;</td>
-	       <td  ><label>${avance_montant_vente}</label></td>
-	       <td align="right"  ><input id="avance_montant_vente" name="avance_montant_vente"        type="montant3"    size="17"    libre="libre"   maxlength="50"        value="${detailBean.avance_montant_vente}"   style="height: 30px;font-size: 18px;"     nextelement="vente_remise"     onblur="getSuivant('article');" /></td>
-	       </tr> 
-		   
-		   <tr>  
-		   <td  ><label>${depot_id}</label></td>  
-		   <td    >  
-					   <input id="depot_id" name="depot.depot_id"    libre  type="text"    size="10"       maxlength="10"        value="${detailBean.depot.depot_id}"    nextElement="vente_obs"                  required    />  
-					   <input id="depot_libelle" name="depot.depot_libelle"  libre    type="text"    size="30"       maxlength="10"        value="${detailBean.depot.depot_libelle}"    nextElement="vente_obs"   required     />		  </td>  
-		   <td    >&nbsp;</td>
-		   <td    >&nbsp;</td>
-		   <td    ><label> Net.a payer </label></td>
-		   <td align="right"    ><input id="vente_mnt_net_a_payer" name="vente_mnt_net_a_payer"     type="montant3"    size="17"     libre  readonly="readonly"    maxlength="15"     style="height: 30px;font-size: 18px;"     value="${detailBean.vente_mnt_net_a_payer}"       /></td>
-		   </tr> 
-		    
-		   <tr>  
-		   <td  ><label>${cmd_obs}</label></td>  
-		   <td   >  
-		   <input id="vente_obs" name="vente_obs"     type="text"    size="45"    libre         value="${detailBean.vente_obs}"       nextelement="quantiteX"       />		  </td>  
-		   <td   >&nbsp;</td>
-		   <td   >&nbsp;</td>
-		   <td   >  <label> Montant réçu</label></td>
-		   <td align="right"   ><input id="montant_vente_recu" name="montant_vente_recu"     type="montant3"    style="height: 30px;font-size: 18px;"  size="17"           value="${detailBean.montant_vente_recu}"    nextelement="montant_vente_rendu"     onblur="getSuivant('article');"   /></td>
-		   </tr> 
-		   
-		    <tr>  
-		   <td  ><label>Famille</label></td>  
-		   <td   > 
-		   <script  >  $(function() { loadSelectAjax("fam_idX","listFamArticleOfvente","fam_id","fam_lib","",true);})</script>
-		   <select  id="fam_idX"      name="fam_id"           style="width: 180px;"      nextElement="artyp"            ></select>
-		   
-		   </td>  
-		   <td   >&nbsp;</td>
-		   <td   >&nbsp;</td>
-		   <td   >  </td>
-		   <td    > </td>
-		   </tr> 
-		   
-		    <tr>  
-		   <td ><label>devise</label></td>  
-		      <td     >   
-		        <script  >
+ 
+  <script  >
 		        function getDevise(thisValue){
           	           	
           	 if( thisValue=="191"  ||  thisValue=="192"  ){
@@ -703,20 +609,118 @@ function doExcuteFnAfterGrid( dataSS ){
           	 
           	 }
 		        $(function() {loadSelectAjax("devX","list_devise","dev_id","dev_libelle","${detailBean.devise.dev_id}",true); })</script>
+  
+  <ext:body  >  
+  
+  
+  <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
+  
+   <ext:panel  border="false"    bodyStyle="background: none;"        height="110"  >
+   
+<%--         <ext:toolbar         toolbarType="bbar"   >  --%>
+<%--         <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuivant('article')"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar> --%>
+    
+     <table class="tableStyleContent"  cellpadding="4" cellspacing="4"  id="tblData"   width="100%"  border="0" >  
+		   <tr>  
+		   <td width="4%"><label><input id="choixPanel" name="choixPanel"  type="hidden"     > ${vente_id}</label></td>  
+		   <td  width="16%" >  
+		   <input id="vente_id" name="vente_id"     type="text"    size="15"     value="${detailBean.vente_id}"    nextElement="vente_libelle"       libre     readonly="readonly"        />		  </td>  
+		   <td width="6%"  > <label>${vente_date}</label></td>
+		   <td width="25%"  ><fmt:formatDate pattern="dd/MM/yyyy"  value="${detailBean.vente_date}"   var="detailavente_date"/> 
+		   <input id="vente_date" name="vente_date"     type="datepicker"    size="13"    libre            maxlength="13"        value="${detailavente_date}"  
+		     nextElement="depot_id"     required       />		
 		        <select onchange="getDevise(this.value)"   required   id="devX"  name="devise.dev_id"   style="width: 180px;"  ></select>
-		      </td>   
-		   <td   align="right">&nbsp;</td>
-	       <td   >&nbsp;</td>
-	       <td   ><label> Montant rendu </label> </td>
-	       <td align="right"   ><input id="montant_vente_rendu" name="montant_vente_rendu"    libre  readonly="readonly"    value="${detailBean.montant_vente_rendu}"   type="montant3"  style="height: 30px;font-size: 18px;"   size="17"            nextelement="null"   /></td>
+		        </td>
+		   <td width="5%"  ><label>${clt_id}</label></td>
+		   <td width="17%"     >
+		    <script  >  $(function() { loadSelectAjax("clt_idx","list_client_for_vente","clt_id","clt_lib","${detailBean.client.clt_id}",true);})</script>
+		   <select  id="clt_idx"      name="client.clt_id"           style="width: 180px;"               ></select>
+		   </td>
+		   <td  width="3%"  >
+		   <label>Remise</label>
+		   </td>
+		   <td  width="10%" >
+		   <input id="taux_remise_alacaisse" name="taux_remise_alacaisse"    
+ style="width: 40px;"     type="number"    min="0"  max="100"     
+ libre="libre"      value="${detailBean.taux_remise_alacaisse}"   
+ nextelement="designation_libelle"  onblur="getSuivant('article');" />
+		   <label>%</label>
+		   <input id="vente_remise_alacaisse" name="vente_remise_alacaisse"     type="montant3"  
+		   size="10"    libre      readonly="readonly"       value="${detailBean.vente_remise_alacaisse}"   >
+		   
+		   </td>
+		   </tr> 
+		   
+		   
+		    <tr>  
+		   <td  ><label>Famille</label>  </td>  
+		   <td  > 	
+		  <script  >  $(function() { loadSelectAjax("fam_idX","listFamArticleOfvente","fam_id","fam_lib","",true);})</script>
+		   <select  id="fam_idX"      name="fam_id"      onchange="getSuivant('article')"     style="width: 180px;"      nextElement="artyp"            ></select>
+			 </td>  
+		   <td  ><label>${depot_id}</label> </td>
+		   <td  > 
+		    <input id="depot_id" name="depot.depot_id"    libre  type="text"   readonly="readonly"  size="4"       maxlength="10"        value="${detailBean.depot.depot_id}"    nextElement="vente_obs"                  required    />  
+					   <input id="depot_libelle" name="depot.depot_libelle"  libre    type="text"    size="21"       maxlength="10"        value="${detailBean.depot.depot_libelle}"    nextElement="vente_obs"   required     />		 
+		   
+		   </td>
+	       <td  >  <label>${vente_libelle}</label>  </td>
+	       <td    >
+	              <input id="vente_libelle" name="vente_libelle"           type="text"     size="17"             value="${detailBean.vente_libelle}"    
+		         nextElement="depot_id"   autofocus     />		
+	            
+	            </td>
+	            
+	             <td  >
+	              <label>${avance_montant_vente}</label>
+	     
+	             </td>
+	               
+	             <td  >
+	             
+	             <input id="avance_montant_vente" name="avance_montant_vente"        type="montant3"    size="17"  
+	         libre="libre"   maxlength="50"        value="${detailBean.avance_montant_vente}"    
+	              nextelement="vente_remise"     onblur="getSuivant('article');" />
+	             </td>
 	       </tr> 
+	       
+	       <tr>
+	       <td>  <label>Total.remise </label></td>
+	      <td> <input id="vente_remise" name="vente_remise"        type="montant3"    size="17"   
+		    libre      readonly="readonly"      value="${detailBean.vente_remise}" /></td>
+	      
+	      
+		  <td> <label>Total T.T.C</label> </td>
+			<td>  
+			
+			   <input id="vente_mnt_total" name="vente_mnt_total"     type="montant3"    size="17"    libre  readonly="readonly"      
+	            value="${detailBean.vente_mnt_total}"    nextelement="designation_libelle"    />
+			
+			</td>
+			
+			
+			
+			
+			<td> <label> Net.a payer </label> </td>
+			<tD>  <input id="vente_mnt_net_a_payer" name="vente_mnt_net_a_payer"   
+		     type="montant3"    size="17"     libre  readonly="readonly" 
+		        maxlength="15"      
+		        value="${detailBean.vente_mnt_net_a_payer}"       />  </tD>
+		        
+		<td>  <label>${cmd_obs}</label> </td>
+		<td><input id="vente_obs" name="vente_obs"     type="text"    size="10"    libre      value="${detailBean.vente_obs}"       nextelement="quantiteX"       />  </td>
+		       
+ 
+			
+	       </tr>
 		 </table> 
     </ext:panel>
 	 
 	 
 	 <ext:tabPanel   border="false"        id="sdsfgrgrgpll"   activeTab="RET_GRID"  >
-	         <ext:panel   id="RET_GRID"      bodyStyle="background: none;"    onActivate="getSuivant('article')"  height="500"    border="false"      title="Détaille vente"    >
-			    <table id="GRID_SAISIE_DETAIL_VENTE" class="display" width="100%"    >
+	         <ext:panel   id="RET_GRID"      bodyStyle="background: none;"    onActivate="getSuivant('article')"   style="height: 100%;"     border="false"      
+	         title="Liste Vente"       >
+			    <table id="GRID_SAISIE_DETAIL_VENTE" class="display" width="100%"    > 
 			  
 			      <thead   >
 			      
@@ -930,7 +934,23 @@ function doExcuteFnAfterGrid( dataSS ){
 	         
 	         
    	 </ext:tabPanel>
+   	  
+   	  <label> Montant réçu</label>   
+		   <input id="montant_vente_recu" name="montant_vente_recu"    
+		    type="montant3"    style="height: 30px;font-size: 18px;"  size="17"           value="${detailBean.montant_vente_recu}" 
+		       nextelement="montant_vente_rendu"     onblur="getSuivant('article');"   />			
+			   
+			   
+			    <label> Montant rendu </label>
+	       <input id="montant_vente_rendu" name="montant_vente_rendu" 
+	          libre  readonly="readonly"    value="${detailBean.montant_vente_rendu}"  
+	           type="montant3"  style="height: 30px;font-size: 18px;"   size="17"          
+	             nextelement="null"   />
+	             
+	             
+	             
 </ext:panel>
+
 </ext:body>
 <script type="text/javascript">
 //Ext.getCmp("tab").child('#id').tab.hide()
