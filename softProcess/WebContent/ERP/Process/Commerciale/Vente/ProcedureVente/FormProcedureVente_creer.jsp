@@ -455,8 +455,6 @@ function doCheked_unCheked(element){
 function getSuivant(panelName){
     
 if(!teste_required()) return ;
-
-
  
 $("#choixPanel").val(panelName);
   
@@ -524,7 +522,6 @@ if(panelName=='fourniture'){
      else
      LoadDataEditableFromServer_toolbarV22( oTable24, mapEditableGen2  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
      config_header_foot_tableJQuey2   ,"toolbar_fourniture" ,contenu_toolbarJQuey2  );
- 
 }
 
 if(panelName=='prestation'){
