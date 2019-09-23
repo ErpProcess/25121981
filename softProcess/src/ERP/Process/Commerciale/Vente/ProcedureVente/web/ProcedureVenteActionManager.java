@@ -3333,6 +3333,8 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			Double getTaux_remise_alacaisse = detailBean.getTaux_remise_alacaisse()==null?new Double(0):detailBean.getTaux_remise_alacaisse();
 			Double getAvance_montant_vente  = detailBean.getAvance_montant_vente()==null?new Double(0):detailBean.getAvance_montant_vente();
 			Double getMontant_vente_recu    = detailBean.getMontant_vente_recu()==null?new Double(0):detailBean.getMontant_vente_recu();
+			Double getVente_mnt_ht          = detailBean.getVente_mnt_ht()==null?new Double(0):detailBean.getVente_mnt_ht();
+			
 			
 			if(bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Servir)  
 					|| bs.getFct_id().equals(Fn_Modifier)  ||  bs.getFct_id().equals(Fn_Facturer)   ||  bs.getFct_id().equals(Fn_Corriger)   ){
@@ -3364,11 +3366,11 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			}
 			
 			       
-			 Double tot_ht_brute =new Double(0);
-			 Double tot_ht_net    =new Double(0);
-			 Double tot_tva=new Double(0);
-			 Double tot_qte=new Double(0);
-			 Double marge_benefice_vente=new Double(0);
+			 double tot_ht_brute = 0;
+			 double tot_ht_net    =0;
+			 double tot_tva=0;
+			 double tot_qte=0;
+			 double marge_benefice_vente=0;
 			 HashMap  map_des_Tva = new HashMap();
 			 HashMap  map_des_Tvafrn = new HashMap();
 			 HashMap  map_des_TvaServ = new HashMap();
@@ -3415,6 +3417,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 				 List <TVABean> list_des_tva=  (List) getObjectValueModel(LIST_DES_TVA);
 				 Double le_Ht_Net  = new Double(0);
 				 Double le_Ht_Reel  = new Double(0);
+				 
 				 for (int j = 0; j < list_des_tva.size(); j++) {
 					 TVABean beanTva=list_des_tva.get(j);
 					 
@@ -3484,22 +3487,25 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			 element.put("value1","Brut.H.T");
 			 element.put("td2","5");
 			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(le_Ht_Reel,pattern));
+			 json.put("vente_mnt_brute_ht",   ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(le_Ht_Reel,pattern));
 			 list_total.put(element);
 			 
 			 if( detailBean.getTaux_remise_alacaisse()!=null  &&  le_Ht_Reel.doubleValue() >0 ){
 				 remise_ala_caisse  = ProcessNumber.Pourcentage(le_Ht_Reel, detailBean.getTaux_remise_alacaisse());
 				 remise_ala_caisse  = ProcessFormatNbr.FormatDouble_ParameterChiffre(remise_ala_caisse,pattern);
 			 }
+			 
 			 beanTotal.setVente_remise_alacaisse(remise_ala_caisse);
-			 totalre_mise  = ProcessFormatNbr.FormatDouble_ParameterChiffre(totalre_mise,pattern);
-			 beanTotal.setVente_remise(totalre_mise); 
-			 json.put("vente_remise",  ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(totalre_mise,pattern));	
+			 
+			 remise_ala_caisse  = ProcessFormatNbr.FormatDouble_ParameterChiffre(remise_ala_caisse,pattern);
+			 beanTotal.setVente_remise(remise_ala_caisse); 
+			 json.put("vente_remise",  ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(remise_ala_caisse,pattern));	
 			 json.put("vente_remise_alacaisse",  ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(remise_ala_caisse,pattern));
 			 element = new JSONObject();
 			 element.put("td1","4");
 			 element.put("value1","Remise");
 			 element.put("td2","5");
-			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(totalre_mise,pattern));
+			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(remise_ala_caisse,pattern));
 			 list_total.put(element);
 			
 			 
@@ -3507,11 +3513,11 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			 element.put("td1","4");
 			 element.put("value1","Net.H.T");
 			 element.put("td2","5");
-			 Double ht_apres_remise =  ProcessNumber.SOUSTRACTION(le_Ht_Reel, totalre_mise)  ;
-			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(ht_apres_remise,pattern));
+			 //Double ht_apres_remise =  ProcessNumber.SOUSTRACTION(le_Ht_Reel, totalre_mise)  ;
+			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(le_Ht_Net,pattern));
 			 list_total.put(element);
-			 beanTotal.setVente_mnt_ht(ProcessFormatNbr.FormatDouble_ParameterChiffre(ht_apres_remise,pattern));
-			 
+			 beanTotal.setVente_mnt_ht(ProcessFormatNbr.FormatDouble_ParameterChiffre(le_Ht_Net,pattern));
+			 json.put("vente_mnt_net_ht",   ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(le_Ht_Net,pattern));
 			
 			 
 			 
@@ -3522,11 +3528,12 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			 element.put("value1"," Total TVA");
 			 element.put("td2","5");
 			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(total_leTva,pattern));
+			 json.put("vente_mnt_tva",   ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(total_leTva,pattern));
 			 beanTotal.setVente_mnt_tva(ProcessFormatNbr.FormatDouble_ParameterChiffre(total_leTva,pattern));
 			 list_total.put(element);
 			 
 			 
-			 Double total_mnt_gen=ProcessNumber.addition(ht_apres_remise, total_leTva);
+			 Double total_mnt_gen=ProcessNumber.addition(le_Ht_Net, total_leTva);
 			 if(bs.getFct_id().equals(Fn_Facturer)){
 				 Double timbre=ProcessFormatNbr.FormatDouble_ParameterChiffre(bs.getSociete().getMontant_timbre_fiscal(),pattern);
 				 element = new JSONObject();

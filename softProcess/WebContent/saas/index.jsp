@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 
 	<!-- Basic Page Needs
 	================================================== -->
-	<meta charset="utf-8">
+	 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>process - master</title>
-    <meta name="description" content="">	
-	<meta name="author" content="">
+     
 
 	<!-- Mobile Specific Metas
 	================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	 
 
 	<!-- Favicons
 	================================================== -->
@@ -43,7 +43,7 @@
 	<!-- Flexslider -->
 	<link rel="stylesheet" href="css/cd-hero.css">
 	<!-- Style Swicther -->
-	<link id="style-switch" href="css/presets/preset3.css" media="screen" rel="stylesheet" type="text/css">
+	<link id="style-switch" href="css/presets/preset5.css" media="screen" rel="stylesheet" type="text/css">
 
 	<!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
@@ -88,79 +88,10 @@
 				    </button>
 				    <div class="navbar-brand navbar-bg">
 					    <a href="index.html">
-					    	<img class="img-responsive" src="images/logo.png" alt="logo">
+					    	<img class="img-responsive" src="images/logop.png" alt="logo">
 					    </a> 
 				    </div>                   
 				</div><!--/ Logo end -->
-<!-- 				<nav class="collapse navbar-collapse clearfix" role="navigation"> -->
-<!-- 					<ul class="nav navbar-nav navbar-right"> -->
-<!-- 						<li class="dropdown active"> -->
-<!--                        		<a href="index.html" class="dropdown-toggle" data-toggle="dropdown">Accueil <i class="fa fa-angle-down"></i></a> -->
-<!-- <!--                        		<div class="dropdown-menu"> --> -->
-<!-- <!-- 								<ul> --> -->
-<!-- <!-- 		                            <li class="active"><a href="index.html">Home 1</a></li> --> -->
-<!-- <!-- 		                            <li><a href="index-2.html">Home 2</a></li> --> -->
-<!-- <!-- 		                            <li><a href="index-3.html">Home 3</a></li> --> -->
-<!-- <!-- 		                            <li><a href="index-4.html">Home 4</a></li> --> -->
-<!-- <!-- 		                        </ul> --> -->
-<!-- <!-- 	                    	</div> --> -->
-<!-- 	                    </li> -->
-<!-- 						<li class="dropdown"> -->
-<!--                        		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Process <i class="fa fa-angle-down"></i></a> -->
-<!--                        		<div class="dropdown-menu"> -->
-<!-- 								<ul> -->
-<!-- 		                            <li><a href="about.html">About Us</a></li> -->
-<!-- 		                            <li><a href="service.html">Services</a></li> -->
-<!-- 		                            <li><a href="career.html">Career</a></li> -->
-<!-- 		                            <li><a href="testimonial.html">Testimonials</a></li> -->
-<!-- 		                            <li><a href="faq.html">Faq</a></li> -->
-<!-- 		                        </ul> -->
-<!-- 	                    	</div> -->
-<!-- 	                    </li> -->
-<!-- 						<li class="dropdown"> -->
-<!--                        		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio <i class="fa fa-angle-down"></i></a> -->
-<!-- <!--                        		<div class="dropdown-menu"> --> -->
-<!-- <!-- 								<ul> --> -->
-<!-- <!-- 		                            <li><a href="portfolio-classic.html">Portfolio Classic</a></li> --> -->
-<!-- <!-- 		                            <li><a href="portfolio-static.html">Portfolio Static</a></li> --> -->
-<!-- <!-- 		                            <li><a href="portfolio-item.html">Portfolio Single</a></li> --> -->
-<!-- <!-- 		                        </ul> --> -->
-<!-- <!-- 	                    	</div> --> -->
-<!-- 	                    </li> -->
-<!-- 	                    <li class="dropdown"> -->
-<!--                        		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a> -->
-<!-- <!--                        		<div class="dropdown-menu"> --> -->
-<!-- <!-- 								<ul> --> -->
-<!-- <!-- 		                           	<li><a href="team.html">Our Team</a></li> --> -->
-<!-- <!-- 		                           	<li><a href="about2.html">About Us - 2</a></li> --> -->
-<!-- <!-- 		                           	<li><a href="service2.html">Services - 2</a></li> --> -->
-<!-- <!-- 		                           	<li><a href="service-single.html">Services Single</a></li> --> -->
-<!-- <!-- 		                           	<li><a href="pricing.html">Pricing Table</a></li> --> -->
-<!-- <!-- 		                           	<li><a href="404.html">404 Page</a></li> --> -->
-<!-- <!-- 		                        </ul> --> -->
-<!-- <!-- 	                    	</div> --> -->
-<!-- 	                    </li> -->
-<!-- 	                    <li class="dropdown"> -->
-<!--                        		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <i class="fa fa-angle-down"></i></a> -->
-<!--                        		<div class="dropdown-menu"> -->
-<!-- 								<ul> -->
-<!-- 		                           	 <li><a href="blog-rightside.html">Blog with Sidebar</a></li> -->
-<!-- 	                            	<li><a href="blog-item.html">Blog Single</a></li> -->
-<!-- 		                        </ul> -->
-<!-- 	                    	</div> -->
-<!-- 	                    </li> -->
-<!-- 	                    <li class="dropdown"> -->
-<!--                        		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Features <i class="fa fa-angle-down"></i></a> -->
-<!--                        		<div class="dropdown-menu"> -->
-<!-- 								<ul> -->
-<!-- 		                           	 <li><a href="typography.html">Typography</a></li> -->
-<!-- 	                            	<li><a href="elements.html">Elements</a></li> -->
-<!-- 		                        </ul> -->
-<!-- 	                    	</div> -->
-<!-- 	                    </li> -->
-<!--             			<li><a href="contact.html">Contact</a></li> -->
-<!--                     </ul> -->
-<!-- 				</nav>/ Navigation end -->
 			</div><!--/ Row end -->
 		</div><!--/ Container end -->
 	</header><!--/ Header end -->
@@ -175,7 +106,7 @@
 					</div>
 					<div class="cd-full-width">
 						<h2>BESOIN D'INVENTER L'AVENIR!</h2>
-						<h3>Nous faisons la différence pour de plusieurs choses possibles</h3>
+						<h3>Nous faisons la diff&#201;rence pour de plusieurs choses possibles</h3>
 						<a href="../index.jsp" class="btn btn-primary white cd-btn">Commencez maintenant</a>
  						<a href="#0" class="btn btn-primary solid cd-btn">En savoir plus </a> 
 					</div> <!-- .cd-full-width -->
@@ -287,181 +218,8 @@
 			</div><!-- Content row end -->
 		</div><!--/ Container end -->
 	</section><!--/ Service box end -->
-   
-	<!-- Portfolio start -->
-	<section id="portfolio" class="portfolio">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 heading">
-					<span class="title-icon classic pull-left"><i class="fa fa-suitcase"></i></span>
-					<h2 class="title classic">Notre travail extra-ordinaire</h2>
-				</div>
-			</div> <!-- Title row end -->
-
-			<!--Isotope filter start -->
-			<div class="row text-right">
-				<div class="isotope-nav" data-isotope-nav="isotope">
-					<ul>
-						<li><a href="#" class="active" data-filter="*">Tout</a></li>
-						<li><a href="#" data-filter=".web-design">Web Design</a></li>
-						<li><a href="#" data-filter=".development">Development</a></li>
-						<li><a href="#" data-filter=".joomla">J2EE</a></li>
-						<li><a href="#" data-filter=".wordpress">Angular</a></li>
-					</ul>
-				</div>
-			</div><!-- Isotope filter end -->
-		</div>
-		
-		<div class="container-fluid">
-			<div class="row">
-				<div id="isotope" class="isotope">
-					<div class="col-sm-3 web-design isotope-item">
-						<div class="grid">
-							<figure class="effect-oscar">
-								<img src="images/portfolio/portfolio1.jpg" alt="">
-								<figcaption>
-									<h3>Startup Entreprise </h3>
-									<a class="link icon-pentagon" href="portfolio-item.html"><i class="fa fa-link"></i></a>
-									<a class="view icon-pentagon" data-rel="prettyPhoto" href="images/portfolio/portfolio-bg1.jpg"><i class="fa fa-search"></i></a>            
-								</figcaption>			
-							</figure>
-						</div>
-					</div><!-- Isotope item end -->
-
-					<div class="col-sm-3 development isotope-item">
-						<div class="grid">
-							<figure class="effect-oscar">
-								<img src="images/portfolio/portfolio2.jpg" alt="">
-								<figcaption>
-									<h3>Facile à lancer</h3>
-									<a class="link icon-pentagon" href="portfolio-item.html"><i class="fa fa-link"></i></a>
-									<a class="view icon-pentagon" data-rel="prettyPhoto" href="images/portfolio/portfolio-bg2.jpg"><i class="fa fa-search"></i></a>            
-								</figcaption>				
-							</figure>
-						</div>
-					</div><!-- Isotope item end -->
-
-					<div class="col-sm-3 joomla isotope-item">
-						<div class="grid">
-							<figure class="effect-oscar">
-								<img src="images/portfolio/portfolio3.jpg" alt="">
-								<figcaption>
-									<h3>Your Business</h3>
-									<a class="link icon-pentagon" href="portfolio-item.html"><i class="fa fa-link"></i></a>
-									<a class="view icon-pentagon" data-rel="prettyPhoto" href="images/portfolio/portfolio-bg3.jpg"><i class="fa fa-search"></i></a>            
-								</figcaption>				
-							</figure>
-						</div>
-					</div><!-- Isotope item end -->
-
-					<div class="col-sm-3 wordpress isotope-item">
-						<div class="grid">
-							<figure class="effect-oscar">
-								<img src="images/portfolio/portfolio4.jpg" alt="">
-								<figcaption>
-									<h3>Prego Match</h3>
-									<a class="link icon-pentagon" href="portfolio-item.html"><i class="fa fa-link"></i></a>
-									<a class="view icon-pentagon" data-rel="prettyPhoto" href="images/portfolio/portfolio-bg4.jpg"><i class="fa fa-search"></i></a>            
-								</figcaption>					
-							</figure>
-						</div>
-					</div><!-- Isotope item end -->
-
-					<div class="col-sm-3 joomla isotope-item">
-						<div class="grid">
-							<figure class="effect-oscar">
-								<img src="images/portfolio/portfolio5.jpg" alt="">
-								<figcaption>
-									<h3>Fashion Brand</h3>
-									<a class="link icon-pentagon" href="portfolio-item.html"><i class="fa fa-link"></i></a>
-									<a class="view icon-pentagon" data-rel="prettyPhoto" href="images/portfolio/portfolio-bg5.jpg"><i class="fa fa-search"></i></a>            
-								</figcaption>					
-							</figure>
-						</div>
-					</div><!-- Isotope item end -->
-
-					<div class="col-sm-3 development isotope-item">
-						<div class="grid">
-							<figure class="effect-oscar">
-								<img src="images/portfolio/portfolio6.jpg" alt="">
-								<figcaption>
-									<h3>The Insidage</h3>
-									<a class="link icon-pentagon" href="portfolio-item.html"><i class="fa fa-link"></i></a>
-									<a class="view icon-pentagon" data-rel="prettyPhoto" href="images/portfolio/portfolio-bg1.jpg"><i class="fa fa-search"></i></a>            
-								</figcaption>					
-							</figure>
-						</div>
-					</div><!-- Isotope item end -->
-
-					<div class="col-sm-3 development isotope-item">
-						<div class="grid">
-							<figure class="effect-oscar">
-								<img src="images/portfolio/portfolio7.jpg" alt="">
-								<figcaption>
-									<h3>Light Carpet</h3>
-									<a class="link icon-pentagon" href="portfolio-item.html"><i class="fa fa-link"></i></a>
-									<a class="view icon-pentagon" data-rel="prettyPhoto" href="images/portfolio/portfolio-bg2.jpg"><i class="fa fa-search"></i></a>            
-								</figcaption>					
-							</figure>
-						</div>
-					</div><!-- Isotope item end -->
-
-					<div class="col-sm-3 development isotope-item">
-						<div class="grid">
-							<figure class="effect-oscar">
-								<img src="images/portfolio/portfolio8.jpg" alt="">
-								<figcaption>
-									<h3>Amazing Keyboard</h3>
-									<a class="link icon-pentagon" href="portfolio-item.html"><i class="fa fa-link"></i></a>
-									<a class="view icon-pentagon" data-rel="prettyPhoto" href="images/portfolio/portfolio-bg3.jpg"><i class="fa fa-search"></i></a>            
-								</figcaption>					
-							</figure>
-						</div>
-					</div><!-- Isotope item end -->
-				</div><!-- Isotope content end -->
-			</div><!-- Content row end -->
-		</div><!-- Container end -->
-	</section><!-- Portfolio end -->
-
-	<!-- Counter Strat -->
-	<section class="ts_counter no-padding">
-		<div class="container-fluid">
-			<div class="row facts-wrapper wow fadeInLeft text-center">
-				<div class="facts one col-md-3 col-sm-6">
-					<span class="facts-icon"><i class="fa fa-user"></i></span>
-					<div class="facts-num">
-						<span class="counter">1200</span>
-					</div>
-					<h3>Clients</h3> 
-				</div>
-
-				<div class="facts two col-md-3 col-sm-6">
-					<span class="facts-icon"><i class="fa fa-institution"></i></span>
-					<div class="facts-num">
-						<span class="counter">1277</span>
-					</div>
-					<h3>Item Sold</h3> 
-				</div>
-
-				<div class="facts three col-md-3 col-sm-6">
-					<span class="facts-icon"><i class="fa fa-suitcase"></i></span>
-					<div class="facts-num">
-						<span class="counter">869</span>
-					</div>
-					<h3>Projects</h3> 
-				</div>
-
-				<div class="facts four col-md-3 col-sm-6">
-					<span class="facts-icon"><i class="fa fa-trophy"></i></span>
-					<div class="facts-num">
-						<span class="counter">76</span>
-					</div>
-					<h3>Awwards</h3> 
-				</div>
-
-			</div>
-		</div><!--/ Container end -->
-    </section><!--/ Counter end -->
+ 
+ 
 
 	<!-- Feature box start -->
 	<section id="feature" class="feature">
@@ -597,195 +355,7 @@
 		</div>
 	</section><!--/ Image block end -->
 
-
-	<!-- Team start -->
-	<section id="team" class="team">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 heading">
-					<span class="title-icon pull-left"><i class="fa fa-weixin"></i></span>
-					<h2 class="title">Meet with our Team <span class="title-desc">A Quality Experience Team with 4 years experience</span></h2>
-				</div>
-			</div><!-- Title row end -->
-
-			<div class="row text-center">
-				<div class="col-md-3 col-sm-6">
-					<div class="team wow slideInLeft">
-						<div class="img-hexagon">
-							<img src="images/team/team1.jpg" alt="">
-							<span class="img-top"></span>
-							<span class="img-bottom"></span>
-						</div>
-						<div class="team-content">
-							<h3>Vosgi Varduhi</h3>
-							<p>Web Designer</p>
-							<div class="team-social">
-								<a class="fb" href="#"><i class="fa fa-facebook"></i></a>
-								<a class="twt" href="#"><i class="fa fa-twitter"></i></a>
-								<a class="gplus" href="#"><i class="fa fa-google-plus"></i></a>
-								<a class="linkdin" href="#"><i class="fa fa-linkedin"></i></a>
-								<a class="dribble" href="#"><i class="fa fa-dribbble"></i></a>
-							</div>
-						</div>
-					</div>	
-				</div><!--/ Team 1 end -->
-				<div class="col-md-3 col-sm-6">
-					<div class="team wow slideInLeft">
-						<div class="img-hexagon">
-							<img src="images/team/team2.jpg" alt="">
-							<span class="img-top"></span>
-							<span class="img-bottom"></span>
-						</div>
-						<div class="team-content">
-							<h3>Robert Aleska</h3>
-							<p>Web Designer</p>
-							<div class="team-social">
-								<a class="fb" href="#"><i class="fa fa-facebook"></i></a>
-								<a class="twt" href="#"><i class="fa fa-twitter"></i></a>
-								<a class="gplus" href="#"><i class="fa fa-google-plus"></i></a>
-								<a class="linkdin" href="#"><i class="fa fa-linkedin"></i></a>
-								<a class="dribble" href="#"><i class="fa fa-dribbble"></i></a>
-							</div>
-						</div>
-					</div>
-				</div><!--/ Team 2 end -->
-				<div class="col-md-3 col-sm-6">
-					<div class="team wow slideInRight">
-						<div class="img-hexagon">
-							<img src="images/team/team3.jpg" alt="">
-							<span class="img-top"></span>
-							<span class="img-bottom"></span>
-						</div>
-						<div class="team-content">
-							<h3>Taline Voski</h3>
-							<p>Web Designer</p>
-							<div class="team-social">
-								<a class="fb" href="#"><i class="fa fa-facebook"></i></a>
-								<a class="twt" href="#"><i class="fa fa-twitter"></i></a>
-								<a class="gplus" href="#"><i class="fa fa-google-plus"></i></a>
-								<a class="linkdin" href="#"><i class="fa fa-linkedin"></i></a>
-								<a class="dribble" href="#"><i class="fa fa-dribbble"></i></a>
-							</div>
-						</div>
-					</div>
-				</div><!--/ Team 3 end -->
-				<div class="col-md-3 col-sm-6">
-					<div class="team animate wow slideInRight">
-						<div class="img-hexagon">
-							<img src="images/team/team4.jpg" alt="">
-							<span class="img-top"></span>
-							<span class="img-bottom"></span>
-						</div>
-						<div class="team-content">
-							<h3>Alban Spencer</h3>
-							<p>Web Designer</p>
-							<div class="team-social">
-								<a class="fb" href="#"><i class="fa fa-facebook"></i></a>
-								<a class="twt" href="#"><i class="fa fa-twitter"></i></a>
-								<a class="gplus" href="#"><i class="fa fa-google-plus"></i></a>
-								<a class="linkdin" href="#"><i class="fa fa-linkedin"></i></a>
-								<a class="dribble" href="#"><i class="fa fa-dribbble"></i></a>
-							</div>
-						</div>
-					</div>
-				</div><!--/ Team 4 end -->
-			</div><!--/ Content row end -->
-		</div><!--/ Container end -->
-    </section><!--/ Team end -->
-
-    <!-- Parallax 1 start -->
-	<section class="parallax parallax1">
-		<div class="parallax-overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<h2>Are You Ready to Buy This Template!</h2>
-					<h3>Just Click Button and Use Your Own</h3>
-					<p>
-						<a href="#" class="btn btn-primary white">Purchase Now</a>
-						<a href="#" class="btn btn-primary solid">Get In Touch</a>
-					</p>
-				</div>
-			</div>
-		</div><!-- Container end -->
-    </section><!-- Parallax 1 end -->
-
-    <!-- Pricing table start -->
-	<section id="pricing" class="pricing">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 heading">
-					<span class="title-icon pull-left"><i class="fa fa-university"></i></span>
-					<h2 class="title">Pricing Table <span class="title-desc">We Love to Work with Passion</span></h2>
-				</div>
-			</div><!-- Title row end -->
-	  		<div class="row">
-				<!-- plan start -->
-				<div class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay=".5s">
-				    <div class="plan text-center">
-				        <span class="plan-name">Basic <small>Monthly plan</small></span>
-				        <p class="plan-price"><sup class="currency">$</sup><strong>49</strong><sub>.99</sub></p>
-				        <ul class="list-unstyled">
-				            <li>100GB Monthly Bandwidth</li>
-				            <li>$100 Google AdWords</li>
-				            <li>100 Domain Hosting</li>
-				            <li>SSL Shopping Cart</li>
-				            <li>24/7 Live Support</li>
-				        </ul>
-				        <a class="btn btn-primary" href="#.">Sign Up</a>
-				    </div>
-				</div><!-- plan end -->
-
-				<!-- plan start -->
-				<div class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="1s">
-				    <div class="plan text-center">
-				        <span class="plan-name">Standared <small>Monthly plan</small></span>
-				        <p class="plan-price"><sup class="currency">$</sup><strong>99</strong><sub>.99</sub></p>
-				        <ul class="list-unstyled">
-				            <li>100GB Monthly Bandwidth</li>
-				            <li>$100 Google AdWords</li>
-				            <li>100 Domain Hosting</li>
-				            <li>SSL Shopping Cart</li>
-				            <li>24/7 Live Support</li>
-				        </ul>
-				        <a class="btn btn-primary" href="#.">Sign Up</a>
-				    </div>
-				</div><!-- plan end -->
-
-				<!-- plan start -->
-				<div class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="1.4s">
-				    <div class="plan text-center featured">
-				        <span class="plan-name">Professional <small>Monthly plan</small></span>
-				        <p class="plan-price"><sup class="currency">$</sup><strong>149</strong><sub>.99</sub></p>
-				        <ul class="list-unstyled">
-				            <li>100GB Monthly Bandwidth</li>
-				            <li>$100 Google AdWords</li>
-				            <li>100 Domain Hosting</li>
-				            <li>SSL Shopping Cart</li>
-				            <li>24/7 Live Support</li>
-				        </ul>
-				        <a class="btn btn-primary" href="#.">Sign Up</a>
-				    </div>
-				</div><!-- plan end -->
-
-				<!-- plan start -->
-				<div class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="1.6s">
-				    <div class="plan text-center">
-				        <span class="plan-name">Premium <small>Monthly plan</small></span>
-				        <p class="plan-price"><sup class="currency">$</sup><strong>399</strong><sub>.99</sub></p>
-				        <ul class="list-unstyled">
-				            <li>100GB Monthly Bandwidth</li>
-				            <li>$100 Google AdWords</li>
-				            <li>100 Domain Hosting</li>
-				            <li>SSL Shopping Cart</li>
-				            <li>24/7 Live Support</li>
-				        </ul>
-				        <a class="btn btn-primary" href="#.">Sign Up</a>
-				    </div>
-				</div><!-- plan end -->
-			</div><!--/ Content row end -->
-		</div><!--/  Container end-->
-	</section><!--/ Pricing table end -->
+ 
 
 
 	<!-- Testimonial start-->
@@ -832,132 +402,83 @@
 	  	</div><!--/  Container end-->
 	</section><!--/ Testimonial end-->
 
-
-	<!-- Clients start -->
-	<section id="clients" class="clients">
-		<div class="container">
-			<div class="row wow fadeInLeft">
-		      <div id="client-carousel" class="col-sm-12 owl-carousel owl-theme text-center client-carousel">
-		        <figure class="item client_logo">
-		          <a href="#">
-		            <img src="images/clients/client1.png" alt="client">
-		          </a>
-		        </figure>
-		        <figure class="item client_logo">
-		          <a href="#">
-		            <img src="images/clients/client2.png" alt="client">
-		          </a>
-		        </figure>
-		        <figure class="item client_logo">
-		          <a href="#">
-		            <img src="images/clients/client3.png" alt="client">
-		          </a>
-		        </figure>
-		        <figure class="item client_logo">
-		          <a href="#">
-		            <img src="images/clients/client4.png" alt="client">
-		          </a>
-		        </figure>
-		        <figure class="item client_logo">
-		          <a href="#">
-		            <img src="images/clients/client5.png" alt="client">
-		          </a>
-		        </figure>
-		        <figure class="item client_logo">
-		          <a href="#">
-		            <img src="images/clients/client6.png" alt="client">
-		          </a>
-		        </figure>
-		        <figure class="item client_logo">
-		          <a href="#">
-		            <img src="images/clients/client7.png" alt="client">
-		          </a>
-		        </figure>
-		        <figure class="item client_logo">
-		          <a href="#">
-		            <img src="images/clients/client8.png" alt="client">
-		          </a>
-		        </figure>
-		      </div><!-- Owl carousel end -->
-	    	</div><!-- Main row end -->
-		</div><!--/ Container end -->
-	</section><!--/ Clients end -->
+ 
 	
 
 	<!-- Footer start -->
 	<footer id="footer" class="footer">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4 col-sm-12 footer-widget">
-					<h3 class="widget-title">Recent Posts</h3>
-					<div class="latest-post-items media">
-							<div class="latest-post-content media-body">
-								<h4><a href="#">Bulgaria claims to find Europe's 'oldest town'</a></h4>
-								<p class="post-meta">
-									<span class="author">Posted by John Doe</span>
-									<span class="post-meta-cat">in<a href="#"> Blog</a></span>
-								</p>
-							</div>
-						</div><!-- 1st Latest Post end -->
+<!-- 				<div class="col-md-4 col-sm-12 footer-widget"> -->
+<!-- 					<h3 class="widget-title">Recent Posts</h3> -->
+<!-- 					<div class="latest-post-items media"> -->
+<!-- 							<div class="latest-post-content media-body"> -->
+<!-- 								<h4><a href="#">Bulgaria claims to find Europe's 'oldest town'</a></h4> -->
+<!-- 								<p class="post-meta"> -->
+<!-- 									<span class="author">Posted by John Doe</span> -->
+<!-- 									<span class="post-meta-cat">in<a href="#"> Blog</a></span> -->
+<!-- 								</p> -->
+<!-- 							</div> -->
+<!-- 						</div>1st Latest Post end -->
 
-						<div class="latest-post-items media">
-							<div class="latest-post-content media-body">
-								<h4><a href="#">Few Answers in Case of Murdered Law Professor</a></h4>
-								<p class="post-meta">
-									<span class="date"><i class="icon icon-calendar"></i> Mar 15, 2015</span>
-									<span class="post-meta-comments"><i class="icon icon-bubbles4"></i> <a href="#">03</a></span>
-								</p>
-							</div>
-						</div><!-- 2nd Latest Post end -->
+<!-- 						<div class="latest-post-items media"> -->
+<!-- 							<div class="latest-post-content media-body"> -->
+<!-- 								<h4><a href="#">Few Answers in Case of Murdered Law Professor</a></h4> -->
+<!-- 								<p class="post-meta"> -->
+<!-- 									<span class="date"><i class="icon icon-calendar"></i> Mar 15, 2015</span> -->
+<!-- 									<span class="post-meta-comments"><i class="icon icon-bubbles4"></i> <a href="#">03</a></span> -->
+<!-- 								</p> -->
+<!-- 							</div> -->
+<!-- 						</div>2nd Latest Post end -->
 
-						<div class="latest-post-items media">
-							<div class="latest-post-content media-body">
-								<h4><a href="#">Over the year we have lots of experience in our field</a></h4>
-								<p class="post-meta">
-									<span class="date"><i class="icon icon-calendar"></i> Apr 17, 2015</span>
-									<span class="post-meta-comments"><i class="icon icon-bubbles4"></i> <a href="#">14</a></span>
-								</p>
-							</div>
-						</div><!-- 3rd Latest Post end -->
+<!-- 						<div class="latest-post-items media"> -->
+<!-- 							<div class="latest-post-content media-body"> -->
+<!-- 								<h4><a href="#">Over the year we have lots of experience in our field</a></h4> -->
+<!-- 								<p class="post-meta"> -->
+<!-- 									<span class="date"><i class="icon icon-calendar"></i> Apr 17, 2015</span> -->
+<!-- 									<span class="post-meta-comments"><i class="icon icon-bubbles4"></i> <a href="#">14</a></span> -->
+<!-- 								</p> -->
+<!-- 							</div> -->
+<!-- 						</div>3rd Latest Post end -->
 	
-				</div><!--/ End Recent Posts-->
+<!-- 				</div>/ End Recent Posts -->
 				
 
-				<div class="col-md-4 col-sm-12 footer-widget">
-					<h3 class="widget-title">Flickr Photos</h3>
+<!-- 				<div class="col-md-4 col-sm-12 footer-widget"> -->
+<!-- 					<h3 class="widget-title">Flickr Photos</h3> -->
 
-					<div class="img-gallery">
-						<div class="img-container">
-							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/1.jpg">
-								<img src="images/gallery/1.jpg" alt="">
-							</a>
-							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/2.jpg">
-								<img src="images/gallery/2.jpg" alt="">
-							</a>
-							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/3.jpg">
-								<img src="images/gallery/3.jpg" alt="">
-							</a>
-							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/4.jpg">
-								<img src="images/gallery/4.jpg" alt="">
-							</a>
-							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/5.jpg">
-								<img src="images/gallery/5.jpg" alt="">
-							</a>
-							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/6.jpg">
-								<img src="images/gallery/6.jpg" alt="">
-							</a>
-							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/6.jpg">
-								<img src="images/gallery/7.jpg" alt="">
-							</a>
-							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/6.jpg">
-								<img src="images/gallery/8.jpg" alt="">
-							</a>
-							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/6.jpg">
-								<img src="images/gallery/9.jpg" alt="">
-							</a>
-						</div>
-					</div>
-				</div><!--/ end flickr -->
+<!-- 					<div class="img-gallery"> -->
+<!-- 						<div class="img-container"> -->
+<!-- 							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/1.jpg"> -->
+<!-- 								<img src="images/gallery/1.jpg" alt=""> -->
+<!-- 							</a> -->
+<!-- 							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/2.jpg"> -->
+<!-- 								<img src="images/gallery/2.jpg" alt=""> -->
+<!-- 							</a> -->
+<!-- 							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/3.jpg"> -->
+<!-- 								<img src="images/gallery/3.jpg" alt=""> -->
+<!-- 							</a> -->
+<!-- 							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/4.jpg"> -->
+<!-- 								<img src="images/gallery/4.jpg" alt=""> -->
+<!-- 							</a> -->
+<!-- 							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/5.jpg"> -->
+<!-- 								<img src="images/gallery/5.jpg" alt=""> -->
+<!-- 							</a> -->
+<!-- 							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/6.jpg"> -->
+<!-- 								<img src="images/gallery/6.jpg" alt=""> -->
+<!-- 							</a> -->
+<!-- 							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/6.jpg"> -->
+<!-- 								<img src="images/gallery/7.jpg" alt=""> -->
+<!-- 							</a> -->
+<!-- 							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/6.jpg"> -->
+<!-- 								<img src="images/gallery/8.jpg" alt=""> -->
+<!-- 							</a> -->
+<!-- 							<a class="thumb-holder" data-rel="prettyPhoto" href="images/gallery/6.jpg"> -->
+<!-- 								<img src="images/gallery/9.jpg" alt=""> -->
+<!-- 							</a> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div>/ end flickr -->
 
 				<div class="col-md-3 col-sm-12 footer-widget footer-about-us">
 					<h3 class="widget-title">About Craft</h3>

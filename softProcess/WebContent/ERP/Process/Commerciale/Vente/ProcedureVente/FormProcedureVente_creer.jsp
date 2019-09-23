@@ -2,6 +2,7 @@
 <script type="text/javascript">
 height_tabbJQuey="auto";
 width_tabbJQuey="100%";
+
 var  contenu_toolbarJQuey2    ='<b><input  id="b2" type="button"  value="+"    onclick="ADD_Fourniture()"   style="font-size: 16px;width: 40px;text-align:center;" >&nbsp;&nbsp;&nbsp;<input  type="button"  value="-"       onclick="Delete_ROW_Fourniture()"  style="font-size: 16px;width: 40px;"  ></b>';
 var  config_header_foot_tableJQuey2 ='<"ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix"lf<"toolbar_fourniture">r>t<"ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix"ip>';
 
@@ -15,7 +16,7 @@ var  config_header_foot_tableJQuey3 ='<"ui-toolbar ui-widget-header ui-corner-tl
 
 <script type="text/javascript">
 
-
+ 
  
 var mapEditableGen = {            
 		"otab"   :oTable,
@@ -612,12 +613,12 @@ function doExcuteFnAfterGrid( dataSS ){
   
   <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
   
-   <ext:panel  border="false"    bodyStyle="background: none;"        height="110"  >
+   <ext:panel  border="false"    bodyStyle="background: none;"        height="120"  >
    
 <%--         <ext:toolbar         toolbarType="bbar"   >  --%>
 <%--         <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuivant('article')"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar> --%>
     
-     <table class="tableStyleContent"  cellpadding="4" cellspacing="4"  id="tblData"   width="100%"  border="0" >  
+     <table class="tableStyleContent"  cellpadding="2" cellspacing="2"  id="tblData"   width="100%"  border="0" >  
 		   <tr>  
 		   <td width="4%"><label><input id="choixPanel" name="choixPanel"  type="hidden"     > ${vente_id}</label></td>  
 		   <td  width="16%" >  
@@ -633,18 +634,21 @@ function doExcuteFnAfterGrid( dataSS ){
 		    <script  >  $(function() { loadSelectAjax("clt_idx","list_client_for_vente","clt_id","clt_lib","${detailBean.client.clt_id}",true);})</script>
 		   <select  id="clt_idx"      name="client.clt_id"           style="width: 180px;"               ></select>
 		   </td>
-		   <td  width="3%"  >
-		   <label>Remise</label>
-		   </td>
-		   <td  width="10%" >
+		   <td  width="5%"  >
+		   <label>Remise </label>
 		   <input id="taux_remise_alacaisse" name="taux_remise_alacaisse"    
  style="width: 40px;"     type="number"    min="0"  max="100"     
  libre="libre"      value="${detailBean.taux_remise_alacaisse}"   
  nextelement="designation_libelle"  onblur="getSuivant('article');" />
 		   <label>%</label>
+		   </td>
+		   <td  width="10%" >
 		   <input id="vente_remise_alacaisse" name="vente_remise_alacaisse"     type="montant3"  
-		   size="10"    libre      readonly="readonly"       value="${detailBean.vente_remise_alacaisse}"   >
+		   size="10"    libre      readonly="readonly"    style="display: none;"    value="${detailBean.vente_remise_alacaisse}"   >
 		   
+		   
+		    <input id="vente_remise" name="vente_remise"        type="montant3"    size="17"   
+		    libre      readonly="readonly"      value="${detailBean.vente_remise}" />
 		   </td>
 		   </tr> 
 		   
@@ -682,9 +686,23 @@ function doExcuteFnAfterGrid( dataSS ){
 	       </tr> 
 	       
 	       <tr>
-	       <td>  <label>Total.remise </label></td>
-	      <td> <input id="vente_remise" name="vente_remise"        type="montant3"    size="17"   
-		    libre      readonly="readonly"      value="${detailBean.vente_remise}" /></td>
+	       
+	       
+	         <td>  <label>Total.HT.Net</label> </td>  
+  		<td>
+  		          <input id="vente_mnt_brute_ht" name="vente_mnt_brute_ht"  type="montant3" style="display: none;"   size="15"    libre   readonly="readonly"    value="${detailBean.vente_mnt_ht}"    />
+  		          <input id="vente_mnt_net_ht" name="vente_mnt_net_ht"      type="montant3"    size="15"    libre   readonly="readonly"        value=""    />  
+  		          
+  		          </td> 
+  		          
+  		          
+	       <td>  <label>Total.Tva </label></td>
+	      <td> 
+		    <input id="vente_mnt_tva" name="vente_mnt_tva"     type="montant3"    size="15"    libre   readonly="readonly"    value="${detailBean.vente_mnt_tva}"    />
+		    
+		    </td>
+		    
+		  
 	      
 	      
 		  <td> <label>Total T.T.C</label> </td>
@@ -698,16 +716,18 @@ function doExcuteFnAfterGrid( dataSS ){
 			
 			
 			
-			<td> <label> Net.a payer </label> </td>
+			<td> <label> Net.A Payer </label> </td>
 			<tD>  <input id="vente_mnt_net_a_payer" name="vente_mnt_net_a_payer"   
 		     type="montant3"    size="17"     libre  readonly="readonly" 
 		        maxlength="15"      
 		        value="${detailBean.vente_mnt_net_a_payer}"       />  </tD>
 		        
-		<td>  <label>${cmd_obs}</label> </td>
-		<td><input id="vente_obs" name="vente_obs"     type="text"    size="10"    libre      value="${detailBean.vente_obs}"       nextelement="quantiteX"       />  </td>
+<%-- 		<td>  <label>${cmd_obs}</label> </td> --%>
+<%-- 		<td><input id="vente_obs" name="vente_obs"     type="text"    size="10"    libre      value="${detailBean.vente_obs}"       nextelement="quantiteX"       />  </td> --%>
 		       
  
+ 
+  		
 			
 	       </tr>
 		 </table> 
@@ -734,7 +754,7 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th></th>
 						<th></th>
 						<th></th>
-						<th></th>
+						<th>  </th>
 					</tr>
 					 <tr> 
 						<th></th>
@@ -751,8 +771,8 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th></th>
 				    </tr>
 				 </thead>
-				<tfoot>
-				    <tr><td   height="50px" colspan="11" >  </td> </tr>  
+				<tfoot  id="footTotal" style="display: none;"  >
+				    <tr><td   height="20px" colspan="12"   > </td> </tr>  
 				  
 					<c:forEach var="p" begin="1" end="5">
 		                    <tr  > 
@@ -784,7 +804,17 @@ function doExcuteFnAfterGrid( dataSS ){
 						
 				 </tfoot>
 			    </table>
-			    
+<!-- 			       	  <label> Montant réçu</label>    -->
+<!-- 		   <input id="montant_vente_recu" name="montant_vente_recu"     -->
+<%-- 		    type="montant3"    style="height: 30px;font-size: 18px;"  size="17"           value="${detailBean.montant_vente_recu}"  --%>
+<!-- 		       nextelement="montant_vente_rendu"     onblur="getSuivant('article');"   />			 -->
+			   
+			   
+<!-- 			    <label> Montant rendu </label> -->
+<!-- 	       <input id="montant_vente_rendu" name="montant_vente_rendu"  -->
+<%-- 	          libre  readonly="readonly"    value="${detailBean.montant_vente_rendu}"   --%>
+<!-- 	           type="montant3"  style="height: 30px;font-size: 18px;"   size="17"           -->
+<!-- 	             nextelement="null"   /> -->
 			     <script type="text/javascript">
 					function doLoaderDataFooter( nRow,aData, iStart, iEnd){
 					    var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_CALCUL_TOTAL','json',false);
@@ -793,7 +823,15 @@ function doExcuteFnAfterGrid( dataSS ){
 					    $('#vente_remise_alacaisse').val(json.vente_remise_alacaisse);
 					    $('#vente_remise').val(json.vente_remise);
 					    $('#vente_mnt_net_a_payer').val(json.vente_mnt_net_a_payer);
+					    
+					    
+					    $('#vente_mnt_brute_ht').val(json.vente_mnt_brute_ht);
+					    $('#vente_mnt_net_ht').val(json.vente_mnt_net_ht);
+					    $('#vente_mnt_tva').val(json.vente_mnt_tva);
+					    
 					    $('#vente_mnt_total').val(json.vente_mnt_total);
+					    
+					    
 					    
 					    $('#montant_vente_recu').val(json.montant_vente_recu);
 					    $('#montant_vente_rendu').val(json.montant_vente_rendu);
@@ -932,17 +970,7 @@ function doExcuteFnAfterGrid( dataSS ){
 	         
    	 </ext:tabPanel>
    	  
-   	  <label> Montant réçu</label>   
-		   <input id="montant_vente_recu" name="montant_vente_recu"    
-		    type="montant3"    style="height: 30px;font-size: 18px;"  size="17"           value="${detailBean.montant_vente_recu}" 
-		       nextelement="montant_vente_rendu"     onblur="getSuivant('article');"   />			
-			   
-			   
-			    <label> Montant rendu </label>
-	       <input id="montant_vente_rendu" name="montant_vente_rendu" 
-	          libre  readonly="readonly"    value="${detailBean.montant_vente_rendu}"  
-	           type="montant3"  style="height: 30px;font-size: 18px;"   size="17"          
-	             nextelement="null"   />
+
 	             
 	             
 	             
