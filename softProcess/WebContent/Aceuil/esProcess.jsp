@@ -653,10 +653,21 @@ function migaXWXXWW(dssss) {
 			
 			  
 			<tr>
-				<td colspan="3" >
-				<div  id="topy" class="x-panel-header"  style="height: 10px;width: 98.8%;position: fixed;z-index: 2222;"   >
-				<div style="margin-top: -3px;float: left;">
-				<a href="${pathRoot}/saas/index.jsp" >Process</a>  &nbsp;©&nbsp;&nbsp;${bs.soc_lib}&nbsp;-&nbsp;${bs.etab_lib}</div></div>
+				<td  colspan="3" >
+				<div  id="topy" class="x-panel-header"  style="height: 17px;width: 98.8%;position: fixed;z-index: 2222;margin-top: -5px;"   >
+				  <a href="${pathRoot}/saas/index.jsp" >Process</a>  &nbsp;©&nbsp;&nbsp;
+				  <font color="black"  style="font-size: 11px;"> ${bs.pack_libelle}&nbsp; .::.&nbsp; ${bs.mod_libelle} > ${bs.sousmod_libelle}</font> 
+	          
+		       
+				
+				<div style="float: right;color: black;">
+				${bs.soc_lib}&nbsp;-&nbsp;${bs.etab_lib}
+				&nbsp;-&nbsp;
+				 <font   id="theDateTime"          face="Verdana, Arial, Helvetica, sans-serif"   style="color: black;font-size: 11px;"></font>
+		        <font   color="black"  >-</font> 
+		        <font   id="uro"  face="Verdana, Arial, Helvetica, sans-serif"   style="font-size: 11px;color: black;"></font>
+		        
+				</div></div>
 				</td>
 			 </tr> 
 			   
@@ -817,13 +828,7 @@ function migaXWXXWW(dssss) {
        <form  id="myformToServeur"  method="post"  name="myformToServeur"     >
 	        <div id="toolbarBttn"      style="margin: 5px 10px 0px 10px;position: static;display:${disMenuX.toolbarBttn};" >
 	           <input  type="hidden"  id="HiddenAction"  name="HiddenAction"  value=""       >
-	           <div  class="x-panel-header" style="height: 14px;" >
-	            <font color="black"  style="font-size: 11px;"> ${bs.pack_libelle}&nbsp; .::.&nbsp; ${bs.mod_libelle} > ${bs.sousmod_libelle}</font> 
-	          
-		        <font   id="theDateTime"          face="Verdana, Arial, Helvetica, sans-serif"   style="color: black;font-size: 11px;float: right;"></font>
-		        <font   color="black" style="float: right;">-</font> 
-		        <font   id="uro"  face="Verdana, Arial, Helvetica, sans-serif"   style="font-size: 11px;color: black;float: right;"></font>
-		    </div>
+	           
 		    
 		    
 		      <!-- 
@@ -840,12 +845,12 @@ function migaXWXXWW(dssss) {
 	           <div id="ThePageJsp"  style="${styloAc}" > 
 				 
 				
-	              <ext:body> 	   
+	              <ext:body  > 	   
 	                  <ext:panel     renderTo="toolbarBttn"  
 	                  
 	                  bodyStyle="background-color:#616975;"
 	                   
-	                   border="false"   collapsible="false"    
+	                   border="true"   collapsible="false"    
 	                    style="background-color:#616975;" 
 	                   
 	                    >

@@ -87,7 +87,7 @@
 				        <span class="icon-bar"></span>
 				    </button>
 				    <div class="navbar-brand navbar-bg">
-					    <a href="index.html">
+					    <a href="index.jsp">
 					    	<img class="img-responsive" src="images/logop.png" alt="logo">
 					    </a> 
 				    </div>                   
@@ -481,18 +481,18 @@
 <!-- 				</div>/ end flickr -->
 
 				<div class="col-md-3 col-sm-12 footer-widget footer-about-us">
-					<h3 class="widget-title">About Craft</h3>
-					<p>We are a awward winning multinational company. We believe in quality and standard worldwide.</p>
+					<h3 class="widget-title">About Process</h3>
+					<p>Nous sommes une multinationale connus. Nous croyons en la qualite et la norme mondiale.</p>
 					<h4>Address</h4>
-					<p>1102 Saint Marys, Junction City, KS</p>
+					<p>1102 Saint Marys, Mutuelle ville, Tunis</p>
 					<div class="row">
 						<div class="col-md-6">
 							<h4>Email:</h4>
-							<p>info@craftbd.com</p>
+							<p>s2i.process@gmail.com</p>
 						</div>
 						<div class="col-md-6">
 							<h4>Phone No.</h4>
-							<p>+(785) 238-4131</p>
+							<p>+(216) 29 040 090</p>
 						</div>
 					</div>
                     <form action="#" role="form">
@@ -545,7 +545,7 @@
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<div class="copyright-info">
-         			 &copy; Copyright 2019 Themefisher. <span>Designed by <a href="https://themefisher.com">Themefisher.com</a></span>
+         			 &copy; Copyright 2019 Process. <span>Designed by <a href="https://themefisher.com">process.com</a></span>
         			</div>
 				</div>
 			</div><!--/ Row end -->

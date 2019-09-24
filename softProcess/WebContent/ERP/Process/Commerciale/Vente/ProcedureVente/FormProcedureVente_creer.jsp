@@ -818,52 +818,50 @@ function doExcuteFnAfterGrid( dataSS ){
 			     <script type="text/javascript">
 					function doLoaderDataFooter( nRow,aData, iStart, iEnd){
 					    var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_CALCUL_TOTAL','json',false);
+					    if(json===null  || json===undefined ) return;
 					    var	listTva= json.list_tva ;
 					    var	listTotal = json.list_total ;
 					    $('#vente_remise_alacaisse').val(json.vente_remise_alacaisse);
 					    $('#vente_remise').val(json.vente_remise);
 					    $('#vente_mnt_net_a_payer').val(json.vente_mnt_net_a_payer);
-					    
-					    
 					    $('#vente_mnt_brute_ht').val(json.vente_mnt_brute_ht);
 					    $('#vente_mnt_net_ht').val(json.vente_mnt_net_ht);
 					    $('#vente_mnt_tva').val(json.vente_mnt_tva);
-					    
 					    $('#vente_mnt_total').val(json.vente_mnt_total);
-					    
-					    
-					    
 					    $('#montant_vente_recu').val(json.montant_vente_recu);
 					    $('#montant_vente_rendu').val(json.montant_vente_rendu);
 					     var footX ={} ;
-					     
-					     for (var h = 0; h <listTva.length; h++) {
-					     var foot ={} ;
-						        if(h==0){
-						         foot[listTva[h].td1] = listTva[h].value1;
-						         footX["AA"+h]=foot;
-						         continue;
-				                }
-				             	foot[listTva[h].td1] = listTva[h].value1;
-				             	foot[listTva[h].td2] = listTva[h].value2;
-				             	foot[listTva[h].td3] = listTva[h].value3;
-				             	footX["AA"+h]=foot;
-					     }
-					     
-					     
-					     for (var p = listTva.length ; p<6; p++) {
-					      var foot = {} ;
-					        foot["0"] = "";
-			             	footX["UU"+p]=foot;
-					     } 
-					     
-					     
-					    for (var x = 0; x <listTotal.length; x++) {
-					     var foot ={} ;
-			             foot[listTotal[x].td1] = listTotal[x].value1;
-			             foot[listTotal[x].td2] = listTotal[x].value2;
-			             footX["BB"+x]=foot;
-					     }   
+					     if(listTva!=null &&  listTva!= undefined ){
+						     for (var h = 0; h <listTva.length; h++) {
+						     var foot ={} ;
+							        if(h==0){
+							         foot[listTva[h].td1] = listTva[h].value1;
+							         footX["AA"+h]=foot;
+							         continue;
+					                }
+					             	foot[listTva[h].td1] = listTva[h].value1;
+					             	foot[listTva[h].td2] = listTva[h].value2;
+					             	foot[listTva[h].td3] = listTva[h].value3;
+					             	footX["AA"+h]=foot;
+						     }
+						     
+						     
+						     for (var p = listTva.length ; p<6; p++) {
+						      var foot = {} ;
+						        foot["0"] = "";
+				             	footX["UU"+p]=foot;
+						     } 
+						     
+					    }  
+					 if(listTotal!=null &&  listTotal!= undefined ){   
+						 for (var x = 0; x <listTotal.length; x++) {
+						     var foot ={} ;
+				             foot[listTotal[x].td1] = listTotal[x].value1;
+				             foot[listTotal[x].td2] = listTotal[x].value2;
+				             footX["BB"+x]=foot;
+						     }   
+					 }
+					    
 					        
 				    return  footX; 
 				}
