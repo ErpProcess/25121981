@@ -116,9 +116,9 @@
 						<img class="" src="images/slider/bg2.jpg" alt="slider">
 					</div>
 					<div class="cd-half-width">
-						<h2> À quelle taille pouvez-vous rêver? </ h2>
-                        <p> Lorem ipsum dolor sit amet, consectetur elit adipisicing. En conséquence, cumque natus! </ P>
-                        <a href="#0" class="cd-btn btn btn-primary solid"> Visite guidée </a>
+						<h2> &#192; quelle taille pouvez-vous rêver? </ h2>
+                        <p> Lorem ipsum dolor sit amet, consectetur elit adipisicing. En cons&#233;quence, cumque natus! </ P>
+                        <a href="#0" class="cd-btn btn btn-primary solid"> Visite guid&#233;e </a>
 					</div> <!-- .cd-half-width -->
 					
 			 
@@ -135,7 +135,7 @@
 						<img src="images/slider/bg-thumb2.png" alt="">
 					</div> <!-- .cd-half-width.cd-img-container -->
 					<div class="cd-half-width">
-						<h2> Votre défi est notre progrès </ h2>
+						<h2> Votre d&#233;fi est notre progr&#xE8;s </ h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In consequatur cumque natus!</p>
 						<a href="#0" class="cd-btn btn btn-primary white">Start</a>
 						<a href="#0" class="cd-btn btn secondary btn-primary solid">Learn More</a>
@@ -143,7 +143,7 @@
 				</li>
 				<li class="cd-bg-video">
 					<div class="cd-full-width"><h2> Nous sommes ici pour que cela se produise </ h2>
-<h3> Nous faisons la différence pour de grandes choses possibles </ h3>
+<h3> Nous faisons la diff&#233;rence pour de grandes choses possibles </ h3>
 
 <a href="#0" class="cd-btn btn btn-primary solid"> En savoir plus </a>
 					</div> <!-- .cd-full-width -->
@@ -154,17 +154,18 @@
 				</li>
 			</ul> <!--/ cd-hero-slider -->
 
-		<div class="cd-slider-nav">
-			<nav>
-				<span class="cd-marker item-1"></span>
-				<ul>
-					<li class = "selected"> <a href="#0"> <i class = "fa-bicyclette"> </i> Inventeur </a> </li>
-<li> <a href="#0"> <i class = "fa-fa-hotel"> </i> Voir </a> </li>
-<li> <a href="#0"> <i class = "fa fa-android"> </i> Technologie </a> </li>
-<li class = "video"> <a href="#0"> <i class = "fa-video-camera"> </i> vidéo </a> </li>
-				</ul>
-			</nav> 
-		</div> <!-- .cd-slider-nav -->
+
+<!-- 		<div class="cd-slider-nav"> -->
+<!-- 			<nav> -->
+<!-- 				<span class="cd-marker item-1"></span> -->
+<!-- 				<ul> -->
+<!-- 					<li class="selected"><a href="#0"><i class="fa fa-bicycle"></i> R&#233;ception</a></li> -->
+<!-- 					<li><a href="#0"><i class="fa fa-hotel"></i> Stock</a></li> -->
+<!-- 					<li><a href="#0"><i class="fa fa-android"></i> Livraison</a></li> -->
+<!-- 					<li class="video"><a href="#0"><i class="fa fa-video-camera"></i> Facture</a></li> -->
+<!-- 				</ul> -->
+<!-- 			</nav>  -->
+<!-- 		</div> .cd-slider-nav -->
 
 		</div><!--/ Main slider end -->    	
     </section> <!--/ Slider end -->
@@ -176,7 +177,7 @@
 			<div class="row">
 				<div class="col-md-12 heading">
 					<span class="title-icon pull-left"><i class="fa fa-cogs"></i></span>
-					<h2 class="title">Service que nous fournissons<span class="title-desc">Une équipe d'expérience de qualité avec 4 ans d'expérience</span></h2>
+					<h2 class="title">Service que nous fournissons<span class="title-desc">Une &#233;quipe d'exp&#233;rience de qualit&#233; avec 4 ans d'exp&#233;rience</span></h2>
 				</div>
 			</div><!-- Title row end -->
 
@@ -186,15 +187,15 @@
 						<div class="service-content text-center">
 							<span class="service-icon icon-pentagon"><i class="fa fa-tachometer"></i></span>
 							<h3> Conception de sites Web </h3> 
-							<p> Narval High Life, banh mi café d'origine unique PBR Odd Future réellement aliqua polaroid avant </p>
+							<p style="display: none;"> Narval High Life, banh mi caf&#233; d'origine unique PBR Odd Future r&#233;ellement aliqua polaroid avant </p>
 						</div>
 					</div><!--/ End first service -->
 
 					<div class="col-md-3 col-sm-3 wow fadeInDown" data-wow-delay=".8s" >
 						<div class="service-content text-center">
 							<span class="service-icon icon-pentagon"><i class="fa fa-android"></i></span>
-						<h3> Développement d'applications </ h3>
-<p> Maître des camions de nourriture nettoie la mixtape avec un minimum de Portland, sweat en chambray de cardigan stumptown </p>
+						<h3> D&#233;veloppement d'applications </ h3>
+<p style="display: none;"> Maître des camions de nourriture nettoie la mixtape avec un minimum de Portland, sweat en chambray de cardigan stumptown </p>
 						</div>
 						
 					</div><!--/ End Second service -->
@@ -202,8 +203,8 @@
 					<div class="col-md-3 col-sm-3 wow fadeInDown" data-wow-delay="1.1s">
 						<div class="service-content text-center">
 							<span class="service-icon icon-pentagon"><i class="fa fa-shopping-cart"></i></span>
-							<h3>Sites Web de commerce électronique</h3>
-							<p>Neutra Thundercats craft beer, listicle meggings bicycle rights 90's XOXO beard cardiga</p>
+							<h3>Sites Web de commerce &#233;lectronique</h3>
+							<p style="display: none;">Neutra Thundercats craft beer, listicle meggings bicycle rights 90's XOXO beard cardiga</p>
 						</div>
 					</div><!--/ End Third service -->
 
@@ -211,7 +212,7 @@
 						<div class="service-content text-center">
 							<span class="service-icon icon-pentagon"><i class="fa fa-lightbulb-o"></i></span>
 							<h3>Design pour les startups</h3>
-							<p>We design beautiful modern engaging websites that always latest responsive technologies.</p>
+							<p style="display: none;">We design beautiful modern engaging websites that always latest responsive technologies.</p>
 						</div>
 					</div><!--/ End 4th service -->
 				</div>
@@ -228,24 +229,28 @@
 				<div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
 					<span class="feature-icon pull-left" ><i class="fa fa-heart-o"></i></span>
 					<div class="feature-content">
-						<h3>Clean &amp; Modern Design</h3>
-						<p>Bras urna felis accumsan at ultrde cesid posuere masa socis nautoque penat</p>
+						<h3>Administration</h3>
+						<p>Ensemble des rubriques principales du syst&#xE8;me d 'information qui regroupe les packages , Sous
+packages, Modules , sous modules .
+</p>
 					</div>
 				</div><!--/ End first featurebox -->
 
 				<div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
 					<span class="feature-icon pull-left" ><i class="fa fa-codepen"></i></span>
 					<div class="feature-content">
-						<h3>Useful Shortcodes</h3>
-						<p>High Life narwhal, banh mi PBR single-origin coffee Odd Future actually aliqua</p>
+						<h3>r&#233;f&#233;rentielle commun</h3>
+						<p>il s&rsquo;agit d&rsquo;une pi&egrave;ce
+de rechange ; la r&#233;f&#233;rence du fabricant, la classe d&rsquo;origine pour des articles normalis&#233;s</p>
 					</div>
 				</div><!--/ End 2nd featurebox -->
 
 				<div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
 					<span class="feature-icon pull-left" ><i class="fa fa-film"></i></span>
 					<div class="feature-content">
-						<h3>Parallax Section</h3>
-						<p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut</p>
+						<h3>back office</h3>
+						<p> la v&#233;rification des conditions de stockage; les inventaires des stocks.
+</p>
 					</div>
 				</div><!--/ End 3rd featurebox -->
 			</div><!-- Content row end -->
@@ -256,24 +261,24 @@
 				<div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
 					<span class="feature-icon pull-left" ><i class="fa fa-newspaper-o"></i></span>
 					<div class="feature-content">
-						<h3>Multipurpose Concept</h3>
-						<p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut</p>
+						<h3>Stock</h3>
+						<p>le stockage est l&rsquo;activit&#233; la plus g&#233;n&#233;ratrice des charges sur la cha&icirc;ne logistique</p>
 					</div>
 				</div><!--/ End 1st featurebox -->
 
 				<div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
 					<span class="feature-icon pull-left" ><i class="fa fa-desktop"></i></span>
 					<div class="feature-content">
-						<h3>Responsive Layout</h3>
-						<p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut</p>
+						<h3>front office</h3>
+						<p>Gestion de la client&#xE8;les : Fiche clients ,prospects , Familles de client, contacts.. Devis,commande  </p>
 					</div>
 				</div><!--/ End 2nd featurebox -->
 
 				<div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
 					<span class="feature-icon pull-left" ><i class="fa fa-pagelines"></i></span>
 					<div class="feature-content">
-						<h3>Light wight Performance</h3>
-						<p>High Life narwhal, banh mi PBR single-origin coffee Odd Future actually aliqua</p>
+						<h3>Commande</h3>
+						<p>cette zone n'est pas saisissable si la commande est soumise &#192; un circuit de validation</p>
 					</div>
 				</div><!--/ End 3rd featurebox -->
 
@@ -285,24 +290,25 @@
 				<div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
 					<span class="feature-icon pull-left" ><i class="fa fa-recycle"></i></span>
 					<div class="feature-content">
-						<h3>Free Lifetime Updates</h3>
-						<p>Bras urna felis accumsan at ultrde cesid posuere masa socis nautoque penat</p>
+						<h3>Articles</h3>
+						<p>Chaque article poss&#xE8;de une fiche informatique dans laquelle sont introduits tous les
+renseignements n&#233;cessaires pour sa commande</p>
 					</div>
 				</div><!--/ End first featurebox -->
 
 				<div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
 					<span class="feature-icon pull-left" ><i class="fa fa-diamond"></i></span>
 					<div class="feature-content">
-						<h3>Endless Possibilites</h3>
-						<p>High Life narwhal, banh mi PBR single-origin coffee Odd Future actually aliqua</p>
+						<h3>Tarification</h3>
+						<p>Cette rubrique d&#233;crit la m&#233;thode de valorisation des articles par le calcul des prix</p>
 					</div>
 				</div><!--/ End first featurebox -->
 
 				<div class="feature-box col-sm-4 wow fadeInDown" data-wow-delay=".5s">
 					<span class="feature-icon pull-left" ><i class="fa fa-whatsapp"></i></span>
 					<div class="feature-content">
-						<h3>24/7 Live Support</h3>
-						<p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut</p>
+						<h3>Bon de R&#233;ception</h3>
+						<p>Le bon de r&#233;ception est Utilis&#233; pour l&rsquo;ex&#233;cution des contrôles qualitatif et quantitatif des livraisons</p>
 					</div>
 				</div><!--/ End first featurebox -->
 			</div><!-- Content row end -->
@@ -318,9 +324,14 @@
 				</div>
 				<div class="col-md-6 ts-padding img-block-right">
 					<div class="img-block-head text-center">
-						<h2>Know More About Our Company</h2>
-						<h3>Why Choose Us</h3>
-						<p>Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Proin gravida nibh vel velit auctor Aenean sollicitudin, adipisicing elit sed lorem quis bibendum auctor.
+						<h2>&#192; propos Notre logiciel</h2>
+						<h3>Pourquoi G.E.S</h3>
+						<p>
+						G.E.S g&#xE8;re &#233;galement les
+donn&#233;es techniques de nomenclatures pour g&#233;rer la production de vos articles. La mise en œuvre de ces
+fonctionnalit&#233;s peut se faire de mani&#xE8;re progressive. G.E.S accompagne votre croissance, prend en charge les
+modifications qui peuvent toucher votre organisation afin d’adapter et de dynamiser encore mieux la gestion
+de votre entreprise.
 						</p>
 					</div>
 
@@ -329,24 +340,24 @@
 					<div class="image-block-content">
 						<span class="feature-icon pull-left" ><i class="fa fa-bicycle"></i></span>
 						<div class="feature-content">
-							<h3>Tons of Features</h3>
-							<p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut</p>
+							<h3>Achat</h3>
+							<p  style="display: none;">Consectetur adipisicing elit sed do eiusmod tempor incididunt ut</p>
 						</div>
 					</div><!--/ End 1st block -->
 
 					<div class="image-block-content">
 						<span class="feature-icon pull-left" ><i class="fa fa-diamond"></i></span>
 						<div class="feature-content">
-							<h3>PowerPack Theme</h3>
-							<p>Proin gravida nibh vel velit auctor Aenean sollicitudin adipisicing</p>
+							<h3>Vente</h3>
+							<p style="display: none;"  >Proin gravida nibh vel velit auctor Aenean sollicitudin adipisicing</p>
 						</div>
 					</div><!--/ End 1st block -->
 
 					<div class="image-block-content">
 						<span class="feature-icon pull-left" ><i class="fa fa-street-view"></i></span>
 						<div class="feature-content">
-							<h3>Day Night Support</h3>
-							<p>Simply dummy text and typesettings industry has been the industry</p>
+							<h3>Stock</h3>
+							<p style="display: none;" >Simply dummy text and typesettings industry has been the industry</p>
 						</div>
 					</div><!--/ End 1st block -->
 
@@ -354,53 +365,7 @@
 			</div>
 		</div>
 	</section><!--/ Image block end -->
-
  
-
-
-	<!-- Testimonial start-->
-	<section class="testimonial parallax parallax2">
-		<div class="parallax-overlay"></div>
-	  	<div class="container">
-		    <div class="row">
-			    <div id="testimonial-carousel" class="owl-carousel owl-theme text-center testimonial-slide">
-			        <div class="item">
-			          	<div class="testimonial-thumb">
-			            	<img src="images/team/testimonial1.jpg" alt="testimonial">
-			          	</div>
-			          	<div class="testimonial-content">
-				            <p class="testimonial-text">
-				              Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
-				            </p>
-			            	<h3 class="name">Sarah Arevik<span>Chief Executive</span></h3>
-			          	</div>
-			        </div>
-			        <div class="item">
-			          	<div class="testimonial-thumb">
-			            	<img src="images/team/testimonial2.jpg" alt="testimonial">
-			          	</div>
-				        <div class="testimonial-content">
-				            <p class="testimonial-text">
-				              Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
-				            </p>
-				            <h3 class="name">Narek Bedros<span>Sr. Manager</span></h3>
-				        </div>
-			        </div>
-			        <div class="item">
-				        <div class="testimonial-thumb">
-				            <img src="images/team/testimonial3.jpg" alt="testimonial">
-				        </div>
-			          	<div class="testimonial-content">
-				            <p class="testimonial-text">
-				              Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
-				            </p>
-			            	<h3 class="name">Taline Lucine<span>Sales Manager</span></h3>
-			          	</div>
-			        </div>
-			    </div><!--/ Testimonial carousel end-->
-		    </div><!--/ Row end-->
-	  	</div><!--/  Container end-->
-	</section><!--/ Testimonial end-->
 
  
 	
@@ -492,7 +457,7 @@
 						</div>
 						<div class="col-md-6">
 							<h4>Phone No.</h4>
-							<p>+(216) 29 040 090</p>
+							<p>&nbsp;&nbsp;&nbsp;&nbsp;79 111 090</p>
 						</div>
 					</div>
                     <form action="#" role="form">
@@ -545,7 +510,7 @@
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<div class="copyright-info">
-         			 &copy; Copyright 2019 Process. <span>Designed by <a href="https://themefisher.com">process.com</a></span>
+         			 &copy; Copyright 2019 Process. <span>Designed by <a href="https://process-master.com">process.com</a></span>
         			</div>
 				</div>
 			</div><!--/ Row end -->
