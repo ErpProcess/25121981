@@ -62,7 +62,8 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 
 	 
 	private static final long serialVersionUID = 3282043070569343942L;
-	private static final String NAME_PROJECT = "softProcess";
+	
+	private static final String NAME_PROJECT = "data-process";
 	
 	private static  String DATE_LIMIT = "25/11/8018";
 	
