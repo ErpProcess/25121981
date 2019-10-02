@@ -23,11 +23,11 @@ LoadAutoCompletAjax_with_marGin("clt_id"  ,"clt_lib","depot_id","list_client_for
 	   <tr>
 	     <td width="40%" > 
 	     <fmt:formatDate pattern="dd/MM/yyyy"  value="${searchBean.fact_date}"   var="searchat_date"/>
-	     <input id="fact_date"             compareTo="fact_date2"          name="fact_date"        type="datepicker"    size="13"       maxlength="13"        value="${searchat_date}"   /></td>
+	     <input id="fact_date"             compareTo="fact_date2"       autocomplete="off"        name="fact_date"        type="datepicker"    size="13"       maxlength="13"        value="${searchat_date}"   /></td>
 	     <td><label>${_datefin}</label></td>
 	     <td>
 	      <fmt:formatDate pattern="dd/MM/yyyy"  value="${searchBean.fact_date2}"   var="searchvente_date2"/>
-	     <input id="fact_date2"            comparedTo="fact_date"          name="fact_date2"       type="datepicker"    size="13"       maxlength="13"        value="${searchvente_date2}"  /></td>
+	     <input id="fact_date2"            comparedTo="fact_date"      autocomplete="off"        name="fact_date2"       type="datepicker"    size="13"       maxlength="13"        value="${searchvente_date2}"  /></td>
 	   </tr>
 	   </table>
   </td>  

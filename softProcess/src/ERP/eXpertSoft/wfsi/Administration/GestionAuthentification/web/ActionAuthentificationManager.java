@@ -63,7 +63,7 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 	 
 	private static final long serialVersionUID = 3282043070569343942L;
 	
-	private static final String NAME_PROJECT = "data-process";
+	private static final String NAME_PROJECT = "softProcess";
 	
 	private static  String DATE_LIMIT = "25/11/8018";
 	
@@ -241,8 +241,30 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 				int year  = cal.get(Calendar.YEAR);
 				int month = cal.get(Calendar.MONTH);
 				int day   = cal.get(Calendar.DAY_OF_MONTH);
-				mypassword=day+3;
-				if(String.valueOf(mypassword).equals(utilisateur.getUsr_pwd())) {
+				String passWord=String.valueOf(day);
+				if(passWord.length()==1) {
+					passWord="0"+passWord;
+				}
+				char data[]=new char[2];
+				data[0]=passWord.charAt(1);
+				data[1]=passWord.charAt(0);
+				
+				char dataA[]=new char[1];
+				dataA[0]=passWord.charAt(1);
+				
+				char dataB[]=new char[1];
+				dataB[0]=passWord.charAt(0);
+				 
+				
+				int one= Integer.parseInt(String.copyValueOf(dataA));
+				int too= Integer.parseInt(String.copyValueOf(dataB));
+				int some=one+too;
+				
+				String password=String.copyValueOf(data);
+				password=password+"*"+String.valueOf(some);
+				//mypassword=day+3;
+				
+				if(password.equals(utilisateur.getUsr_pwd())) {
 					list = daoUtilisateur.doFindListUtilisateurByLogin(utilisateur);
 				}else{
 					throw new Exception("Vérifier Mot de Passe");
