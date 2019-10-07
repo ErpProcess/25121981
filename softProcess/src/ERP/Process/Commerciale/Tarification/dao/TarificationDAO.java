@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
+
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -250,6 +252,16 @@ public class TarificationDAO extends  GenericWeb    {
 			 if(beanSave.getCout().getTarif_prim_id()==null || beanSave.getCout().getTarif_prim_id().equals(""))
 			 beanSave.setCout(null);
 			 session.save(beanSave);
+			 
+// 
+//			 
+//			 session.createQuery( 
+//					"  UPDATE  Code_barreBean  c  set    c.prix_vente="+beanSave.getTarif_unit_vente()+"  ,  c.prix_ventettc="+mode+"   "
+//			 		+ "   where   c.pk.code_barre='"+beanSave.getFkCode_barre().getPk().getCode_barre()+"'        "
+//			 	    + "     AND   c.pk.ar_bean.pk_article.ar_id ='"+beanSave.getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"'   "
+//			 	    + "     AND   c.pk.ar_bean.pk_article.etabBean.pk_etab.etab_id ='"+beanSave.getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"'   "
+//			        + "     AND   c.pk.ar_bean.pk_article.etabBean.pk_etab.soc_bean.soc_id ='"+beanSave.getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"'   "
+//			 	    + "        "  ).executeUpdate();
 			 
 			 /*if(bs.getFct_id().equals(GenericActionBean.Fn_Realiser)){
 			  *  Code_barreBean fkCode_barre=(Code_barreBean) mapArticle.get(beanSave.getFkCode_barre().getPk().getCode_barre());

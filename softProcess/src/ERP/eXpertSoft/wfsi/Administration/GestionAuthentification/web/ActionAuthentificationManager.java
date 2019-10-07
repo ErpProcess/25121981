@@ -59,20 +59,17 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.template.MenuActionBean;
 
 public class ActionAuthentificationManager extends AuthentificationTemplate {
+ 
+	private static final long serialVersionUID = 5829410874451674796L;
 
-	 
-	private static final long serialVersionUID = 3282043070569343942L;
-	
-	private static final String NAME_PROJECT = "softProcess";
+	public static   String NAME_PROJECT = "ROOT";
+	public static   String PATH = "/./";
 	
 	private static  String DATE_LIMIT = "25/11/8018";
 	
-	
-	
 	private UtilisateurService utilisateurService;
-	private PackageSysService packageSysService;
 	
-	 
+	private PackageSysService  packageSysService;
 	
 	@Autowired
 	private PrivilegeService      servicePrivilege;
@@ -207,9 +204,14 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			if (varUrlVieaw == null || varUrlVieaw.equals(""))
 				throwNewException("out");
 
-			final String pth = varUrlVieaw+""+NAME_PROJECT;
-			setObjectValueModel(CONTEXT_PATH, getRequest().getContextPath() + "/../" );
+			
+			String pth = varUrlVieaw+""+NAME_PROJECT;
+			if(NAME_PROJECT.equals("ROOT")) {
+				pth = varUrlVieaw.substring(0, varUrlVieaw.length()-1);
+			} 
+			setObjectValueModel(CONTEXT_PATH, getRequest().getContextPath() + PATH );
 			setObjectValueModel(BASE_URL_AJAX_PROJECT, pth);
+			
 			String urlos=pth+"/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action" ;
 			String UrlServerListeCorrlee=pth+"/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action?HiddenAction=i$_ACT_LOAD_AUTOCOMPLETE_AJAX";
 			setObjectValueModel(URL_LOAD_LISTE_CoRR, UrlServerListeCorrlee);
@@ -510,7 +512,7 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 	public ModelAndView doQuitterApplication() {
 	 
 		ModelAndView mode = new ModelAndView();
-		mode.setViewName(getRequest().getContextPath() + "/../" + "next");
+		mode.setViewName(getRequest().getContextPath() + PATH + "next");
 		 if (getSession()!=null){
              getSession().invalidate();
          }

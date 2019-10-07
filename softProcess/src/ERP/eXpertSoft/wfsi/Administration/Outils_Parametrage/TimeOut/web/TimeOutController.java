@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  
 import org.springframework.web.servlet.ModelAndView;
 
+import ERP.eXpertSoft.wfsi.Administration.GestionAuthentification.web.ActionAuthentificationManager;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Spoor.model.SpoorBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.MessageBean;
 
@@ -34,7 +35,7 @@ public class TimeOutController extends ActionTimeOutManager    {
 		 MessageBean error       = new MessageBean();
 		 error.setMessage("sessionOufet");
 		 mode.addObject(MESSAGERROR, "sessionOufet");
-		     mode.setViewName(getRequest().getContextPath()+"/../"+"index");
+		     mode.setViewName(getRequest().getContextPath()+ActionAuthentificationManager.PATH+"index");
 		     return mode;
 
 	}

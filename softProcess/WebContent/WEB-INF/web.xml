@@ -19,12 +19,12 @@
 		</init-param>
 	</servlet>
 	
-	<jsp-config>
-		<jsp-property-group>
-			<url-pattern>*.jsp</url-pattern>
-			<include-prelude>/Aceuil/taglib_includes.jsp</include-prelude>
-		</jsp-property-group>
-	</jsp-config>
+<!-- 	<jsp-config> -->
+<!-- 		<jsp-property-group> -->
+<!-- 			<url-pattern>*.jsp</url-pattern> -->
+<!-- 			<include-prelude>/Aceuil/taglib_includes.jsp</include-prelude> -->
+<!-- 		</jsp-property-group> -->
+<!-- 	</jsp-config> -->
 
 	<session-config>
 		<session-timeout>500000</session-timeout>

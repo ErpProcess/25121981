@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import ERP.eXpertSoft.wfsi.Administration.GestionAuthentification.web.ActionAuthentificationManager;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.GenerationPdf.GeneratePdf;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericActionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
@@ -376,7 +377,7 @@ public static ModelAndView doChangePrintFormat( ) throws Exception{
 			error.setMessage("");
 		}
 		mode.addObject(MESSAGERROR, error.getMessage());
-		mode.setViewName(getRequest().getContextPath() + "/../" + "Login");
+		mode.setViewName(getRequest().getContextPath() + ActionAuthentificationManager.PATH + "Login");
 		return mode;
 	}
 
@@ -388,11 +389,11 @@ public static ModelAndView doChangePrintFormat( ) throws Exception{
 			ModelAndView mode = new ModelAndView();
 			error.setMessage("Votre Session a été abondanée, Identifiez vous de nouveau ");
 			mode.addObject(MESSAGERROR, error.getMessage());
-			mode.setViewName(getRequest().getContextPath() + "/../" + "next");
+			mode.setViewName(getRequest().getContextPath() + ActionAuthentificationManager.PATH + "next");
 			return mode;
 		}else{
 			ModelAndView mod=getModel();
-			mod.setViewName(getRequest().getContextPath() + "/../" + "next");
+			mod.setViewName(getRequest().getContextPath() + ActionAuthentificationManager.PATH + "next");
 			return mod;
 		}
 		

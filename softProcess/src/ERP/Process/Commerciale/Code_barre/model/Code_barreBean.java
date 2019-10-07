@@ -37,10 +37,16 @@ public class Code_barreBean implements Serializable,Cloneable {
 	private String designation_libelle = "";
 	
 	@Column
-	private Double cout_uni_ttc  ;
+	private Double prix_achat;
 	
 	@Column
-	private Double prix_vente_ttc  ;
+	private Double prix_vente;
+	
+	@Column
+	private Double prix_achatttc;
+	
+	@Column
+	private Double prix_ventettc;
 	
 	@Column
 	private Double quantite_stock  ;
@@ -59,25 +65,6 @@ public class Code_barreBean implements Serializable,Cloneable {
 	@Transient  
 	private String condition_article_seulement_vente="";
 
-	 
-
-	 
-
-	public Double getCout_uni_ttc() {
-		return cout_uni_ttc;
-	}
-
-	public void setCout_uni_ttc(Double cout_uni_ttc) {
-		this.cout_uni_ttc = cout_uni_ttc;
-	}
-
-	public Double getPrix_vente_ttc() {
-		return prix_vente_ttc;
-	}
-
-	public void setPrix_vente_ttc(Double prix_vente_ttc) {
-		this.prix_vente_ttc = prix_vente_ttc;
-	}
 
 	public Double getQuantite_stock() {
 		return quantite_stock;
@@ -89,6 +76,38 @@ public class Code_barreBean implements Serializable,Cloneable {
 
 	public void setDesignation(String designation) {
 		this.designation = designation;
+	}
+
+	public Double getPrix_achat() {
+		return prix_achat;
+	}
+
+	public void setPrix_achat(Double prix_achat) {
+		this.prix_achat = prix_achat;
+	}
+
+	public Double getPrix_vente() {
+		return prix_vente;
+	}
+
+	public void setPrix_vente(Double prix_vente) {
+		this.prix_vente = prix_vente;
+	}
+
+	public Double getPrix_achatttc() {
+		return prix_achatttc;
+	}
+
+	public void setPrix_achatttc(Double prix_achatttc) {
+		this.prix_achatttc = prix_achatttc;
+	}
+
+	public Double getPrix_ventettc() {
+		return prix_ventettc;
+	}
+
+	public void setPrix_ventettc(Double prix_ventettc) {
+		this.prix_ventettc = prix_ventettc;
 	}
 
 	public String getDesignation() {

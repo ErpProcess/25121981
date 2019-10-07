@@ -105,7 +105,7 @@
 						<img class="" src="saas/images/slider/bg1.jpg" alt="slider">
 					</div>
 					<div class="cd-full-width">
-						<h2>BESOIN D'INVENTER L'AVENIR!</h2>
+						<h2>BESOIN D'INVENTER L'AVENIR! -- </h2>
 						<h3>Nous faisons la diff&#201;rence pour de plusieurs choses possibles</h3>
 						<a href="indexApp.jsp" class="btn btn-primary white cd-btn">Commencez maintenant</a>
  						<a href="#0" class="btn btn-primary solid cd-btn">En savoir plus </a> 

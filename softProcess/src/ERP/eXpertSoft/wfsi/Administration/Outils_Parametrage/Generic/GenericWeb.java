@@ -33,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonObject;
 
+import ERP.eXpertSoft.wfsi.Administration.GestionAuthentification.web.ActionAuthentificationManager;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Module.model.ModuleBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.SousModule.model.SousModuleBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionsLinguistiques.EntiteAdmin.model.EntiteAdminBean;
@@ -1345,7 +1346,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 		   String IndexSoumod="";
 		 
 		   try {
-			   setObjectValueModel(CONTEXT_PATH, getRequest().getContextPath()+"/../");
+			   setObjectValueModel(CONTEXT_PATH, getRequest().getContextPath()+ ActionAuthentificationManager.PATH);
 			   removeObjectModel(MESSAGERROR);
 			   removeObjectModel(CUST_MESSAGERROR);
 			   

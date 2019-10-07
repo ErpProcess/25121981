@@ -228,10 +228,12 @@ public class ArticleDAO extends  GenericWeb    {
 				bCode_barreBean.getPk().setAr_bean(beanSave);
 				
 				if(beanSave.getPrix_achat()!=null) {
-					bCode_barreBean.setCout_uni_ttc(beanSave.getPrix_achatttc());
+					bCode_barreBean.setPrix_achat(beanSave.getPrix_achat());
+					bCode_barreBean.setPrix_achatttc(beanSave.getPrix_achatttc());
 				}
 				if(beanSave.getPrix_vente()!=null) {
-					bCode_barreBean.setPrix_vente_ttc(beanSave.getPrix_ventettc());
+					bCode_barreBean.setPrix_vente(beanSave.getPrix_vente());
+					bCode_barreBean.setPrix_achatttc(beanSave.getPrix_achatttc());
 				}
 				
 				if( beanSave.getBean_artyp().getData_id().equals("US")  ){
