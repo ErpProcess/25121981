@@ -62,8 +62,8 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
  
 	private static final long serialVersionUID = 5829410874451674796L;
 
-	public static   String NAME_PROJECT = "ROOT";
-	public static   String PATH = "/./";
+	public static   String NAME_PROJECT = "process";
+	public static   String PATH = "/../";
 	
 	private static  String DATE_LIMIT = "25/11/8018";
 	
@@ -208,7 +208,7 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			String pth = varUrlVieaw+""+NAME_PROJECT;
 			if(NAME_PROJECT.equals("ROOT")) {
 				pth = varUrlVieaw.substring(0, varUrlVieaw.length()-1);
-			} 
+			}
 			setObjectValueModel(CONTEXT_PATH, getRequest().getContextPath() + PATH );
 			setObjectValueModel(BASE_URL_AJAX_PROJECT, pth);
 			

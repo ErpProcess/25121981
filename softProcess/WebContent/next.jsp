@@ -1,15 +1,13 @@
-<!-- < %@ page language="java"  contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"     % > -->
-<%@ page language="java" import="java.util.*"   contentType="text/html; charset=UTF-8"    %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"         prefix="fmt"    %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"   %>
-<%@ taglib uri="http://www.springframework.org/tags"      prefix="spring" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"   prefix="fn"     %>
-<%@ taglib tagdir="/WEB-INF/tags/ext"                     prefix="ext"    %>
-
-
-
-<c:set var="pathRootac" value="<%=request.getContextPath() %>" ></c:set>
+<%@ page language="java" import="java.util.*"   contentType="text/html; charset=UTF-8"  %>
+<%@taglib tagdir="/WEB-INF/tags/ext"                     prefix="ext"    %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core"        prefix="c"      %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt"         prefix="fmt"    %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"   %>
+<%@taglib uri="http://www.springframework.org/tags"      prefix="spring" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions"   prefix="fn"     %>
+<c:set var="pathRoot"    value="<%=request.getContextPath()%>" ></c:set>
+<c:set var="pathRootxx"  value="<%=request.getContextPath()%>" ></c:set>
+<c:set var="pathRootac"  value="<%=request.getContextPath()%>" ></c:set>
 <!DOCTYPE html>
 <html class="no-js">
 <head>
@@ -221,7 +219,7 @@ function doWelcome() {
 		        	   $('#usr_login').val('') ;
 	                   $('#usr_login').val('') ;
 	                   document.getElementById("btnSave").style.display="none";
-		        	   Ext.Msg.alert('Status', "Erreur de mise à jour système");
+		        	   Ext.Msg.alert('Status', "Erreur de mise Ã  jour systÃ¨me");
 	                  
 		        	   
 		           }else if(daddou=="looooadapplication"){
@@ -230,7 +228,7 @@ function doWelcome() {
 	                }else if( daddou=="loginGhalit" ){
 	                
 	                
-	                   Ext.Msg.alert('Status', " Vérifier le Login ! !");
+	                   Ext.Msg.alert('Status', " VÃ©rifier le Login ! !");
 	                   $('#usr_login').val('') ;
 	                   $('#usr_login').focus() ;
 	                   document.getElementById("nomprenom").value="";
@@ -269,7 +267,7 @@ function  getSoc_ERP(){
 	           {
 		           var  daddou=data;
 	                document.getElementById('usr_login').focus() ;
-	                document.getElementById("Ste").innerHTML = "Stï¿½:"+daddou;
+	                document.getElementById("Ste").innerHTML = "StÃ¯ ¿ ½:"+daddou;
 	               
 	           }
 	         });
@@ -326,7 +324,6 @@ function  fifoA(){
 
 
 function  getLangueSystem(){
- 
 		document.getElementById("baseUrlProject").value=baseURL;
 	    var url = contexPath+"/ERP/eXpertSoft/wfsi/Administration/GestionAuthentification/root.action?HiddenAction=i$_ACT_GET_LANG";  
  		$("#intWin").mask("Veuillez Patientez..."); 
@@ -408,7 +405,7 @@ id="SSSSSSSSS"
 </body>
 <ext:body     >
   <ext:window   id="intWin"    
-   title="Process Engineering &nbsp;&nbsp;-&nbsp;&nbsp; &nbsp;Créateur de Valeur"   
+   title="Process Engineering &nbsp;&nbsp;-&nbsp;&nbsp; &nbsp;CrÃ©ateur de Valeur"   
     draggable="false"  resizable="false"  closable="false"    footer="true"    width="530"  height="308"     >
     <form  id="myform" method="post"  name="myform"  autocomplete="off"  >
       <input  type="hidden"  name="HiddenAction"  id="HiddenAction"  value="doLoadApp.action"  style=" " >
@@ -498,9 +495,7 @@ id="SSSSSSSSS"
             </div></td>
         </tr>
         <tr>
-          <td  valign="middle"  colspan="2"  align="center"  height="25px" ><font  style="font-weight: bold;color: gray;font-family: cursive;font-size: 10px;">
-          Version 3.0(15/09/2019)  Powred By  <a href="${pathRoot}/saas/index.jsp" >Process Engineering</a>   
-          - All rights reserved</font></td>
+          <td  valign="middle"  colspan="2"  align="center"  height="25px"  id="clientId"></td>
         </tr>
       </table>
     </form>
@@ -516,7 +511,11 @@ Ext.onReady(function(){
           Ext.getCmp("intWin").show();
             //fifoA(); 
             getLangueSystem(); 
-          
+            var namePoss='${pathRoot}';
+             if(namePoss.length>0) namePoss=namePoss.substring(1);
+
+            $("#clientId").html('<font style="font-weight: bold;color: gray;font-family: cursive;font-size: 10px;">'+
+            ' '+namePoss+' - Version 3.0(15/09/2019)  Powred By  <a href="${pathRoot}/index.jsp" >Process Engineering</a> - All rights reserved</font>');
           if("${messageError}"!=""){
 		      Ext.MessageBox.show({
 		           title:'Save Changes?',
@@ -543,6 +542,7 @@ Ext.onReady(function(){
 		}	
 });
 </script>
+
 
 
 

@@ -1,16 +1,3 @@
-<%@taglib tagdir="/WEB-INF/tags/ext"                     prefix="ext"    %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core"        prefix="c"      %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt"         prefix="fmt"    %>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"   %>
-<%@taglib uri="http://www.springframework.org/tags"      prefix="spring" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/functions"   prefix="fn"     %>
-
-<c:set var="pathRoot"    value="<%=request.getContextPath()%>" ></c:set>
-<c:set var="pathRootxx"  value="<%=request.getContextPath()%>" ></c:set>
-<c:set var="pathRootac"  value="<%=request.getContextPath()%>" ></c:set>
-
-
-
 <link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/demo_table.css"               rel="stylesheet" type="text/css" media="all" />
 <link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/demo_table_jui.css"           rel="stylesheet" type="text/css" media="all" />
 <link    href="<%=request.getContextPath()%>/jQuery/themes/base/jquery-ui.css" rel="stylesheet" rel="stylesheet" type="text/css" media="all" />
