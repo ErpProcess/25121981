@@ -414,6 +414,11 @@ public static ModelAndView doChangePrintFormat( ) throws Exception{
 			MenuActionBean twebBean = new MenuActionBean();
 			twebBean.setToolbarBttn(NONE);
 			removeObjectModel(FORM_BEAN);
+			
+			  System.out.println(" getRequest().getContextPath  -------"+getRequest().getContextPath());
+   		   System.out.println(" CONTEXT_PATH  -------"+   getObjectValueModel(CONTEXT_PATH) );
+   			   
+  			   
 			setObjectViewName(getObjectValueModel(CONTEXT_PATH) + "Aceuil/Aceuil");
 			setObjectValueModel(MENU_ACTION_DISPLAY, twebBean);
 			return getModel();

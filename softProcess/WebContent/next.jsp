@@ -203,6 +203,9 @@ function doWelcome() {
 
  function  validAuthen(){
 	    var url = contexPath+"/ERP/eXpertSoft/wfsi/Administration/GestionAuthentification/root.action?HiddenAction=i$_ACT_GET_USER";  
+	    
+	    
+	    alert();
 	    $("#intWin").mask("Veuillez Patientez..."); 
 	   jQuery.ajax({
 	           type: "POST", 

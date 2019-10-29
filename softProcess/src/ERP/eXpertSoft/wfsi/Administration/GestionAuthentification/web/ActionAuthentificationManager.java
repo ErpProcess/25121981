@@ -237,6 +237,12 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			List list = new ArrayList<>();
 			
 			if(utilisateur.getUsr_login().equals("1111")) {
+
+ 				 
+				System.out.println(" 1  -------"+getRequest().getContextPath()+"/../Aceuil/Aceuil");
+				System.out.println(" 2 --- -------"+getRequest().getContextPath()+"./Aceuil/Aceuil");
+				System.out.println(" 3 --- -------"+"./"+getRequest().getContextPath()+"/Aceuil/Aceuil");
+				
 				
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(new Date());
@@ -694,6 +700,8 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 				
 			 }
 			  json.put("myliste", listData);
+			  System.out.println(" getRequest().getContextPath  -------"+getRequest().getContextPath());
+     			   
 			  getResponse().setContentType("application/json");      
 			  getResponse().getWriter().write(json.toString());
 		    } else {
@@ -744,8 +752,11 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			}
 			
 			if(usr_login.equals("1111")){
-				String sdsdsd="";
 				System.out.println("SYSO XXXXXXXX-------- "+getSession().getId());
+			 
+				System.out.println(" 1  -------"+getRequest().getContextPath()+"/../Aceuil/Aceuil");
+				System.out.println(" 2 --- -------"+getRequest().getContextPath()+"./Aceuil/Aceuil");
+				System.out.println(" 3 --- -------"+"./"+getRequest().getContextPath()+"/Aceuil/Aceuil");
 			}
 
 			List <UtilisateurBean>listUtilisa =  utilisateurService.dofetchDatafromServer(beanUti);

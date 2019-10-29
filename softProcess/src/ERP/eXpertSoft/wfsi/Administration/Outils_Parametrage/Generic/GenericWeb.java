@@ -549,6 +549,12 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
     		   ModelAndView  modelSetViewObj=getModel();
     		   if(modelSetViewObj!=null ){
     		   modelSetViewObj.setViewName(viewName);
+    		   
+   			   System.out.println(" getRequest().getContextPath  -------"+getRequest().getContextPath());
+    		   System.out.println(" CONTEXT_PATH  -------"+   getObjectValueModel(CONTEXT_PATH) );
+   			   System.out.println(" ViewObj.getViewName() -------"+modelSetViewObj.getViewName());
+
+   			
     		   getSession().setAttribute(getSession().getId(), modelSetViewObj);
     		   }
     	   } catch (Exception e) {
@@ -565,6 +571,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
     	  
     	   
     	   ModelAndView  model=(ModelAndView) hSession.getAttribute(hSession.getId());
+    	   
   		  if(model==null)  
   			return null;
   		   else
