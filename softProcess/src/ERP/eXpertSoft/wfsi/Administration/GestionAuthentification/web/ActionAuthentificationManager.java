@@ -62,8 +62,8 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
  
 	private static final long serialVersionUID = 5829410874451674796L;
 
-	public static   String NAME_PROJECT = "process";
-	public static   String PATH = "/../";
+	public static   String NAME_PROJECT = "softProcess";
+	public static   String PATH_SLACH = "/../";
 	
 	private static  String DATE_LIMIT = "25/11/8018";
 	
@@ -209,9 +209,8 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			if(NAME_PROJECT.equals("ROOT")) {
 				pth = varUrlVieaw.substring(0, varUrlVieaw.length()-1);
 			}
-			setObjectValueModel(CONTEXT_PATH, getRequest().getContextPath() + PATH );
+			setObjectValueModel(CONTEXT_PATH, getRequest().getContextPath() + PATH_SLACH );
 			setObjectValueModel(BASE_URL_AJAX_PROJECT, pth);
-			
 			String urlos=pth+"/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action" ;
 			String UrlServerListeCorrlee=pth+"/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action?HiddenAction=i$_ACT_LOAD_AUTOCOMPLETE_AJAX";
 			setObjectValueModel(URL_LOAD_LISTE_CoRR, UrlServerListeCorrlee);
@@ -512,7 +511,7 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 	public ModelAndView doQuitterApplication() {
 	 
 		ModelAndView mode = new ModelAndView();
-		mode.setViewName(getRequest().getContextPath() + PATH + "next");
+		mode.setViewName(getRequest().getContextPath() + PATH_SLACH + "next");
 		 if (getSession()!=null){
              getSession().invalidate();
          }

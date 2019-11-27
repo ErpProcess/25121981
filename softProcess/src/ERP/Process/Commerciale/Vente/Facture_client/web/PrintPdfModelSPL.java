@@ -37,6 +37,7 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.GenerationPdf.Table
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessFormatNbr;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessNumber;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.configDevelopement.web.configDevelopementActionManager;
 import groovy.lang.GroovyShell;
@@ -133,11 +134,485 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 		} catch (Exception e) {
 			displayException((Exception) e);
 		} 
-		
-	 
 	return null;
 
      }
+	
+	
+	public    ModelAndView doPrintRetenuSource(Facture_clientBean fBean ) throws Exception   {
+		 
+		 
+	 
+		File file = new File(getRequest().getRealPath("/")+"/temp/"+Facture_clientTemplate.LIST_DATA_DET_FACT+getRequest().getSession().getId()+".pdf");
+	    FileOutputStream fs = new FileOutputStream(file);
+	    String [][] mapfieldBeanDetaille  = 
+	    		new String[][]{
+ 
+	    		          { "pk.fkcode_barre.designation_libelle", "100" },
+	    		          { "quantite", "20" },
+	    		          { "tarif_unit_vente", "30" },
+	    		          { "montant_ht_vente", "50" }
+	    		          //{ "montant_tva_vente", "50" }
+	    		          };
+	    
+		try {
+			 
+			
+			Document document=GeneratePdf.doGenerateDocumentFormat();
+	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
+	        doWriteHeaderDocumentRetenuSource(document,fs,mapfieldBeanDetaille,bSession,fBean);
+	        String affich_mont =ProcessFormatNbr.convertNumberToLetterDT( fBean.getTotal_facture() );
+	        
+	        PdfPTable tabletitle = new PdfPTable(100);
+		    PdfPCell cell = new PdfPCell(new Phrase("",GeneratePdf.Normal_10_times_roman));
+	        cell.setColspan(100);
+	        cell.setFixedHeight(10f);
+	        cell.setVerticalAlignment(Element.ALIGN_LEFT);
+	        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+	        cell.setBorder(cell.NO_BORDER);
+	        tabletitle.addCell(cell);
+	        
+	        cell = new PdfPCell(new Phrase("Arrêtée la présente facture à la somme de :",GeneratePdf.Normal_10_times_roman));
+	        cell.setColspan(100);
+	        cell.setVerticalAlignment(Element.ALIGN_LEFT);
+	        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+	        cell.setBorder(cell.NO_BORDER);
+	        tabletitle.addCell(cell);
+	        
+	        
+	        cell = new PdfPCell(new Phrase(affich_mont,GeneratePdf.Bold_10_times_roman));
+	        cell.setColspan(100);
+	        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+	        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        cell.setBorder(cell.NO_BORDER);
+	        tabletitle.addCell(cell);
+	        
+	        
+	        cell = new PdfPCell(new Phrase("",GeneratePdf.Normal_10_times_roman));
+	        cell.setColspan(100);
+	        cell.setFixedHeight(10f);
+	        cell.setVerticalAlignment(Element.ALIGN_LEFT);
+	        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+	        cell.setBorder(cell.NO_BORDER);
+	        tabletitle.addCell(cell);
+	        
+	        
+	        
+	        
+	        
+	        
+	        document.add(tabletitle);
+	        
+	       
+	        document.close();
+			getResponse().setContentType("text");
+			getResponse().setHeader("Cache-Control", "no-cache");
+			getResponse().setStatus(200);
+			getResponse().getWriter().write(Facture_clientTemplate.LIST_DATA_DET_FACT+getRequest().getSession().getId()+".pdf");
+		} catch (Exception e) {
+			displayException((Exception) e);
+		} 
+	return null;
+
+     }
+	
+	public  void doWriteHeaderDocumentRetenuSource(Document document, 
+			FileOutputStream fs ,String [][] mapFieldBean,BeanSession bSession,
+			Facture_clientBean fBean) throws Exception {
+	    PdfWriter writer = PdfWriter.getInstance(document,  fs);
+	    TableHeaderNormale event = new TableHeaderNormale(bSession);
+        //writer.setPageEvent(event);
+        
+        BeanSession  bs=(BeanSession) getObjectValueModel(BEAN_SESSION);
+        
+        document.addCreator(bs.getPack_libelle());
+	    document.addAuthor(bs.getMod_libelle());
+	    document.addTitle(bs.getFct_libelle()+"/"+bs.getSousmod_libelle_title());
+	    document.open();
+        
+        PdfPTable tableheader = new PdfPTable(100);
+        PdfPCell cellheder;
+        tableheader.setWidthPercentage(100);
+		
+	     
+	    JSONObject doc = configDevelopementActionManager.doLoadingConfigPrintDocumentRetenue();		
+	    cellheder = new PdfPCell(new Phrase( doc.getString("entete").toUpperCase()  ,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
+	    cellheder.setColspan(100);
+	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cellheder.setPaddingLeft(28f);
+	    cellheder.setPaddingBottom(5f);
+	    cellheder.setPaddingTop(31f);
+	    cellheder.setBorder(cellheder.NO_BORDER);
+	    tableheader.addCell(cellheder);
+	    
+	    cellheder = new PdfPCell(new Phrase("     CIRTIFICAT DE RETENUE D'IMPOT \n\r     SUR LE REVENU OU D'IMPOT SUR LES SOCIETES".toUpperCase(),new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
+	    cellheder.setColspan(100);
+	    cellheder.setPaddingBottom(10f);
+	    cellheder.setPaddingLeft(28f);
+	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cellheder.setBorder(cellheder.NO_BORDER);
+	    tableheader.addCell(cellheder);
+	    
+	    cellheder = new PdfPCell(new Phrase(" ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
+	    cellheder.setColspan(60);
+	    cellheder.setPaddingBottom(10f);
+	    cellheder.setPaddingLeft(28f);
+	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cellheder.setBorder(cellheder.NO_BORDER);
+	    tableheader.addCell(cellheder);
+	    
+	    cellheder = new PdfPCell(new Phrase(" Retenue effectuée le "+ ProcessDate.getStringFormatDate(fBean.getFact_date())  ,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
+	    cellheder.setColspan(40);
+	    cellheder.setPaddingBottom(10f);
+	    cellheder.setPaddingLeft(28f);
+	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cellheder.setBorder(cellheder.NO_BORDER);
+	    tableheader.addCell(cellheder);
+	     
+	    cellheder = new PdfPCell(new Phrase(" A- Dénomination de l'organisme payeur : ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+	    cellheder.setColspan(100);
+	    cellheder.setPaddingTop(20f);
+	    cellheder.setPaddingBottom(5f);
+	    cellheder.setPaddingLeft(28f);
+	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cellheder.setBorder(cellheder.NO_BORDER);
+	    tableheader.addCell(cellheder);
+	    
+	    PdfPTable tableFirst = new PdfPTable(100);
+        PdfPCell cellFirst;
+        tableFirst.setWidthPercentage(90);
+        
+        cellFirst = new PdfPCell(new Phrase(" Identification Fiscal: ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(100);
+        cellFirst.setPaddingLeft(2f);
+        cellFirst.setPaddingBottom(5f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase(" M fiscal ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(40);
+        cellFirst.setPaddingLeft(2f);
+        cellFirst.setPaddingBottom(5f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase(" TVA ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(15);
+        cellFirst.setPaddingLeft(2f);
+        cellFirst.setPaddingBottom(5f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase(" C.C ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(15);
+        cellFirst.setPaddingLeft(2f);
+        cellFirst.setPaddingBottom(5f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase(" Nbre Etab secondaire ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(30);
+        cellFirst.setPaddingLeft(2f);
+        cellFirst.setPaddingBottom(5f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        
+        cellFirst = new PdfPCell(new Phrase("  ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(40);
+        cellFirst.setPaddingLeft(2f);
+        cellFirst.setPaddingBottom(5f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase("   ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(15);
+        cellFirst.setPaddingLeft(2f);
+        cellFirst.setPaddingBottom(5f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase("   ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(15);
+        cellFirst.setPaddingLeft(2f);
+        cellFirst.setPaddingBottom(5f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase("   ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(30);
+        cellFirst.setPaddingLeft(2f);
+        cellFirst.setPaddingBottom(5f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        
+        cellFirst = new PdfPCell(new Phrase(" Nom,prénom ou raison sociale: "+fBean.getClient().getClt_lib()
+        		+"\n\r"+" Adresse:"+ fBean.getClient().getClt_adr(),new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(100);
+        cellFirst.setPaddingLeft(5f);
+        cellFirst.setPaddingTop(20f);
+        cellFirst.setPaddingBottom(30f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase("B - RETENUES EFFECTUEES SUR :\n\r"+  
+        		"FACTURE N° : "+fBean.getFact_clt_id(),new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(100);
+        cellFirst.setPaddingLeft(1f);
+        cellFirst.setPaddingTop(10f);
+        cellFirst.setPaddingBottom(30f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.NO_BORDER);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase("",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(55);
+        cellFirst.setPaddingLeft(1f);
+        cellFirst.setPaddingTop(2f);
+        cellFirst.setPaddingBottom(2f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellFirst.setBorder(cellFirst.NO_BORDER);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase("MONTANT",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(15);
+        cellFirst.setPaddingLeft(1f);
+        cellFirst.setPaddingTop(2f);
+        cellFirst.setPaddingBottom(2f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase("RETENUE",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(15);
+        cellFirst.setPaddingLeft(1f);
+        cellFirst.setPaddingTop(2f);
+        cellFirst.setPaddingBottom(2f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase("A PAYER",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(15);
+        cellFirst.setPaddingLeft(1f);
+        cellFirst.setPaddingTop(2f);
+        cellFirst.setPaddingBottom(2f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase("Retenue sur marché 1,5%",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(55);
+        cellFirst.setPaddingLeft(1f);
+        cellFirst.setPaddingTop(2f);
+        cellFirst.setPaddingBottom(2f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase(ProcessFormatNbr.FormatDouble_To_String_Troischiffre(fBean.getTotal_facture()) ,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(15);
+        cellFirst.setPaddingLeft(1f);
+        cellFirst.setPaddingTop(2f);
+        cellFirst.setPaddingBottom(2f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase(
+        		ProcessFormatNbr.FormatDouble_To_String_Troischiffre(ProcessNumber.Pourcentage(fBean.getTotal_facture(), 15) )
+        		,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(15);
+        cellFirst.setPaddingLeft(1f);
+        cellFirst.setPaddingTop(2f);
+        cellFirst.setPaddingBottom(2f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase(
+
+        		
+        		ProcessFormatNbr.FormatDouble_To_String_Troischiffre(
+        				
+        				ProcessNumber.SOUSTRACTION(fBean.getTotal_facture(), ProcessNumber.Pourcentage(fBean.getTotal_facture(), 15))
+        				 
+        				
+        				)
+        		
+        		,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(15);
+        cellFirst.setPaddingLeft(1f);
+        cellFirst.setPaddingTop(2f);
+        cellFirst.setPaddingBottom(2f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase("Total GENERAL",new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.BOLD)));
+        cellFirst.setColspan(55);
+        cellFirst.setPaddingLeft(1f);
+        cellFirst.setPaddingTop(2f);
+        cellFirst.setPaddingBottom(2f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase(ProcessFormatNbr.FormatDouble_To_String_Troischiffre(fBean.getTotal_facture()) ,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(15);
+        cellFirst.setPaddingLeft(1f);
+        cellFirst.setPaddingTop(2f);
+        cellFirst.setPaddingBottom(2f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase(
+        		ProcessFormatNbr.FormatDouble_To_String_Troischiffre(ProcessNumber.Pourcentage(fBean.getTotal_facture(), 15) )
+        		,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(15);
+        cellFirst.setPaddingLeft(1f);
+        cellFirst.setPaddingTop(2f);
+        cellFirst.setPaddingBottom(2f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        cellFirst = new PdfPCell(new Phrase(
+
+        		
+        		ProcessFormatNbr.FormatDouble_To_String_Troischiffre(
+        				
+        				ProcessNumber.SOUSTRACTION(fBean.getTotal_facture(), ProcessNumber.Pourcentage(fBean.getTotal_facture(), 15))
+        				 
+        				
+        				)
+        		
+        		,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellFirst.setColspan(15);
+        cellFirst.setPaddingLeft(1f);
+        cellFirst.setPaddingTop(2f);
+        cellFirst.setPaddingBottom(2f);
+        cellFirst.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellFirst.setBorder(cellFirst.TOP+cellFirst.BOTTOM+cellFirst.LEFT+cellFirst.RIGHT);
+        tableFirst.addCell(cellFirst);
+        
+        
+        
+        cellheder = new PdfPCell(new Phrase(" A- Dénomination de l'organisme payeur : ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+	    cellheder.setColspan(100);
+	    cellheder.setPaddingTop(20f);
+	    cellheder.setPaddingBottom(5f);
+	    cellheder.setPaddingLeft(28f);
+	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
+	    cellheder.setBorder(cellheder.NO_BORDER);
+	    tableheader.addCell(cellheder);
+	    
+	    PdfPTable tableBeneficaire = new PdfPTable(100);
+        PdfPCell cellBeneficaire; 
+        tableBeneficaire.setWidthPercentage(90);
+        
+        cellBeneficaire = new PdfPCell(new Phrase(" BENEFICIAIRE: ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellBeneficaire.setColspan(100);
+        cellBeneficaire.setPaddingLeft(2f);
+        cellBeneficaire.setPaddingBottom(5f);
+        cellBeneficaire.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellBeneficaire.setBorder(cellBeneficaire.TOP+cellBeneficaire.BOTTOM+cellBeneficaire.LEFT+cellBeneficaire.RIGHT);
+        tableBeneficaire.addCell(cellBeneficaire);
+        
+        cellBeneficaire = new PdfPCell(new Phrase(" M fiscal ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellBeneficaire.setColspan(40);
+        cellBeneficaire.setPaddingLeft(2f);
+        cellBeneficaire.setPaddingBottom(5f);
+        cellBeneficaire.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellBeneficaire.setBorder(cellBeneficaire.TOP+cellBeneficaire.BOTTOM+cellBeneficaire.LEFT+cellBeneficaire.RIGHT);
+        tableBeneficaire.addCell(cellBeneficaire);
+        
+        cellBeneficaire = new PdfPCell(new Phrase(" TVA ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellBeneficaire.setColspan(15);
+        cellBeneficaire.setPaddingLeft(2f);
+        cellBeneficaire.setPaddingBottom(5f);
+        cellBeneficaire.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellBeneficaire.setBorder(cellBeneficaire.TOP+cellBeneficaire.BOTTOM+cellBeneficaire.LEFT+cellBeneficaire.RIGHT);
+        tableBeneficaire.addCell(cellBeneficaire);
+        
+        cellBeneficaire = new PdfPCell(new Phrase(" C.C ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellBeneficaire.setColspan(15);
+        cellBeneficaire.setPaddingLeft(2f);
+        cellBeneficaire.setPaddingBottom(5f);
+        cellBeneficaire.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellBeneficaire.setBorder(cellBeneficaire.TOP+cellBeneficaire.BOTTOM+cellBeneficaire.LEFT+cellBeneficaire.RIGHT);
+        tableBeneficaire.addCell(cellBeneficaire);
+        
+        cellBeneficaire = new PdfPCell(new Phrase(" Nbre Etab secondaire ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellBeneficaire.setColspan(30);
+        cellBeneficaire.setPaddingLeft(2f);
+        cellBeneficaire.setPaddingBottom(5f);
+        cellBeneficaire.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellBeneficaire.setBorder(cellBeneficaire.TOP+cellBeneficaire.BOTTOM+cellBeneficaire.LEFT+cellBeneficaire.RIGHT);
+        tableBeneficaire.addCell(cellBeneficaire);
+        
+        
+        cellBeneficaire = new PdfPCell(new Phrase("  ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellBeneficaire.setColspan(40);
+        cellBeneficaire.setPaddingLeft(2f);
+        cellBeneficaire.setPaddingBottom(5f);
+        cellBeneficaire.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellBeneficaire.setBorder(cellBeneficaire.TOP+cellBeneficaire.BOTTOM+cellBeneficaire.LEFT+cellBeneficaire.RIGHT);
+        tableBeneficaire.addCell(cellBeneficaire);
+        
+        cellBeneficaire = new PdfPCell(new Phrase("   ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellBeneficaire.setColspan(15);
+        cellBeneficaire.setPaddingLeft(2f);
+        cellBeneficaire.setPaddingBottom(5f);
+        cellBeneficaire.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellBeneficaire.setBorder(cellBeneficaire.TOP+cellBeneficaire.BOTTOM+cellBeneficaire.LEFT+cellBeneficaire.RIGHT);
+        tableBeneficaire.addCell(cellBeneficaire);
+        
+        cellBeneficaire = new PdfPCell(new Phrase("   ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellBeneficaire.setColspan(15);
+        cellBeneficaire.setPaddingLeft(2f);
+        cellBeneficaire.setPaddingBottom(5f);
+        cellBeneficaire.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellBeneficaire.setBorder(cellBeneficaire.TOP+cellBeneficaire.BOTTOM+cellBeneficaire.LEFT+cellBeneficaire.RIGHT);
+        tableBeneficaire.addCell(cellBeneficaire);
+        
+        cellBeneficaire = new PdfPCell(new Phrase("   ",new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellBeneficaire.setColspan(30);
+        cellBeneficaire.setPaddingLeft(2f);
+        cellBeneficaire.setPaddingBottom(5f);
+        cellBeneficaire.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellBeneficaire.setBorder(cellBeneficaire.TOP+cellBeneficaire.BOTTOM+cellBeneficaire.LEFT+cellBeneficaire.RIGHT);
+        tableBeneficaire.addCell(cellBeneficaire);
+        
+        
+        cellBeneficaire = new PdfPCell(new Phrase(" Nom,prénom ou raison sociale: "+bs.getSociete().getSoc_lib()
+        		+"\n\r"+" Adresse:"+ bs.getSociete().getAdresse(),new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
+        cellBeneficaire.setColspan(100);
+        cellBeneficaire.setPaddingLeft(5f);
+        cellBeneficaire.setPaddingTop(20f);
+        cellBeneficaire.setPaddingBottom(30f);
+        cellBeneficaire.setHorizontalAlignment(Element.ALIGN_LEFT);
+        cellBeneficaire.setBorder(cellBeneficaire.TOP+cellBeneficaire.BOTTOM+cellBeneficaire.LEFT+cellBeneficaire.RIGHT);
+        tableBeneficaire.addCell(cellBeneficaire);
+	    document.add(tableheader);
+	    document.add(tableFirst);
+	    document.add(tableBeneficaire);
+	    
+	
+}
+	
 	
 	public  void doWriteHeaderDocument_PDF_NOT_PASY(Document document, FileOutputStream fs ,String [][] mapFieldBean,BeanSession bSession) throws Exception {
 	    PdfWriter writer = PdfWriter.getInstance(document,  fs);
@@ -336,6 +811,8 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 			
 		}
 	
+	
+	 
 	
   public void doWrite_Header_ContentTable(Document document,int poucentage, String[][] mapFieldBean) throws Exception {
 		

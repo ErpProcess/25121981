@@ -1346,7 +1346,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 		   String IndexSoumod="";
 		 
 		   try {
-			   setObjectValueModel(CONTEXT_PATH, getRequest().getContextPath()+ ActionAuthentificationManager.PATH);
+			   setObjectValueModel(CONTEXT_PATH, getRequest().getContextPath()+ ActionAuthentificationManager.PATH_SLACH);
 			   removeObjectModel(MESSAGERROR);
 			   removeObjectModel(CUST_MESSAGERROR);
 			   

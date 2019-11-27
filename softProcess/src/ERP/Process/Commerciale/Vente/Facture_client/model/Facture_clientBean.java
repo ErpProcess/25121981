@@ -180,6 +180,8 @@ public class Facture_clientBean extends GenericBean {
 	
 	
 	 
+	@Transient
+	private  Double retenuSource ;
 	
 	
 	public String getBtnPrintCertificat() {
@@ -456,6 +458,14 @@ public class Facture_clientBean extends GenericBean {
 
 	public void setObservation(String observation) {
 		this.observation = observation;
+	}
+
+	public Double getRetenuSource() {
+		return retenuSource;
+	}
+
+	public void setRetenuSource(Double retenuSource) {
+		this.retenuSource = retenuSource;
 	}
 
 	 

@@ -126,10 +126,10 @@ public   static  JSONObject doLoadingConfigPrintDocument() throws Exception {
 	JSONObject jsonRe    = new JSONObject( );
 	List list=serviceconfigDevelopement.doFetchDatafromServer(beanSearch);
 	if(list!=null  &&   list.size()>0) {
-    	configDevelopementBean sdsds=(configDevelopementBean) list.get(0);
+    	configDevelopementBean json_properties=(configDevelopementBean) list.get(0);
     	GroovyShell shell = new GroovyShell();
    	    shell.setVariable("bs", bs);
-    	JSONObject json    = new JSONObject(sdsds.getJson_properties());
+    	JSONObject json    = new JSONObject(json_properties.getJson_properties());
 		JSONObject document     = json.getJSONObject("printDocument");
 		JSONObject header       = document.getJSONObject("headerDocument");
 		String entete="";
@@ -153,6 +153,62 @@ public   static  JSONObject doLoadingConfigPrintDocument() throws Exception {
      	
      	if( header.has("ligne6Body")  &&   !StringUtils.isBlank(header.getString("ligne6Body")))
      		 entete+=shell.evaluate(header.getString("ligne6Body"))+"\n\r";
+    	
+     	if( document.has("espaceTotalDesous") )
+     		jsonRe.put("espaceTotalDesous", document.getInt("espaceTotalDesous"));
+ 
+    	if( document.has("pageEvent") )
+    		jsonRe.put("pageEvent", document.getBoolean("pageEvent"));
+    	else
+    		jsonRe.put("pageEvent", false);
+     	
+     	jsonRe.put("entete", entete);
+     	
+    	return  jsonRe;
+    	
+	}else {
+		return null ;
+	}
+	
+
+}
+
+
+public   static  JSONObject doLoadingConfigPrintDocumentRetenue() throws Exception {
+	configDevelopementBean beanSearch = new configDevelopementBean();
+	BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+	beanSearch.getFk_etab_Bean().getPk_etab().setSoc_bean(bs.getSociete());
+	beanSearch.getFk_etab_Bean().getPk_etab().setEtab_id(bs.getEtab_id());
+	JSONObject jsonRe    = new JSONObject( );
+	List list=serviceconfigDevelopement.doFetchDatafromServer(beanSearch);
+	if(list!=null  &&   list.size()>0) {
+    	configDevelopementBean json_properties=(configDevelopementBean) list.get(0);
+//    	GroovyShell shell = new GroovyShell();
+//   	    shell.setVariable("bs", bs);
+    	JSONObject json    = new JSONObject(json_properties.getJson_properties());
+		JSONObject document     = json.getJSONObject("printRetenue");
+		JSONObject header       = document.getJSONObject("headerDocument");
+		String entete="";
+		if( header.has("ligne1Body")  &&   !StringUtils.isBlank(header.getString("ligne1Body")))
+		entete+= header.getString("ligne1Body") +"\n\r";
+		
+		if( header.has("ligne2Body")  &&   !StringUtils.isBlank(header.getString("ligne2Body")))
+		entete+= header.getString("ligne2Body") +"\n\r";
+
+		if( header.has("ligne3Body")  &&   !StringUtils.isBlank(header.getString("ligne3Body")))
+		entete+= header.getString("ligne3Body") +"\n\r";
+		
+		if( header.has("ligne4Body")  &&   !StringUtils.isBlank(header.getString("ligne4Body")))
+		entete+= header.getString("ligne4Body") +"\n\r";
+		
+		if( header.has("ligne5Body")  &&   !StringUtils.isBlank(header.getString("ligne5Body")))
+		entete+= header.getString("ligne5Body") +"\n\r";
+		
+     	if( header.has("ligne6Body")  &&   !StringUtils.isBlank(header.getString("ligne6Body")))
+  		 entete+= header.getString("ligne6Body") +"\n\r";
+     	
+     	if( header.has("ligne7Body")  &&   !StringUtils.isBlank(header.getString("ligne7Body")))
+     		 entete+= header.getString("ligne7Body") +"\n\r";
     	
      	if( document.has("espaceTotalDesous") )
      		jsonRe.put("espaceTotalDesous", document.getInt("espaceTotalDesous"));

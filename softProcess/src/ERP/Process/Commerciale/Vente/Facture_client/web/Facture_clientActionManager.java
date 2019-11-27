@@ -63,7 +63,10 @@ import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BDateTime;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.CompteBancaire.model.CompteBancaireBean;
 import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.CompteBancaire.service.CompteBancaireService;
+import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.configDevelopement.model.configDevelopementBean;
+import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.configDevelopement.service.configDevelopementService;
 import ERP.eXpertSoft.wfsi.jqueryoR.datatables.controller.AjaxDataTablesUtility;
+import groovy.lang.GroovyShell;
 
 import com.google.gson.JsonObject;
 import com.itextpdf.text.BaseColor;
@@ -82,6 +85,9 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	private static final long serialVersionUID = 7178009925664163073L;
 	
 	private Facture_clientService  serviceFacture;
+	
+	@Autowired
+	private configDevelopementService serviceconfigDevelopement;
 	
 	
 	@Autowired
@@ -260,6 +266,19 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	}
 	
 	
+	public ModelAndView doPrintRetenuSource() throws Exception {
+		PrintPdfModelSPL print = new PrintPdfModelSPL();
+		try {
+			Facture_clientBean fBean = new Facture_clientBean();
+			fBean.setFact_clt_id(getRequest().getParameter("factId"));
+			List list=serviceFacture.doFetchDatafromServer(fBean);
+			print.doPrintRetenuSource((Facture_clientBean) list.get(0));
+		} catch (Exception e) {
+			displayException(e);
+		}
+		return null;
+	}
+	
 	public    ModelAndView doResetForm_apres_facture() {
 		setObjectValueModel("PDF_IS_CMD", "OUI");
 		setObjectValueModel(MAP_FIELD_BEAN, ProcedureVenteTemplate.MapfieldBean);
@@ -284,11 +303,30 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 							+ "   AND  bean.etat_reg.data_id='fnon'    ");
 					//TODO  teste is false for  find  facture in  list   a supp into entity reglment 
 				}  
+				configDevelopementBean beanSearch = new configDevelopementBean();
+				beanSearch.getFk_etab_Bean().getPk_etab().setSoc_bean(bs.getSociete());
+				beanSearch.getFk_etab_Bean().getPk_etab().setEtab_id(bs.getEtab_id());
+				List list=serviceconfigDevelopement.doFetchDatafromServer(beanSearch);
+				double baseRetenue=-1;
+				double pourcentage=-1;
+				if(list!=null  &&   list.size()>0) {
+			    	configDevelopementBean json_properties=(configDevelopementBean) list.get(0);
+			    	JSONObject json    = new JSONObject(json_properties.getJson_properties());
+					JSONObject retenuSource     = json.getJSONObject("retenuSource");
+					baseRetenue       = retenuSource.getDouble("baseRetenue");
+					pourcentage       = retenuSource.getDouble("pourcentage");
+				}
 				List listDataSrv = serviceFacture.doFetchDatafromServer(searchBean);
+				
 				Double totGridFctClient = new Double(0);
 				for (int i = 0; i < listDataSrv.size(); i++) {
 					Facture_clientBean  reBean	=(Facture_clientBean) listDataSrv.get(i);
 					totGridFctClient=ProcessNumber.addition(totGridFctClient,  ProcessFormatNbr.FormatDouble_Troischiffre(reBean.getTotal_facture()) );
+					if( baseRetenue > -1 &&   pourcentage >-1 && reBean.getTotal_facture()!=null  &&
+							reBean.getTotal_facture() >  baseRetenue   ) {
+						Double retenu=ProcessNumber.Pourcentage(reBean.getTotal_facture(), pourcentage);
+						reBean.setRetenuSource( ProcessFormatNbr.FormatDouble_Troischiffre(retenu)  );
+					}
 				}
 				setObjectValueModel("totGridFctClient", totGridFctClient);
 				

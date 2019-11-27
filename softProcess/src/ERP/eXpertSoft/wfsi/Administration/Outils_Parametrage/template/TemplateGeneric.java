@@ -377,7 +377,7 @@ public static ModelAndView doChangePrintFormat( ) throws Exception{
 			error.setMessage("");
 		}
 		mode.addObject(MESSAGERROR, error.getMessage());
-		mode.setViewName(getRequest().getContextPath() + ActionAuthentificationManager.PATH + "Login");
+		mode.setViewName(getRequest().getContextPath() + ActionAuthentificationManager.PATH_SLACH + "Login");
 		return mode;
 	}
 
@@ -389,11 +389,11 @@ public static ModelAndView doChangePrintFormat( ) throws Exception{
 			ModelAndView mode = new ModelAndView();
 			error.setMessage("Votre Session a été abondanée, Identifiez vous de nouveau ");
 			mode.addObject(MESSAGERROR, error.getMessage());
-			mode.setViewName(getRequest().getContextPath() + ActionAuthentificationManager.PATH + "next");
+			mode.setViewName(getRequest().getContextPath() + ActionAuthentificationManager.PATH_SLACH + "next");
 			return mode;
 		}else{
 			ModelAndView mod=getModel();
-			mod.setViewName(getRequest().getContextPath() + ActionAuthentificationManager.PATH + "next");
+			mod.setViewName(getRequest().getContextPath() + ActionAuthentificationManager.PATH_SLACH + "next");
 			return mod;
 		}
 		

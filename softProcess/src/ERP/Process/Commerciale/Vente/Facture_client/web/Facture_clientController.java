@@ -38,6 +38,10 @@ public class Facture_clientController  extends Facture_clientActionManager   {
 		         
 		          if (i$_ACT_AJAX_FETCH)            return      doFetchData(detailBean);
 		          
+		          if (i$_ACT_PRINT_RETENUE_ALASOURCE)    return      doPrintRetenuSource();
+		          
+		          
+		          
 		          
 		          if (i$_RESET_APRES_FACT)          return      doResetForm_apres_facture();
 		        

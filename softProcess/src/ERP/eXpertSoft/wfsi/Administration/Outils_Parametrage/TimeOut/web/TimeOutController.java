@@ -35,7 +35,7 @@ public class TimeOutController extends ActionTimeOutManager    {
 		 MessageBean error       = new MessageBean();
 		 error.setMessage("sessionOufet");
 		 mode.addObject(MESSAGERROR, "sessionOufet");
-		     mode.setViewName(getRequest().getContextPath()+ActionAuthentificationManager.PATH+"index");
+		     mode.setViewName(getRequest().getContextPath()+ActionAuthentificationManager.PATH_SLACH+"index");
 		     return mode;
 
 	}

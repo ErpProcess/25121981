@@ -11,9 +11,24 @@
 	  "mRender": function (data, type, full) {   if( full[5]=="191"  ||  full[5]=="192") return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },
 	  
    
+
+  
+  { "sTitle": "Retenue"         ,"sName": "retenuSource"      ,"sWidth": "15%"    ,"sClass" : "alignRight"   , "bSortable": "true"  ,
+	  "mRender": function (data, type, full) { 
+		  if( data !=""  ||  data !=null )
+		  return '<a   href="#"  onclick="doPrintRetenu(\''+full[0]+'\');return false;"   style="width:100%;"       >'+formatNumberJsXC(data,3)+'</a>';
+		  else  return "" } 
+  },
+	  
   { "sTitle": "etat.reg"            ,"sName": "etat_reg.data_libelle"                     ,"sWidth": "12%"   , "bSortable": "true"   },  
   { "sTitle": "${_mode}"            ,"sName": "modeBean.fct_libelle"                     ,"sWidth": "8%"   , "bSortable": "true"   },  
   ];
+ 
+ function doPrintRetenu(factId){
+  	 genericPdfProcess(contexPath+"${tmlx.url}?HiddenAction=i$_ACT_PRINT_RETENUE_ALASOURCE&factId="+factId);  
+ }
+ 
+ 
 </script> 
  <jsp:include  page="${context_path}/dataGridSetting/dataGridConfig.jsp" />
  
@@ -21,6 +36,7 @@
 			    <tfoot>
 		                    <tr  > 
 								<td colspan="3"></td>
+								<td ></td>
 								<td ></td>
 								<td ></td>
 								<td ></td>

@@ -139,6 +139,11 @@ public static boolean i$_ACT_VERIF_LIST     = false;
 
 public static boolean i$_ACT_FETCH_AJAX_VENTE = false;
 public static boolean i$_ACT_GEN_FACTURE      = false;
+
+public static boolean i$_ACT_PRINT_RETENUE_ALASOURCE      = false;
+
+ 
+
 public static boolean i$_ACT_CALCUL_TOTAL     = false;
 public static boolean i$_ACT_CALCUL_TOTAL_GRID= false;
 
