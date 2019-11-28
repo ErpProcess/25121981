@@ -278,9 +278,36 @@ public class GeneratePdf extends  GenericWeb {
 				        
 				        
 					   
-				    }   
+	       }   
 			   
        }
+		  
+		JSONObject  json = (JSONObject) getObjectValueModel("totalList");
+		  if(json!=null) {
+			  for(int j = 0; j < mapFieldBean.length; j++){
+			        PdfPCell cell = new PdfPCell(new Phrase("",REDFONT));
+			        if(json!=null &&  json.has(mapFieldBean[j][0]) ) {
+			        	String valueData=json.getString(mapFieldBean[j][0]);
+				        cell = new PdfPCell(new Phrase(valueData,REDFONT));
+				        cell.setHorizontalAlignment(2);
+				        cell.setPaddingBottom(5);
+				        cell.setBackgroundColor(colorLigne);
+				        table.addCell(cell);
+			        }else {
+			        	cell = new PdfPCell(new Phrase("",REDFONT));
+				        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+				        cell.setPaddingBottom(5);
+				        cell.setBackgroundColor(colorLigne);
+				        table.addCell(cell);
+			        }
+				   
+                 }   
+		  }
+			 
+		  
+		  
+			
+			 
 		
 	}
 

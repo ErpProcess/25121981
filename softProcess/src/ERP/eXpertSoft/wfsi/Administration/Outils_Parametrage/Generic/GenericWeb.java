@@ -1349,11 +1349,10 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 			   setObjectValueModel(CONTEXT_PATH, getRequest().getContextPath()+ ActionAuthentificationManager.PATH_SLACH);
 			   removeObjectModel(MESSAGERROR);
 			   removeObjectModel(CUST_MESSAGERROR);
-			   
 	    if( HiddenAction.equals("i$_ACT_INIT_SERVLET")){
 	    	removeObjectModel(FORM_BEAN);
 	    	setObjectValueModel(HIDDEN_ACTION, HiddenAction);
-	    	 
+	    	setObjectValueModel("totalList", null);
 	    	BeanSession  bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 	    	String  data_action= getRequest().getParameter("data_action")==null?"":getRequest().getParameter("data_action");
 	    	bs.setData_action(data_action);

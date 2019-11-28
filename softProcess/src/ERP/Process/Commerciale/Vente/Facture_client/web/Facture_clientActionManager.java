@@ -319,6 +319,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				List listDataSrv = serviceFacture.doFetchDatafromServer(searchBean);
 				
 				Double totGridFctClient = new Double(0);
+				Double totRetenueFctClient = new Double(0);
 				for (int i = 0; i < listDataSrv.size(); i++) {
 					Facture_clientBean  reBean	=(Facture_clientBean) listDataSrv.get(i);
 					totGridFctClient=ProcessNumber.addition(totGridFctClient,  ProcessFormatNbr.FormatDouble_Troischiffre(reBean.getTotal_facture()) );
@@ -326,9 +327,11 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 							reBean.getTotal_facture() >  baseRetenue   ) {
 						Double retenu=ProcessNumber.Pourcentage(reBean.getTotal_facture(), pourcentage);
 						reBean.setRetenuSource( ProcessFormatNbr.FormatDouble_Troischiffre(retenu)  );
+						totRetenueFctClient=ProcessNumber.addition(totRetenueFctClient,  ProcessFormatNbr.FormatDouble_Troischiffre(retenu) );
 					}
 				}
 				setObjectValueModel("totGridFctClient", totGridFctClient);
+				setObjectValueModel("totRetenueFctClient", totRetenueFctClient);
 				
 				setObjectValueModel(SEARCH_BEAN, searchBean);
 				AjaxDataTablesUtility.doInitJQueryGrid(listDataSrv);
@@ -2223,8 +2226,16 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			
 			try {
 				Double totGridFctClient= (Double) getObjectValueModel("totGridFctClient");
-				getResponse().getWriter().print(ProcessFormatNbr.FormatDouble_To_String_Troischiffre(totGridFctClient));
-				//removeObjectModel("totGridFctClient");
+				Double totRetenueFctClient= (Double) getObjectValueModel("totRetenueFctClient");
+				
+				 JSONObject  json = new JSONObject();
+				 json.put("total_facture",ProcessFormatNbr.FormatDouble_To_String_Troischiffre(totGridFctClient));
+				 json.put("client.clt_lib","Total");
+				 json.put("retenuSource",ProcessFormatNbr.FormatDouble_To_String_Troischiffre(totRetenueFctClient));
+				 setObjectValueModel("totalList", json);
+				 getResponse().setContentType(JSON_CONTENT_TYPE);      
+				 getResponse().getWriter().write(json.toString());
+ 
 			} catch (Exception e) {
 				getResponse().setContentType(HTML_CONTENT_TYPE);
 				getResponse().getWriter().print(e.getMessage());

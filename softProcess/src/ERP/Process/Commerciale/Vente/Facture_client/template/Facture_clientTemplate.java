@@ -62,6 +62,7 @@ public static JSONObject propertieField = new JSONObject("{"+
                    "\"fact_clt_id\": {\"title\": \"fact_clt_id\",\"width\": 20 ,\"type\":\"String\", \"size\": 10 , \"align\": 0 },"+
                    "\"client.clt_lib\": {\"title\": \"clt_lib\",\"width\": 30 ,\"type\":\"String\", \"size\": 10 , \"align\": 0 },"+
                    "\"total_facture\": {\"title\": \"total_facture\",\"width\": 30 ,\"type\":\"montant3\", \"size\": 10 , \"align\": 2 },"+
+                   "\"retenuSource\": {\"title\": \"retenuSource\",\"width\": 30 ,\"type\":\"montant3\", \"size\": 10 , \"align\": 2 },"+
                    "\"etat_reg.data_libelle\": {\"title\": \"etat_reg.data_libelle\",\"width\": 30 ,\"type\":\"String\", \"size\": 10 , \"align\": 0 },"+
   "}"
  );

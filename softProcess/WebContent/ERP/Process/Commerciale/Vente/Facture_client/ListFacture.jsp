@@ -45,12 +45,12 @@
 								<td ></td>
 						    </tr>
 				 </tfoot>
-			    </table>
+			    </table>    
 			    
 <script type="text/javascript">
 					function doLoaderDataFooter( nRow,aData, iStart, iEnd){
-					    var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_CALCUL_TOTAL_GRID','text',false);
-				        var firstitems  = {"2":"Total"    ,"3":json   };
+					    var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_CALCUL_TOTAL_GRID','json',false);
+				        var firstitems  = {"2":"Total"    ,"3":json['total_facture'],  "4":json['retenuSource']  };
 				        var items       = {"A":firstitems };
 				    return  items; 
 				}
