@@ -238,7 +238,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 		
 	     
 	    JSONObject doc = configDevelopementActionManager.doLoadingConfigPrintDocumentRetenue();		
-	    cellheder = new PdfPCell(new Phrase( doc.getString("entete").toUpperCase()  ,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
+	    cellheder = new PdfPCell(new Phrase( doc.getString("entete").toUpperCase()  ,new Font(Font.getFamily("TIMES_ROMAN"), 9,  Font.BOLD)));
 	    cellheder.setColspan(100);
 	    cellheder.setHorizontalAlignment(Element.ALIGN_LEFT);
 	    cellheder.setPaddingLeft(28f);
@@ -247,7 +247,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    cellheder.setBorder(cellheder.NO_BORDER);
 	    tableheader.addCell(cellheder);
 	    
-	    cellheder = new PdfPCell(new Phrase("     CIRTIFICAT DE RETENUE D'IMPOT \n\r     SUR LE REVENU OU D'IMPOT SUR LES SOCIETES".toUpperCase(),new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
+	    cellheder = new PdfPCell(new Phrase("     CIRTIFICAT DE RETENUE D'IMPOT \n\r     SUR LE REVENU OU D'IMPOT SUR LES SOCIETES".toUpperCase(),new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
 	    cellheder.setColspan(100);
 	    cellheder.setPaddingBottom(10f);
 	    cellheder.setPaddingLeft(28f);
@@ -263,7 +263,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	    cellheder.setBorder(cellheder.NO_BORDER);
 	    tableheader.addCell(cellheder);
 	    
-	    cellheder = new PdfPCell(new Phrase(" Retenue effectuée le "+ ProcessDate.getStringFormatDate(fBean.getFact_date())  ,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.NORMAL)));
+	    cellheder = new PdfPCell(new Phrase(" Retenue effectuée le "+ ProcessDate.getStringFormatDate(fBean.getFact_date())  ,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
 	    cellheder.setColspan(40);
 	    cellheder.setPaddingBottom(10f);
 	    cellheder.setPaddingLeft(28f);

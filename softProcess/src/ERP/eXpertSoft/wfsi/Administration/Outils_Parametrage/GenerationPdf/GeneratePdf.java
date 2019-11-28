@@ -186,6 +186,7 @@ public class GeneratePdf extends  GenericWeb {
 			   
 			    Document document=GeneratePdf.doGenerateDocumentFormat();
 		        PdfPTable table = new PdfPTable(mapFieldBean.length);
+		         
 		        String    title= (String)getObjectValueModel("list-"+bSession.getSousmod_id()) ; 
 		        if(title==null)
 		             title =(String)getObjectValueModel("list-"+bSession.getSousmod_libelle()) ;
@@ -196,6 +197,7 @@ public class GeneratePdf extends  GenericWeb {
 			    doWriteTitle_Table(document,title);
 			    doWrite_Header_Table(table,mapFieldBean);
 		        doWrite_Data_Table(lisData,table,mapFieldBean);
+		        
 		        document.add(table);
 		        document.close();
 		        
@@ -285,16 +287,16 @@ public class GeneratePdf extends  GenericWeb {
 		JSONObject  json = (JSONObject) getObjectValueModel("totalList");
 		  if(json!=null) {
 			  for(int j = 0; j < mapFieldBean.length; j++){
-			        PdfPCell cell = new PdfPCell(new Phrase("",REDFONT));
+			        PdfPCell cell = new PdfPCell(new Phrase("",new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.BOLD))); 
 			        if(json!=null &&  json.has(mapFieldBean[j][0]) ) {
-			        	String valueData=json.getString(mapFieldBean[j][0]);
-				        cell = new PdfPCell(new Phrase(valueData,REDFONT));
+			        	String valueData=json.getString(mapFieldBean[j][0]); 
+				        cell = new PdfPCell(new Phrase(valueData,new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.BOLD)));
 				        cell.setHorizontalAlignment(2);
 				        cell.setPaddingBottom(5);
 				        cell.setBackgroundColor(colorLigne);
 				        table.addCell(cell);
 			        }else {
-			        	cell = new PdfPCell(new Phrase("",REDFONT));
+			        	cell = new PdfPCell(new Phrase("",new Font(Font.getFamily("TIMES_ROMAN"), 10, Font.BOLD)));
 				        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 				        cell.setPaddingBottom(5);
 				        cell.setBackgroundColor(colorLigne);
@@ -521,7 +523,7 @@ public class GeneratePdf extends  GenericWeb {
 		Document document = null;
 		BeanSession bSession = (BeanSession) getObjectValueModel(BEAN_SESSION);
 		if (bSession.getFormatPrint().equals("portrait")) {
-			document = new Document(PageSize.A4, 5, 5, 5, 25);
+			document = new Document(PageSize.A4, 5, 5, 30, 25);
 		} else {
 			document = new Document(PageSize.A4.rotate(), 5, 5, 20, 40);
 		}
