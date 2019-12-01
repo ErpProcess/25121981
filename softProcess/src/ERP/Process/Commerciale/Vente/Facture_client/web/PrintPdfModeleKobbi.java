@@ -411,7 +411,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 	
 		    PdfPTable tableTopHeader3 = new PdfPTable(100);
 		    tableTopHeader3.setWidthPercentage(85);
-		    PdfPCell cellSummary = new PdfPCell(new Phrase( denBean.getObservation()+""+""+Jsoup.parse("كلغ").body().text()+"                        "+denBean.getFact_ref_id(),arialuniArab));
+		    PdfPCell cellSummary = new PdfPCell(new Phrase( denBean.getObservation()+""+""+Jsoup.parse("كلغ").body().text()+"                        "+denBean.getFact_clt_id(),arialuniArab));
 	        cellSummary.setHorizontalAlignment(Element.ALIGN_RIGHT);
 	        cellSummary.setPaddingBottom(3);
 	        cellSummary.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
@@ -786,7 +786,7 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 		    cell.setBorder(cell.NO_BORDER);
 		    tableTopHeader.addCell(cell);
 		    
-		    cell = new PdfPCell(new Phrase(" "+denBean.getFact_ref_id(),GeneratePdf.Normal_11_times_roman));
+		    cell = new PdfPCell(new Phrase(" "+denBean.getFact_clt_id(),GeneratePdf.Normal_11_times_roman));
 		    cell.setColspan(25);
 		    cell.setFixedHeight(20f);
 		    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -1111,7 +1111,7 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 				HashMap  mapInvoiceClient=  new HashMap();
 				for (int i = 0; i < listmapDate.size(); i++) {
 					Det_Fact_ClientBean dBean  =(Det_Fact_ClientBean) listmapDate.get(i);
-					String  key =dBean.getPk().getFactclient().getFact_ref_id()+"²µ²"+dBean.getPk().getFactclient().getClient().getClt_lib();
+					String  key =dBean.getPk().getFactclient().getFact_clt_id()+"²µ²"+dBean.getPk().getFactclient().getClient().getClt_lib();
 					List listInvoice=(List) mapInvoiceClient.get(key);
 					if(listInvoice==null) {listInvoice= new ArrayList();  }
 					listInvoice.add(dBean);
@@ -1129,9 +1129,9 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 					for (int i = 0; i < listInvoiceClient.size(); i++) {
 					    Det_Fact_ClientBean dBean  =(Det_Fact_ClientBean) listInvoiceClient.get(i);	
 					    EtatVenteProduit  etatBean  =  new EtatVenteProduit();
-					    totfacture =ProcessNumber.addition(totfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getMontant_ttc_vente(), devise.getChiffre_pattern())  );
+					    totfacture =ProcessNumber.addition(totfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getPk().getFactclient().getTotal_facture(), devise.getChiffre_pattern())  );
 					    
-					    totGenfacture =ProcessNumber.addition(totGenfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getMontant_ttc_vente(), devise.getChiffre_pattern())  );
+					    totGenfacture =ProcessNumber.addition(totGenfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getPk().getFactclient().getTotal_facture(), devise.getChiffre_pattern())  );
 					    totGenQte =ProcessNumber.addition(totGenQte,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getQuantite(), devise.getChiffre_pattern())  );
 					    totGenNbrBox =ProcessNumber.addition(totGenNbrBox,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getNbrBoxes(), devise.getChiffre_pattern())  );
 					    
@@ -1237,15 +1237,7 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 			   cell.setBackgroundColor(GeneratePdf.colorLigne);
 			   table.addCell(cell);
 			   
-			   cell = new PdfPCell(new Phrase( ProcessFormatNbr.convertDoubleToIntString(bean.getNbrBox())  ,GeneratePdf.Bold_10_times_roman));
-			   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-		       cell.setPadding(5f);
-		       cell.setPaddingBottom(7f);
-			   cell.setBackgroundColor(BaseColor.WHITE);
-			   if(i%2==0)
-			   cell.setBackgroundColor(GeneratePdf.colorLigne);
-			   table.addCell(cell);
+			    
 			   
 			   cell = new PdfPCell(new Phrase( ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(bean.getPrixUnit(), devise, true, false)  ,GeneratePdf.Bold_10_times_roman));
 			   cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -1293,13 +1285,6 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 			   cell.setBackgroundColor(GeneratePdf.colorLigne);
 			   table.addCell(cell);
 			   
-			   cell = new PdfPCell(new Phrase( ProcessFormatNbr.convertDoubleToIntString(totGenNbrBox)  ,GeneratePdf.Bold_10_times_roman));
-			   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-			   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-		       cell.setPadding(5f);
-		       cell.setPaddingBottom(7f);
-			   cell.setBackgroundColor(GeneratePdf.colorLigne);
-			   table.addCell(cell);
 			   
 			   cell = new PdfPCell(new Phrase("" ,GeneratePdf.Bold_10_times_roman));
 			   cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -1536,15 +1521,15 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 			   cell.setBackgroundColor(GeneratePdf.colorLigne);
 			   table.addCell(cell);
 			   
-			   cell = new PdfPCell(new Phrase( ProcessFormatNbr.convertDoubleToIntString(totGenNbrBox)  ,GeneratePdf.Bold_10_times_roman));
-			   cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			   cell = new PdfPCell(new Phrase( ProcessFormatNbr.convertDoubleToIntString(totGenNbrBox)   ,GeneratePdf.Bold_10_times_roman));
+			   cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		       cell.setPadding(5f);
 		       cell.setPaddingBottom(7f);
 			   cell.setBackgroundColor(GeneratePdf.colorLigne);
 			   table.addCell(cell);
 			   
-			   cell = new PdfPCell(new Phrase("" ,GeneratePdf.Bold_10_times_roman));
+			   cell = new PdfPCell(new Phrase( ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(totGenfacture, devise, true, false) ,GeneratePdf.Bold_10_times_roman));
 			   cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		       cell.setPadding(5f);
@@ -1552,13 +1537,7 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 			   cell.setBackgroundColor(GeneratePdf.colorLigne);
 			   table.addCell(cell);
 			 
-			   cell = new PdfPCell(new Phrase(   ProcessFormatNbr.FormatDouble_To_String_PatternChiffrePrefixes(totGenfacture, devise, true, false)   ,GeneratePdf.Bold_10_times_roman));
-			   cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-			   cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			   cell.setPadding(5f);
-			   cell.setPaddingBottom(7f);
-			   cell.setBackgroundColor(GeneratePdf.colorLigne);
-			   table.addCell(cell);
+			   
 			 
 		    
 		    

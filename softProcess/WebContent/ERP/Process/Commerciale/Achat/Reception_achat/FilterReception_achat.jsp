@@ -1,4 +1,4 @@
-<c:import  url="${bs.home}"   />
+<%@include file="/Aceuil/esProcess.jsp" %> 
 <script type="text/javascript">
 $(document).ready(function () {
 LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle","achat_obs","list_depot_stock","250","100");

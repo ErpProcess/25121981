@@ -272,7 +272,22 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			Facture_clientBean fBean = new Facture_clientBean();
 			fBean.setFact_clt_id(getRequest().getParameter("factId"));
 			List list=serviceFacture.doFetchDatafromServer(fBean);
-			print.doPrintRetenuSource((Facture_clientBean) list.get(0));
+			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
+			configDevelopementBean beanSearch = new configDevelopementBean();
+			beanSearch.getFk_etab_Bean().getPk_etab().setSoc_bean(bs.getSociete());
+			beanSearch.getFk_etab_Bean().getPk_etab().setEtab_id(bs.getEtab_id());
+			List listParam=serviceconfigDevelopement.doFetchDatafromServer(beanSearch);
+			double baseRetenue=-1;
+			double pourcentage=-1;
+			if(listParam!=null  &&   listParam.size()>0) {
+		    	configDevelopementBean json_properties=(configDevelopementBean) listParam.get(0);
+		    	JSONObject json    = new JSONObject(json_properties.getJson_properties());
+				JSONObject retenuSource     = json.getJSONObject("retenuSource");
+				baseRetenue       = retenuSource.getDouble("baseRetenue");
+				pourcentage       = retenuSource.getDouble("pourcentage");
+			}
+			
+			print.doPrintRetenuSource((Facture_clientBean) list.get(0),pourcentage);
 		} catch (Exception e) {
 			displayException(e);
 		}

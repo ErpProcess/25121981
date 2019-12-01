@@ -689,8 +689,8 @@ private JSONArray doWriteHeaderGridDataEtatFactureVenteProduit() throws Exceptio
 			 listcol.put(element);
 			 
 			 element = new JSONObject();
-			 element.put("sTitle","Invoice");
-			 element.put("sName","pk.factclient.fact_ref_id");
+			 element.put("sTitle","Facture");
+			 element.put("sName","pk.factclient.fact_clt_id");
 			 element.put("sWidth","5%" );
 			 element.put("bSortable","true" );
 			 listcol.put(element);
@@ -717,28 +717,28 @@ private JSONArray doWriteHeaderGridDataEtatFactureVenteProduit() throws Exceptio
 			 element.put("bSortable","true" );
 			 listcol.put(element);
 			 
-			 element = new JSONObject();
-			 element.put("sTitle","N/box");
-			 element.put("sName","nbrBoxes");
-			 element.put("sWidth","10%" );
-			 element.put("bSortable","true" );
-			 listcol.put(element);
+//			 element = new JSONObject();
+//			 element.put("sTitle","N/box");
+//			 element.put("sName","nbrBoxes");
+//			 element.put("sWidth","10%" );
+//			 element.put("bSortable","true" );
+//			 listcol.put(element);
+//			 
 			 
-			 
 			 element = new JSONObject();
-			 element.put("sTitle","prix/Kg");
+			 element.put("sTitle","prix U");
 			 element.put("sName","tarif_unit_vente");
-			 element.put("formatMnt2","oui");
+			 element.put("formatMnt3","oui");
 			 element.put("sWidth","15%" );
 			 element.put("sClass","alignCenter" );
 			 element.put("bSortable","true" );
 			 listcol.put(element);
 			 
 			 
-			 element = new JSONObject();
+			 element = new JSONObject(); 
 			 element.put("sTitle","Total");
-			 element.put("formatMnt2","oui");
-			 element.put("sName","montant_ttc_vente");
+			 element.put("formatMnt3","oui");
+			 element.put("sName","pk.factclient.total_facture");
 			 element.put("sWidth","15%" );
 			 element.put("sClass","alignRight" );
 			 element.put("bSortable","true" );

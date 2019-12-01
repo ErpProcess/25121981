@@ -23,7 +23,7 @@ public static String  LIST_DATA         = "EditionVente-List";
 public static String  NAME_GRID         = "EditionVente-Grid";
 public static String [][] MapfieldEtatDeVente  = new String[][]{{ "date", "12" }, { "invoice", "12" },
 																{ "client", "33" },{ "description", "35" },
-																{ "qte", "10" },{ "nbrBox", "10" },
+																{ "qte", "10" },
 																{ "prixUnit", "20" },{ "total", "20" },
 															    };
 

@@ -1820,8 +1820,8 @@ public Boolean doSaveFacture( ProcedureVenteBean detailBean, List  liste_detaill
 			beanSaveS.setTotal_tva_fact(beanTotal.getVente_mnt_tva());
 			
 			Double timbre=ProcessFormatNbr.FormatDouble_ParameterChiffre(bs.getSociete().getMontant_timbre_fiscal(),"0.000");
-			Double getVente_mnt_total=  ProcessNumber.addition(beanTotal.getVente_mnt_total(), timbre )   ;
-			beanSaveS.setTotal_facture(getVente_mnt_total);
+			//Double getVente_mnt_total=  ProcessNumber.addition(beanTotal.getVente_mnt_total(), timbre )   ;
+			beanSaveS.setTotal_facture(beanTotal.getVente_mnt_total());
 			
 			beanSaveS.setNet_a_payer(beanTotal.getVente_mnt_net_a_payer());
 			beanSaveS.setFacture_remise(beanTotal.getVente_remise());

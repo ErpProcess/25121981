@@ -139,7 +139,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
      }
 	
 	
-	public    ModelAndView doPrintRetenuSource(Facture_clientBean fBean ) throws Exception   {
+	public    ModelAndView doPrintRetenuSource(Facture_clientBean fBean, double pourcentage ) throws Exception   {
 		 
 		 
 	 
@@ -160,7 +160,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 			
 			Document document=GeneratePdf.doGenerateDocumentFormat();
 	        BeanSession bSession= (BeanSession) getObjectValueModel(BEAN_SESSION);
-	        doWriteHeaderDocumentRetenuSource(document,fs,mapfieldBeanDetaille,bSession,fBean);
+	        doWriteHeaderDocumentRetenuSource(document,fs,mapfieldBeanDetaille,bSession,fBean,pourcentage);
 	        String affich_mont ="Sfax le "+ ProcessDate.getStringFormatDate(fBean.getFact_date()) ;
 	        
 	        PdfPTable tabletitle = new PdfPTable(100);
@@ -220,7 +220,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
 	
 	public  void doWriteHeaderDocumentRetenuSource(Document document, 
 			FileOutputStream fs ,String [][] mapFieldBean,BeanSession bSession,
-			Facture_clientBean fBean) throws Exception {
+			Facture_clientBean fBean, double pourcentage) throws Exception {
 	    PdfWriter writer = PdfWriter.getInstance(document,  fs);
 	    TableHeaderNormale event = new TableHeaderNormale(bSession);
         //writer.setPageEvent(event);
@@ -415,7 +415,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
         tableFirst.addCell(cellFirst);
         
         cellFirst = new PdfPCell(new Phrase(
-        		ProcessFormatNbr.FormatDouble_To_String_Troischiffre(ProcessNumber.Pourcentage(fBean.getTotal_facture(), 15) )
+        		ProcessFormatNbr.FormatDouble_To_String_Troischiffre(ProcessNumber.Pourcentage(fBean.getTotal_facture(), pourcentage) )
         		,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
         cellFirst.setColspan(15);
         cellFirst.setPaddingLeft(1f);
@@ -430,7 +430,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
         		
         		ProcessFormatNbr.FormatDouble_To_String_Troischiffre(
         				
-        				ProcessNumber.SOUSTRACTION(fBean.getTotal_facture(), ProcessNumber.Pourcentage(fBean.getTotal_facture(), 15))
+        				ProcessNumber.SOUSTRACTION(fBean.getTotal_facture(), ProcessNumber.Pourcentage(fBean.getTotal_facture(), pourcentage))
         				 
         				
         				)
@@ -463,7 +463,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
         tableFirst.addCell(cellFirst);
         
         cellFirst = new PdfPCell(new Phrase(
-        		ProcessFormatNbr.FormatDouble_To_String_Troischiffre(ProcessNumber.Pourcentage(fBean.getTotal_facture(), 15) )
+        		ProcessFormatNbr.FormatDouble_To_String_Troischiffre(ProcessNumber.Pourcentage(fBean.getTotal_facture(), pourcentage) )
         		,new Font(Font.getFamily("TIMES_ROMAN"), 9, Font.BOLD)));
         cellFirst.setColspan(15);
         cellFirst.setPaddingLeft(1f);
@@ -478,7 +478,7 @@ public class PrintPdfModelSPL   extends GenericWeb  {
         		
         		ProcessFormatNbr.FormatDouble_To_String_Troischiffre(
         				
-        				ProcessNumber.SOUSTRACTION(fBean.getTotal_facture(), ProcessNumber.Pourcentage(fBean.getTotal_facture(), 15))
+        				ProcessNumber.SOUSTRACTION(fBean.getTotal_facture(), ProcessNumber.Pourcentage(fBean.getTotal_facture(), pourcentage))
         				 
         				
         				)
