@@ -1123,7 +1123,7 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 				for (Iterator iterInvo = mapInvoiceClientSet.iterator(); iterInvo.hasNext();) {
 					String iClientnvoice = (String) iterInvo.next();
 					String[] element=iClientnvoice.split("²µ²");
-					boolean isrowSpanDetailFacture=true;
+					boolean isrowSpanDetailFacture=true;  
 					List listInvoiceClient=(List) mapInvoiceClient.get(iClientnvoice);
 					Double totfacture= new Double(0);
 					for (int i = 0; i < listInvoiceClient.size(); i++) {
