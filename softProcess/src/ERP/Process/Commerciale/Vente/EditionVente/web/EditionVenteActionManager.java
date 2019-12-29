@@ -738,7 +738,7 @@ private JSONArray doWriteHeaderGridDataEtatFactureVenteProduit() throws Exceptio
 			 element = new JSONObject(); 
 			 element.put("sTitle","Total");
 			 element.put("formatMnt3","oui");
-			 element.put("sName","pk.factclient.total_facture");
+			 element.put("sName","montant_ttc_vente");
 			 element.put("sWidth","15%" );
 			 element.put("sClass","alignRight" );
 			 element.put("bSortable","true" );

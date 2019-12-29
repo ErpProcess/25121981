@@ -51,11 +51,16 @@ public class ProcessNumber {
 	public static <T extends Number> double DIVISION (T one, T two) throws Exception{
 		try {
 			
-			
-			 if(one==null)one= (T) new Double(1);
+		 
+			  if(one==null)one= (T) new Double(1);
 			  if(two==null)two= (T) new Double(1);
-			 
-			 return one.doubleValue() / two.doubleValue(); 
+			  if(  (   one.equals(new Double(0))    &&   two.equals(new Double(0) ) )  ||   two.equals(new Double(0))   ) 
+				  return 0;
+			  double res = one.doubleValue() / two.doubleValue(); 
+			  
+			 if (Double.isNaN(res)) return 0;
+			    else	 
+			  return	 res;
 			
 		} catch (Exception e) {
 			throw e;

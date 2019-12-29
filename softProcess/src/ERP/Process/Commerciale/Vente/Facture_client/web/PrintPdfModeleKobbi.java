@@ -1129,9 +1129,9 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 					for (int i = 0; i < listInvoiceClient.size(); i++) {
 					    Det_Fact_ClientBean dBean  =(Det_Fact_ClientBean) listInvoiceClient.get(i);	
 					    EtatVenteProduit  etatBean  =  new EtatVenteProduit();
-					    totfacture =ProcessNumber.addition(totfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getPk().getFactclient().getTotal_facture(), devise.getChiffre_pattern())  );
+					    totfacture =ProcessNumber.addition(totfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getMontant_ttc_vente() , devise.getChiffre_pattern())  );
 					    
-					    totGenfacture =ProcessNumber.addition(totGenfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getPk().getFactclient().getTotal_facture(), devise.getChiffre_pattern())  );
+					    totGenfacture =ProcessNumber.addition(totGenfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getMontant_ttc_vente(), devise.getChiffre_pattern())  );
 					    totGenQte =ProcessNumber.addition(totGenQte,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getQuantite(), devise.getChiffre_pattern())  );
 					    totGenNbrBox =ProcessNumber.addition(totGenNbrBox,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getNbrBoxes(), devise.getChiffre_pattern())  );
 					    
@@ -1389,7 +1389,7 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 						
 						if(i==listInvoiceClient.size()-1) {
 							 int position=list_etat_edition.size() - listInvoiceClient.size();
-							 list_etat_edition.get(position).setTotal(ProcessFormatNbr.FormatDouble_ParameterChiffre(totfacture, devise.getChiffre_pattern())  ); 
+							 list_etat_edition.get(position).setTotal(ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getPk().getVente().getVente_mnt_total(), devise.getChiffre_pattern())  ); 
 						}
 						isrowSpanDate=false;
 						isrowSpanDetailFacture=false;
