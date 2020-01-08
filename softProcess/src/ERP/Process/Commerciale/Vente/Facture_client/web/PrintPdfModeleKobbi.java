@@ -1129,9 +1129,27 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 					for (int i = 0; i < listInvoiceClient.size(); i++) {
 					    Det_Fact_ClientBean dBean  =(Det_Fact_ClientBean) listInvoiceClient.get(i);	
 					    EtatVenteProduit  etatBean  =  new EtatVenteProduit();
-					    totfacture =ProcessNumber.addition(totfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getMontant_ttc_vente() , devise.getChiffre_pattern())  );
 					    
-					    totGenfacture =ProcessNumber.addition(totGenfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getMontant_ttc_vente(), devise.getChiffre_pattern())  );
+					    totfacture =ProcessNumber.addition(totfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(  
+					    		ProcessNumber.addition(dBean.getMontant_ht_vente(),dBean.getMontant_tva_vente())
+					    		, devise.getChiffre_pattern()));
+					    
+					    totfacture =ProcessNumber.addition(totfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(  
+					    		dBean.getPk().getFactclient().getMnt_timb_fisc()
+					    		, devise.getChiffre_pattern()));
+					    
+					    totGenfacture =ProcessNumber.addition(totGenfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(  
+					    		ProcessNumber.addition(dBean.getMontant_ht_vente(),dBean.getMontant_tva_vente())
+					    		, devise.getChiffre_pattern()));
+					    
+					    totGenfacture =ProcessNumber.addition(totGenfacture,   ProcessFormatNbr.FormatDouble_ParameterChiffre(  
+					    		dBean.getPk().getFactclient().getMnt_timb_fisc()
+					    		, devise.getChiffre_pattern()));
+					    
+					    
+					     
+					    
+					    
 					    totGenQte =ProcessNumber.addition(totGenQte,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getQuantite(), devise.getChiffre_pattern())  );
 					    totGenNbrBox =ProcessNumber.addition(totGenNbrBox,   ProcessFormatNbr.FormatDouble_ParameterChiffre(dBean.getNbrBoxes(), devise.getChiffre_pattern())  );
 					    
