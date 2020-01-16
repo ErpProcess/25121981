@@ -400,7 +400,7 @@ public    ModelAndView doSelectRow() {
 			setObjectValueModel(FORM_BEAN, rBean);
 			setObjectValueModel(ORIGINAL_FORM_BEAN,ProcessUtil.cloneObject(rBean));
 			 
-			 List<Det_reception_achatBean> Listdetail_achat=serviceReception_achat.doFetchDeatil_reception_fromServer(rowBean);
+			 List<Det_reception_achatBean> Listdetail_achat=serviceReception_achat.doFetchDetailAchat(rowBean);
 			 Retour_achatBean  retourBean = new Retour_achatBean();
 			 retourBean.getAchat().setAchat_id(rowBean.getAchat_id()) ;
 			 List <Retour_achatBean>list_Data_retour=serviceRetour_achat.doFetchDatafromServer(retourBean);

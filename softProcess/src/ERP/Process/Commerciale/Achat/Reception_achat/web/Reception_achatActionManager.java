@@ -747,7 +747,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			
 			 BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 			 if(bs.getFct_id().equals(Fn_Consulter)){
-				 List_det_recep_achat   =serviceReception_achat.doFetchDeatil_reception_fromServer(rowBean);
+				 List_det_recep_achat   =serviceReception_achat.doFetchDetailAchat(rowBean);
 			 }else{
 				 List_det_recep_achat   =(List) getObjectValueModel(LIST_EDITABLE_RECEP_ACHAT);
 			 }
@@ -886,7 +886,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 					 demandeId=rowBeans.getDem_achat().getDem_achat_id();
 				 }
 				 
-				 List_det_recep_achat=serviceReception_achat.doFetchDeatil_reception_fromServer(rowBeans);
+				 List_det_recep_achat=serviceReception_achat.doFetchDetailAchat(rowBeans);
 				 
 				  for (Det_reception_achatBean  dBean : List_det_recep_achat) {
 					 dBean.setPrix_achat_origin(dBean.getTarif().getTarif_unit_article());

@@ -31,7 +31,7 @@ public class EditionVenteController  extends EditionVenteActionManager   {
                   if (i$_ACT_INIT_SERVLET )         return      doInitServletAction();  
 		          if (i$_ACT_ADD)                   return      doAddData(detailBean);
 		          if (i$_ACT_AJAX_FETCH)            return      doFetchData(detailBean);
-		          if (i$_ACT_PRINT_PDF_DETAILLE)    return      doPrintDataModelKobbi();
+		          if (i$_ACT_PRINT_PDF_DETAILLE)    return      doPrintDataVenteDepense();
 		          
 		          //if (i$_ACT_CALCUL_TOTAL)          return      doCalculerTotal( );
 		          if (i$_ACT_UPDATE)                return      doUpdateData(detailBean);

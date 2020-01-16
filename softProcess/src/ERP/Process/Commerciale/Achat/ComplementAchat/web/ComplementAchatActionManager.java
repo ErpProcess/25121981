@@ -398,7 +398,7 @@ public class ComplementAchatActionManager extends ComplementAchatTemplate {
 				setObjectValueModel(FORM_BEAN, rBean);
 				setObjectValueModel(ORIGINAL_FORM_BEAN,ProcessUtil.cloneObject(rBean));
 				 
-				 List list_detail=serviceReception_achat.doFetchDeatil_reception_fromServer(rowBean);
+				 List list_detail=serviceReception_achat.doFetchDetailAchat(rowBean);
 				 ComplementAchatBean  comBean = new ComplementAchatBean();
 				 comBean.getAchat().setAchat_id(rowBean.getAchat_id()) ;
 				 List <ComplementAchatBean>list_Data_complemnt=serviceComplementAchat.doFetchDatafromServer(comBean);

@@ -70,9 +70,9 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class PrintPdfModeleKobbi  extends GenericWeb {
+public class PrintPdfModeleEdition  extends GenericWeb {
 
-	public PrintPdfModeleKobbi() {
+	public PrintPdfModeleEdition() {
 		super();
 	}
 	
@@ -487,7 +487,7 @@ public class PrintPdfModeleKobbi  extends GenericWeb {
 
 	}
 	
-	public void printEtatFactureVenteExportKobbi( EditionVenteBean searchBean ) throws Exception{
+	public void printEtatFactureVenteExport( EditionVenteBean searchBean ) throws Exception{
 		
 		try {
 		List   listEditionVente=  (List) getObjectValueModel("listEditionVente") ;
@@ -1815,7 +1815,7 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 
 
 
-		public void printEtatDepensesProduitsKobbi(EditionVenteBean searchBean) throws Throwable  {
+		public void printEtatDepensesProduits(EditionVenteBean searchBean) throws Throwable  {
 			 
 			try {
 				String [][] MapfieldEtatDeDepense  = new String[][]{

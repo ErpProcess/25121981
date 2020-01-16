@@ -160,8 +160,19 @@ public class Reception_achatDAO extends GenericWeb {
 		List<Det_reception_achatBean> lisf = new ArrayList<Det_reception_achatBean>();
 		try {
 
-			String requette = " select  bean   FROM    Det_reception_achatBean    bean    WHERE    "
-					+ "     bean.pk.recepBean.achat_id='" + beanSearch.getAchat_id() + "' ";
+			String requette = " select  bean   FROM    Det_reception_achatBean    bean    WHERE  1= 1    ";
+			
+		    if (!StringUtils.isEmpty(beanSearch.getAchat_id()))
+				   requette += "   AND   bean.pk.recepBean.achat_id ='"+beanSearch.getAchat_id()+"'        ";
+		    
+			 if (beanSearch.getAchat_date() != null) 
+			    	requette += "   AND  bean.pk.recepBean.achat_date >= '"+ProcessDate.getStringFormatDate(beanSearch.getAchat_date())+"'        ";
+			    
+			if (beanSearch.getAchat_date2()!= null ) 
+			    	requette += "   AND  bean.pk.recepBean.achat_date <=  '"+ProcessDate.getStringFormatDate(beanSearch.getAchat_date())+"'         ";
+		    
+		  
+		    requette +=this.setSocieteEtabFetch(beanSearch,"bean.pk.recepBean.fk_etab_Bean", false);
 
 			lisf = session.createQuery(requette).list();
 			commitTransaction(session);

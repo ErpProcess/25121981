@@ -1709,7 +1709,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	
 	
 	public ModelAndView doPrintFactureModelKobbi() throws Exception {
-		PrintPdfModeleKobbi pModeleKobbi = new PrintPdfModeleKobbi();
+		PrintPdfModeleEdition pModeleKobbi = new PrintPdfModeleEdition();
 		try {
 			pModeleKobbi.printfacture();
 		} catch (Exception e) {
@@ -1730,7 +1730,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	 
 	
 	public ModelAndView doPrintExportManchaKobbi() throws Exception {
-		PrintPdfModeleKobbi pModeleKobbi = new PrintPdfModeleKobbi();
+		PrintPdfModeleEdition pModeleKobbi = new PrintPdfModeleEdition();
 		try {
 			pModeleKobbi.printExportManchafacture();
 		} catch (Exception e) {

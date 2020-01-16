@@ -17,6 +17,9 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
+import ERP.Process.Commerciale.Achat.Reception_achat.model.Det_reception_achatBean;
+import ERP.Process.Commerciale.Achat.Reception_achat.model.Reception_achatBean;
+import ERP.Process.Commerciale.Achat.Reception_achat.service.Reception_achatService;
 import ERP.Process.Commerciale.Vente.EditionVente.model.EditionVenteBean;
 import ERP.Process.Commerciale.Vente.EditionVente.model.EtatDepenseProduit;
 import ERP.Process.Commerciale.Vente.EditionVente.model.EtatVenteProduit;
@@ -25,7 +28,7 @@ import ERP.Process.Commerciale.Vente.EditionVente.template.EditionVenteTemplate;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Det_Fact_ClientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.model.Facture_clientBean;
 import ERP.Process.Commerciale.Vente.Facture_client.service.Facture_clientService;
-import ERP.Process.Commerciale.Vente.Facture_client.web.PrintPdfModeleKobbi;
+import ERP.Process.Commerciale.Vente.Facture_client.web.PrintPdfModeleEdition;
 import ERP.Process.Commerciale.Vente.FournitureVente.model.DetFournitureVenteBean;
 import ERP.Process.Commerciale.Vente.FournitureVente.model.FournitureVenteBean;
 import ERP.Process.Commerciale.Vente.FournitureVente.service.FournitureVenteService;
@@ -68,6 +71,13 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 	}
 	
 	
+	private Reception_achatService    serviceReception_achat;
+	@Autowired
+	public void setServiceReception_achat(Reception_achatService serviceReception_achat) {
+	    this.serviceReception_achat = serviceReception_achat;
+	}
+	
+	
 	 
 	
 	private ServiceService serviceService;
@@ -103,23 +113,23 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 
 	}
 
-	public ModelAndView doPrintDataModelKobbi() throws Throwable {
-		PrintPdfModeleKobbi pModeleKobbi = new PrintPdfModeleKobbi();
+	public ModelAndView doPrintDataVenteDepense() throws Throwable {
+		PrintPdfModeleEdition pModele = new PrintPdfModeleEdition();
 		try {
 			
 			EditionVenteBean searchBean = (EditionVenteBean) getObjectValueModel(SEARCH_BEAN) ;
 			
 			if(ifFonctionEqual(Fn_État_des_ventes) && searchBean.getNatureEdition().equals("f")) {
-			pModeleKobbi.printEtatFactureVenteExportKobbi(searchBean);
+				pModele.printEtatFactureVenteExport(searchBean);
 		    }
 			
 			if(ifFonctionEqual(Fn_État_des_ventes) && searchBean.getNatureEdition().equals("v")) {
-				pModeleKobbi.printEtatVenteExport(searchBean);
+				pModele.printEtatVenteExport(searchBean);
 		     }
 		    
 		    
 		    if(ifFonctionEqual( Fn_État_des_dépenses)) {
-		    pModeleKobbi.printEtatDepensesProduitsKobbi(searchBean);
+		    	pModele.printEtatDepensesProduits(searchBean);
 		    }
 		    
 		} catch (Exception e) {
@@ -205,6 +215,11 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
             	ProcedureVenteBean beanSearch  = new ProcedureVenteBean();
             	beanSearch.setVente_date(searchBean.getDate_debut());
             	beanSearch.setVente_date2(searchBean.getDate_fin());
+            	
+            	Reception_achatBean beanSearchAchat  = new Reception_achatBean();
+            	
+            	List<Det_reception_achatBean>    listDetAchat  =serviceReception_achat.doFetchDetailAchat(beanSearchAchat);
+            	
             	List<DetProcedureVenteBean>    listDetVente    =serviceProcedureVente.doFindDetailleListProcedureVenteEdition(beanSearch);
             	List<DetFournitureVenteBean>   listDetFouniture=serviceFournitureVente.doFindDetailFournitureEdition(beanSearch) ;
             	List<DetServiceBean>           listDetService  =serviceService.doFetchDetailfromServer(beanSearch);

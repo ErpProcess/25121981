@@ -241,7 +241,7 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 		    	 les_reception=les_reception+"'"+bean.getAchat_id()+"',";
 		    	 
 		    	 avance_montant_achat=ProcessNumber.addition(avance_montant_achat, mntAvance);
-		    	 List <Det_reception_achatBean>list_detaille=serviceReception_achat.doFetchDeatil_reception_fromServer(bean) ;
+		    	 List <Det_reception_achatBean>list_detaille=serviceReception_achat.doFetchDetailAchat(bean) ;
 		    	 for (Det_reception_achatBean beand:list_detaille) {
 		    		 String keyString  =    beand.getPk().getFkCode_barre().getPk().getCode_barre()+"£"+
 		    		                        beand.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"£"+

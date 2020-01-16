@@ -42,7 +42,7 @@ public class Reception_achatService  extends GenericWeb  {
 	
 	
 	@Transactional(readOnly=true)
-	public List<Det_reception_achatBean> doFetchDeatil_reception_fromServer(Reception_achatBean beanSearch) throws Exception {
+	public List<Det_reception_achatBean> doFetchDetailAchat(Reception_achatBean beanSearch) throws Exception {
 		List <Det_reception_achatBean >listDataSrv =daoReception_achat.doFindList_detail_Reception_achat(beanSearch);
 		return listDataSrv;
 	}
