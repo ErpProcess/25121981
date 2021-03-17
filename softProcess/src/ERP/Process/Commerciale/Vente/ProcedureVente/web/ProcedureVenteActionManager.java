@@ -380,7 +380,7 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 				return getViewFilterAjax_Servir(FILTER_VIEW_CMD);
 			}
 
-			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ||   bs.getFct_id().equals(Fn_Facturer)   ) {
+			if (bs.getFct_id().equals(Fn_Créer) ||  bs.getFct_id().equals(Fn_Facturer)   ) {
 				setObjectValueModel(LIST_EDITABLE_VENTE, listGridEditable_VENTE);
 				ProcedureVenteBean  devBean = new ProcedureVenteBean();
 				devBean.setVente_date(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()) );
@@ -396,7 +396,29 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 				setObjectValueModel("beanInito",  ProcessUtil.cloneObject(devBean)  );
 				setObjectValueModel(FORM_BEAN, devBean);
 				return getViewAdd(FORM_VIEW_CREER);
-			}  else {
+				
+			}
+			
+			if (  bs.getFct_id().equals(Fn_Nouveau)    ) {
+				setObjectValueModel(LIST_EDITABLE_VENTE, listGridEditable_VENTE);
+				ProcedureVenteBean  devBean = new ProcedureVenteBean();
+				devBean.setVente_date(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()) );
+				devBean.setDepot(depot);
+				devBean.setDevise(bs.getSociete().getDeviseVente());
+			
+			 
+				 ClientBean cBean = new ClientBean();
+				 cBean.setClt_typ("pass");
+				 devBean.setClient(daoClient.doFindListClient(cBean).get(0));
+				 
+					
+				setObjectValueModel("beanInito",  ProcessUtil.cloneObject(devBean)  );
+				setObjectValueModel(FORM_BEAN, devBean);
+				return getViewAdd(FORM_VIEW_CAISSE);
+				
+			} 
+			
+			else {
 				setObjectValueModel(SEARCH_BEAN, new ProcedureVenteBean());
 				return getViewFilterAjax(FILTER_VIEW);
 
@@ -3336,7 +3358,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			Double getVente_mnt_ht          = detailBean.getVente_mnt_ht()==null?new Double(0):detailBean.getVente_mnt_ht();
 			
 			
-			if(bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Servir)  
+			if(bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Servir) || bs.getFct_id().equals(Fn_Nouveau)  
 					|| bs.getFct_id().equals(Fn_Modifier)  ||  bs.getFct_id().equals(Fn_Facturer)   ||  bs.getFct_id().equals(Fn_Corriger)   ){
 				
 				 List_detaille=(List<DetProcedureVenteBean>) getObjectValueModel(LIST_EDITABLE_VENTE);

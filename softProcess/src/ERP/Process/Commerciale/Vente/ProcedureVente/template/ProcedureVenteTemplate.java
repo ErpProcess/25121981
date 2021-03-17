@@ -122,6 +122,7 @@ public static String [][] MapfieldBean_detaille  =
 /********************************************************************View Jsp********************************************************************/
 public static String FORM_VIEW          = "FormProcedureVente";
 public static String FORM_VIEW_CREER    = "FormProcedureVente_creer";
+public static String FORM_VIEW_CAISSE    = "FormProcedureVente_caisse";
 public static String FORM_VIEW_SERVIR   = "FormProcedureVente_servir";
 public static String FILTER_VIEW        = "FilterProcedureVente";
 public static String LIST_VIEW          = "ListProcedureVente";
