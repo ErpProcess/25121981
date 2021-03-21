@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -1248,6 +1249,16 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 		    		list_article.add(ta.getFkCode_barre());
 		    	 }
 		    }
+		         
+		  
+ 
+		     
+		    JSONArray jsonResponse = new JSONArray(list_article);
+		    
+		    getResponse().setContentType(JSON_CONTENT_TYPE);
+			getResponse().getWriter().print(jsonResponse.toString());
+			
+			
 	     setObjectValueModel(LIST_ARTICLE_VENTE        , list_article);
 		 setObjectValueModel(LIST_ARTICLE_VENTE_ORIGINE, ProcessUtil.cloneList(list_article));
 		 setObjectValueModel(LIST_ARTICLE_VENTE_GRID   , ProcessUtil.cloneList(list_article));
@@ -3673,6 +3684,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
     		
     		/*****************************************  setInfo  ********************************************/
     		Double priUnitvente=ProcessFormatNbr.FormatDouble_ParameterChiffre(beanLigne.getTarif().getTarif_unit_vente(),pattern);
+    		
     		/*****************************************Prix Unit Brute reel********************************************/
     		Double montant_ht_vente_brute=ProcessNumber.PRODUIT(priUnitvente, qte);
     		montant_ht_vente_brute=ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_ht_vente_brute,pattern);

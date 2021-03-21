@@ -18,12 +18,12 @@ if ( $(item).is('[readonly="readonly"]') ||    $(item).is('[readonly]')     ) { 
 $(item).datepicker({ 
     altField: "#datepicker",
     closeText: 'Fermer',
-    prevText: 'Précédent',
+    prevText: 'Prï¿½cï¿½dent',
     nextText: 'Suivant',
     currentText: 'Aujourd\'hui',
     firstDay: 1 ,
-    monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-    monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+    monthNames: ['Janvier', 'Fï¿½vrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aoï¿½t', 'Septembre', 'Octobre', 'Novembre', 'Dï¿½cembre'],
+    monthNamesShort: ['Janv.', 'Fï¿½vr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Aoï¿½t', 'Sept.', 'Oct.', 'Nov.', 'Dï¿½c.'],
     dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
     dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
     dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
@@ -109,7 +109,7 @@ $('.dataTable tbody td input[type=datepicker]').live('focus', function(e) {
 var ELTsXDxcvfcc2=$(this).val();  
 
 if( ELTsXDxcvfcc2 !==null &&  ELTsXDxcvfcc2!=="" &&  ELTsXDxcvfcc2!== undefined ){
- $(item).val(DateFormat.format.date(ELTsXDxcvfcc2, "dd/MM/yyyy"));
+ $(item).val($.format.date(ELTsXDxcvfcc2, "dd/MM/yyyy"));
  }
  
 if ( $(this).is('[readonly="readonly"]') ||    $(this).is('[readonly]')     ) { $(this).datepicker('disable'); return; }
@@ -118,12 +118,12 @@ if ( $(this).is('[readonly="readonly"]') ||    $(this).is('[readonly]')     ) { 
 $(this).datepicker({ 
     altField: "#datepicker",
     closeText: 'Fermer',
-    prevText: 'Précédent',
+    prevText: 'Prï¿½cï¿½dent',
     nextText: 'Suivant',
     currentText: 'Aujourd\'hui',
     firstDay: 1 ,
-    monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-    monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+    monthNames: ['Janvier', 'Fï¿½vrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aoï¿½t', 'Septembre', 'Octobre', 'Novembre', 'Dï¿½cembre'],
+    monthNamesShort: ['Janv.', 'Fï¿½vr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Aoï¿½t', 'Sept.', 'Oct.', 'Nov.', 'Dï¿½c.'],
     dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
     dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
     dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
@@ -259,9 +259,9 @@ message="";
  
   
    if(sdate2==today_process)
-    message=" Veuillez saisir une date supérieur ou egal a la date actuelle ";
+    message=" Veuillez saisir une date supï¿½rieur ou egal a la date actuelle ";
     else
-    message=" Erreur Date . Veuillez vérifier que la ' date début ' doit  inférieur ou égal  a la  ' date Fin '   ";
+    message=" Erreur Date . Veuillez vï¿½rifier que la ' date dï¿½but ' doit  infï¿½rieur ou ï¿½gal  a la  ' date Fin '   ";
     
  
 }
@@ -318,6 +318,8 @@ function UR_Start()
 {
 	UR_Nu = new Date;
 	UR_Indhold = showFilled(UR_Nu.getHours()) + ":" + showFilled(UR_Nu.getMinutes()) + ":" + showFilled(UR_Nu.getSeconds());
+	
+	if(document.getElementById("uro"))
 	document.getElementById("uro").innerHTML = UR_Indhold;
 	setTimeout("UR_Start()",1000);
 }
