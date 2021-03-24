@@ -52,9 +52,13 @@
     <![endif]-->
 
 </head>
+  
 	
 <body>
-
+    <form  id="actionhori"  method="post"    > 
+       <input  type="hidden"  name="HiddenAction"  id="HiddenAction"   value="" > 
+       <input  type="hidden"  name="data_action"   id="data_action"    value="" > 
+     </form>
 	<!-- Style switcher start -->
 	<div class="style-switch-wrapper">
 		<div class="style-switch-button">
@@ -553,5 +557,31 @@ de votre entreprise.
 	<!-- Template custom -->
 	<script type="text/javascript" src="saas/js/custom.js"></script>
 	</div><!-- Body inner end -->
+	
+	<script>
+	 var contexPath = "<%=request.getContextPath() %>";
+	 var baseURL = window.location.protocol + '\/\/' + window.location.host + '\/';
+function  fifoA(){
+ 
+ 	     var url = contexPath+"/ERP/eXpertSoft/wfsi/Administration/GestionAuthentification/root.action?HiddenAction=i$_ACT_LOAD_APPX";  
+ 		 
+		$.ajax({ 
+	      type: 'POST', 
+	      url: url, 
+	      data:  "valResPassage=vide", 
+	      dataType: 'text',
+	      success: function (data) {
+	    },
+	    error: function (result) {
+	        
+	     }
+	}); 
+
+}
+
+$(document).ready(function (){
+	fifoA();
+});  
+</script>
 </body>
 </html>

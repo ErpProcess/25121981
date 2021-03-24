@@ -104,11 +104,7 @@ function doExcuteFnAfterGrid( dataSS ){
  
  }  
 function  loadgrid(){
- 
-LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
-config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
-
-
+	 otab_otra.fnAdjustColumnSizing();
  }    
      
                            

@@ -3567,7 +3567,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			 
 			 
 			 Double total_mnt_gen=ProcessNumber.addition(le_Ht_Net, total_leTva);
-			 if(bs.getFct_id().equals(Fn_Facturer)){
+ 			 if(bs.getFct_id().equals(Fn_Facturer)){
 				 Double timbre=ProcessFormatNbr.FormatDouble_ParameterChiffre(bs.getSociete().getMontant_timbre_fiscal(),pattern);
 				 element = new JSONObject();
 				 element.put("td1","4");
@@ -3588,7 +3588,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			 element.put("td2","5");
 			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(total_mnt_gen,pattern));
 			 json.put("vente_mnt_total",   ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(total_mnt_gen,pattern));
-			 beanTotal.setVente_mnt_total(ProcessFormatNbr.FormatDouble_ParameterChiffre(total_mnt_gen,pattern));
+ 			 beanTotal.setVente_mnt_total(ProcessFormatNbr.FormatDouble_ParameterChiffre(total_mnt_gen,pattern));
 			 list_total.put(element);
 			  
 			 

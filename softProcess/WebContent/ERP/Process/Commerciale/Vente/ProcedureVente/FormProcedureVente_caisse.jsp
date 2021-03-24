@@ -3,7 +3,7 @@
 
 config_header_foot_tableJQuey ='<"ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix"lf<"toolbar_es">r>t<"ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix"ip>';
 contenu_toolbarJQuey          ='';
-height_tabbJQuey="auto";
+height_tabbJQuey="300px";
 width_tabbJQuey="100%";
 </script>
 <c:import url="${context_path}/dataGridSetting/EditabledataGridConfig.jsp"></c:import>
@@ -43,6 +43,15 @@ var mapEditableGen = {
                          ]
 };
 
+
+function  loadgrid(){
+	 
+	if(otab_otra!=null &&   otab_otra!= undefined)
+		 otab_otra.fnAdjustColumnSizing();
+
+
+  } 
+
 function doLoaderDataFooter( nRow,aData, iStart, iEnd){
     var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_CALCUL_TOTAL','json',false);
     if(json===null  || json===undefined ) return;
@@ -55,8 +64,10 @@ function doLoaderDataFooter( nRow,aData, iStart, iEnd){
     $('#vente_mnt_net_ht').val(json.vente_mnt_net_ht);
     $('#vente_mnt_tva').val(json.vente_mnt_tva);
     $('#vente_mnt_total').val(json.vente_mnt_total);
-    //$('#montant_vente_recu').val(json.montant_vente_recu);
-    //$('#montant_vente_rendu').val(json.montant_vente_rendu);
+    $('#montant_vente_recu').val(json.montant_vente_recu);
+    $('#montant_vente_rendu').val(json.montant_vente_rendu);
+   // $('#vente_mnt_total_reel').val(json.vente_mnt_total_reel);
+    
      var footX ={} ;
      if(listTva!=null &&  listTva!= undefined ){
 	     for (var h = 0; h <listTva.length; h++) {
@@ -518,42 +529,20 @@ style="font-size: 16px;width: 40px;"  >
          <fmt:formatDate pattern="dd/MM/yyyy" value="${detailBean.vente_date}" var="detailavente_date" />
             <input id="vente_date" name="vente_date" type="datepicker" size="13" libre maxlength="13" value="${detailavente_date}" nextElement="depot_id" required />
             <select   style="display: none;"   onchange="getDevise(this.value)" required id="devX" name="devise.dev_id" style="width: 180px;"></select>
-            <label>Remise </label>
-            <input
-                id="taux_remise_alacaisse"
-                name="taux_remise_alacaisse"
-                style="width: 40px;"
-                type="number"
-                min="0"
-                max="100"
-                libre="libre"
-                value="${detailBean.taux_remise_alacaisse}"
-                nextelement="designation_libelle"
-                onblur="getSuivant('article');"
-            />
-            <label>%</label>
-            <input id="vente_remise_alacaisse" name="vente_remise_alacaisse" type="montant3" size="10" libre readonly="readonly" style="display: none;" value="${detailBean.vente_remise_alacaisse}" />
-            <input id="vente_remise" name="vente_remise" type="montant3" size="10" libre readonly="readonly" value="${detailBean.vente_remise}" />
-             <table id="GRID_SAISIE_DETAIL_VENTE" class="display"    > 
-			  
-			      <thead   >
-			      
+            
+             <table id="GRID_SAISIE_DETAIL_VENTE" class="display"     > 
+			      <thead   >      
 					<tr style="border-color:#a9bfd3;background-color:#d0def0;"   >
-					
 						<th></th>
-						<th width="5px"><input   type="checkbox"   id="Cheked_unCheked"       name="Cheked_unCheked"                 ></th>
+						<th width="5px"><input   type="checkbox"   id="Cheked_unCheked"       name="Cheked_unCheked"   ></th>
 					    <th   ></th>
 						<th><input   type="hidden"       id="pk.code_barre"         name="code_barreX"      requiredx          >
 						<input   type="text"         id="designation_libelle"   name="designation_libelle"   style="width: 90%;"        requiredx ></th>
 		                <th ><input  type="number"     id="quantiteX"             name="quantiteX"     min="1"    value="1"    style="width: 90%;"  requiredx > 
 						<th></th>
 						<th  align="right">
-						             <input  id="b1"  type="button"  value="+"    onclick="ADD()"  
-style="font-size: 16px;width: 40px;text-align:center;" > 
-<input  type="button"  value="-"       onclick="Delete_ROW()"         
-style="font-size: 16px;width: 40px;"  >
- 
-						
+						<input  id="b1"  type="button"  value="+"    onclick="ADD()"   style="font-size: 16px;width: 40px;text-align:center;" > 
+						<input  type="button"  value="-"       onclick="Delete_ROW()"         style="font-size: 16px;width: 40px;"  >
 						</th>
 						<th></th>
 					</tr>
@@ -569,10 +558,33 @@ style="font-size: 16px;width: 40px;"  >
 				    </tr>
 				 </thead>
 				<tfoot  id="footTotal" style="display: none;"  ></tfoot></table>
-       <label>Total T.T.C</label> 
-            <input id="vente_mnt_total" name="vente_mnt_total" type="montant3" size="17" libre readonly="readonly" value="${detailBean.vente_mnt_total}" nextelement="designation_libelle" />
+				
+		 
+       
+            <label style="display: none;">Remise </label>
+            <input   
+                id="taux_remise_alacaisse"
+                name="taux_remise_alacaisse"
+                style="width: 40px;display: none;"
+                type="number"
+                min="0"
+                max="100"
+                libre="libre"
+                value="${detailBean.taux_remise_alacaisse}"
+                nextelement="designation_libelle"
+                onblur="getSuivant('article');"
+            />
+            <label style="display: none;"  >%</label>
+            <input id="vente_remise_alacaisse"  style="display: none;"   name="vente_remise_alacaisse" type="montant3" size="10" libre readonly="readonly"   value="${detailBean.vente_remise_alacaisse}" />
+            <input id="vente_remise"            style="display: none;"   name="vente_remise" type="montant3" size="10" libre readonly="readonly" value="${detailBean.vente_remise}" />
+             <br>
          <label> Net.A Payer</label> 
-         <input id="vente_mnt_net_a_payer" name="vente_mnt_net_a_payer" type="montant3" size="17" libre readonly="readonly" maxlength="15" value="${detailBean.vente_mnt_net_a_payer}" /> 
+         <input id="vente_mnt_net_a_payer" name="vente_mnt_net_a_payer" type="montant3" size="17" libre readonly="readonly" maxlength="15" value="${detailBean.vente_mnt_net_a_payer}" />
+          <br>
+		   <label> Montant réçu</label> 
+		   <input id="montant_vente_recu" name="montant_vente_recu"     type="montant3"    style="height: 30px;font-size: 18px;"  size="17"      libre     value="${detailBean.montant_vente_recu}"    nextelement="montant_vente_rendu"     onblur="loadgrid();"   /> 
+		   <label> Montant rendu </label> 
+	       <input id="montant_vente_rendu" name="montant_vente_rendu"    libre  readonly="readonly"    value="${detailBean.montant_vente_rendu}"   type="montant3"  style="height: 30px;font-size: 18px;"   size="17"            nextelement="null"   /> 
         </td>
     </tr>
 
@@ -625,15 +637,7 @@ style="font-size: 16px;width: 40px;"  >
             <input id="table" name="table"    size="10" libre readonly="readonly" value="" />
         </td>
    </tr>
-   <tr>
-        <td colspan="4"   ><label>Total T.T.C</label> 
-       
-            <input id="vente_mnt_total" name="vente_mnt_total"   size="10" libre readonly="readonly" value="" nextelement="designation_libelle" />
-        
-         <label> Net.A Payer</label> 
-        <input id="vente_mnt_net_a_payer" name="vente_mnt_net_a_payer" type="montant3" size="17" libre readonly="readonly" maxlength="15" value="" /></td>
-    </tr>
- 
+   
     
 </table>
  
