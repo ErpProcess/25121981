@@ -324,8 +324,8 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 			 ResponsableLieuBean  resLieu =  new ResponsableLieuBean();
 			 resLieu.getPk().getUsr().setUsr_id(bs.getUsr_id());
 			 List <ResponsableLieuBean> listReslieux=serviceResponsableLieu.doFetchDatafromServer(resLieu);
-			 if(listReslieux==null ||  listReslieux.size()==0)
-				 throwNewException(" Utilisateur non affecté ");
+			// if(listReslieux==null ||  listReslieux.size()==0)
+			//	 throwNewException(" Utilisateur non affecté ");
 			 List  listLieux= new ArrayList();
 			 
 			DepotStockageBean  depot = null;
@@ -415,7 +415,7 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 					
 				setObjectValueModel("beanInito",  ProcessUtil.cloneObject(devBean)  );
 				setObjectValueModel(FORM_BEAN, devBean);
-				return getViewAdd(FORM_VIEW_CAISSE);
+				return getViewAddAjax(FORM_VIEW_CAISSE);
 				
 			} 
 			
@@ -2250,7 +2250,22 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	          }
 	        return getViewAdd_Commit(FORM_VIEW_CREER);
 		}
-	
+	public ModelAndView doAddDataAJAX(ProcedureVenteBean detailBean, FournitureVenteBean    fVenteBean , ServiceBean    service ) throws Throwable {
+	     try {
+				 
+				setObjectValueModel("detailFrnBean", fVenteBean);
+				setObjectValueModel("detailSrvBean", service);
+	            serviceProcedureVente.doCreateRowData(detailBean,fVenteBean,service);
+	            setObjectValueModel(ProcedureVenteTemplate.LIST_EDITABLE_VENTE, new ArrayList<>());
+	            throwNewException("ins01");
+	          } catch (Exception e) {
+	        	  displayException(e);
+	          }
+	        String message =(String) getObjectValueModel(MESSAGERROR);
+	        getResponse().setContentType(HTML_CONTENT_TYPE);
+			getResponse().getWriter().print(message.toString());
+	        return null;
+		}
 	
 	public ModelAndView doCommitData(   ProcedureVenteBean beanUpfBean, FournitureVenteBean    fVenteBean , ServiceBean    service) throws Exception {	 
 		

@@ -11,6 +11,7 @@ import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.PackageSys.service.Pac
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.SousPack.model.SousPackageBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.SousPack.service.SousPackageService;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.SousPack.util.SousPackageTemplate;
+import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericActionBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.jqueryoR.datatables.controller.AjaxDataTablesUtility;
 
@@ -47,7 +48,10 @@ public class SousPackageActionManager extends SousPackageTemplate {
 		setObjectValueModel("listPackgefromPack", servicePackageSys.getPackageSysList(new PackageSysBean()));
 		try {
 
-			if (bs.getFct_id().equals("1")) {
+			if (bs.getFct_id().equals(GenericActionBean.Fn_Créer)
+					
+					
+					||bs.getFct_id().equals(GenericActionBean.Fn_Nouveau ) ) {
 				return getViewAdd((String) getObjectValueModel("FORM_VIEW"));
 			} else {
 				return getViewFilterAjax((String) getObjectValueModel("FILTER_VIEW"));

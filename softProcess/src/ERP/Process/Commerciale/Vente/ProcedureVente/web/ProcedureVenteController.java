@@ -98,6 +98,9 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 		          
 		          if (i$_ACT_ADD)                   return      doAddData(beanVente,fVenteBean,service);
 		          
+		          if (i$_ACT_ADD_AJAX)              return      doAddDataAJAX(beanVente,fVenteBean,service);
+		          
+
 		    	  if (i$_ACT_COMMIT)                return      doCommitData(beanVente,fVenteBean,service);
 		    	  
 		    	  if (i$_ACT_FACTURER)              return      doFacturerData(beanVente);

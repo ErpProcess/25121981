@@ -657,10 +657,8 @@ function migaXWXXWW(dssss) {
        <input  type="hidden"  name="data_action"   id="data_action"    value="" > 
       
 	   <table width="100%"    border="0"  cellspacing="0" cellpadding="0"  class="tabbed_area99"     > 
-			
-			  
-			<tr>
-				<td  colspan="3" >
+			<tr   >
+				<td  colspan="3"  > 
 				<div  id="topy" class="x-panel-header"  style="height: 17px;width: 98.8%;position: fixed;z-index: 2222;margin-top: -5px;"   >
 				  <a href="${pathRoot}/saas/index.jsp" >Process</a>  &nbsp;©&nbsp;&nbsp;
 				  <font color="black"  style="font-size: 11px;"> ${bs.pack_libelle}&nbsp; .::.&nbsp; ${bs.mod_libelle} > ${bs.sousmod_libelle}</font> 

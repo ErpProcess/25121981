@@ -438,6 +438,23 @@ public static ModelAndView doChangePrintFormat( ) throws Exception{
 		return Get_Model_ROOT(isPage, twebBean);
 	}
 	
+	
+	public static ModelAndView getViewAddAjax(String isPage) {
+		MenuActionBean twebBean = new MenuActionBean();
+		twebBean.setAct_doValid("i$_ACT_ADD_AJAX");
+		twebBean.setAct_doReset("i$_ACT_RESET_FORM");
+		twebBean.setAct_doRetour("i$_ACT_RETOUR_TO_HOME");
+		twebBean.setLibelleAction(BTN_ADD);
+		twebBean.setBtAide(FALSE);
+		twebBean.setBtTrace(FALSE);
+		twebBean.setBtValid(FALSE);
+		twebBean.setBtReset(FALSE);
+		twebBean.setBtRetour(FALSE);
+		twebBean.setBtNavigation(FALSE);
+		twebBean.setFctdoValid("saveDataAJAX()");
+		return Get_Model_ROOT(isPage, twebBean);
+	}
+	
 	 
 	public static ModelAndView getViewFilter(String isPage) {
 		MenuActionBean twebBean = new MenuActionBean();

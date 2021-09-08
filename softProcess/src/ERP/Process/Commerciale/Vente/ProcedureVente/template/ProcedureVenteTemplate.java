@@ -144,6 +144,8 @@ public static boolean i$_ACT_VERIF_LIST = false;
 public static boolean i$_ACT_VERIF_LIST_FACT=false;
 
 public static boolean i$_ACT_RESET_FORM = false;
+public static boolean i$_ACT_ADD_AJAX = false;
+
 public static boolean i$_ACT_CORRIGER = false;
 
 public static boolean i$_ACT_CALCUL_TOTAL = false;

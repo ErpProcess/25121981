@@ -1,10 +1,58 @@
 <%@include file="/Aceuil/esProcess.jsp" %> 
-<script type="text/javascript">
+<style>
+.buttonClv {
+    background-color: #4CAF50;
+    border: none;
+    color: #FFFFFF;
+    padding: 25px 30px 20px 25px;
+    text-align: center;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px 5px 5px 5px ;
+}
+ 
+.btnArticle {
+    background-color: #008CBA;
+    border: none;
+    width: 80px;
+    height: 80px;
+    color: #FFFFFF;
+    padding-left: 5px;
+   white-space: initial;
+    text-align: left;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 5px 5px 5px 5px ;
+}
+.buttonClv:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+</style> 
+ 
 
-config_header_foot_tableJQuey ='<"ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix"lf<"toolbar_es">r>t<"ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix"ip>';
-contenu_toolbarJQuey          ='';
+
+
+<script type="text/javascript">
+contenu_toolbarJQuey ="";
 height_tabbJQuey="300px";
 width_tabbJQuey="100%";
+
+$(document).ready(function () {
+var htmlDataClavierNumerique=$("#clavierNumerique").html();
+var dataClv='';
+for (let w = 0; w < 10; w++) {
+	dataClv=dataClv+'<b><input  id="'+w+'"  type="button"  value="'+w+'"  class="buttonClv"   onclick="addQuantite(this.id)"   style="font-size: 16px;text-align:center;width: 40px;" >  </b>';
+}
+$("#clavierNumerique").html(dataClv+htmlDataClavierNumerique) ;	
+});
+
 </script>
 <c:import url="${context_path}/dataGridSetting/EditabledataGridConfig.jsp"></c:import>
 
@@ -21,20 +69,25 @@ var mapEditableGen = {
 				       {      "sName": "indx_row"  ,"bSearchable": false  , "bSortable": false , "bVisible": false }, 
 				       
 				       {      "sName": "to_check"     ,"sWidth": "2%"   ,"bSortable": true     , "mRender": function( data, type, full){
-				              return  '<input  type="checkbox" value="'+data+'"   id=to_check'+full[2]+' name=to_check    '+data+'   onclick=doEnvoiDataV2(this,"'+full[2]+'")       nextElement="pk.code_barre'+full[2]+'"   >';}}, 
+				              return  '<input  type="checkbox" value="'+data+'"   id=to_check'+full[3]+' name=to_check    '+data+'   onclick=doEnvoiDataV2(this,"'+full[3]+'")       nextElement="pk.code_barre'+full[3]+'"   >';}},
+				              
+				       {      "sName": "quantite"           ,   "bSortable": true       , "sWidth": "5%"        ,"mRender": function( data, type, full){  
+						          return '<input   type="text"       id=quantite'+full[3]+'       name=quantite        value="'+data+'"       onblur=doEnvoiDataV2(this,"'+full[3]+'")        >'; }},         
 				                  
 				       {      "sName": "pk.fkcode_barre.pk.code_barre"      , "bVisible": false   }, 
 					         
 					   {      "sName": "info"    ,"sWidth": "40%"   , "bSortable": true  ,"bSearchable": true , "bVisible": true  },   
 					   
-					   {      "sTitle":"Prix U"    , "sName": "tarif.tarif_unit_vente_tt"   ,"sWidth": "5%"    ,"sClass" : "alignRight"       , "bSortable": true 
+					   /*{      "sTitle":"Prix U"    , "sName": "tarif.tarif_unit_vente_tt"   ,"sWidth": "5%"    ,"sClass" : "alignRight"       , "bSortable": true 
                            , "mRender":    function (data, type, full) {
-                        	   return '<input   type="montant3"      style="width:100%;"     id=tarif_unit_vente_tt'+full[0]+'       name=tarif.tarif_unit_vente_tt        value="'+formatNumberJsXC(data,3)+'"       onblur=doEnvoiDataV2(this,"'+full[2]+'")      >'; 
+                        	   return '<input   type="montant3"      style="width:100%;"     id=tarif_unit_vente_tt'+full[3]+'       name=tarif.tarif_unit_vente_tt        value="'+formatNumberJsXC(data,3)+'"       onblur=doEnvoiDataV2(this,"'+full[3]+'")      >'; 
                           	   } 
-					   },
+					   },*/
+					   
+					    {     "sName": "tarif.tarif_unit_vente_tt"       ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
+                           ,"mRender":    function (data, type, full) {   if( $("#devX").val()=="191"  ||  $("#devX").val()=="192")   return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },         
 					                 
-					   {      "sName": "quantite"           ,   "bSortable": true       , "sWidth": "5%"        ,"mRender": function( data, type, full){  
-					          return '<input   type="number"      style="width:70px;"     id=quantite'+full[0]+'       name=quantite        value="'+data+'"       onblur=doEnvoiDataV2(this,"'+full[2]+'")        >'; }},   
+					
 
                        {     "sName": "montant_ttc_vente"       ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
                              ,"mRender":    function (data, type, full) {   if( $("#devX").val()=="191"  ||  $("#devX").val()=="192")   return  formatNumberJsXC(data,2); else  return formatNumberJsXC(data,3); }  },         
@@ -50,7 +103,20 @@ function  loadgrid(){
 		 otab_otra.fnAdjustColumnSizing();
 
 
-  } 
+}
+
+function  saveDataAJAX(){
+	 
+ var response=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_ADD_AJAX','text',false);
+
+  if(response!=="" && response!==null) {
+	  otab_otra.fnAdjustColumnSizing();
+	  alertExt("",response,"1");
+  }
+	  
+} 
+
+ 
 
 function doLoaderDataFooter( nRow,aData, iStart, iEnd){
     var json=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_CALCUL_TOTAL','json',false);
@@ -66,7 +132,6 @@ function doLoaderDataFooter( nRow,aData, iStart, iEnd){
     $('#vente_mnt_total').val(json.vente_mnt_total);
     $('#montant_vente_recu').val(json.montant_vente_recu);
     $('#montant_vente_rendu').val(json.montant_vente_rendu);
-   // $('#vente_mnt_total_reel').val(json.vente_mnt_total_reel);
     
      var footX ={} ;
      if(listTva!=null &&  listTva!= undefined ){
@@ -107,9 +172,9 @@ return  footX;
 
 $(document).ready(function () {
 
-
- LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
+LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
 		 config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
+
 if(custumMessageBoxo!=""  &&  custumMessageBoxo !="Facturation effectuée avec succès"  &&  custumMessageBoxo !="Confirmation effectuée avec succès"  ){
 
 var messageBoxx='Confirmer';
@@ -307,12 +372,15 @@ function addProduit(produitId,produitlib){
 	 if(!teste_required()) return ;
 	 lib_required="required"; 
 
+	 if($('#quantiteX').val()===""){
+		 $('#quantiteX').val('1');
+	 }
 	 
 	 var res_add = doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_ADD_ROW','text',false);
 	  otab_otra.fnAdjustColumnSizing();
 	 $('input[id="pk.code_barre"]').val('');               
 	 $('#designation_libelle').val('');
-	 $('#quantiteX').val('1');
+	 $('#quantiteX').val('');
 	    
  }  
  
@@ -321,13 +389,17 @@ function ADD(){
  lib_required="requiredx";
  if(!teste_required()) return ;
  lib_required="required";
+ 
+ if($('#quantiteX').val()===""){
+	 $('#quantiteX').val('1');
+ }
 
  
  var res_add = doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_ADD_ROW','text',false);
   otab_otra.fnAdjustColumnSizing();
  $('input[id="pk.code_barre"]').val('');               
  $('#designation_libelle').val('');
- $('#quantiteX').val('1');
+ $('#quantiteX').val('');
     
 }  
 
@@ -372,29 +444,15 @@ function doCheked_unCheked(element){
 function getSuivant(panelName){
     
 if(!teste_required()) return ;
- 
 $("#choixPanel").val(panelName);
-  
 var jsonText=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_LOAD_TARIF_CLIENT','json',false);
-
-let htmlData='';
-
-for (let w = 0; w < 10; w++) {
-	htmlData=htmlData+'<b><input  id="'+w+'"  type="button"  value="'+w+'"    onclick="addQuantite(this.id)"   style="font-size: 16px;text-align:center;width: 40px;" >  </b>';
-}
-
+var htmlDataGalleryArticle='';
 if(jsonText!=null)
 jsonText.forEach(obj => {
-   htmlData=htmlData+'<b><input  id="'+obj.pk.code_barre+'"  type="button"  value="'+obj.designation_libelle+'"    onclick="addProduit(this.id,this.value)"   style="font-size: 16px;text-align:center;" >  </b>';
+	htmlDataGalleryArticle=htmlDataGalleryArticle+'<b><input  id="'+obj.pk.code_barre+'"   class="btnArticle"   type="button"  value="'+obj.designation_libelle+'"    onclick="addProduit(this.id,this.value)"    >  </b>';
 });
 
-
-	
-$("#galleryArticle").html(htmlData) ;	
- 
-$('#GRID_SAISIE_DETAIL_VENTE').css('display','block');
- 
-   
+$("#galleryArticle").html(htmlDataGalleryArticle) ;	
 if(panelName=='article'){
 	if(otab_otra!=null &&   otab_otra!= undefined)
 	 otab_otra.fnAdjustColumnSizing();
@@ -402,7 +460,6 @@ if(panelName=='article'){
 	  LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
 	 config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
 }
-
 } 
 
                               
@@ -481,86 +538,129 @@ function doExcuteFnAfterGrid( dataSS ){
   
   <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
   
-   <ext:panel  border="false"    bodyStyle="background: none;"       style="height: 100%;"    >
-
-
-
-
-
    
- <table   cellpadding="2" cellspacing="2" id="tblData" width="100%" border="1" >
+
+
+
+
+   <ext:panel  border="false"    bodyStyle="background: none;"          >
+   
+<%--         <ext:toolbar         toolbarType="bbar"   >  --%>
+<%--         <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuivant('article')"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar> --%>
+    
+     <table   cellpadding="2" cellspacing="2"  id="tblData"   width="100%"  border="1" >
+
  
- 
- <tr> <td   rowspan="8"  colspan="4"  width="15%"  >
+ <tr> <td   rowspan="8"  colspan="4"  width="10%" valign="top"  >
+             <label>${depot_id}</label> 
+            <input id="depot_id" name="depot.depot_id"    type="hidden" readonly="readonly"     value="${detailBean.depot.depot_id}"   required />
+            <input id="depot_libelle" name="depot.depot_libelle" libre type="text"  style="width: 100%;"    value="${detailBean.depot.depot_libelle}"    required />
            
             <script>
                 $(function () {
                     loadSelectAjax("fam_idX", "listFamArticleOfvente", "fam_id", "fam_lib", "", true);
-                    $("#fam_idX").css("height", parseInt($("#fam_idX option").length) * 20);
+                    $("#fam_idX").css("height", parseInt($("#fam_idX option").length) * 18);
+                    $("#fam_idX").css("overflow-y", "hidden");
                 });
             </script>
- 
-            <select id="fam_idX" name="fam_id" onchange="getSuivant('article')" style="width: 250px;" nextElement="artyp"   multiple="multiple"     ></select>
- 
+  <br> 
+  
+  <div   style="overflow-y:scroll; height:250px;"   > 
+            <select id="fam_idX" name="fam_id"   onclick="getSuivant('article')" style="width: 250px;" nextElement="artyp"   multiple="multiple"     ></select>
+  </div>
  
  </td></tr>
+ 
+ 
     <tr  valign="top"  >
-        <td width="35%" colspan="4">
-             <b> 
-<input  type="button"  value="X"       onclick="clearQuantite()"         
-style="font-size: 16px;width: 40px;"  >
-</b>
+        <td width="50%" colspan="4">
+             <button value="Espace" >Espace</button>  
+        
+             <input id="espace" name="espace"   size="10"  libre readonly="readonly"  value="" />
+        
+         <label>Table</label> 
+        
+            <input id="table" name="table"    size="10" libre readonly="readonly" value="" />
 
+ <div id="clavierNumerique"> <input  type="button"  value="X"   class="buttonClv"    onclick="clearQuantite()"    style="font-size: 16px;width: 40px;"  ></div>
 
-
-           <label>${clt_id}</label> 
+          
+       <div id="galleryArticle"  style="overflow-y:scroll; height:500px;text-align: center;"   ></div>
+            
+            
+        </td>
+        <td width="40%" rowspan="8"  valign="top" >
+         <input id="choixPanel" name="choixPanel" type="hidden" /> 
+        <label>${vente_id}</label>
+        <input id="vente_id" name="vente_id" type="text" size="15" value="${detailBean.vente_id}" nextElement="vente_libelle" libre readonly="readonly" />
+        <label>${vente_date}</label>
+         <fmt:formatDate pattern="dd/MM/yyyy" value="${detailBean.vente_date}" var="detailavente_date" />
+            <input id="vente_date" name="vente_date" type="datepicker" size="13" libre maxlength="13" value="${detailavente_date}" nextElement="depot_id" required />
+            <select   style="display: none;"   onchange="getDevise(this.value)" required id="devX" name="devise.dev_id" style="width: 180px;"></select>
+             <label>${clt_id}</label> 
             <script>
                 $(function () {
                     loadSelectAjax("clt_idx", "list_client_for_vente", "clt_id", "clt_lib", "${detailBean.client.clt_id}", true);
                 });
             </script>
             <select id="clt_idx" name="client.clt_id" style="width: 180px;"></select>
-            <div id="galleryArticle"></div>
-        </td>
-        <td width="50%" rowspan="8"  valign="top" >
-        <label><input id="choixPanel" name="choixPanel" type="hidden" /> ${vente_id}</label>
-        <input id="vente_id" name="vente_id" type="text" size="15" value="${detailBean.vente_id}" nextElement="vente_libelle" libre readonly="readonly" />
-        <label>${vente_date}</label>
-         <fmt:formatDate pattern="dd/MM/yyyy" value="${detailBean.vente_date}" var="detailavente_date" />
-            <input id="vente_date" name="vente_date" type="datepicker" size="13" libre maxlength="13" value="${detailavente_date}" nextElement="depot_id" required />
-            <select   style="display: none;"   onchange="getDevise(this.value)" required id="devX" name="devise.dev_id" style="width: 180px;"></select>
             
+            
+           
+            <div>
+
+                         <label>&nbsp;&nbsp;QTE</label> <input   type="number"     id="quantiteX"             name="quantiteX"    value=""  style="width: 60px;"        >
+						 <input   type="text"         id="pk.code_barre"        size="15" name="code_barreX"      requiredx          >
+						 <input   type="text"         id="designation_libelle"  size="40"  name="designation_libelle"         requiredx > 
+		                 
+						 <input   id="b1"  type="button"  value="+"    onclick="ADD()"   style="font-size: 16px;width: 40px;text-align:center;" > 
+						 <input   type="button"  value="-"       onclick="Delete_ROW()"         style="font-size: 16px;width: 40px;"  >
+						 
+						 
+					</div>
              <table id="GRID_SAISIE_DETAIL_VENTE" class="display"     > 
 			      <thead   >      
-					<tr style="border-color:#a9bfd3;background-color:#d0def0;"   >
-						<th></th>
-						<th width="5px"><input   type="checkbox"   id="Cheked_unCheked"       name="Cheked_unCheked"   ></th>
-					    <th   ></th>
-						<th><input   type="hidden"       id="pk.code_barre"         name="code_barreX"      requiredx          >
-						<input   type="text"         id="designation_libelle"   name="designation_libelle"   style="width: 90%;"        requiredx ></th>
-		                <th ><input  type="number"     id="quantiteX"             name="quantiteX"     min="1"    value="1"    style="width: 90%;"  requiredx > 
-						<th></th>
-						<th  align="right">
-						<input  id="b1"  type="button"  value="+"    onclick="ADD()"   style="font-size: 16px;width: 40px;text-align:center;" > 
-						<input  type="button"  value="-"       onclick="Delete_ROW()"         style="font-size: 16px;width: 40px;"  >
-						</th>
-						<th></th>
-					</tr>
 					 <tr> 
 						<th></th>
 						<th></th>
-						<th>code</th>
+						<th>Qté</th>
+						<th>Désignation</th>
 						<th>Désignation</th>
 						<th>Prix.U</th>
-						<th>Qté</th>
 						<th>Total</th>
 						<th></th>
 				    </tr>
 				 </thead>
-				<tfoot  id="footTotal" style="display: none;"  ></tfoot></table>
+				<tfoot  id="footTotal" style="display: none;"  >
+				 <tr><td   height="20px" colspan="12"   > </td> </tr>  
+					<c:forEach var="p" begin="1" end="5">
+		                    <tr  > 
+								<td ></td>
+								<td ></td>
+								<td ></td>
+								 
+								<td colspan="2"></td>
+								 
+								<td colspan="3" ></td>
+								
+						    </tr>
+					</c:forEach>
+				    
+			       <c:forEach var="i" begin="1" end="8">
+		                    <tr align="right"> 
+								<td colspan="4"></td>
+								<td   ></td>
+								<td colspan="3" ></td>
+								<td ></td>
+								<td ></td>
+								<td colspan="2" ></td>
+								 
+						    </tr>
+					</c:forEach>
 				
-		 
-       
+				
+				</tfoot>
+				</table>
             <label style="display: none;">Remise </label>
             <input   
                 id="taux_remise_alacaisse"
@@ -577,14 +677,15 @@ style="font-size: 16px;width: 40px;"  >
             <label style="display: none;"  >%</label>
             <input id="vente_remise_alacaisse"  style="display: none;"   name="vente_remise_alacaisse" type="montant3" size="10" libre readonly="readonly"   value="${detailBean.vente_remise_alacaisse}" />
             <input id="vente_remise"            style="display: none;"   name="vente_remise" type="montant3" size="10" libre readonly="readonly" value="${detailBean.vente_remise}" />
-             <br>
-         <label> Net.A Payer</label> 
-         <input id="vente_mnt_net_a_payer" name="vente_mnt_net_a_payer" type="montant3" size="17" libre readonly="readonly" maxlength="15" value="${detailBean.vente_mnt_net_a_payer}" />
+            <div style="float: right;"><label> Net.A Payer</label> 
+            <input id="vente_mnt_net_a_payer" name="vente_mnt_net_a_payer" type="montant3" size="17" libre readonly="readonly" maxlength="15" value="${detailBean.vente_mnt_net_a_payer}" />
+                 </div> 
           <br>
-		   <label> Montant réçu</label> 
-		   <input id="montant_vente_recu" name="montant_vente_recu"     type="montant3"    style="height: 30px;font-size: 18px;"  size="17"      libre     value="${detailBean.montant_vente_recu}"    nextelement="montant_vente_rendu"     onblur="loadgrid();"   /> 
-		   <label> Montant rendu </label> 
-	       <input id="montant_vente_rendu" name="montant_vente_rendu"    libre  readonly="readonly"    value="${detailBean.montant_vente_rendu}"   type="montant3"  style="height: 30px;font-size: 18px;"   size="17"            nextelement="null"   /> 
+		   <label> Montant Réçu&nbsp;&nbsp;</label> 
+		   <input id="montant_vente_recu" name="montant_vente_recu"       type="montant3"    style="font-size: 18px;"  size="17"      libre     value="${detailBean.montant_vente_recu}"    nextelement="montant_vente_rendu"     onblur="loadgrid();"   /> 
+		   <br><label> Montant Rendu</label> 
+	       <input id="montant_vente_rendu" name="montant_vente_rendu"    libre  readonly="readonly"    value="${detailBean.montant_vente_rendu}"   type="montant3"  style="font-size: 18px;"   size="17"            nextelement="null"   />
+	  
         </td>
     </tr>
 
@@ -592,9 +693,7 @@ style="font-size: 16px;width: 40px;"  >
 
     <tr  valign="top"   >
         <td  colspan="4"> 
-         <label>${depot_id}</label> 
-            <input id="depot_id" name="depot.depot_id" libre type="text" readonly="readonly" size="4" maxlength="10" value="${detailBean.depot.depot_id}" nextElement="vente_obs" required />
-            <input id="depot_libelle" name="depot.depot_libelle" libre type="text" size="21" maxlength="10" value="${detailBean.depot.depot_libelle}" nextElement="vente_obs" required />
+       
        </td>
     </tr>
     <tr style="display: none;">
@@ -624,24 +723,12 @@ style="font-size: 16px;width: 40px;"  >
         </td>
     </tr>
     
-    
-    
-
-    <tr>
-        <td  colspan="4"  ><button value="Espace" >Espace</button>  
-        
-             <input id="espace" name="espace"   size="10"  libre readonly="readonly"  value="" />
-        
-         <label>Table</label> 
-        
-            <input id="table" name="table"    size="10" libre readonly="readonly" value="" />
-        </td>
-   </tr>
+ 
    
     
 </table>
  
-    </ext:panel>           
+         </ext:panel>
 	          
 </ext:panel>
 
