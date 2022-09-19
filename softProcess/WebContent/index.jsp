@@ -1,3 +1,7 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,8 +15,7 @@
 
 	<!-- Mobile Specific Metas
 	================================================== -->
-	 
-
+	
 	<!-- Favicons
 	================================================== -->
 	<link rel="icon" href="img/favicon/favicon-32x32.png" type="image/x-icon" />
@@ -120,7 +123,7 @@
 						<img class="" src="saas/images/slider/bg2.jpg" alt="slider">
 					</div>
 					<div class="cd-half-width">
-						<h2> &#192; quelle taille pouvez-vous rêver? </ h2>
+						<h2> &#192; quelle taille pouvez-vous rÃªver? </ h2>
                         <p> Lorem ipsum dolor sit amet, consectetur elit adipisicing. En cons&#233;quence, cumque natus! </ P>
                         <a href="#0" class="cd-btn btn btn-primary solid"> Visite guid&#233;e </a>
 					</div> <!-- .cd-half-width -->
@@ -199,7 +202,7 @@
 						<div class="service-content text-center">
 							<span class="service-icon icon-pentagon"><i class="fa fa-android"></i></span>
 						<h3> D&#233;veloppement d'applications </ h3>
-<p style="display: none;"> Maître des camions de nourriture nettoie la mixtape avec un minimum de Portland, sweat en chambray de cardigan stumptown </p>
+<p style="display: none;"> MaÃ®tre des camions de nourriture nettoie la mixtape avec un minimum de Portland, sweat en chambray de cardigan stumptown </p>
 						</div>
 						
 					</div><!--/ End Second service -->
@@ -312,7 +315,7 @@ renseignements n&#233;cessaires pour sa commande</p>
 					<span class="feature-icon pull-left" ><i class="fa fa-whatsapp"></i></span>
 					<div class="feature-content">
 						<h3>Bon de R&#233;ception</h3>
-						<p>Le bon de r&#233;ception est Utilis&#233; pour l&rsquo;ex&#233;cution des contrôles qualitatif et quantitatif des livraisons</p>
+						<p>Le bon de r&#233;ception est Utilis&#233; pour l&rsquo;ex&#233;cution des contrÃ´les qualitatif et quantitatif des livraisons</p>
 					</div>
 				</div><!--/ End first featurebox -->
 			</div><!-- Content row end -->
@@ -332,9 +335,9 @@ renseignements n&#233;cessaires pour sa commande</p>
 						<h3>Pourquoi G.E.S</h3>
 						<p>
 						G.E.S g&#xE8;re &#233;galement les
-donn&#233;es techniques de nomenclatures pour g&#233;rer la production de vos articles. La mise en œuvre de ces
+donn&#233;es techniques de nomenclatures pour g&#233;rer la production de vos articles. La mise en Åuvre de ces
 fonctionnalit&#233;s peut se faire de mani&#xE8;re progressive. G.E.S accompagne votre croissance, prend en charge les
-modifications qui peuvent toucher votre organisation afin d’adapter et de dynamiser encore mieux la gestion
+modifications qui peuvent toucher votre organisation afin dâadapter et de dynamiser encore mieux la gestion
 de votre entreprise.
 						</p>
 					</div>

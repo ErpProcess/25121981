@@ -144,7 +144,6 @@ public class ActionSocieteManager extends SocieteTemplate {
 			}else{
 				
 			}
-			
 			String mime_content_type = multipartFile.getContentType();
 			String filename = multipartFile.getOriginalFilename();
 			byte[] bytes = multipartFile.getBytes();

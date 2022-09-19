@@ -1,4 +1,4 @@
-<link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/demo_table.css"               rel="stylesheet" type="text/css" media="all" />
+<%-- <link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/demo_table.css"               rel="stylesheet" type="text/css" media="all" />
 <link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/demo_table_jui.css"           rel="stylesheet" type="text/css" media="all" />
 <link    href="<%=request.getContextPath()%>/jQuery/themes/base/jquery-ui.css" rel="stylesheet" rel="stylesheet" type="text/css" media="all" />
 <link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/jquery-ui-1.8.13.custom.css"  rel="stylesheet" type="text/css" media="all" />
@@ -11,8 +11,10 @@
 <link    href="<%=request.getContextPath()%>/jQuery/css/jquery-ui-1.8.11.custom.css"            rel="stylesheet" type="text/css" media="all" />
 
 <link    href="<%=request.getContextPath()%>/jQuery/css/wajdi.css"        type="text/css" rel="stylesheet" media="all"  />
-<link    href="<%=request.getContextPath()%>/css/menuVertical.css"        type="text/css" rel="stylesheet" media="all"  />
-<link    href="<%=request.getContextPath()%>/css/menuHorizentale.css"     type="text/css" rel="stylesheet" media="all"  />
+  
+<link    href="<%= request.getContextPath() %>/css/menuVertical.css"        type="text/css" rel="stylesheet" media="all"  /> 
+<link    href="<%= request.getContextPath()%>/css/menuHorizentale.css"     type="text/css" rel="stylesheet" media="all"  />
+ 
 <link    href="<%=request.getContextPath()%>/css/process_style_date.css"  type="text/css" rel="stylesheet" media="all"  />
 <link    href="<%=request.getContextPath()%>/css/process_style_input.css" type="text/css" rel="stylesheet" media="all"  />
 
@@ -61,14 +63,5 @@
 	background: url("<%=request.getContextPath()%>/jQuery/images/loader-64x/Preloader_2.gif") center no-repeat #fff;
 }
 </style> 
- 
- 
-
- 
-
-
-
- 
-
- 
- 
+  
+  --%>

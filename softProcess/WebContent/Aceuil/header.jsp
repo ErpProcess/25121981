@@ -45,7 +45,7 @@
 Ext.onReady(function(){
 var primecontact = Ext.getCmp('hyuE');
 primecontact.collapse();
-		});
+});
 </script>
 </body>
 </html>

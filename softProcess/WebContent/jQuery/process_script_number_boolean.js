@@ -1,5 +1,5 @@
 
-$(document).ready(function(){
+$(document).ready(function($){
 
 $('.mone').maskx('### ### ##'+bs_patternDecimalFormat, {reverse: false});
 //$('.money2').maskx('### ###,##'+bs_patternDecimalFormat, {reverse: true});
@@ -7,7 +7,7 @@ $('.mone').maskx('### ### ##'+bs_patternDecimalFormat, {reverse: false});
 $('.money2').maskx('### ### ### ### ### ### ##'+bs_patternDecimalFormat, {reverse: true});
 $('.money_2').maskx('### ### ### ### ### ### ##0.00', {reverse: true});
 
-$('.dataTable tbody td input[type=montant3]').live('keypress', function(e) {
+$('.dataTable tbody td input[type=montant3]').on('keypress', function(e) {
 
 var nbrvv=3;
 

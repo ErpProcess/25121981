@@ -31,6 +31,7 @@
 
 	 var contexPath = "<%=request.getContextPath() %>";
 	 var baseURL = window.location.protocol + '\/\/' + window.location.host + '\/';
+	 var baseURL2 = window.location.protocol + '\/\/' + window.location.host;
  
 
 function  fifoA(){
@@ -47,7 +48,7 @@ function  fifoA(){
 	      
 	     
 	     if(data=="fini"){
-	      window.location=baseURL+contexPath+"/next.jsp";
+	     window.location=baseURL2+contexPath+"/next.jsp";
 	     }else{
 	     
 	      var valueAction = data.split('£');

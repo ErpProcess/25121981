@@ -19,11 +19,85 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link   rel="icon"   href="<%=request.getContextPath()%>/img/process.gif"   type="image/gif"  >
 <link    href="<%=request.getContextPath()%>/ext-3.0.0/resources/css/ext-all.css"     rel="stylesheet"       type="text/css"     media="all"    />
+<link   rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/ext-3.0.0/resources/css/xtheme-gray.css" >
+<link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/demo_table.css"               rel="stylesheet" type="text/css" media="all" />
+<link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/demo_table_jui.css"           rel="stylesheet" type="text/css" media="all" />
+<link    href="<%=request.getContextPath()%>/jQuery/themes/base/jquery-ui.css" rel="stylesheet" rel="stylesheet" type="text/css" media="all" />
+<link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/jquery-ui-1.8.13.custom.css"  rel="stylesheet" type="text/css" media="all" />
+<link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/datatable2.css"               rel="stylesheet" type="text/css" media="all" />
+<link    href="<%=request.getContextPath()%>/jQuery/themes/smoothness/jquery-uiRedmond.css"     rel="stylesheet" type="text/css" media="all" />
+<link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/ColumnFilterWidgets.css"      rel="stylesheet" type="text/css" media="all" />
+<link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/ColReorder.css"               rel="stylesheet" type="text/css" media="all" />
+<link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/jquery.dataTables.css"        rel="stylesheet" type="text/css" media="all" />
+<link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/demo_table_jui.css"           rel="stylesheet" type="text/css" media="all" />
+<link    href="<%=request.getContextPath()%>/jQuery/css/jquery-ui-1.8.11.custom.css"            rel="stylesheet" type="text/css" media="all" />
 
+<link    href="<%=request.getContextPath()%>/jQuery/css/wajdi.css"        type="text/css" rel="stylesheet" media="all"  />
+  
+<link    href="<%= request.getContextPath() %>/css/menuVertical.css"        type="text/css" rel="stylesheet" media="all"  /> 
+<link    href="<%= request.getContextPath()%>/css/menuHorizentale.css"     type="text/css" rel="stylesheet" media="all"  />
+ 
+<link    href="<%=request.getContextPath()%>/css/process_style_date.css"  type="text/css" rel="stylesheet" media="all"  />
+<link    href="<%=request.getContextPath()%>/css/process_style_input.css" type="text/css" rel="stylesheet" media="all"  />
+
+<style  >
+
+.btnradioUnchecked{
+    height: 1.2em;
+    width: 1.2em;
+    vertical-align: middle;
+    margin: 0 0.4em 0.4em 0;
+    border: 1px solid red;
+    box-shadow:inset 1px 1px 0 red, 0 1px 1px  red;
+}
+
+.btnradio_checked{
+    height: 1.2em;
+    width: 1.2em;
+    vertical-align: middle;
+    margin: 0 0.4em 0.4em 0;
+}
+
+.loadmask-msg div {
+    padding:5px 10px 5px 25px;
+    background: #fbfbfb url("<%=request.getContextPath()%>/jQuery/images/loading.gif") no-repeat 5px 5px;
+    line-height: 16px;
+	border:1px solid #a3bad9;
+    color:#222;
+    font:normal 11px tahoma, arial, helvetica, sans-serif;
+    cursor:wait;
+}
+
+.tabbed_area99 {
+	background-color:#636d76;
+	padding:0px;	
+}
+
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url("<%=request.getContextPath()%>/jQuery/images/loader-64x/Preloader_2.gif") center no-repeat #fff;
+}
+</style> 
+  
+ 
 <script  src="<%=request.getContextPath()%>/ext-3.0.0/adapter/ext/ext-base.js"        type="text/javascript" ></script>
 <script  src="<%=request.getContextPath()%>/ext-3.0.0/ext-all.js"                     type="text/javascript" ></script>
 <script  src="<%=request.getContextPath()%>/ext-3.0.0/Ext.ux.PanelCollapsedTitle.js"  type="text/javascript" ></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">    
+
+<script type="text/javascript" src="<%=request.getContextPath() %>/jQuery/jquery.maskedinput.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script  src="<%=request.getContextPath() %>/jQuery/jquery1.7.js"                          type="text/javascript"></script>
 <script  src="<%=request.getContextPath() %>/jQuery/dataTable/jquery.dataTables.min1.7.js" type="text/javascript"></script>
@@ -53,6 +127,7 @@
  -->
 <script src="<%=request.getContextPath()%>/jQuery/dateFormat.js"  type="text/javascript"  ></script>
 <script src="<%=request.getContextPath()%>/jQuery/dateFormat.min.js"  type="text/javascript"  ></script>
+
  
 
  
@@ -147,7 +222,9 @@ select[readonly] option{
 <link   href="<%=request.getContextPath() %>/jQuery/jquery.loadmask.css" rel="stylesheet" type="text/css" />
 <script src="<%=request.getContextPath() %>/jQuery/jquery.loadmask.js"                    type='text/javascript' ></script>
 <script src="<%=request.getContextPath() %>/jQuery/modernizr.js"></script>
-<script src="<%=request.getContextPath() %>/jQuery/jquery.mask.min.js"            type="text/javascript"     ></script>
+<script src="<%=request.getContextPath() %>/jQuery/jquery.maskMnt.min.js"            type="text/javascript"     ></script>
+
+
  
 <script type="text/javascript">
  $(window).load(function() {
@@ -165,11 +242,11 @@ function doValidAction() {
     if (typeof control_de_liste !== 'undefined' && typeof control_de_liste === 'function'){
 		  var retour= control_de_liste();
 		  
-		  if(retour!="" &&  !retour.startsWith("©") )  {  alertExt("Erreur",retour,"4"); return;    }
+		  if(retour!="" &&  !retour.startsWith("Â©") )  {  alertExt("Erreur",retour,"4"); return;    }
 		  
 		  
-		  if(retour!="" &&  retour.startsWith("©") )  {
-			  var tabOfNumero = retour.split("©");
+		  if(retour!="" &&  retour.startsWith("Â©") )  {
+			  var tabOfNumero = retour.split("Â©");
 	 
 			  var maselect='<select onchange="getNum(this.value);" >';
 			  for (var z = 0; z < tabOfNumero.length ; z++) {
@@ -181,8 +258,8 @@ function doValidAction() {
 			  maselect+='</select>';
 			  Ext.MessageBox.show({
 		      title:'Enregistrement',
-		      msg: ' Choisir un Numéro de vente déja Supprimé : '+maselect,
-		      buttons: {ok:'Ancien Numéro',no:'Nouveau Numéro'}  ,
+		      msg: ' Choisir un NumÃ©ro de vente dÃ©ja SupprimÃ© : '+maselect,
+		      buttons: {ok:'Ancien NumÃ©ro',no:'Nouveau NumÃ©ro'}  ,
 // 		      fn:  getActionbtnuik(buttonId,numrf) ,
 		      //fn: showResultText.createDelegate(this, tabOfNumero, true),
 		      fn: function (btn){
@@ -454,7 +531,7 @@ function getInitActions(fct_id , fct_libelle,view_smfct_action , sousmod_id ,sou
        
  
              var url_request_action="";
-             
+            
             
             if(view_smfct_action=="" ||  view_smfct_action==null  ||  view_smfct_action.length<12  ){
                url_request_action=thePathServlet;
@@ -464,8 +541,8 @@ function getInitActions(fct_id , fct_libelle,view_smfct_action , sousmod_id ,sou
             
             
        
-            var data =fct_id+"¤"+fct_libelle+"¤"+url_request_action+"¤"+sousmod_id+"¤"+sousmod_libelle+"¤"+indexLisSouMod+"¤"+ixlismodul;
-         
+            var data =fct_id+","+fct_libelle+","+url_request_action+","+sousmod_id+","+sousmod_libelle+","+indexLisSouMod+","+ixlismodul;
+        // alert(fct_id+"Â¤"+fct_libelle+"Â¤"+url_request_action+"Â¤"+sousmod_id+"Â¤"+sousmod_libelle+"Â¤"+indexLisSouMod+"Â¤"+ixlismodul);
                           
             var urluu=contexPath+url_request_action;
               
@@ -623,24 +700,87 @@ function migaXWXXWW(dssss) {
 </script>
 <style  >
 
-.x-btn-text-icon .x-btn-icon-small-left .x-btn-text{
-    background-position: 0 center;
-	background-repeat: no-repeat;
-    padding-left:18px;
-    height:16px;
+.navbar-inverse {
+    background-color: #f5f5f5;
+    border-color: #f5f5f5;
+    color: #333;
 }
-.x-btn-text-iconXX  {
-    background-position: 0 center;
-	background-repeat: no-repeat;
-    padding-left:18px;
-    height:30px;
-    font-size: 20px;
-    text-align: right;
+.navbar-inverse .navbar-nav>li>a {
+    color: #333;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+    color: #333;
+    background-color: #f5f5f5;
+}
+ 
+
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color:white;
+}
+
+ .menuMobi > li > a {
+    /* background-color: #616975; */
+    /* background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(114, 122, 134)),to(rgb(80, 88, 100))); */
+    /* background-image: -webkit-linear-gradient(top, rgb(114, 122, 134), rgb(80, 88, 100)); */
+   /*  background-image: -moz-linear-gradient(top, rgb(114, 122, 134), rgb(80, 88, 100));
+    background-image: -o-linear-gradient(top, rgb(114, 122, 134), rgb(80, 88, 100));
+    background-image: -ms-linear-gradient(top, rgb(114, 122, 134), rgb(80, 88, 100));
+    background-image: linear-gradient(top, rgb(114, 122, 134), rgb(80, 88, 100));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#727a86', EndColorStr='#505864'); */
+    /* border-bottom: 1px solid #33373d; */
+    /* -webkit-box-shadow: inset 0px 1px 0px 0px #878e98; */
+/*     -moz-box-shadow: inset 0px 1px 0px 0px #878e98; */
+    box-shadow: inset 0px 1px 0px 0px #878e98;
+    width: 100%;
+    height: 2.6em;
+    line-height: 2.75em;
+    text-indent: 0.75em;
+    display: block;
+    position: relative;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    color: #333;
+    /* text-shadow: 0px 1px 0px rgb(0 0 0 / 50%);*/
+}
+.x-panel-header {
+    color: #333;
     font-weight: bold;
+    font-size: 11px;
+    font-family: tahoma,arial,verdana,sans-serif;
+    border-color: #d0d0d0;
+    background-image:none;
+    /* background-image: url(../images/gray/panel/white-top-bottom.gif); */
 }
 
-</style>
+.tableStyleContent{
+width: 100%;margin-top: 1.2%;margin-left: 2%;margin-bottom: 2%;margin-right: 8%; background:none;/*background:#f8fcfc;*/
+} 
+ 
+ 
+#tblData{
+    width:95%;
+    border: 0px solid #ccc;
+}
+#tblData td{
+    border: 0px solid #ccc;
+    padding: 8px 0px 5px 0px;
+}
 
+.navbar-inverse .navbar-brand {
+    color: #000;
+    background-color: white;
+}
+ </style>
  
 		
 </head>
@@ -648,19 +788,91 @@ function migaXWXXWW(dssss) {
    <div class="se-pre-con"></div>  
 <ext:body     >
 <ext:viewport  layout="border"    id="ggsgIPg"  bufferResize="true"  cls="rr"       monitorResize="true"  autoDestroy="false" >
-    <ext:panel region="south"       margins="0 0 0 3"     border="false"   > </ext:panel>
+    <ext:panel region="south"       margins="0 0 0 0"     border="false"   > </ext:panel>
     <ext:panel region="east"        margins="0 0 0 0"     border="false"  width="0"      collapsible="true"  > </ext:panel>
 <!-- ******************************************************* Panel nord***************************************************************************-->
-    <ext:panel region="north"       margins="0 3 3 3"     border="true"   width="200"   height="70"   split="false"      >
+    <ext:panel region="north"       margins="0 0 0 0"     border="false"    height="50"   split="false" bodyStyle="z-index: 99999;"     >
      <form  id="actionhori"   method="post"    > 
+       <div id="theDateTime" style="display: none;"></div>
        <input  type="hidden"  name="HiddenAction"  id="HiddenAction"   value="" > 
-       <input  type="hidden"  name="data_action"   id="data_action"    value="" > 
+       <input  type="hidden"  name="data_action"   id="data_action"    value=""  style="background-color: red;z-index: 99999;" > 
       
-	   <table width="100%"    border="0"  cellspacing="0" cellpadding="0"  class="tabbed_area99"     > 
-			<tr   >
+<div class="navbar navbar-inverse" style="position: fixed;width: 100%;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="navbar-header">
+                        <div class="navbar-toggle" data-target="#mobile_menu" data-toggle="collapse"   ><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></div>
+                        <b   class="navbar-brand">SOFT.PROCESS</b>
+                    </div>
+
+                    <div class="navbar-collapse collapse" id="mobile_menu">
+                        <ul class="nav navbar-nav">
+                            <li  ><a href="#">&nbsp;</a></li>
+                            
+                             <c:forEach var="moduleBean"  varStatus="indxM" items="${listModule}"    > 
+	                            
+	                             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><c:out value="${moduleBean.mod_libelle}"/><span class="caret"></span></a>
+	                             
+                                <ul class="dropdown-menu">
+                                <c:forEach var="sousModulebean" varStatus="indxSm"
+												items="${moduleBean.listsmodule}">
+														<li><c:forEach var="fcBean" varStatus="soduter"
+														items="${sousModulebean.listf}">
+														<c:if test="${soduter.index==0}">
+															<a
+																href="javascript:getInitActions('${fcBean.fct_id}','${fcBean.fct_libelle}','${fcBean.view_smfct_action}',
+                        '${sousModulebean.sousmod_id}','${sousModulebean.sousmod_libelle}',
+                        '${indxSm.index}','${indxM.index}','${sousModulebean.sousmod_action}',this)">
+																<c:out value="${sousModulebean.sousmod_libelle}" /> <label
+																title="Toggle Drop-down" class="drop-icon" for="sm2"></label>
+															</a>
+
+														</c:if>
+													</c:forEach></li>
+												  
+												  
+												  
+												</c:forEach>
+                           
+                                </ul>
+                            </li>
+	                        </c:forEach>
+                        </ul>
+                       <%--  <ul class="nav navbar-nav">
+                            <li>
+                                <form action="" class="navbar-form">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="search" name="search" id="" placeholder="Search Anything Here..." class="form-control">
+                                            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul> --%>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login / Sign Up <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    
+                                    <li><a href="javascript:closedApp();">Logout</a></li>
+                                    <li><a href="#">Profile</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	  <%-- <table width="100%"    border="0"  cellspacing="0" cellpadding="0"  class="tabbed_area99"     > 
+			 <tr   >
 				<td  colspan="3"  > 
 				<div  id="topy" class="x-panel-header"  style="height: 17px;width: 98.8%;position: fixed;z-index: 2222;margin-top: -5px;"   >
-				  <a href="${pathRoot}/saas/index.jsp" >Process</a>  &nbsp;©&nbsp;&nbsp;
+				  <a href="${pathRoot}/saas/index.jsp" >Process</a>  &nbsp;Â©&nbsp;&nbsp;
 				  <font color="black"  style="font-size: 11px;"> ${bs.pack_libelle}&nbsp; .::.&nbsp; ${bs.mod_libelle} > ${bs.sousmod_libelle}</font> 
 	          
 		       
@@ -674,21 +886,40 @@ function migaXWXXWW(dssss) {
 		        
 				</div></div>
 				</td>
-			 </tr> 
+			 </tr>  --%>
 			   
-		    <tr>
+		   <%--  <tr>
 	            <td  width="14%"  class="tabbed_area99"    > 
 	             <div style="position:absolute;top: 30%;width: 14%;left: 0.5%;"  >
 	               <font style="color: white;margin-left: 2px;font-size: 13px;margin-bottom: -20px;">
 	               <img src="${pathRoot}/css/icons/fam/user.gif"  >${utilBean.usr_pre}&nbsp;&nbsp;${utilBean.usr_nom}</font>
 	             </div>
 	           </td>
-		       <td   rowspan="2"   width="82.5%"  >
-		             <c:set    var="contt"  value="tab"   /> 
+		       <td   rowspan="2"   width="82.5%"  > --%>
+		           <%--   <c:set    var="contt"  value="tab"   /> 
 		             <div id="tabbed_box_1" class="tabbed_box"    style="position:absolute;top: 30%;left: 14%;width: 100%;"     > 
-		             <div class="tabbed_area"     >
-		     
-		             <ul class="tabs">
+		             <div class="tabbed_area"     > --%>
+		       
+  
+		    
+		        <%--     <ext:body> 	 
+                <ext:toolbar   id="sqhjS" renderTo="sdcvfrdx"    >   
+				    <ext:toolbar.button  id="ddZopgiZzze" text="${bs.prf_libelle}"    />
+			    </ext:toolbar>
+			 </ext:body>
+			 <div  style="position:absolute;top: 63%;width: 14%;" id="sdcvfrdx"   ></div>    
+		      <ext:body> 	 
+                  <ext:toolbar   id="oiuut" renderTo="wwAQ"       >   
+				      <ext:toolbar.separator  />
+				       <ext:toolbar.button   cls="x-btn-text-icon"    onClick="closedApp()"    icon="${pathRoot}/css/icons/fam/connect.gif" /> 
+				       
+				        
+				        
+				   </ext:toolbar>
+			  </ext:body>
+              <div  id="wwAQ"  style="position:absolute;top: 63%;width: 14%;"> </div> --%>
+              
+		            <%--  <ul class="tabs"  >
 		               <c:forEach var="moduleBean"  varStatus="outers" items="${listModule}"    >
 			               <c:if  test="${outers.index==bs.indexModule}"  >
 			                 <c:set    var="lemm"  value="tab active"   ></c:set>
@@ -707,7 +938,7 @@ function migaXWXXWW(dssss) {
 		              <ext:toolbar           id="tent_${indxM.index}"      renderTo="content_${indxM.index}"     >
 		    	       <c:forEach  var="sousModulebean"   varStatus="indxSm" items="${moduleBean2.listsmodule}" >
 		    	           <ext:toolbar.separator  />
-						   <ext:toolbar.button  text="${sousModulebean.sousmod_libelle}"  cls="x-btn-text-icon" icon="${pathRoot}/css/icons/fam/Module.png" >
+						   <ext:toolbar.button  text="${sousModulebean.sousmod_libelle}"    cls="x-btn-text-icon" icon="${pathRoot}/css/icons/fam/Module.png" >
 						        <c:if test="${fn:length(sousModulebean.listf) > 0}">
 					              <ext:menu >
 						      	     <c:forEach var="fcBean" varStatus="soduter" items="${sousModulebean.listf}">
@@ -728,7 +959,7 @@ function migaXWXXWW(dssss) {
 		            </ext:body>
 		              <c:if  test="${indxM.index==bs.indexModule}"  >
 		                <div id="content_${indxM.index}" class="content"     style="display: block;"   ></div>
-		                <!-- id="${fcBean.fct_id}£${fcBean.fct_libelle}£${sousModulebean.sousmod_id}£${sousModulebean.sousmod_libelle}£${indxSm.index}£${indxM.index}£${sousModulebean.sousmod_action}" -->
+		                <!-- id="${fcBean.fct_id}Â£${fcBean.fct_libelle}Â£${sousModulebean.sousmod_id}Â£${sousModulebean.sousmod_libelle}Â£${indxSm.index}Â£${indxM.index}Â£${sousModulebean.sousmod_action}" -->
 		              </c:if>
 		              <c:if    test="${indxM.index!=bs.indexModule}"  >
 		                 <div id="content_${indxM.index}" class="content"  style="display: none;"  ></div>
@@ -743,8 +974,8 @@ function migaXWXXWW(dssss) {
 		                 <div class="x-toolbar" style="height: 22px;position:absolute;margin-top: 2.0%;width: 100%;"  > </div>
 		              </c:if>
 		         </div>
-		     </div>  
-		   </td>
+		     </div>   --%>
+		<%--    </td>
 		   <td    class="tabbed_area99"  align="center"     height="42px;"  valign="top"  >   
 		    
 		   </td>
@@ -771,7 +1002,7 @@ function migaXWXXWW(dssss) {
               <div  id="wwAQ"  style="position:absolute;top: 63%;width: 14%;"> </div>
          </td>
        </tr>
-  </table>
+  </table> --%>
 </form>
 </ext:panel>
 
@@ -779,16 +1010,16 @@ function migaXWXXWW(dssss) {
 <!-- ******************************************************* Panel Gauche**********************************************************************************-->
 
 
-    <ext:panel region="west"      margins="0 0 5 3"  autoScroll="yes"   border="true"    width="130"   collapsible="true"  
-	  title="Explorer"   id="hyuE"       split="true"   collapseMode="true"   hideCollapseTool="false"
+    <ext:panel region="west"      margins="0 0 0 0"  autoScroll="yes"   border="true"    width="170"   collapsible="true"  
+	  titleCollapse="&nbsp;" id="hyuE"   title="&nbsp;&nbsp;"    split="false"   collapseMode="true"   hideCollapseTool="false"  
 	  plugins="[Ext.ux.PanelCollapsedTitle]">
 	  
-        <div  class="x-toolbar"  style="height: 1400px;"  > 
+         
         <form  id="myhrefaction"   method="post"   > 
           <input  name="HiddenAction"  id="HiddenAction"  value="i$_ACT_LOAD_Mod_SM"   type="hidden" > 
           <input  name="data_for_module"  id="data_for_module"  value=""   type="hidden" >   
-		  <div id="wrapper"  > 
-<!-- 			  <ul class="menu"    > -->
+		  <div id="wrapperMobi" style="width: 97%;" > 
+<!-- 			  <ul class="menuMobi"    > -->
 			          <c:forEach var="packbean"  varStatus="outer" items="${listPackgeSousPack}"    >
 <%-- 					      <c:choose> --%>
 <%-- 						      <c:when test="${not empty packbean.racourci_soupack}"> --%>
@@ -805,11 +1036,11 @@ function migaXWXXWW(dssss) {
 <%-- 						      </c:when> --%>
 <%-- 						    <c:otherwise> --%>
 <%-- 						        <li class="item${outer.index}"><a href='#' style="text-decoration: none;" > <c:out value="${packbean.pack_libelle}"/>   </a>  --%>
-							   <ul  class="menu"   >   <!-- <ul   >   -->
-							   <c:forEach  var="sousPackbean"  varStatus="souterX" items="${packbean.list_sous_mod}" >
-							      <li class="item${souterX.index}"  onclick="getModules(${sousPackbean.spack_id},'${packbean.pack_id}');" style="cursor: pointer;"  >
-							      <a  name="" style="text-decoration: none;" >
-							       <c:out value="${sousPackbean.spack_libelle}"/>  </a>
+							   <ul  class="menuMobi" style="margin-bottom: 0px;"  >   <!-- <ul   >   -->
+							       <c:forEach  var="sousPackbean"  varStatus="souterX" items="${packbean.list_sous_mod}" >
+							          <li     style="cursor: pointer;"  >
+							         <a  style="text-decoration: none;"  href="javascript:onclick=getModules(${sousPackbean.spack_id},'${packbean.pack_id}');" >
+							           <c:out value="${sousPackbean.spack_libelle}"/>  </a>
 							       </li>
 							 </c:forEach> 
 					          </ul> 
@@ -820,18 +1051,19 @@ function migaXWXXWW(dssss) {
 <!-- 			   </ul> -->
 	      </div>
       </form>
-   </div>
+
 </ext:panel>
 
  
  
     
 <!-- ******************************************************* Panel center**********************************************************************-->
-    <ext:panel  region="center" margins="0 3 15 0"  border="true"   autoScroll="false"   bodyStyle="background:white;"   id="PanelSwing"     >
+    <ext:panel  region="center" margins="0 0 0 0"  border="false"   autoScroll="false"   bodyStyle="background:white;"   id="PanelSwing"     >
     <!-- background:#EEEFE7;  -->
     
        <form  id="myformToServeur"  method="post"  name="myformToServeur"     >
-	        <div id="toolbarBttn"      style="margin: 5px 10px 0px 10px;position: static;display:${disMenuX.toolbarBttn};" >
+           
+	         <div id="toolbarBttn"      style="margin: 0px 0px 0px 0px;position: static;display:${disMenuX.toolbarBttn};" >
 	           <input  type="hidden"  id="HiddenAction"  name="HiddenAction"  value=""       >
 	           
 		    
@@ -842,8 +1074,9 @@ function migaXWXXWW(dssss) {
 				          background: #636d76;display:${disMenuX.toolbarBttn};"  > ${bs.fct_libelle} - ${bs.sousmod_libelle}      
 				          </div> -->
 				          
-	        </div> 
-	           <c:set var="styloAc" value="max-height: 200px;overflow: auto;border: 1px solid #99bbe8;margin: 0px 10px 10px 10px;background-color:#FEFCFF;"  /><!-- background-color:#f8fcfc; -->
+	        </div>   
+	           <c:set var="styloAc" value="max-height: 200px;overflow: auto;border: 1px solid #99bbe8;margin: 0px 0px 0px 0px;background-color:#FEFCFF;"  />
+	           <!-- background-color:#f8fcfc; -->
                <c:if test="${disMenuX.toolbarBttn=='none'}">
                <c:set var="styloAc" value=""  />
                </c:if>
@@ -853,19 +1086,19 @@ function migaXWXXWW(dssss) {
 	              <ext:body  > 	   
 	                  <ext:panel     renderTo="toolbarBttn"  
 	                  
-	                  bodyStyle="background-color:#616975;"
+	               
 	                   
 	                   border="true"   collapsible="false"    
-	                    style="background-color:#616975;" 
+	              
 	                   
 	                    >
-		                  <ext:toolbar   id="Wqs"         style="background-color:#616975;"  >   
+		                  <ext:toolbar   id="Wqs"          >   
 		                 
 					       <c:if test="${fn:length(sousModulebean.listf)> 0}">  
 				              <c:forEach var="fcBean" varStatus="inFct" items="${sousModulebean.listf}">
-				                <ext:toolbar.button   
+				                <ext:toolbar.button     tooltip="${fcBean.fct_libelle}"
 				                         icon="${pathRootac}${fcBean.fct_icon}" 
-				                         cls="x-btn-text-icon"  text="${fcBean.fct_libelle}"
+				                         cls="x-btn-text-icon"  text=""
 						                 onClick="getInitActions('${fcBean.fct_id}','${fcBean.fct_libelle}','${fcBean.view_smfct_action}',
 								      	                         '${sousModulebean.sousmod_id}','${sousModulebean.sousmod_libelle}',
 								      	                         '${bs.indexSousModule}','${bs.indexModule}','${sousModulebean.sousmod_action}',this)"/>  
@@ -874,10 +1107,10 @@ function migaXWXXWW(dssss) {
 				              
 				                
 				           </c:if>
-				            <div style="background-color:#616975;padding-left: 3%;font-weight: bold;color:#fff;padding-top: 0.5%;top: -50px;padding-bottom: 5px;font-size: 15px;font-family: arial;"  >${bs.fct_libelle} ${bs.prefix_sousmod_libelle_title} ${bs.sousmod_libelle_title}</div>
+				            <div style="background-color:#00000;padding-left: 3%;font-weight: bold;padding-top: 0.5%;top: -50px;padding-bottom: 5px;font-size: 15px;font-family: arial;"  >${bs.fct_libelle} ${bs.prefix_sousmod_libelle_title} ${bs.sousmod_libelle_title}</div>
 				          </ext:toolbar>
 				          
-		                  <ext:toolbar   id="WqsSED"      style="background-color:#f8fcfc;float:right;margin-right:0.5;"  >            
+		                  <ext:toolbar   id="WqsSED"      style="background-image:none;background-color:white;float:right;margin-right:0.5;border:none;"  >            
 							 	              
 							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/page-first.gif"   cls="x-btn-text-icon"    disabled="${tml.btfirst}"          onClick="${tml.fctdoFisrt}"  />  
 							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/page-prev.gif"    cls="x-btn-text-icon"    disabled="${tml.btPrevious}"      onClick="${tml.fctdoPrevieus}"   />
@@ -885,12 +1118,12 @@ function migaXWXXWW(dssss) {
 							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/page-last.gif"    cls="x-btn-text-icon"    disabled="${tml.btLast}"    onClick="${tml.fctdoLast}"   />
 							
 							
-							<ext:toolbar.button    cls="x-btn-text-icon"    text="&nbsp;"    id="ESPACE_UN"     minWidth="20"  disabled="true" />
+							<%-- <ext:toolbar.button    cls="x-btn-text-icon"    text="&nbsp;"    id="ESPACE_UN"     minWidth="20"  disabled="true" />
 							
 							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/Hint.gif"         cls="x-btn-text-icon"      disabled="${tml.btTrace}"   onClick="doGetHelp()"   text="${_labelhelp}"       />
 							<ext:toolbar.separator />  
 							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/Notes.gif"        cls="x-btn-text-icon"      disabled="${tml.btAide}"    onClick="doGetTrace()"  text="${_labeltrace}"       />
-							<ext:toolbar.separator />  
+							<ext:toolbar.separator />   --%>
 							<ext:toolbar.button   text="Print"  icon="${pathRootac}/css/icons/fam/pdf.png"          cls="x-btn-text-iconXX"    disabled="${tml.btPdf}"   
 							      onClick="${tml.fctdoPdf}"     id="btPrintPdfx"  >
 						     </ext:toolbar.button>
@@ -898,7 +1131,68 @@ function migaXWXXWW(dssss) {
 	                       
 						   <ext:toolbar.button   id="methodPRint"     onClick="changePrint()"     text="${bs.formatPrintIcon}"    ></ext:toolbar.button>
 						   
-							<script>
+							
+							<ext:toolbar.separator />
+							
+							<ext:toolbar.button   text="Excel"   icon="${pathRootac}/css/icons/fam/Excel.gif"        cls="x-btn-text-iconXX"    disabled="${tml.btExcel}"  
+							 onClick="${tml.fctdoExcel}"     id="btExportXlsx" />
+							
+							<ext:toolbar.button    cls="x-btn-text-icon"    text="&nbsp;"   id="ESPACE_DEUX"      minWidth="20"  disabled="true" />
+								
+						<%-- 	<ext:toolbar.button    cls="x-btn-text-iconXX"    text="${tml.libelleCommit}"      icon="${pathRootac}/css/icons/fam/icon_commit.png"     id="btCommit"      disabled="${tml.commit}"         onClick="${tml.fctdoCommit}"     />
+							<ext:toolbar.separator/>  
+							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="${tml.libelleRollback}"    icon="${pathRootac}/css/icons/fam/icon_rollback.png"   id="btRollback"    disabled="${tml.rollback}"       onClick="${tml.fctdoRollback}"  />  				        
+					 --%>
+								
+							 <ext:toolbar.separator />
+							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="${tml.libelleAction}"  icon="${pathRootac}/css/icons/fam/${tml.iconAction}"       minWidth="150"         type="submit"    id="btValidx"    onClick="${tml.fctdoValid}"  disabled="${tml.btValid}"     />  
+							<ext:toolbar.separator />
+							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="RÃ©initialiser"           icon="${pathRootac}/css/icons/fam/gtk-cancel.png"              type="button"    id="btReset"    disabled="${tml.btReset}"   onClick="${tml.fctdoReset}"   />   
+							<ext:toolbar.separator/>
+							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="Retour"                 icon="${pathRootac}/css/icons/fam/Redo.png"               type="button"     id="btRetour"      disabled="${tml.btRetour}"  onClick="${tml.fctdoRetour}" /> 
+	                     </ext:toolbar>
+	                  </ext:panel>
+	            </ext:body>
+	            <div id="errmsg"  style="color: red;font-weight: bold;margin-left: 45%;"></div> 
+	            
+				<div id="errmsgssss"  style="color: red;font-weight: bold;margin-left: 3%;font-size: 12px;">
+	             <c:if test="${not empty detailBean}"> 
+	             <c:catch var="CatchNullPointerException">
+	             <c:if test="${not empty detailBean.modeBean }"> 
+	             <c:if test="${not empty detailBean.modeBean.fct_libelle}"> 
+				 <p  style="margin-top: 5px;" >  <font color="black">Mode:</font>   ${detailBean.modeBean.fct_libelle}     
+				 <font  style="margin-r: 5px;float: right;" >  
+	              <c:if test="${not empty detailBean}"> 
+	              <c:if test="${not empty detailBean.date_cre}"> 
+	              <fmt:formatDate pattern="dd/MM/yyyy"  value="${detailBean.date_cre}"    var="detailBeaSxccvncmd_date"/>
+				  <font color="black">CrÃ©e le:</font>    ${detailBeaSxccvncmd_date}  
+				  </c:if>
+				  </c:if>
+				  <c:if test="${not empty detailBean}"> 
+	              <c:if test="${not empty detailBean.date_mod}"> 
+	              <fmt:formatDate pattern="dd/MM/yyyy"  value="${detailBean.date_mod}"    var="dedmodifierd_date"/>
+				  <font color="black">  ----  ModifiÃ© le:</font>    ${dedmodifierd_date}  
+				  </c:if>
+				  </c:if>
+				   </font>
+				  </p>
+				
+				 </c:if>
+				 </c:if>
+				 
+				 </c:catch>
+				  </c:if>
+				 
+				</div> 
+	            
+	          </div> 
+           </form>   
+</ext:panel>
+    <!-- ******************************************************* END**********************************************************************-->
+</ext:viewport>
+</ext:body>
+
+<script>
 							
 							function messageBoxTimeOut(title,body,time){
 								var mb = Ext.MessageBox.show({
@@ -938,64 +1232,6 @@ function migaXWXXWW(dssss) {
 							}
 							 
 							</script>
-							<ext:toolbar.separator />
-							
-							<ext:toolbar.button   text="Excel"   icon="${pathRootac}/css/icons/fam/Excel.gif"        cls="x-btn-text-iconXX"    disabled="${tml.btExcel}"   onClick="${tml.fctdoExcel}"     id="btExportXlsx" />
-							
-							<ext:toolbar.button    cls="x-btn-text-icon"    text="&nbsp;"   id="ESPACE_DEUX"      minWidth="20"  disabled="true" />
-								
-							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="${tml.libelleCommit}"      icon="${pathRootac}/css/icons/fam/icon_commit.png"     id="btCommit"      disabled="${tml.commit}"         onClick="${tml.fctdoCommit}"     />
-							<ext:toolbar.separator/>  
-							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="${tml.libelleRollback}"    icon="${pathRootac}/css/icons/fam/icon_rollback.png"   id="btRollback"    disabled="${tml.rollback}"       onClick="${tml.fctdoRollback}"  />  				        
-					
-								
-							 <ext:toolbar.separator />
-							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="${tml.libelleAction}"  icon="${pathRootac}/css/icons/fam/${tml.iconAction}"       minWidth="150"         type="submit"    id="btValidx"    onClick="${tml.fctdoValid}"  disabled="${tml.btValid}"     />  
-							<ext:toolbar.separator />
-							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="Réinitialiser"           icon="${pathRootac}/css/icons/fam/gtk-cancel.png"              type="button"    id="btReset"    disabled="${tml.btReset}"   onClick="${tml.fctdoReset}"   />   
-							<ext:toolbar.separator/>
-							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="Retour"                 icon="${pathRootac}/css/icons/fam/Redo.png"               type="button"     id="btRetour"      disabled="${tml.btRetour}"  onClick="${tml.fctdoRetour}" /> 
-	                     </ext:toolbar>
-	                  </ext:panel>
-	            </ext:body>
-	            <div id="errmsg"  style="color: red;font-weight: bold;margin-left: 45%;"></div> 
-	            
-				<div id="errmsgssss"  style="color: red;font-weight: bold;margin-left: 3%;font-size: 12px;">
-	             <c:if test="${not empty detailBean}"> 
-	             <c:catch var="CatchNullPointerException">
-	             <c:if test="${not empty detailBean.modeBean }"> 
-	             <c:if test="${not empty detailBean.modeBean.fct_libelle}"> 
-				 <p  style="margin-top: 5px;" >  <font color="black">Mode:</font>   ${detailBean.modeBean.fct_libelle}     
-				 <font  style="margin-r: 5px;float: right;" >  
-	              <c:if test="${not empty detailBean}"> 
-	              <c:if test="${not empty detailBean.date_cre}"> 
-	              <fmt:formatDate pattern="dd/MM/yyyy"  value="${detailBean.date_cre}"    var="detailBeaSxccvncmd_date"/>
-				  <font color="black">Crée le:</font>    ${detailBeaSxccvncmd_date}  
-				  </c:if>
-				  </c:if>
-				  <c:if test="${not empty detailBean}"> 
-	              <c:if test="${not empty detailBean.date_mod}"> 
-	              <fmt:formatDate pattern="dd/MM/yyyy"  value="${detailBean.date_mod}"    var="dedmodifierd_date"/>
-				  <font color="black">  ----  Modifié le:</font>    ${dedmodifierd_date}  
-				  </c:if>
-				  </c:if>
-				   </font>
-				  </p>
-				
-				 </c:if>
-				 </c:if>
-				 
-				 </c:catch>
-				  </c:if>
-				 
-				</div> 
-	            
-	          </div> 
-           </form>   
-</ext:panel>
-    <!-- ******************************************************* END**********************************************************************-->
-</ext:viewport>
-</ext:body>
 <script type="text/javascript">
 Ext.onReady(function(){
  if("${bs.formatPrint}"=="portrait"){
@@ -1005,7 +1241,11 @@ Ext.onReady(function(){
  }
 var primecontact = Ext.getCmp('hyuE');
 primecontact.expand();
-var dffff_win=$(window).height() - 195;
+//primecontact.collapse();
+
+ 
+			
+var dffff_win=$(window).height() - 145;
 dffff_win=dffff_win+"px";
 document.getElementById("ThePageJsp").style.maxHeight=dffff_win; 
 });

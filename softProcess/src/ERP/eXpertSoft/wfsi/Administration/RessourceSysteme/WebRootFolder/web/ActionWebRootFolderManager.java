@@ -179,14 +179,14 @@ public class ActionWebRootFolderManager extends WebRootFolderTemplate {
 				   }
 					  Connection con = null;
 				      Class.forName("org.postgresql.Driver");
-				      con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/testDB","postgres", "manager");
+				      con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/SPLDB","postgres", "postgres");
 				      DatabaseMetaData meta = con.getMetaData();
 				      ResultSet res = meta.getColumns(null,null, detailBean.getTable_name(), null);
 				      ResultSet resPrimaryKey =meta.getPrimaryKeys(null, null, detailBean.getTable_name());
 				      while (resPrimaryKey.next()) {
 				    	  mapDataPrimaryKey.put(resPrimaryKey.getString("COLUMN_NAME"), "primary" );
 				      }
-				      ResultSet resForeinKey =meta.getExportedKeys(null, null, detailBean.getTable_name());
+				      //ResultSet resForeinKey =meta.getExportedKeys(null, null, detailBean.getTable_name());
 				      /*while (resForeinKey.next()) {
 				    	  mapDataForeinKey.put(resForeinKey.getString("COLUMN_NAME"), "forRenky" );
 				      }*/

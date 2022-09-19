@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
+encoding//WebContent/Aceuil/esProcess.jsp=UTF-8
+encoding//WebContent/ERP/Process/Commerciale/Vente/Mvtcom/FormMvtcom.jsp=UTF-8
+encoding//WebContent/ERP/Process/Commerciale/Vente/ProcedureVente/FormProcedureVente_caisse.jsp=UTF-8
 encoding//WebContent/jQuery/process_script_datepicker.js=UTF-8
 encoding//WebContent/saas/index.jsp=UTF-8
 encoding//src/ERP/Process/Commerciale/Vente/Facture_client/web/PrintPdfModeleKobbi.java=UTF-8

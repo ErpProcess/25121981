@@ -5,7 +5,7 @@ LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle","achat_obs","list_dep
 LoadAutoCompletAjax_with_marGin("frs_id"  ,"frsref","depot_id","list_fournisseur_recep_achat","250","100");
 });
 </script>
-
+ 
   <ext:body  >   
   <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
  <ext:panel   border="false"    bodyStyle="background: none;"      title="Critere de recherche"   collapsible="true"    >  
@@ -21,7 +21,7 @@ LoadAutoCompletAjax_with_marGin("frs_id"  ,"frsref","depot_id","list_fournisseur
     <tr>  
    <td  ><label>${dem_achat_id}</label></td>  
    <td   >  
-   <input id="dem_achat_id"   name="dem_achat.dem_achat_id"     type="text"    size="15"       maxlength="18"        value="${searchBean.dem_achat.dem_achat_id}"    nextElement="achat_libelle"              />  
+   <input id="dem_achat_id"   name="dem_achat.dem_achat_id"   type="text"    size="15"       maxlength="18"        value="${searchBean.dem_achat.dem_achat_id}"    nextElement="achat_libelle"              />  
   </td>  
    </tr> 
      
@@ -55,14 +55,19 @@ LoadAutoCompletAjax_with_marGin("frs_id"  ,"frsref","depot_id","list_fournisseur
    <tr>  
    <td  ><label>${depot_id}</label></td>  
    <td    >  
- 
-   
-   
+  
    <input id="depot_id" name="depot.depot_id"     type="text"    size="10"       maxlength="10"        value="${searchBean.depot.depot_id}"    nextElement="btValidx"                       />  
    <input id="depot_libelle" name="depot.depot_libelle"     type="text"    size="30"       maxlength="10"        value="${searchBean.depot.depot_libelle}"    nextElement="btValidx"         />  
   </td>  
    </tr>   
- </table>   
+ </table > 
+ 
+  
+
+ 
+ 
+
+
 </ext:panel>
 <ext:panel    title="${nameList}"  id="RET_GRID"   border="false"   bodyStyle="background: none;"     style="display:none;"   ><jsp:include  page="${LIST_VIEW}.jsp" /></ext:panel>
 </ext:panel>

@@ -133,15 +133,15 @@ function doActiveTabInterafce(idtabs){
 	 <ext:panel   title="Liste des Packages "     bodyStyle="background: none;"   id="panelWebroot1"  > 
 	 <table id="gridPackages" class="display" width="100%" ></table>  
 	 </ext:panel>
-	 <ext:panel   title="Liste Sous Packages "     bodyStyle="background: none;"   id="i$_ACT_LOAD_SOUSPACKAGE"  onActivate="doActiveTabInterafce(this.id)" > 
+	 <ext:panel   title="Liste Sous Packages "     bodyStyle="background: none;"  height="300"  id="i$_ACT_LOAD_SOUSPACKAGE"  onActivate="doActiveTabInterafce(this.id)" > 
 		 <table id="gridSousPackages" class="display" width="100%" ></table>
 	 </ext:panel>
 	 
-	 <ext:panel     title="Liste Module"     bodyStyle="background: none;"   id="i$_ACT_LOAD_MODUL"  onActivate="doActiveTabInterafce(this.id)" > 
+	 <ext:panel     title="Liste Module"     bodyStyle="background: none;" height="300"    id="i$_ACT_LOAD_MODUL"  onActivate="doActiveTabInterafce(this.id)" > 
 		 <table id="gridmoduleSystem" class="display" width="100%" ></table>
 	 </ext:panel>
 	 
-	  <ext:panel     title="Fonction-Sous Module"     bodyStyle="background: none;"   id="i$_ACT_LOAD_F_S_MODUL"  onActivate="doActiveTabInterafce(this.id)" > 
+	  <ext:panel     title="Fonction-Sous Module"     bodyStyle="background: none;" height="300"   id="i$_ACT_LOAD_F_S_MODUL"  onActivate="doActiveTabInterafce(this.id)" > 
 		 <table id="gridFct_smoduleSystem" class="display" width="100%" ></table>
 	 </ext:panel>
 	 

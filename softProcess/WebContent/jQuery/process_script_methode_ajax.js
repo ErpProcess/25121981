@@ -32,9 +32,10 @@ function doGenerate_methode_ajaxWithReturn(TYPE_P_jQuery,URL_P_jQuery,HAction_P_
  	 var form_all_data  = {};
 	  $.each($("#myformToServeur").serializeArray(), function (i, field) {
 	    form_all_data[field.name] = field.value || "";
+	   
 	  });
 	  
-	   
+	  
 	   
     jQuery.ajax({ 
                type: TYPE_P_jQuery,  

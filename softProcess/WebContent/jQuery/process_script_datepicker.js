@@ -105,7 +105,7 @@ $(item).datepicker({
  });
 });
 
-$('.dataTable tbody td input[type=datepicker]').live('focus', function(e) {
+$('.dataTable tbody td input[type=datepicker]').on('focus', function(e) {
 var ELTsXDxcvfcc2=$(this).val();  
 
 if( ELTsXDxcvfcc2 !==null &&  ELTsXDxcvfcc2!=="" &&  ELTsXDxcvfcc2!== undefined ){

@@ -363,6 +363,7 @@ config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
 		 </table> 
 		 
 		 
+		
 	 </ext:panel>
 	 
 	 

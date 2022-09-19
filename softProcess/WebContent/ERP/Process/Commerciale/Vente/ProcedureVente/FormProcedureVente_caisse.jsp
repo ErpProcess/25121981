@@ -1,41 +1,42 @@
-<%@include file="/Aceuil/esProcess.jsp" %> 
+<%@include file="/Aceuil/esProcess.jsp"%>
 <style>
 .buttonClv {
-    background-color: #4CAF50;
-    border: none;
-    color: #FFFFFF;
-    padding: 25px 30px 20px 25px;
-    text-align: center;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    text-decoration: none;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 5px 5px 5px 5px ;
+	background-color: #4CAF50;
+	border: none;
+	color: #FFFFFF;
+	padding: 25px 30px 20px 25px;
+	text-align: center;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+	text-decoration: none;
+	font-size: 16px;
+	cursor: pointer;
+	margin: 5px 5px 5px 5px;
 }
- 
+
 .btnArticle {
-    background-color: #008CBA;
-    border: none;
-    width: 80px;
-    height: 80px;
-    color: #FFFFFF;
-    padding-left: 5px;
-   white-space: initial;
-    text-align: left;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    text-decoration: none;
-    font-size: 12px;
-    cursor: pointer;
-    margin: 5px 5px 5px 5px ;
+	background-color: #008CBA;
+	border: none;
+	width: 80px;
+	height: 80px;
+	color: #FFFFFF;
+	padding-left: 5px;
+	white-space: initial;
+	text-align: left;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+	text-decoration: none;
+	font-size: 12px;
+	cursor: pointer;
+	margin: 5px 5px 5px 5px;
 }
+
 .buttonClv:hover {
-  background-color: #4CAF50; /* Green */
-  color: white;
+	background-color: #4CAF50; /* Green */
+	color: white;
 }
-</style> 
- 
+</style>
+
 
 
 
@@ -54,7 +55,8 @@ $("#clavierNumerique").html(dataClv+htmlDataClavierNumerique) ;
 });
 
 </script>
-<c:import url="${context_path}/dataGridSetting/EditabledataGridConfig.jsp"></c:import>
+<c:import
+	url="${context_path}/dataGridSetting/EditabledataGridConfig.jsp"></c:import>
 
 
 <script type="text/javascript">
@@ -175,7 +177,7 @@ $(document).ready(function () {
 LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
 		 config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
 
-if(custumMessageBoxo!=""  &&  custumMessageBoxo !="Facturation effectuée avec succès"  &&  custumMessageBoxo !="Confirmation effectuée avec succès"  ){
+if(custumMessageBoxo!=""  &&  custumMessageBoxo !="Facturation effectuÃ©e avec succÃ¨s"  &&  custumMessageBoxo !="Confirmation effectuÃ©e avec succÃ¨s"  ){
 
 var messageBoxx='Confirmer';
 
@@ -192,7 +194,7 @@ Ext.MessageBox.show({
        });
 }  
 
-if(custumMessageBoxo!=""  &&  custumMessageBoxo =="Confirmation effectuée avec succès"){
+if(custumMessageBoxo!=""  &&  custumMessageBoxo =="Confirmation effectuÃ©e avec succÃ¨s"){
 
 	Ext.MessageBox.show({
         title:'Imprimer Bon de Livraison',
@@ -208,7 +210,7 @@ if(custumMessageBoxo!=""  &&  custumMessageBoxo =="Confirmation effectuée avec s
 
 
 
-if(custumMessageBoxo!="" &&  custumMessageBoxo=="Facturation effectuée avec succès"){
+if(custumMessageBoxo!="" &&  custumMessageBoxo=="Facturation effectuÃ©e avec succÃ¨s"){
 	Ext.MessageBox.show({
         title:'Imprimer Facture',
         msg: custumMessageBoxo,
@@ -264,8 +266,8 @@ function getActionBox(btn){
     	 hidvente="i$_ACT_FACTURER"; 
     	 var  verifNumFac =doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_VERIF_LIST_FACT','text',false);
 
-		  if(verifNumFac!="" &&  verifNumFac.startsWith("©") )  {
-			  var tabOfNumeroFact = verifNumFac.split("©");
+		  if(verifNumFac!="" &&  verifNumFac.startsWith("Â©") )  {
+			  var tabOfNumeroFact = verifNumFac.split("Â©");
 	 
 			  var maselectFact='<select onchange="getNumFact(this.value);" >';
 			  for (var z = 0; z < tabOfNumeroFact.length ; z++) {
@@ -277,8 +279,8 @@ function getActionBox(btn){
 			  maselectFact+='</select>';
 			  Ext.MessageBox.show({
 		      title:'INFO',
-		      msg: ' Voulez vous Choisir un Numéro Déja Supprimé : '+maselectFact,
-		      buttons: {ok:'Ancien Numéro',no:'Nouveau Numéro'}  ,
+		      msg: ' Voulez vous Choisir un NumÃ©ro DÃ©ja SupprimÃ© : '+maselectFact,
+		      buttons: {ok:'Ancien NumÃ©ro',no:'Nouveau NumÃ©ro'}  ,
 		      fn: function (btn){
 		    	  
 		    	  if (btn == 'ok') actFactoData(numrReserveFact); else actFactoData(null);
@@ -486,9 +488,9 @@ function doExcuteFnAfterGrid( dataSS ){
  
  } 							                        
  </script>
- 
- 
-  <script  >
+
+
+<script>
 		        function getDevise(thisValue){
           	           	
           	 if( thisValue=="191"  ||  thisValue=="192"  ){
@@ -532,205 +534,328 @@ function doExcuteFnAfterGrid( dataSS ){
           	 
           	 }
 		        $(function() {loadSelectAjax("devX","list_devise","dev_id","dev_libelle","${detailBean.devise.dev_id}",true); })</script>
-  
-  <ext:body  >  
-  
-  
-  <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
-  
-   
+
+<ext:body>
+
+
+	<ext:panel border="false" bodyStyle="background: none;"
+		renderTo="ThePageJsp">
 
 
 
 
-   <ext:panel  border="false"    bodyStyle="background: none;"          >
-   
-<%--         <ext:toolbar         toolbarType="bbar"   >  --%>
-<%--         <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuivant('article')"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar> --%>
-    
-     <table   cellpadding="2" cellspacing="2"  id="tblData"   width="100%"  border="1" >
 
- 
- <tr> <td   rowspan="8"  colspan="4"  width="10%" valign="top"  >
-             <label>${depot_id}</label> 
-            <input id="depot_id" name="depot.depot_id"    type="hidden" readonly="readonly"     value="${detailBean.depot.depot_id}"   required />
-            <input id="depot_libelle" name="depot.depot_libelle" libre type="text"  style="width: 100%;"    value="${detailBean.depot.depot_libelle}"    required />
-           
-            <script>
+
+		<ext:panel border="false" bodyStyle="background: none;">
+
+			<%--         <ext:toolbar         toolbarType="bbar"   >  --%>
+			<%--         <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuivant('article')"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar> --%>
+
+			<table cellpadding="2" cellspacing="2" id="tblData" width="100%" border="1">
+
+
+				<tr>
+					<td rowspan="8" colspan="4" width="10%" valign="top">
+					
+					    <label style="display: none;">${depot_id}</label>
+						<input id="depot_id" name="depot.depot_id" type="hidden"
+						readonly="readonly" value="${detailBean.depot.depot_id}" required />
+						<input id="depot_libelle" name="depot.depot_libelle" libre
+					type="hidden"   
+						value="${detailBean.depot.depot_libelle}" required /> <script>
                 $(function () {
                     loadSelectAjax("fam_idX", "listFamArticleOfvente", "fam_id", "fam_lib", "", true);
                     $("#fam_idX").css("height", parseInt($("#fam_idX option").length) * 18);
                     $("#fam_idX").css("overflow-y", "hidden");
                 });
-            </script>
-  <br> 
-  
-  <div   style="overflow-y:scroll; height:250px;"   > 
-            <select id="fam_idX" name="fam_id"   onclick="getSuivant('article')" style="width: 250px;" nextElement="artyp"   multiple="multiple"     ></select>
-  </div>
- 
- </td></tr>
- 
- 
-    <tr  valign="top"  >
-        <td width="50%" colspan="4">
-             <button value="Espace" >Espace</button>  
-        
-             <input id="espace" name="espace"   size="10"  libre readonly="readonly"  value="" />
-        
-         <label>Table</label> 
-        
-            <input id="table" name="table"    size="10" libre readonly="readonly" value="" />
+            </script> <br>
 
- <div id="clavierNumerique"> <input  type="button"  value="X"   class="buttonClv"    onclick="clearQuantite()"    style="font-size: 16px;width: 40px;"  ></div>
+						<div style="overflow-y: scroll; height: 100%;">
+							<select id="fam_idX" name="fam_id"
+								onclick="getSuivant('article')" style="width: 100%;"
+								nextElement="artyp" multiple="multiple"></select>
+						</div>
+						
+						</td>
+				</tr>
 
-          
-       <div id="galleryArticle"  style="overflow-y:scroll; height:500px;text-align: center;"   ></div>
-            
-            
-        </td>
-        <td width="40%" rowspan="8"  valign="top" >
-         <input id="choixPanel" name="choixPanel" type="hidden" /> 
-        <label>${vente_id}</label>
-        <input id="vente_id" name="vente_id" type="text" size="15" value="${detailBean.vente_id}" nextElement="vente_libelle" libre readonly="readonly" />
-        <label>${vente_date}</label>
-         <fmt:formatDate pattern="dd/MM/yyyy" value="${detailBean.vente_date}" var="detailavente_date" />
-            <input id="vente_date" name="vente_date" type="datepicker" size="13" libre maxlength="13" value="${detailavente_date}" nextElement="depot_id" required />
-            <select   style="display: none;"   onchange="getDevise(this.value)" required id="devX" name="devise.dev_id" style="width: 180px;"></select>
-             <label>${clt_id}</label> 
-            <script>
+
+				<tr valign="top">
+					<td width="50%" colspan="4">
+						<button value="Espace">Espace</button> <input id="espace"
+						name="espace" size="10" libre readonly="readonly" value="" /> <label>Table</label>
+
+						<input id="table" name="table" size="10" libre readonly="readonly"
+						value="" />
+
+
+						<div id="clavierNumerique"></div>
+
+
+						<div id="galleryArticle"
+							style="overflow-y: scroll; height: 100%; width : 100%;text-align: center;"></div>
+ <style>
+ 
+ 
+.fill:hover,
+.fill:focus {
+  box-shadow: inset 0 0 0 2em var(--hover);
+}
+
+// Animate the size, outside
+.pulse:hover,
+.pulse:focus {
+  animation: pulse 1s;
+  box-shadow: 0 0 0 2em rgba(#fff, 0);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--hover);
+  }
+}
+
+// Stack multiple shadows, one from the left, the other from the right
+.close:hover,
+.close:focus {
+  box-shadow: inset -3.5em 0 0 0 var(--hover), inset 3.5em 0 0 0 var(--hover);
+}
+
+// Size can also be negative; see how it's smaller than the element
+.raise:hover,
+.raise:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+
+// Animating from the bottom
+.up:hover,
+.up:focus {
+  box-shadow: inset 0 -3.25em 0 0 var(--hover);
+}
+
+// And from the left
+.slide:hover,
+.slide:focus {
+  box-shadow: inset 6.5em 0 0 0 var(--hover);
+}
+
+// Multiple shadows, one on the outside, another on the inside
+.offset {
+  box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color);
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 0 0 var(--hover), inset 6em 3.5em 0 0 var(--hover);
+  }
+}
+ 
+$colors: (
+  fill: #a972cb,
+  pulse: #ef6eae,
+  close: #ff7f82,
+  raise: #ffa260,
+  up: #e4cb58,
+  slide: #8fc866,
+  offset: #19bc8b
+);
+
+ 
+
+ 
+button {
+  color: var(--color);
+  transition: 0.25s;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
+}
+ 
+button {
+  background: none;
+  border: 2px solid;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em;
+  padding: 1em 2em;
+}
+
+h1 {
+  font-weight: 400;
+}
+
+code {
+  color: #e4cb58;
+  font: inherit;
+}
+ 
+ 
+ </style>
+ <div class="buttons">
+  <h1>Simple hover effects with <code>box-shadow</code></h1>
+  <button class="fill">Fill In</button>
+  <button class="pulse">Pulse</button>
+  <button class="close">Close</button>
+  <button class="raise">Raise</button>
+  <button class="up">Fill Up</button>
+  <button class="slide">Slide</button>
+  <button class="offset">Offset</button>
+</div>
+
+					</td>
+					<td width="40%" rowspan="8" valign="top"><input
+						id="choixPanel" name="choixPanel" type="hidden" /> <label>${vente_id}</label>
+						<input id="vente_id" name="vente_id" type="text" size="15"
+						value="${detailBean.vente_id}" nextElement="vente_libelle" libre
+						readonly="readonly" /> <label>${vente_date}</label> <fmt:formatDate
+							pattern="dd/MM/yyyy" value="${detailBean.vente_date}"
+							var="detailavente_date" /> <input id="vente_date"
+						name="vente_date" type="datepicker" size="13" libre maxlength="13"
+						value="${detailavente_date}" nextElement="depot_id" required /> <select
+						style="display: none;" onchange="getDevise(this.value)" required
+						id="devX" name="devise.dev_id" style="width: 180px;"></select> <label>${clt_id}</label>
+						<script>
                 $(function () {
                     loadSelectAjax("clt_idx", "list_client_for_vente", "clt_id", "clt_lib", "${detailBean.client.clt_id}", true);
                 });
-            </script>
-            <select id="clt_idx" name="client.clt_id" style="width: 180px;"></select>
-            
-            
-           
-            <div>
+            </script> <select id="clt_idx" name="client.clt_id"
+						style="width: 180px;"></select>
 
-                         <label>&nbsp;&nbsp;QTE</label> <input   type="number"     id="quantiteX"             name="quantiteX"    value=""  style="width: 60px;"        >
-						 <input   type="text"         id="pk.code_barre"        size="15" name="code_barreX"      requiredx          >
-						 <input   type="text"         id="designation_libelle"  size="40"  name="designation_libelle"         requiredx > 
-		                 
-						 <input   id="b1"  type="button"  value="+"    onclick="ADD()"   style="font-size: 16px;width: 40px;text-align:center;" > 
-						 <input   type="button"  value="-"       onclick="Delete_ROW()"         style="font-size: 16px;width: 40px;"  >
-						 
-						 
-					</div>
-             <table id="GRID_SAISIE_DETAIL_VENTE" class="display"     > 
-			      <thead   >      
-					 <tr> 
-						<th></th>
-						<th></th>
-						<th>Qté</th>
-						<th>Désignation</th>
-						<th>Désignation</th>
-						<th>Prix.U</th>
-						<th>Total</th>
-						<th></th>
-				    </tr>
-				 </thead>
-				<tfoot  id="footTotal" style="display: none;"  >
-				 <tr><td   height="20px" colspan="12"   > </td> </tr>  
-					<c:forEach var="p" begin="1" end="5">
-		                    <tr  > 
-								<td ></td>
-								<td ></td>
-								<td ></td>
-								 
-								<td colspan="2"></td>
-								 
-								<td colspan="3" ></td>
-								
-						    </tr>
-					</c:forEach>
-				    
-			       <c:forEach var="i" begin="1" end="8">
-		                    <tr align="right"> 
-								<td colspan="4"></td>
-								<td   ></td>
-								<td colspan="3" ></td>
-								<td ></td>
-								<td ></td>
-								<td colspan="2" ></td>
-								 
-						    </tr>
-					</c:forEach>
-				
-				
-				</tfoot>
-				</table>
-            <label style="display: none;">Remise </label>
-            <input   
-                id="taux_remise_alacaisse"
-                name="taux_remise_alacaisse"
-                style="width: 40px;display: none;"
-                type="number"
-                min="0"
-                max="100"
-                libre="libre"
-                value="${detailBean.taux_remise_alacaisse}"
-                nextelement="designation_libelle"
-                onblur="getSuivant('article');"
-            />
-            <label style="display: none;"  >%</label>
-            <input id="vente_remise_alacaisse"  style="display: none;"   name="vente_remise_alacaisse" type="montant3" size="10" libre readonly="readonly"   value="${detailBean.vente_remise_alacaisse}" />
-            <input id="vente_remise"            style="display: none;"   name="vente_remise" type="montant3" size="10" libre readonly="readonly" value="${detailBean.vente_remise}" />
-            <div style="float: right;"><label> Net.A Payer</label> 
-            <input id="vente_mnt_net_a_payer" name="vente_mnt_net_a_payer" type="montant3" size="17" libre readonly="readonly" maxlength="15" value="${detailBean.vente_mnt_net_a_payer}" />
-                 </div> 
-          <br>
-		   <label> Montant Réçu&nbsp;&nbsp;</label> 
-		   <input id="montant_vente_recu" name="montant_vente_recu"       type="montant3"    style="font-size: 18px;"  size="17"      libre     value="${detailBean.montant_vente_recu}"    nextelement="montant_vente_rendu"     onblur="loadgrid();"   /> 
-		   <br><label> Montant Rendu</label> 
-	       <input id="montant_vente_rendu" name="montant_vente_rendu"    libre  readonly="readonly"    value="${detailBean.montant_vente_rendu}"   type="montant3"  style="font-size: 18px;"   size="17"            nextelement="null"   />
-	  
-        </td>
-    </tr>
 
-    
 
-    <tr  valign="top"   >
-        <td  colspan="4"> 
-       
-       </td>
-    </tr>
-    <tr style="display: none;">
-        <td><label>${vente_libelle}</label></td>
-        <td>
-            <input id="vente_libelle" name="vente_libelle" type="text" size="17" value="${detailBean.vente_libelle}" nextElement="depot_id" autofocus />
-        </td>
+						<div>
 
-        <td>
-            <label>${avance_montant_vente}</label>
-        </td>
+							<label>&nbsp;&nbsp;QTE</label> <input type="number"
+								id="quantiteX" name="quantiteX" value="" style="width: 60px;">
+							<input type="text" id="pk.code_barre" size="15"
+								name="code_barreX" requiredx> <input
+								type="text" id="designation_libelle" size="40"
+								name="designation_libelle" requiredx> <input id="b1"
+								type="button" value="+" onclick="ADD()"
+								style="font-size: 16px; width: 40px; text-align: center;">
+							<input type="button" value="-" onclick="Delete_ROW()"
+								style="font-size: 16px; width: 40px;">
+                              <input type="button" value="X" style="font-size: 16px; width: 40px;"
+								onclick="clearQuantite()"  >
 
-        <td>
-            <input id="avance_montant_vente" name="avance_montant_vente" type="montant3" size="17" libre="libre" maxlength="50" value="${detailBean.avance_montant_vente}" nextelement="vente_remise" onblur="getSuivant('article');" />
-        </td>
-    </tr>
+						</div>
+						<table id="GRID_SAISIE_DETAIL_VENTE" class="display">
+							<thead>
+								<tr>
+									<th></th>
+									<th></th>
+									<th>QtÃ©</th>
+									<th>DÃ©signation</th>
+									<th>DÃ©signation</th>
+									<th>Prix.U</th>
+									<th>Total</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tfoot id="footTotal" style="display: none;">
+								<tr>
+									<td height="20px" colspan="12"></td>
+								</tr>
+								<c:forEach var="p" begin="1" end="5">
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
 
-    <tr style="display: none;" >
-        <td><label>Total.HT.Net</label></td>
-        <td>
-            <input id="vente_mnt_brute_ht" name="vente_mnt_brute_ht" type="montant3" style="display: none;" size="15" libre readonly="readonly" value="${detailBean.vente_mnt_ht}" />
-            <input id="vente_mnt_net_ht" name="vente_mnt_net_ht" type="montant3" size="15" libre readonly="readonly" value="" />
-        </td>
-        <td><label>Total.Tva </label></td>
-        <td>
-            <input id="vente_mnt_tva" name="vente_mnt_tva" type="montant3" size="15" libre readonly="readonly" value="${detailBean.vente_mnt_tva}" />
-        </td>
-    </tr>
-    
- 
-   
-    
-</table>
- 
-         </ext:panel>
-	          
-</ext:panel>
+										<td colspan="2"></td>
+
+										<td colspan="3"></td>
+
+									</tr>
+								</c:forEach>
+
+								<c:forEach var="i" begin="1" end="8">
+									<tr align="right">
+										<td colspan="4"></td>
+										<td></td>
+										<td colspan="3"></td>
+										<td></td>
+										<td></td>
+										<td colspan="2"></td>
+
+									</tr>
+								</c:forEach>
+
+
+							</tfoot>
+						</table> <label style="display: none;">Remise </label> <input
+						id="taux_remise_alacaisse" name="taux_remise_alacaisse"
+						style="width: 40px; display: none;" type="number" min="0"
+						max="100" libre="libre"
+						value="${detailBean.taux_remise_alacaisse}"
+						nextelement="designation_libelle" onblur="getSuivant('article');" />
+						<label style="display: none;">%</label> <input
+						id="vente_remise_alacaisse" style="display: none;"
+						name="vente_remise_alacaisse" type="montant3" size="10" libre
+						readonly="readonly" value="${detailBean.vente_remise_alacaisse}" />
+						<input id="vente_remise" style="display: none;"
+						name="vente_remise" type="montant3" size="10" libre
+						readonly="readonly" value="${detailBean.vente_remise}" />
+						<div style="float: right;">
+							<label> Net.A Payer</label> <input id="vente_mnt_net_a_payer"
+								name="vente_mnt_net_a_payer" type="montant3" size="17" libre
+								readonly="readonly" maxlength="15"
+								value="${detailBean.vente_mnt_net_a_payer}" />
+						</div> <br> <label> Montant RÃ©Ã§u&nbsp;&nbsp;</label> <input
+						id="montant_vente_recu" name="montant_vente_recu" type="montant3"
+						style="font-size: 18px;" size="17" libre
+						value="${detailBean.montant_vente_recu}"
+						nextelement="montant_vente_rendu" onblur="loadgrid();" /> <br>
+					<label> Montant Rendu</label> <input id="montant_vente_rendu"
+						name="montant_vente_rendu" libre readonly="readonly"
+						value="${detailBean.montant_vente_rendu}" type="montant3"
+						style="font-size: 18px;" size="17" nextelement="null" /></td>
+				</tr>
+
+
+
+				<tr valign="top">
+					<td colspan="4"></td>
+				</tr>
+				<tr style="display: none;">
+					<td><label>${vente_libelle}</label></td>
+					<td><input id="vente_libelle" name="vente_libelle" type="text"
+						size="17" value="${detailBean.vente_libelle}"
+						nextElement="depot_id" autofocus /></td>
+
+					<td><label>${avance_montant_vente}</label></td>
+
+					<td><input id="avance_montant_vente"
+						name="avance_montant_vente" type="montant3" size="17"
+						libre="libre" maxlength="50"
+						value="${detailBean.avance_montant_vente}"
+						nextelement="vente_remise" onblur="getSuivant('article');" /></td>
+				</tr>
+
+				<tr style="display: none;">
+					<td><label>Total.HT.Net</label></td>
+					<td><input id="vente_mnt_brute_ht" name="vente_mnt_brute_ht"
+						type="montant3" style="display: none;" size="15" libre
+						readonly="readonly" value="${detailBean.vente_mnt_ht}" /> <input
+						id="vente_mnt_net_ht" name="vente_mnt_net_ht" type="montant3"
+						size="15" libre readonly="readonly" value="" /></td>
+					<td><label>Total.Tva </label></td>
+					<td><input id="vente_mnt_tva" name="vente_mnt_tva"
+						type="montant3" size="15" libre readonly="readonly"
+						value="${detailBean.vente_mnt_tva}" /></td>
+				</tr>
+
+
+
+
+			</table>
+
+		</ext:panel>
+
+	</ext:panel>
 
 </ext:body>
- 
+

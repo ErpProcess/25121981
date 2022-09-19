@@ -1356,7 +1356,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 	    	BeanSession  bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 	    	String  data_action= getRequest().getParameter("data_action")==null?"":getRequest().getParameter("data_action");
 	    	bs.setData_action(data_action);
-	    	String []tabCoposer = data_action.split("¤");
+	    	String []tabCoposer = data_action.split(",");
 	    	
 	    	//var data =""+fcId+"¤"+fcLib+"¤"+view_smfct_action+"¤"+smodId+"¤"+smodlib+"¤"+indexLisSouMod+"¤"+ixlismodul;
 	    	

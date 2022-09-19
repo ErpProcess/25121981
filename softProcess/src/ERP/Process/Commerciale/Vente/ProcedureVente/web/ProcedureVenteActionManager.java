@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
@@ -853,7 +854,8 @@ public   ModelAndView doActualiser_GRID( ProcedureVenteBean detailBean ) throws 
 		    		
 		    		DeriverUnite  drvUnite=newBean.getPk().getFkcode_barre().getPk().getAr_bean().getUnitBean().getDrv();
 		    		newBean.setUnite(newBean.getPk().getFkcode_barre().getPk().getAr_bean().getUnitBean().getUnite_lib());
-		    		if(drvUnite!=null) {
+		    		if(drvUnite!=null && drvUnite.getDrv_id()!=null) { 
+		    			
 		    			List <DetDeriverUnite> listDrv = serviceUnite.doFetchDetDeriverUniteByDrvId(drvUnite.getDrv_id())  ;
 		    			for (int r = 0; r < listDrv.size();r++) {
 		    				DetDeriverUnite deUnite = listDrv.get(r);
@@ -3678,7 +3680,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
     		DeriverUnite  drvUnite=beanLigne.getPk().getFkcode_barre().getPk().getAr_bean().getUnitBean().getDrv();
     		beanLigne.setUnite(beanLigne.getPk().getFkcode_barre().getPk().getAr_bean().getUnitBean().getUnite_lib());
     		
-    		if(drvUnite!=null) {
+    		if( drvUnite!=null &&  !Objects.isNull(drvUnite.getDrv_id())) {
     			List <DetDeriverUnite> listDrv = serviceUnite.doFetchDetDeriverUniteByDrvId(drvUnite.getDrv_id())  ;
     			for (int r = 0; r < listDrv.size();r++) {
     				DetDeriverUnite deUnite = listDrv.get(r);
