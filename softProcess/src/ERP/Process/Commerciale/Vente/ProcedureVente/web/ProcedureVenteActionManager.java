@@ -1951,6 +1951,50 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
 	
 	
 	@SuppressWarnings("unchecked")
+	public   ModelAndView doDeleteRowCaisse( ) throws Exception{
+		
+		try {
+			//HashMap  mapd=ProcessUtil.getHashMap_code_bean(listOfmyData, "pk.fkcode_barre.pk.code_barre");
+			String  idArticleToRemove      = getRequest().getParameter("idArticleToRemove")==null?"":getRequest().getParameter("idArticleToRemove");
+			
+			List listOfmyData=(List) getObjectValueModel(LIST_EDITABLE_VENTE);
+			int sizefinal=listOfmyData.size();
+			boolean  del=false;
+			for (int i = 0; i < sizefinal; i++) {
+				DetProcedureVenteBean newBean= (DetProcedureVenteBean) listOfmyData.get(i);
+				if(newBean.getPk().getFkcode_barre().getPk().getCode_barre().equals(idArticleToRemove)){
+					listOfmyData.remove(i);
+					sizefinal--;
+					i--;
+					del=true;
+				}
+			}
+			setObjectValueModel(LIST_EDITABLE_VENTE,listOfmyData);
+			List list_article_achatOrigine =(List) getObjectValueModel(LIST_EDITABLE_VENTE_CLONE);
+			List list_article_venteGrid = new ArrayList();
+			List list_article_dem_vente = new ArrayList();
+			for (int i = 0; i < list_article_achatOrigine.size(); i++) {
+				Code_barreBean    bean  =(Code_barreBean) list_article_achatOrigine.get(i);
+				if(!idArticleToRemove.equals(bean.getPk().getCode_barre())){
+					list_article_venteGrid.add(bean);
+					list_article_dem_vente.add(bean);
+				}
+				
+			}
+			setObjectValueModel(LIST_ARTICLE_VENTE_GRID,list_article_venteGrid);
+			setObjectValueModel(LIST_ARTICLE_VENTE,list_article_dem_vente);
+			getResponse().setContentType("text");
+			} catch (Exception e) {
+					getResponse().setContentType(HTML_CONTENT_TYPE);
+					PrintWriter out = getResponse().getWriter();
+					out.println(e.getMessage());
+				    out.close();
+			}
+			return null;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
 	public   ModelAndView doDeleteRowService( ) throws Exception{
 		
 		try {

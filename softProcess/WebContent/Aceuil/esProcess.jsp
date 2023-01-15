@@ -752,15 +752,7 @@ function migaXWXXWW(dssss) {
     color: #333;
     /* text-shadow: 0px 1px 0px rgb(0 0 0 / 50%);*/
 }
-.x-panel-header {
-    color: #333;
-    font-weight: bold;
-    font-size: 11px;
-    font-family: tahoma,arial,verdana,sans-serif;
-    border-color: #d0d0d0;
-    background-image:none;
-    /* background-image: url(../images/gray/panel/white-top-bottom.gif); */
-}
+
 
 .tableStyleContent{
 width: 100%;margin-top: 1.2%;margin-left: 2%;margin-bottom: 2%;margin-right: 8%; background:none;/*background:#f8fcfc;*/
@@ -802,14 +794,14 @@ width: 100%;margin-top: 1.2%;margin-left: 2%;margin-bottom: 2%;margin-right: 8%;
             <div class="row">
                 <div class="col-lg-12">
 
-                    <div class="navbar-header">
-                        <div class="navbar-toggle" data-target="#mobile_menu" data-toggle="collapse"   ><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></div>
-                        <b   class="navbar-brand">SOFT.PROCESS</b>
+                    <div class="navbar-header" style="margin-right: 3%;">
+                        <bR>
+                        <b  >SOFT.PROCESS</b>
                     </div>
 
                     <div class="navbar-collapse collapse" id="mobile_menu">
                         <ul class="nav navbar-nav">
-                            <li  ><a href="#">&nbsp;</a></li>
+                            
                             
                              <c:forEach var="moduleBean"  varStatus="indxM" items="${listModule}"    > 
 	                            
@@ -856,9 +848,8 @@ width: 100%;margin-top: 1.2%;margin-left: 2%;margin-bottom: 2%;margin-right: 8%;
                             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login / Sign Up <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    
-                                    <li><a href="javascript:closedApp();">Logout</a></li>
                                     <li><a href="#">Profile</a></li>
+                                    <li><a href="javascript:closedApp();">Logout</a></li>
                                 </ul>
                             </li>
                         </ul>

@@ -1,5 +1,8 @@
 <%@include file="/Aceuil/esProcess.jsp"%>
 <style>
+
+
+
 .buttonClv {
 	background-color: #4CAF50;
 	border: none;
@@ -42,7 +45,7 @@
 
 <script type="text/javascript">
 contenu_toolbarJQuey ="";
-height_tabbJQuey="300px";
+height_tabbJQuey="10%";
 width_tabbJQuey="100%";
 
 $(document).ready(function () {
@@ -71,7 +74,7 @@ var mapEditableGen = {
 				       {      "sName": "indx_row"  ,"bSearchable": false  , "bSortable": false , "bVisible": false }, 
 				       
 				       {      "sName": "to_check"     ,"sWidth": "2%"   ,"bSortable": true     , "mRender": function( data, type, full){
-				              return  '<input  type="checkbox" value="'+data+'"   id=to_check'+full[3]+' name=to_check    '+data+'   onclick=doEnvoiDataV2(this,"'+full[3]+'")       nextElement="pk.code_barre'+full[3]+'"   >';}},
+				              return  '<img   width="25"  style="cursor: pointer;margin-right:7px;margin-left:3px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAyVBMVEUAAAD0Qzb0Qzb0Qzb0Qzb0Qzb0Qzb0Qzb0Qzb0Qzb0Qzb0Qzb0QjX0Qzb0Qzb0QjX0QjX0QjX0Qzb0Qzb0Qzb0Qzb0Qzb0Qzb0Qzb0QjX0Qzb0QjX0Qzb1TkL1VEn1Vkr1TED1T0P6sKv8x8P2YFX0QTT2Zlz8zMn6p6H1Sz/1WEz8zsr////8y8f2X1T2ZVv80s/8w7/1Ukb919T8yMX2XlP92df8z8z2XVL80c380c71Vkv8zcn2ZVr8xcD1U0f1TUD6qaP1TD+9OvL7AAAAG3RSTlMAAAITJSQxhL3WB2XaZAbt7NkwA4O8u4Jj62IAHDtBAAAAAWJLR0Qsut1xqwAAAAlwSFlzAADsOAAA7DgBcSvKOAAAAAd0SU1FB+YJCQkFH4N/vfsAAADCSURBVBjTRY/nEoIwEISTi5QooKDYLnaxRsXe6/s/lIfouL/uvpmd3WWMk0BkDAF0MBK9pmVLaVsmJITzbM5BRULH9YhwyOUbTSLYahdcIGA6nW6vH0WD4WjsB5wVLZxM9Wy+iPVyhSVgwlY4iHW81pstqlAwQyoVLXZa7w+RUtL4g+M8BV/Laa1nfVRlwcDC84X811jf7liBJPbxXG7/sRyqhdcqLVarJ8W45/ppdb/upWMgKIVShpXgM+473/jNfwNQQRYTYldNwwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wOS0wOVQwOTowNToyMyswMDowMDOF4D0AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDktMDlUMDk6MDU6MjMrMDA6MDBC2FiBAAAARnRFWHRzb2Z0d2FyZQBJbWFnZU1hZ2ljayA2LjcuOC05IDIwMTYtMDYtMTYgUTE2IGh0dHA6Ly93d3cuaW1hZ2VtYWdpY2sub3Jn5r80tgAAABh0RVh0VGh1bWI6OkRvY3VtZW50OjpQYWdlcwAxp/+7LwAAABh0RVh0VGh1bWI6OkltYWdlOjpoZWlnaHQANTEywNBQUQAAABd0RVh0VGh1bWI6OkltYWdlOjpXaWR0aAA1MTIcfAPcAAAAGXRFWHRUaHVtYjo6TWltZXR5cGUAaW1hZ2UvcG5nP7JWTgAAABd0RVh0VGh1bWI6Ok1UaW1lADE1MjE4Mjg5NzYlBL7wAAAAE3RFWHRUaHVtYjo6U2l6ZQAxNS4zS0JC0BX05AAAAER0RVh0VGh1bWI6OlVSSQBmaWxlOi8vLi91cGxvYWRzLzU2L01FN21WeEwvMTM4MC92Y3Njb25mbGljdGluZ185MzQ5Ny5wbmfH+vO6AAAAAElFTkSuQmCC" id=to_check'+full[3]+'  name=to_check       onclick=deleteRowCaisse("'+full[3]+'") >';}},
 				              
 				       {      "sName": "quantite"           ,   "bSortable": true       , "sWidth": "5%"        ,"mRender": function( data, type, full){  
 						          return '<input   type="text"       id=quantite'+full[3]+'       name=quantite        value="'+data+'"       onblur=doEnvoiDataV2(this,"'+full[3]+'")        >'; }},         
@@ -420,6 +423,23 @@ function Delete_ROW(){
     });
 }
 
+function deleteRowCaisse(idArticle){
+	  jQuery.ajax({ type: 'POST',  
+		               url: '${tmlx.urlAjax}', 
+		               data:'HiddenAction=i$_ACT_DELETE_ROW_CAISSE&idArticleToRemove='+idArticle,
+		               dataType: 'text', 
+		               success: function(data){
+		               otab_otra.fnAdjustColumnSizing();
+	                      },
+	                   error: function (request, status, error) {
+	                         alert(request.responseText);
+	                   } 
+	    });
+	}
+	
+
+
+
 function doCheked_unCheked(element){
 		var res="";
 		if($(element).attr('type')=="checkbox"){
@@ -535,6 +555,110 @@ function doExcuteFnAfterGrid( dataSS ){
           	 }
 		        $(function() {loadSelectAjax("devX","list_devise","dev_id","dev_libelle","${detailBean.devise.dev_id}",true); })</script>
 
+  
+		        
+<style>
+.ulCaisse
+{
+margin:0px;
+padding:0px;
+list-style-type:none;
+height:500px;
+overflow:scroll;
+-webkit-backface-visibility: hidden; 
+backface-visibility: hidden;  
+}
+.var_nav
+{
+position:relative;
+background:#ccc; 
+width:150px;
+height:50px;
+margin-bottom:5px;
+}
+.link_bg {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background: #cccccc00;
+    /* background: #E01B6A; */
+    color: #fff;
+    z-index: 2;
+}
+.link_bg i
+{
+ position:relative;
+}
+.link_title
+{
+position:absolute;
+width:100%;
+z-index:3;
+color:#fff;
+}
+.link_title:hover .icon
+{
+-webkit-transform:rotate(360deg);
+-moz-transform:rotate(360deg);
+-o-transform:rotate(360deg);
+-ms-transform:rotate(360deg);
+transform:rotate(360deg);  
+}
+.var_nav:hover .link_bg
+{
+width:100%;
+background:#E01B6A;
+-webkit-transition: all 0.3s ease-in-out;
+-moz-transition: all 0.3s ease-in-out;
+-o-transition: all 0.3s ease-in-out;
+-ms-transition: all 0.3s ease-in-out;
+transition: all 0.3s ease-in-out;  
+}
+.var_nav:hover a
+{
+font-weight:bold;
+text-decoration: none; 
+-webkit-transition:all .5s ease-in-out;
+-moz-transition:all .5s ease-in-out; 
+-o-transition:all .5s ease-in-out; 
+-ms-transition:all .5s ease-in-out;
+ transition:all .5s ease-in-out;  
+}
+.icon
+{
+position:relative;
+width:50px;
+height:20px;
+text-align:center;
+color:#fff;
+-webkit-transition:all .5s ease-in-out;
+-moz-transition:all .5s ease-in-out; 
+-o-transition:all .5s ease-in-out; 
+-ms-transition:all .5s ease-in-out;   
+float:left;
+transition:all .5s ease-in-out;   
+float:left;  
+}
+.icon i{top:18px;position:relative;}
+.aCaisse {
+    display: block;
+    position: absolute;
+    float: left;
+    font-family: arial;
+    /* color: #fff; */
+    text-decoration: none;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    /* margin-left: 13px; */
+}
+.spanCaisse
+{
+margin-top:15px;
+display:block;
+}
+</style>
+
 <ext:body>
 
 
@@ -559,22 +683,94 @@ function doExcuteFnAfterGrid( dataSS ){
 					
 					    <label style="display: none;">${depot_id}</label>
 						<input id="depot_id" name="depot.depot_id" type="hidden"
-						readonly="readonly" value="${detailBean.depot.depot_id}" required />
+						readonly="readonly" value="${detailBean.depot.depot_id}"  />
 						<input id="depot_libelle" name="depot.depot_libelle" libre
 					type="hidden"   
-						value="${detailBean.depot.depot_libelle}" required /> <script>
+						value="${detailBean.depot.depot_libelle}" required /> 
+				<script>
+				
+				function loadFamilleArticle(id_region,name_list,codx,libx,data_index_sel,select_vide){
+			        
+		    		$.ajax({
+					        url: UrlServerListeComboSelect,
+					        data: {"nameList_select":name_list ,"fieldcode":codx,"fieldlabel":libx},  
+					        dataType: "json", 
+					        async: false,
+					        type: "POST",
+					        success: function(data) {
+					             var $regions = $('#'+id_region);
+					             for (var h = 0; h <data.myliste.length; h++) {
+					              var htmlDivfam='<li class="var_nav">' +
+					                  '<div class="link_bg"></div>'+
+					                  '<div class="link_title">'+
+					                    '<div class=icon > '+
+					                 //   '<i ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cup-hot" viewBox="0 0 16 16">'+
+					              //' <path fill-rule="evenodd" d="M.5 6a.5.5 0 0 0-.488.608l1.652 7.434A2.5 2.5 0 0 0 4.104 16h5.792a2.5 2.5 0 0 0 2.44-1.958l.131-.59a3 3 0 0 0 1.3-5.854l.221-.99A.5.5 0 0 0 13.5 6H.5ZM13 12.5a2.01 2.01 0 0 1-.316-.025l.867-3.898A2.001 2.001 0 0 1 13 12.5ZM2.64 13.825 1.123 7h11.754l-1.517 6.825A1.5 1.5 0 0 1 9.896 15H4.104a1.5 1.5 0 0 1-1.464-1.175Z"/>'+
+					             // ' <path d="m4.4.8-.003.004-.014.019a4.167 4.167 0 0 0-.204.31 2.327 2.327 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.31 3.31 0 0 1-.202.388 5.444 5.444 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 3.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 3.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 3 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 4.4.8Zm3 0-.003.004-.014.019a4.167 4.167 0 0 0-.204.31 2.327 2.327 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.31 3.31 0 0 1-.202.388 5.444 5.444 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 6.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 6.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 6 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 7.4.8Zm3 0-.003.004-.014.019a4.077 4.077 0 0 0-.204.31 2.337 2.337 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.198 3.198 0 0 1-.202.388 5.385 5.385 0 0 1-.252.382l-.019.025-.005.008-.002.002A.5.5 0 0 1 9.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 9.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 9 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 10.4.8Z"/></svg> </i> '+
+					               ' </div> <a  class="aCaisse"  href="javascript:MyFunction(\''+data.myliste[h].keyx +'\');"     ><span class="spanCaisse" >'+data.myliste[h].valuex+'</span></a></div></li>' 
+					               $regions.append(htmlDivfam);
+					             }  
+					        }
+		            });
+		}
+				function MyFunction(famCode){
+					$("#fam_id").val(famCode);
+					getSuivant('article');
+				}
                 $(function () {
-                    loadSelectAjax("fam_idX", "listFamArticleOfvente", "fam_id", "fam_lib", "", true);
-                    $("#fam_idX").css("height", parseInt($("#fam_idX option").length) * 18);
-                    $("#fam_idX").css("overflow-y", "hidden");
+                    loadFamilleArticle("familleDiv", "listFamArticleOfvente", "fam_id", "fam_lib", "", true);
                 });
-            </script> <br>
-
-						<div style="overflow-y: scroll; height: 100%;">
-							<select id="fam_idX" name="fam_id"
-								onclick="getSuivant('article')" style="width: 100%;"
-								nextElement="artyp" multiple="multiple"></select>
-						</div>
+            </script>  					 
+   <input id="fam_id" name="fam_id"  type="hidden"  >   				 
+<nav>
+  <UL class="ulCaisse" id="familleDiv">
+   <!--  >li class="var_nav">
+      <div class="link_bg"></div>
+      <div class="link_title">
+        <div class=icon> 
+        <i >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cup-hot" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M.5 6a.5.5 0 0 0-.488.608l1.652 7.434A2.5 2.5 0 0 0 4.104 16h5.792a2.5 2.5 0 0 0 2.44-1.958l.131-.59a3 3 0 0 0 1.3-5.854l.221-.99A.5.5 0 0 0 13.5 6H.5ZM13 12.5a2.01 2.01 0 0 1-.316-.025l.867-3.898A2.001 2.001 0 0 1 13 12.5ZM2.64 13.825 1.123 7h11.754l-1.517 6.825A1.5 1.5 0 0 1 9.896 15H4.104a1.5 1.5 0 0 1-1.464-1.175Z"/>
+  <path d="m4.4.8-.003.004-.014.019a4.167 4.167 0 0 0-.204.31 2.327 2.327 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.31 3.31 0 0 1-.202.388 5.444 5.444 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 3.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 3.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 3 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 4.4.8Zm3 0-.003.004-.014.019a4.167 4.167 0 0 0-.204.31 2.327 2.327 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.31 3.31 0 0 1-.202.388 5.444 5.444 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 6.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 6.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 6 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 7.4.8Zm3 0-.003.004-.014.019a4.077 4.077 0 0 0-.204.31 2.337 2.337 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.198 3.198 0 0 1-.202.388 5.385 5.385 0 0 1-.252.382l-.019.025-.005.008-.002.002A.5.5 0 0 1 9.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 9.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 9 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 10.4.8Z"/>
+</svg>
+        
+        </i>
+        </div>
+        <a  class="aCaisse" href="#"><span class="spanCaisse" >About Us</span></a>
+      </div>
+   </li-->
+   
+   <!-- li class="var_nav">
+      <div class="link_bg"></div>
+      <div class="link_title">
+        <div class=icon> 
+        <i class="icon-lightbulb icon-2x"></i>
+        </div>
+        <a href="#" class="aCaisse" ><span class="spanCaisse" >Ideas</span></a>
+      </div>
+   </li>
+   <li class="var_nav">
+      <div class="link_bg"></div>
+      <div class="link_title">
+        <div class=icon> 
+        <i class="icon-wrench icon-2x"></i>
+        </div>
+        <a href="#" class="aCaisse" ><span class="spanCaisse">Services</span></a>
+      </div>
+   </li>
+   <li class="var_nav">
+      <div class="link_bg"></div>
+      <div class="link_title">
+        <div class=icon> 
+        <i class="icon-briefcase icon-2x"></i>
+        </div>
+      <a href="#" class="aCaisse" ><span class="spanCaisse" >Marketing</span></a>
+      </div>
+   </li -->
+   
+  </UL>
+</nav>
+						
 						
 						</td>
 				</tr>
@@ -582,131 +778,8 @@ function doExcuteFnAfterGrid( dataSS ){
 
 				<tr valign="top">
 					<td width="50%" colspan="4">
-						<button value="Espace">Espace</button> <input id="espace"
-						name="espace" size="10" libre readonly="readonly" value="" /> <label>Table</label>
-
-						<input id="table" name="table" size="10" libre readonly="readonly"
-						value="" />
-
-
-						<div id="clavierNumerique"></div>
-
-
-						<div id="galleryArticle"
-							style="overflow-y: scroll; height: 100%; width : 100%;text-align: center;"></div>
- <style>
- 
- 
-.fill:hover,
-.fill:focus {
-  box-shadow: inset 0 0 0 2em var(--hover);
-}
-
-// Animate the size, outside
-.pulse:hover,
-.pulse:focus {
-  animation: pulse 1s;
-  box-shadow: 0 0 0 2em rgba(#fff, 0);
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 var(--hover);
-  }
-}
-
-// Stack multiple shadows, one from the left, the other from the right
-.close:hover,
-.close:focus {
-  box-shadow: inset -3.5em 0 0 0 var(--hover), inset 3.5em 0 0 0 var(--hover);
-}
-
-// Size can also be negative; see how it's smaller than the element
-.raise:hover,
-.raise:focus {
-  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-  transform: translateY(-0.25em);
-}
-
-// Animating from the bottom
-.up:hover,
-.up:focus {
-  box-shadow: inset 0 -3.25em 0 0 var(--hover);
-}
-
-// And from the left
-.slide:hover,
-.slide:focus {
-  box-shadow: inset 6.5em 0 0 0 var(--hover);
-}
-
-// Multiple shadows, one on the outside, another on the inside
-.offset {
-  box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color);
-
-  &:hover,
-  &:focus {
-    box-shadow: 0 0 0 0 var(--hover), inset 6em 3.5em 0 0 var(--hover);
-  }
-}
- 
-$colors: (
-  fill: #a972cb,
-  pulse: #ef6eae,
-  close: #ff7f82,
-  raise: #ffa260,
-  up: #e4cb58,
-  slide: #8fc866,
-  offset: #19bc8b
-);
-
- 
-
- 
-button {
-  color: var(--color);
-  transition: 0.25s;
-
-  &:hover,
-  &:focus {
-    border-color: var(--hover);
-    color: #fff;
-  }
-}
- 
-button {
-  background: none;
-  border: 2px solid;
-  font: inherit;
-  line-height: 1;
-  margin: 0.5em;
-  padding: 1em 2em;
-}
-
-h1 {
-  font-weight: 400;
-}
-
-code {
-  color: #e4cb58;
-  font: inherit;
-}
- 
- 
- </style>
- <div class="buttons">
-  <h1>Simple hover effects with <code>box-shadow</code></h1>
-  <button class="fill">Fill In</button>
-  <button class="pulse">Pulse</button>
-  <button class="close">Close</button>
-  <button class="raise">Raise</button>
-  <button class="up">Fill Up</button>
-  <button class="slide">Slide</button>
-  <button class="offset">Offset</button>
-</div>
-
-					</td>
-					<td width="40%" rowspan="8" valign="top"><input
+						 
+<input
 						id="choixPanel" name="choixPanel" type="hidden" /> <label>${vente_id}</label>
 						<input id="vente_id" name="vente_id" type="text" size="15"
 						value="${detailBean.vente_id}" nextElement="vente_libelle" libre
@@ -716,30 +789,45 @@ code {
 						name="vente_date" type="datepicker" size="13" libre maxlength="13"
 						value="${detailavente_date}" nextElement="depot_id" required /> <select
 						style="display: none;" onchange="getDevise(this.value)" required
-						id="devX" name="devise.dev_id" style="width: 180px;"></select> <label>${clt_id}</label>
+						id="devX" name="devise.dev_id" style="width: 180px;"></select> 
+
+						<br><br>
+						<div id="clavierNumerique"></div>
+
+
+						<div id="galleryArticle" style="overflow-y: scroll; height: 100%; width : 100%;text-align: center;"></div>
+ 
+
+					</td>
+					<td width="40%" rowspan="8" valign="top">
+						<div>
+								<label>QTE&nbsp;&nbsp;&nbsp;</label> <input type="number"
+								id="quantiteX" name="quantiteX" value="" style="width: 60px;">
+								
+									 
+									 
 						<script>
                 $(function () {
                     loadSelectAjax("clt_idx", "list_client_for_vente", "clt_id", "clt_lib", "${detailBean.client.clt_id}", true);
                 });
             </script> <select id="clt_idx" name="client.clt_id"
-						style="width: 180px;"></select>
-
-
-
-						<div>
-
-							<label>&nbsp;&nbsp;QTE</label> <input type="number"
-								id="quantiteX" name="quantiteX" value="" style="width: 60px;">
-							<input type="text" id="pk.code_barre" size="15"
-								name="code_barreX" requiredx> <input
+						style="width: 180px;  float: right;"    ></select>
+								 
+								 
+								<br>
+								<label>REF&nbsp;&nbsp;&nbsp;</label> <input type="text" id="pk.code_barre" size="15"
+								name="code_barreX" requiredx> <br>
+								<label>DESG</label>
+								<input
 								type="text" id="designation_libelle" size="40"
-								name="designation_libelle" requiredx> <input id="b1"
+								name="designation_libelle" requiredx> <br>
+								<input id="b1"
 								type="button" value="+" onclick="ADD()"
 								style="font-size: 16px; width: 40px; text-align: center;">
-							<input type="button" value="-" onclick="Delete_ROW()"
-								style="font-size: 16px; width: 40px;">
-                              <input type="button" value="X" style="font-size: 16px; width: 40px;"
+								  <input type="button" value="X" style="font-size: 16px; width: 40px;"
 								onclick="clearQuantite()"  >
+								
+												
 
 						</div>
 						<table id="GRID_SAISIE_DETAIL_VENTE" class="display">

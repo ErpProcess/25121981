@@ -974,7 +974,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 				BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 				 String Sresultat="";
 				if(bs.getFct_id().equals(GenericActionBean.Fn_Confirmer)){
-					   Sresultat+= "  AND   "+alias+".fct_id  in ('"+GenericActionBean.Fn_Créer+"', "  +
+					   Sresultat+= "  AND   "+alias+".fct_id  in ('"+GenericActionBean.Fn_Crï¿½er+"', "  +
 					                   "                              '"+GenericActionBean.Fn_Nouveau+"', " + 
 					                   "                              '"+GenericActionBean.Fn_Modifier+"', " +
 					                   "                              '"+GenericActionBean.Fn_Servir+"'    )  ";
@@ -982,14 +982,14 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 				 }
 				
 				if(bs.getFct_id().equals(GenericActionBean.Fn_Modifier)){
-					   Sresultat+= "  AND   "+alias+".fct_id  in ('"+GenericActionBean.Fn_Créer+"', "  +
+					   Sresultat+= "  AND   "+alias+".fct_id  in ('"+GenericActionBean.Fn_Crï¿½er+"', "  +
 					                   "                              '"+GenericActionBean.Fn_Nouveau+"', " + 
 					                   "                              '"+GenericActionBean.Fn_Modifier+"', " +
 					                   "                              '"+GenericActionBean.Fn_Servir+"'    )  ";
 					 
 				 }
 				if(bs.getFct_id().equals(GenericActionBean.Fn_Annuler)){
-					   Sresultat+= "  AND   "+alias+".fct_id  in ('"+GenericActionBean.Fn_Créer+"', "  +
+					   Sresultat+= "  AND   "+alias+".fct_id  in ('"+GenericActionBean.Fn_Crï¿½er+"', "  +
 					                   "                              '"+GenericActionBean.Fn_Nouveau+"', " + 
 					                   "                              '"+GenericActionBean.Fn_Modifier+"', " +
 					                   "                              '"+GenericActionBean.Fn_Servir+"'    ) ";
@@ -1358,7 +1358,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 	    	bs.setData_action(data_action);
 	    	String []tabCoposer = data_action.split(",");
 	    	
-	    	//var data =""+fcId+"¤"+fcLib+"¤"+view_smfct_action+"¤"+smodId+"¤"+smodlib+"¤"+indexLisSouMod+"¤"+ixlismodul;
+	    	//var data =""+fcId+"ï¿½"+fcLib+"ï¿½"+view_smfct_action+"ï¿½"+smodId+"ï¿½"+smodlib+"ï¿½"+indexLisSouMod+"ï¿½"+ixlismodul;
 	    	
 	    
 	    	bs.setFct_id(tabCoposer[0]);//(getRequest().getParameter("fct_id")!=null?getRequest().getParameter("fct_id"):"");
@@ -1477,7 +1477,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 				                 ex = ex.getNextException();
 				                }
 								 if(vectError.size()>0){
-				                	 error.setMessage(codeerr!=null?vectError.get(vectError.size()-1):" Veuillez Contacter Votre Administrateur Système ! "); 
+				                	 error.setMessage(codeerr!=null?vectError.get(vectError.size()-1):" Veuillez Contacter Votre Administrateur Systï¿½me ! "); 
 				                 } 
 								
 							 }
@@ -1513,9 +1513,9 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 							 if(hhhh!= null &&  hhhh.size()>0){
 								 error.setMessage(((GlibelleBean)hhhh.get(0)).getLib_libelle());
 							 }else{
-								 error.setMessage(codeerr!=null?codeerr:" Veuillez Contacter Votre Administrateur Système ! ");
+								 error.setMessage(codeerr!=null?codeerr:" Veuillez Contacter Votre Administrateur Systï¿½me ! ");
 							 }
-						 setObjectValueModel(MESSAGERROR, error.getMessage()!=null?error.getMessage():"Veuillez contacter votre administrateur système !");
+						 setObjectValueModel(MESSAGERROR, error.getMessage()!=null?error.getMessage():"Veuillez contacter votre administrateur systï¿½me !");
 					 }
 				} 
 					 
@@ -1582,7 +1582,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 					 beanSearch.getIdLiblleBean().setLang_id(bs.getLang_id());
 					 
 					 if(codeerr.equals("invo_fct")){
-						 String mSg= name_entite+"  "+name_fct +" avec succès";
+						 String mSg= name_entite+"  "+name_fct +" avec succï¿½s";
 						 error.setMessage(mSg);
 					 }else {
 					    List list_message=ActionGlibelleManager.serviceGlibelle.getListDataServer(beanSearch);
@@ -1591,7 +1591,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 					       }else{
 						     getStackTrace(e);
 						     e.printStackTrace();
-					         if( codeerr  !=null  &&  codeerr.length()>0) error.setMessage(codeerr); else error.setMessage("Veuillez Contacter Votre Administrateur Système ! "); 
+					         if( codeerr  !=null  &&  codeerr.length()>0) error.setMessage(codeerr); else error.setMessage("Veuillez Contacter Votre Administrateur Systï¿½me ! "); 
 			               }
 							
 				     }
@@ -1633,11 +1633,11 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 						     String name_entite=bs.getSousmod_libelle_title();
 							 String name_fct=bs.getFct_libelle();
 							 
-							   codeerr= " Échec de l'opération "+name_fct +"  "+name_entite +"  "+codeerr;
+							   codeerr= " ï¿½chec de l'opï¿½ration "+name_fct +"  "+name_entite +"  "+codeerr;
 							  
-							 error.setMessage(codeerr!=null?codeerr:" Veuillez Contacter Votre Administrateur Système ! ");
+							 error.setMessage(codeerr!=null?codeerr:" Veuillez Contacter Votre Administrateur Systï¿½me ! ");
 						 }
-					 setObjectValueModel(MESSAGERROR, error.getMessage()!=null?error.getMessage():"Veuillez contacter votre administrateur système !");
+					 setObjectValueModel(MESSAGERROR, error.getMessage()!=null?error.getMessage():"Veuillez contacter votre administrateur systï¿½me !");
 				 }
 			}  
 		  return errorObject;

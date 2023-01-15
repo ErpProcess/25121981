@@ -56,6 +56,10 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 		           
 		          if (i$_ACT_DELETE_ROW )           return      doDelete_row_Editable(); 
 		          
+		          if (i$_ACT_DELETE_ROW_CAISSE )           return      doDeleteRowCaisse(); 
+		          
+		          
+		          
 		          if (i$_ACT_DELETE_ROW_FOURNIURE ) return      doDeleteRowFourniture(); 
 		          
 		          if (i$_ACT_DELETE_ROW_SERVICE )   return      doDeleteRowService(); 

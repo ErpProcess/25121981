@@ -161,6 +161,7 @@ public static boolean i$_ACT_RECEPTION= false;
 public static boolean i$_ACT_EXPORT_XLS = false;
 public static boolean i$_ACT_ADD_ROW = false;
 public static boolean i$_ACT_DELETE_ROW = false;
+public static boolean i$_ACT_DELETE_ROW_CAISSE= false;
 public static boolean i$_ACT_DELETE_ROW_FOURNIURE = false;
 public static boolean i$_ACT_DELETE_ROW_SERVICE = false;
 public static boolean i$_ACT_Cheked_unCheked = false;

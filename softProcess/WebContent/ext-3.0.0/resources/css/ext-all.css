@@ -5722,10 +5722,12 @@ ul.x-tab-strip-bottom{
 
 .x-btn-group-notitle .x-btn-group-tc {
 	background-image: url(../images/default/button/group-tb.gif);
-}.x-toolbar{
-	border-color:#a9bfd3;
-    background-color:#d0def0;
-    background-image:url(../images/default/toolbar/bg.gif);
+}
+
+.x-toolbar{
+	/*border-color:#a9bfd3;*/
+   /* background-color:#d0def0;*/
+   /* background-image:url(../images/default/toolbar/bg.gif);*/
 }
 
 .x-toolbar td,.x-toolbar span,.x-toolbar input,.x-toolbar div,.x-toolbar select,.x-toolbar label{
@@ -6670,8 +6672,11 @@ a.x-menu-item {
 	font-weight:bold; 
     font-size: 11px;
     font-family: tahoma,arial,verdana,sans-serif;
-    border-color:#99bbe8;
-    background-image: url(../images/default/panel/white-top-bottom.gif);
+    border-color: #f5f5f5;
+    background-color: white;
+    /*border-color:#99bbe8;
+    background-image: url(../images/default/panel/white-top-bottom.gif);*/
+    
 }
 
 .x-panel-body {

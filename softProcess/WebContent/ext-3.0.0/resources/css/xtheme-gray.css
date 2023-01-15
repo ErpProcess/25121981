@@ -400,11 +400,11 @@ ul.x-tab-strip-bottom{
 	background-image: url(../images/gray/button/group-tb.gif);
 }
 .x-toolbar{
-	border-color:#d0d0d0;
-    background-color:#f0f0f0;
-    background-image:url(../images/gray/toolbar/bg.gif);
+	/* border-color:#d0d0d0; */
+	/* background-color:#f0f0f0; */
+	/* background-image:
+	url(../images/gray/toolbar/bg.gif); */
 }
-
 .x-toolbar td,.x-toolbar span,.x-toolbar input,.x-toolbar div,.x-toolbar select,.x-toolbar label{
     font:normal 11px arial,tahoma, helvetica, sans-serif;
 }
@@ -1351,8 +1351,8 @@ a.x-menu-item {
 	font-weight:bold; 
     font-size: 11px;
     font-family: tahoma,arial,verdana,sans-serif;
-    border-color:#d0d0d0;
-    background-image: url(../images/gray/panel/white-top-bottom.gif);
+    /*border-color:#d0d0d0;
+    background-image: url(../images/gray/panel/white-top-bottom.gif);*/
 }
 
 .x-panel-body {
