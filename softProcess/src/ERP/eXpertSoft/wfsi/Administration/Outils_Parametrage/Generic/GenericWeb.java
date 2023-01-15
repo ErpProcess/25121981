@@ -974,7 +974,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 				BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 				 String Sresultat="";
 				if(bs.getFct_id().equals(GenericActionBean.Fn_Confirmer)){
-					   Sresultat+= "  AND   "+alias+".fct_id  in ('"+GenericActionBean.Fn_Crï¿½er+"', "  +
+					   Sresultat+= "  AND   "+alias+".fct_id  in ('"+GenericActionBean.Fn_Créer+"', "  +
 					                   "                              '"+GenericActionBean.Fn_Nouveau+"', " + 
 					                   "                              '"+GenericActionBean.Fn_Modifier+"', " +
 					                   "                              '"+GenericActionBean.Fn_Servir+"'    )  ";
@@ -982,14 +982,14 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 				 }
 				
 				if(bs.getFct_id().equals(GenericActionBean.Fn_Modifier)){
-					   Sresultat+= "  AND   "+alias+".fct_id  in ('"+GenericActionBean.Fn_Crï¿½er+"', "  +
+					   Sresultat+= "  AND   "+alias+".fct_id  in ('"+GenericActionBean.Fn_Créer+"', "  +
 					                   "                              '"+GenericActionBean.Fn_Nouveau+"', " + 
 					                   "                              '"+GenericActionBean.Fn_Modifier+"', " +
 					                   "                              '"+GenericActionBean.Fn_Servir+"'    )  ";
 					 
 				 }
 				if(bs.getFct_id().equals(GenericActionBean.Fn_Annuler)){
-					   Sresultat+= "  AND   "+alias+".fct_id  in ('"+GenericActionBean.Fn_Crï¿½er+"', "  +
+					   Sresultat+= "  AND   "+alias+".fct_id  in ('"+GenericActionBean.Fn_Créer+"', "  +
 					                   "                              '"+GenericActionBean.Fn_Nouveau+"', " + 
 					                   "                              '"+GenericActionBean.Fn_Modifier+"', " +
 					                   "                              '"+GenericActionBean.Fn_Servir+"'    ) ";
