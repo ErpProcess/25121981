@@ -116,7 +116,7 @@ public class ComplementVenteActionManager extends ComplementVenteTemplate {
 			
 			
 
-			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
+			if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 				
 				setObjectValueModel( FORM_BEAN , new ProcedureVenteBean() );
 				setObjectValueModel( SEARCH_BEAN , new ProcedureVenteBean() );
@@ -268,7 +268,7 @@ public class ComplementVenteActionManager extends ComplementVenteTemplate {
 			ComplementVenteBean cVenteBean = new ComplementVenteBean();
 			removeObjectModel(FORM_BEAN);
 			
-			if (bs.getFct_id().equals(Fn_Créer)){
+			if (bs.getFct_id().equals(Fn_Creer)){
 				 
 				 
 				setObjectValueModel(MAP_FIELD_BEAN, ProcedureVenteTemplate.MapfieldBean);

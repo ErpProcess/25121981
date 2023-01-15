@@ -124,7 +124,7 @@ public class Demande_AchatActionManager extends Demande_AchatTemplate {
 			
 			bs.setSousmod_libelle_title(bs.getSousmod_libelle());
 
-			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
+			if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 				
 				Demande_achatBean  demBean = new Demande_achatBean();
 				demBean.setDem_date( ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()) );

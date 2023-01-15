@@ -132,7 +132,7 @@ public class InventaireActionManager extends InventaireTemplate {
 		    	
 			}
 			setObjectValueModel(LIST_DATA_FOR_INVENTAIRE, ListInve);
-			if (bs.getFct_id().equals(Fn_Nouveau) || bs.getFct_id().equals(Fn_Créer)  ) {
+			if (bs.getFct_id().equals(Fn_Nouveau) || bs.getFct_id().equals(Fn_Creer)  ) {
 				return getViewAdd(FORM_VIEW);
 			} else {
 				return getViewFilterAjax(FILTER_VIEW);
@@ -237,12 +237,12 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 	         BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 			
 			if(bs.getFct_id().equals(Fn_Supprimer) || bs.getFct_id().equals(Fn_Annuler)  ){
-				searchBean.setCondition_etat_entite("  AND  bean.modeBean.fct_id not in ('"+Fn_Valider+"','"+Fn_Transférer+"','"+Fn_reception+"')   ");
+				searchBean.setCondition_etat_entite("  AND  bean.modeBean.fct_id not in ('"+Fn_Valider+"','"+Fn_Transferer+"','"+Fn_reception+"')   ");
 			}
 			
 			
 			if(bs.getFct_id().equals(Fn_Modifier) ){
-				searchBean.setCondition_etat_entite("  AND  bean.modeBean.fct_id not in ('"+Fn_Valider+"','"+Fn_Annuler+"','"+Fn_Transférer+"','"+Fn_reception+"')   ");
+				searchBean.setCondition_etat_entite("  AND  bean.modeBean.fct_id not in ('"+Fn_Valider+"','"+Fn_Annuler+"','"+Fn_Transferer+"','"+Fn_reception+"')   ");
 			}
 			
 			 

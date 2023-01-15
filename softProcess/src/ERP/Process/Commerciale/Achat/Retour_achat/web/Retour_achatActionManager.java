@@ -116,38 +116,38 @@ public ModelAndView doFetchData(Retour_achatBean searchBean)throws Throwable {
             /**************************************************Retour******************************************************/
             
 			if(bs.getFct_id().equals(Fn_Valider) || bs.getFct_id().equals(Fn_Modifier) ){
-			  searchBean.setCondition_etat_retour("  AND  bean.modeBean.fct_id  in ('"+Fn_Modifier+"','"+Fn_Créer+"')   ");
+			  searchBean.setCondition_etat_retour("  AND  bean.modeBean.fct_id  in ('"+Fn_Modifier+"','"+Fn_Creer+"')   ");
 			}
 			
 			
 			if(bs.getFct_id().equals(Fn_Annuler)  && bs.getSousmod_id().equals(Retour_achatTemplate.ID_SOUS_MODULE)){
-				searchBean.setCondition_etat_retour("  AND  bean.modeBean.fct_id  in ('"+Fn_Modifier+"','"+Fn_Créer+"')   ");
+				searchBean.setCondition_etat_retour("  AND  bean.modeBean.fct_id  in ('"+Fn_Modifier+"','"+Fn_Creer+"')   ");
 			}
 			
 			if(bs.getFct_id().equals(Fn_Supprimer)){
-				searchBean.setCondition_etat_retour("  AND  bean.modeBean.fct_id  in ('"+Fn_Modifier+"','"+Fn_Créer+"','"+Fn_Annuler+"')   ");
+				searchBean.setCondition_etat_retour("  AND  bean.modeBean.fct_id  in ('"+Fn_Modifier+"','"+Fn_Creer+"','"+Fn_Annuler+"')   ");
 			}
 			/********************************************************************************************************************/
 			
 			
 			
 			/**************************************************Stock******************************************************/
-			if(bs.getFct_id().equals(Fn_Vérifier)){
+			if(bs.getFct_id().equals(Fn_Verifier)){
 				searchBean.setCondition_etat_retour("  AND  bean.modeBean.fct_id  in ('"+Fn_Valider+"')   ");
 			}
 			
 			
 			if(bs.getFct_id().equals(Fn_Consulter)  && bs.getSousmod_id().equals(Retour_achatTemplate.ID_SOUS_MODULE_STOCK)){
-				searchBean.setCondition_etat_retour("  AND  bean.modeBean.fct_id  in ('"+Fn_Vérifier+"','"+Fn_appliquer+"')   ");
+				searchBean.setCondition_etat_retour("  AND  bean.modeBean.fct_id  in ('"+Fn_Verifier+"','"+Fn_appliquer+"')   ");
 			}
 			
 			if(bs.getFct_id().equals(Fn_appliquer)   ){
-				searchBean.setCondition_etat_retour("  AND  bean.modeBean.fct_id  in ('"+Fn_Vérifier+"')   ");
+				searchBean.setCondition_etat_retour("  AND  bean.modeBean.fct_id  in ('"+Fn_Verifier+"')   ");
 			}
 			
 			
 			if(bs.getFct_id().equals(Fn_Annuler)  && bs.getSousmod_id().equals(Retour_achatTemplate.ID_SOUS_MODULE_STOCK)){
-				searchBean.setCondition_etat_retour("  AND  bean.modeBean.fct_id in ('"+Fn_Valider+"','"+Fn_Vérifier+"')   ");
+				searchBean.setCondition_etat_retour("  AND  bean.modeBean.fct_id in ('"+Fn_Valider+"','"+Fn_Verifier+"')   ");
 			}
 			
 			
@@ -386,7 +386,7 @@ public    ModelAndView doSelectRow() {
 		
 		
 		
-		if (bs.getFct_id().equals(Fn_Nouveau) || bs.getFct_id().equals(Fn_Créer) ){
+		if (bs.getFct_id().equals(Fn_Nouveau) || bs.getFct_id().equals(Fn_Creer) ){
 			
 			setObjectValueModel("LIST_VIEW", LIST_VIEW_ACHAT);
 			setObjectValueModel("nameList" , LIST_DATA_ACHAT);
@@ -519,7 +519,7 @@ public    ModelAndView doSelectRow() {
 		if (bs.getFct_id().equals(Fn_Supprimer))
 			return getViewDelete(FORM_VIEW);
 		
-		if (bs.getFct_id().equals(Fn_Vérifier))
+		if (bs.getFct_id().equals(Fn_Verifier))
 			return getViewVerifier(FORM_VIEW);
 		
 		

@@ -160,7 +160,7 @@ public class RegachatDAO extends  GenericWeb    {
 		try {
 			BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
 			if(bs.getFct_id().equals(GenericActionBean.Fn_Modifier) ||  bs.getFct_id().equals(GenericActionBean.Fn_Confirmer)  
-					||  bs.getFct_id().equals(GenericActionBean.Fn_Rectifier) ||  bs.getFct_id().equals(GenericActionBean.Fn_Régler)  ){
+					||  bs.getFct_id().equals(GenericActionBean.Fn_Rectifier) ||  bs.getFct_id().equals(GenericActionBean.Fn_Regler)  ){
 			  setUpdateValueFieldTraceOject(beanUpdate);
 			  beanUpdate.getReg_type().setData_id("reg");
 			  session.update(beanUpdate);

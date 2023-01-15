@@ -149,7 +149,7 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 			
 			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 			if (bs.getFct_id().equals(Fn_Envoyer) ||  bs.getFct_id().equals(Fn_Annuler) ){
-				searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id    in ('"+Fn_Générer+"')   ");
+				searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id    in ('"+Fn_Generer+"')   ");
 			} 
 			
 			List listDataSrv = serviceFacture_Fournisseur.doFetchDatafromServer(searchBean);
@@ -177,7 +177,7 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 		try {
 		 
 			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-			if(bs.getFct_id().equals(Fn_Générer) ){
+			if(bs.getFct_id().equals(Fn_Generer) ){
 				searchBean.setCondition_etat_achat("  AND  bean.modeBean.fct_id  in ('"+Fn_Conserver+"','"+Fn_Confirmer+"')   ");
 			 }
 			List listDataSrv = serviceReception_achat.doFetchDatafromServer(searchBean);
@@ -386,7 +386,7 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 			 List listfournisseur= serviceFournisseur.dofetchDatafromServer(FournisseurBean.class.newInstance());
 			 setObjectValueModel(LIST_FOURNISSEUR_FACTURE_FRS , listfournisseur);
 			 doLoadingLibelleOtherSModule("118");
-			if (bs.getFct_id().equals(Fn_Générer)) {
+			if (bs.getFct_id().equals(Fn_Generer)) {
 				 
 				setObjectValueModel("LIST_VIEW", LIST_VIEW_ACHAT_FACT);
 				setObjectValueModel(NAME_LIST_G, LIST_DATA_ACHAT_FACT);
@@ -397,7 +397,7 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 				return getViewFilterAjax_Achat(FILTER_VIEW_RECEP_ACHAT);
 			}
 
-			if (bs.getFct_id().equals(Fn_Nouveau) || bs.getFct_id().equals(Fn_Créer)
+			if (bs.getFct_id().equals(Fn_Nouveau) || bs.getFct_id().equals(Fn_Creer)
 					 ) {
 				return getViewAdd(FORM_VIEW);
 			} else {
@@ -913,7 +913,7 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 			Facture_FournisseurBean   rowBean = (Facture_FournisseurBean) getObjectValueModel(FORM_BEAN);
 			List <Det_Fact_FournisseurBean >List_detaille= new ArrayList<Det_Fact_FournisseurBean>();
 			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-			if(bs.getFct_id().equals(Fn_Générer)   ){
+			if(bs.getFct_id().equals(Fn_Generer)   ){
 				 List_detaille=(List<Det_Fact_FournisseurBean>) getObjectValueModel(LIST_DATA_DET_FACT);
 			}else{
 				List_detaille=serviceFacture_Fournisseur.doFetchDetailfromServer(rowBean);

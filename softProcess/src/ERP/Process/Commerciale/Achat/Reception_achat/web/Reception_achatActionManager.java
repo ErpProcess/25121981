@@ -213,7 +213,7 @@ public class Reception_achatActionManager extends Reception_achatTemplate {
 				bs.setSousmod_libelle_title(" Demande Achat");
 			}
 			
-			if (bs.getFct_id().equals(Fn_Nouveau) || bs.getFct_id().equals(Fn_Créer)  ) {
+			if (bs.getFct_id().equals(Fn_Nouveau) || bs.getFct_id().equals(Fn_Creer)  ) {
 				 Reception_achatBean rBeanS = new Reception_achatBean();
 				   
 				 rBeanS.setAchat_date(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()));
@@ -613,21 +613,21 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			}
 			
 			if(bs.getFct_id().equals(Fn_Modifier) ){
-				searchBean.setCondition_etat_achat("  AND  bean.modeBean.fct_id  in ('"+Fn_Créer+"','"+Fn_Nouveau+"','"+Fn_Modifier+"','"+Fn_Servir+"')   ");
+				searchBean.setCondition_etat_achat("  AND  bean.modeBean.fct_id  in ('"+Fn_Creer+"','"+Fn_Nouveau+"','"+Fn_Modifier+"','"+Fn_Servir+"')   ");
 			}
 			
 			 
 			if(bs.getFct_id().equals(Fn_Conserver) ){
-			  searchBean.setCondition_etat_achat("  AND  bean.modeBean.fct_id  in ('"+Fn_Transférer+"','"+Fn_reception+"')   ");
+			  searchBean.setCondition_etat_achat("  AND  bean.modeBean.fct_id  in ('"+Fn_Transferer+"','"+Fn_reception+"')   ");
 			}
 			
 			
 			if(bs.getFct_id().equals(Fn_reception) ){
-				  searchBean.setCondition_etat_achat("  AND  bean.modeBean.fct_id  in ('"+Fn_Transférer+"')   ");
+				  searchBean.setCondition_etat_achat("  AND  bean.modeBean.fct_id  in ('"+Fn_Transferer+"')   ");
 			 }
 			
-			if(bs.getFct_id().equals(Fn_Transférer) ){
-				  searchBean.setCondition_etat_achat("  AND  bean.modeBean.fct_id  not in ('"+Fn_Transférer+"','"+Fn_Annuler+"','"+Fn_Conserver+"','"+Fn_reception+"') " +
+			if(bs.getFct_id().equals(Fn_Transferer) ){
+				  searchBean.setCondition_etat_achat("  AND  bean.modeBean.fct_id  not in ('"+Fn_Transferer+"','"+Fn_Annuler+"','"+Fn_Conserver+"','"+Fn_reception+"') " +
 				  		"                               AND  bean.achat_date   <= '"+BDateTime.getDateActuel_system()+"'  ");
 				  
 			 }
@@ -640,14 +640,14 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			}
 			
 			if(bs.getFct_id().equals(Fn_Annuler) && !bs.getSousmod_id().equals("154")){
-				  searchBean.setCondition_etat_achat("  AND  bean.modeBean.fct_id  not in ('"+Fn_Transférer+"','"+Fn_Annuler+"','"+Fn_Conserver+"','"+Fn_reception+"') " +
+				  searchBean.setCondition_etat_achat("  AND  bean.modeBean.fct_id  not in ('"+Fn_Transferer+"','"+Fn_Annuler+"','"+Fn_Conserver+"','"+Fn_reception+"') " +
 				  		"                               AND  bean.achat_date   <= '"+BDateTime.getDateActuel_system()+"'  ");
 			 }
 			
 			 if( bs.getFct_id().equals(Fn_Confirmer)   ){
 					
 			 searchBean.setCondition_etat_achat("    AND  bean.modeBean.fct_id in ('"+Fn_Nouveau+"','"+Fn_Servir+"','"+Fn_Modifier+"'" +
-			 		" ,'"+Fn_Transférer+"','"+Fn_reception+"' )   ");
+			 		" ,'"+Fn_Transferer+"','"+Fn_reception+"' )   ");
 					
 			 }
 			 
@@ -685,7 +685,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
             
             if (bs.getFct_id().equals(Fn_Servir)){
             	
-            	beandemBean.setCondition_etat("  AND  bean.modeBean.fct_id  in ('"+Fn_Valider+"','"+Fn_Créer+"','"+Fn_Modifier+"')   AND    bean.dem_date <= '"+BDateTime.getDateActuel_system()+"' ");
+            	beandemBean.setCondition_etat("  AND  bean.modeBean.fct_id  in ('"+Fn_Valider+"','"+Fn_Creer+"','"+Fn_Modifier+"')   AND    bean.dem_date <= '"+BDateTime.getDateActuel_system()+"' ");
 			}
 			
 			if (bs.getFct_id().equals(Fn_appliquer)){
@@ -899,7 +899,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 				 if (bs.getFct_id().equals(Fn_Confirmer)){ 
 						Reception_achatBean   achatBean=  new Reception_achatBean();
 						achatBean.setCondition_etat_achat(" " +
-						 		" AND  bean.modeBean.fct_id in ('"+Fn_Servir+"','"+Fn_Créer+"','"+Fn_Modifier+"','"+Fn_Transférer+"','"+Fn_Contremander+"')  " +
+						 		" AND  bean.modeBean.fct_id in ('"+Fn_Servir+"','"+Fn_Creer+"','"+Fn_Modifier+"','"+Fn_Transferer+"','"+Fn_Contremander+"')  " +
 						 		" AND  bean.achat_date < '"+ProcessDate.getStringFormatDate(rowBeans.getAchat_date())+"' ");
 						List list= serviceReception_achat.doFetchDatafromServer(achatBean);
 						if(list!= null  &&    list.size()>0){
@@ -932,10 +932,10 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 				return getViewModif_Srv(FORM_SERVIR_DEMANDE_ACHAT);
 			
 			
-			if (bs.getFct_id().equals(Fn_Transférer) && demandeId.equals("")   )
+			if (bs.getFct_id().equals(Fn_Transferer) && demandeId.equals("")   )
 				return getViewTransferer(FORM_VIEW);
 		 
-			if (bs.getFct_id().equals(Fn_Transférer) && !demandeId.equals("")   )
+			if (bs.getFct_id().equals(Fn_Transferer) && !demandeId.equals("")   )
 				return getViewTransferer(FORM_VIEW_DEM);
 			
 			

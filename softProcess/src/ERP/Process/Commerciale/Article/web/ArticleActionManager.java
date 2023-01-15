@@ -265,7 +265,7 @@ public class ArticleActionManager extends ArticleTemplate {
 				setObjectValueModel(FORM_BEAN, new LieuxArticleBean());
 				return getViewLieux(FORM_VIEW_LIEUX);
 				
-			}else if(bs.getFct_id().equals(Fn_Créer)){
+			}else if(bs.getFct_id().equals(Fn_Creer)){
 				return getViewAdd(FORM_SERVICE);
 			}else if(bs.getFct_id().equals(Fn_charger_file)){
 				setObjectValueModel("listDepotStockageInit" , daoDepotStockage.doFindListDepotStockage(DepotStockageBean.class.newInstance()));

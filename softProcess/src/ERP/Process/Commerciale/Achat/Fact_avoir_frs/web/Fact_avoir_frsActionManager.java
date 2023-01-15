@@ -108,7 +108,7 @@ public class Fact_avoir_frsActionManager extends Fact_avoir_frsTemplate {
 			List list_des_tva= serviceTVA.doFetchDatafromServer(TVABean.class.newInstance());
 		    setObjectValueModel(LIST_DES_TVA, list_des_tva);
 				 
-				  if (bs.getFct_id().equals(Fn_Créer)   ) {
+				  if (bs.getFct_id().equals(Fn_Creer)   ) {
 					    setObjectValueModel(LIST_VIEW_G, LIST_VIEW_FACTURE);
 						setObjectValueModel(NAME_LIST_G ,LIST_DATA_FACT); 
 						setObjectValueModel(NAME_GRID_G, NAME_GRID_FACT);
@@ -151,7 +151,7 @@ public class Fact_avoir_frsActionManager extends Fact_avoir_frsTemplate {
 			BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
 			Facture_FournisseurBean  rowBean =  new Facture_FournisseurBean();
 			
-			if (bs.getFct_id().equals(Fn_Créer)){
+			if (bs.getFct_id().equals(Fn_Creer)){
 			  rowBean = (Facture_FournisseurBean) getIndexFromDataGrid_v1(LIST_DATA_FACT);
 			  Fact_avoir_frsBean factBean= new Fact_avoir_frsBean();
 			  factBean.setFactfrs(rowBean);
@@ -180,7 +180,7 @@ public class Fact_avoir_frsActionManager extends Fact_avoir_frsTemplate {
 			
 		
 			
-			if (bs.getFct_id().equals(Fn_Créer))
+			if (bs.getFct_id().equals(Fn_Creer))
 				return getViewAdd(FORM_VIEW_EDIT);
 			
 			if (bs.getFct_id().equals(Fn_Consulter))
@@ -249,7 +249,7 @@ public class Fact_avoir_frsActionManager extends Fact_avoir_frsTemplate {
 			Facture_FournisseurBean   rowBean =  new Facture_FournisseurBean();
 			List <Det_Fact_FournisseurBean >List_detaille= new ArrayList<Det_Fact_FournisseurBean>();
 			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-			if(bs.getFct_id().equals(Fn_Générer)   ){
+			if(bs.getFct_id().equals(Fn_Generer)   ){
 				 rowBean = (Facture_FournisseurBean) getObjectValueModel(FORM_BEAN);
 				 List_detaille=(List<Det_Fact_FournisseurBean>) getObjectValueModel(LIST_DATA_DET_FACT);
 			}else{

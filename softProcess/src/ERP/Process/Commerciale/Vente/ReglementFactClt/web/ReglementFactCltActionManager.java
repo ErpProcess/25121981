@@ -112,7 +112,7 @@ public class ReglementFactCltActionManager extends ReglementFactCltTemplate {
 			setObjectValueModel(Facture_clientTemplate.LIST_CLIENT_VENTE, list_client_d);
 			setObjectValueModel( LIST_DES_ECHEANCES, new ArrayList<EcheanceRegCltBean>() );
 			
-			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
+			if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 				
 				setObjectValueModel(MAP_FIELD_BEAN, Facture_clientTemplate.MapfieldBean);
 				setObjectValueModel(LIST_VIEW_G, LIST_VIEW_FACTURE);
@@ -394,7 +394,7 @@ public   ModelAndView doActualiserGrid( ReglementFactCltBean searchBean ) throws
 			BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
 			
 			
-			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau) ){
+			if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau) ){
 				setObjectValueModel(MAP_FIELD_BEAN, Facture_clientTemplate.MapfieldBean);
 				setObjectValueModel(LIST_VIEW_G, LIST_VIEW_FACTURE);
 				setObjectValueModel(NAME_LIST_G ,LIST_DATA_FACTURE); 
@@ -419,7 +419,7 @@ public   ModelAndView doActualiserGrid( ReglementFactCltBean searchBean ) throws
 				return getViewUpdate(FORM_EDIT_VIEW);
 			if (bs.getFct_id().equals("4"))
 				return getViewDelete(FORM_VIEW);
-			if (bs.getFct_id().equals(Fn_Confirmer) ||  bs.getFct_id().equals(Fn_Régler) )
+			if (bs.getFct_id().equals(Fn_Confirmer) ||  bs.getFct_id().equals(Fn_Regler) )
 				return getViewConfirm(FORM_VIEW);
 			
 			if (bs.getFct_id().equals(Fn_Annuler))

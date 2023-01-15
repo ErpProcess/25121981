@@ -96,7 +96,7 @@ public class RegachatActionManager extends RegachatTemplate {
 			
 			setObjectValueModel( LIST_DES_ECHEANCES, new ArrayList<EcheanceRegFrsBean>() );
 			
-			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
+			if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 				
 				setObjectValueModel(MAP_FIELD_BEAN, Facture_FournisseurTemplate.MapfieldBean);
 				setObjectValueModel(LIST_VIEW_G, LIST_VIEW_FACTURE);
@@ -188,14 +188,14 @@ public   ModelAndView doActualiserGrid( RegachatBean  searchBean ) throws Except
 							"   ");
 					
 					
-				   if( bs.getFct_id().equals(Fn_Régler) ||   bs.getFct_id().equals(Fn_Rectifier)    ||   bs.getFct_id().equals(Fn_Annuler)    ){
+				   if( bs.getFct_id().equals(Fn_Regler) ||   bs.getFct_id().equals(Fn_Rectifier)    ||   bs.getFct_id().equals(Fn_Annuler)    ){
 						searchBean.setCondition_mode(  "    " +
 								"   AND  bean.modeBean.fct_id  in ('"+Fn_Confirmer+"', '"+Fn_Rectifier+"' )  ");
 				   }
 				   
 				   if( bs.getFct_id().equals(Fn_Consulter)      ){
 						searchBean.setCondition_mode(  "    " +
-								"   AND  bean.modeBean.fct_id  in ('"+Fn_Confirmer+"', '"+Fn_Rectifier+"' ,  '"+Fn_Régler+"'  )  ");
+								"   AND  bean.modeBean.fct_id  in ('"+Fn_Confirmer+"', '"+Fn_Rectifier+"' ,  '"+Fn_Regler+"'  )  ");
 				   }
 					
 				    
@@ -206,7 +206,7 @@ public   ModelAndView doActualiserGrid( RegachatBean  searchBean ) throws Except
 					
 					if( bs.getFct_id().equals(Fn_Confirmer)   ||  bs.getFct_id().equals(Fn_Supprimer) ||  bs.getFct_id().equals(Fn_Modifier)  ){
 						searchBean.setCondition_mode(  "    " +
-								"   AND  bean.modeBean.fct_id  in ('"+Fn_Créer+"', '"+Fn_Modifier+"' )  ");
+								"   AND  bean.modeBean.fct_id  in ('"+Fn_Creer+"', '"+Fn_Modifier+"' )  ");
 					}
 					
 				}
@@ -419,7 +419,7 @@ public   ModelAndView doActualiserGrid( RegachatBean  searchBean ) throws Except
 		try {
 			 
 			BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
-			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau) ){
+			if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau) ){
 				setObjectValueModel(MAP_FIELD_BEAN, Facture_FournisseurTemplate.MapfieldBean);
 				setObjectValueModel(LIST_VIEW_G, LIST_VIEW_FACTURE);
 				setObjectValueModel(NAME_LIST_G ,LIST_DATA_FACTURE); 
@@ -446,7 +446,7 @@ public   ModelAndView doActualiserGrid( RegachatBean  searchBean ) throws Except
 			if (bs.getFct_id().equals("4"))
 				return getViewDelete(FORM_VIEW);
 			
-			if (bs.getFct_id().equals(Fn_Confirmer) ||  bs.getFct_id().equals(Fn_Régler) )
+			if (bs.getFct_id().equals(Fn_Confirmer) ||  bs.getFct_id().equals(Fn_Regler) )
 				return getViewConfirm(FORM_VIEW);
 			
 			if (bs.getFct_id().equals(Fn_Annuler))

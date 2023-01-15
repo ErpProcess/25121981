@@ -120,7 +120,7 @@ public class TarificationPrtvArticleActionManager extends TarificationPrtvArticl
 			
 			 
 
-			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)) {
+			if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau)) {
 				//return getViewAdd(FILTER_TO_ADD_TarificationPrtvArticle);
 				TarificationPrtvArticleBean  tarifBean = new TarificationPrtvArticleBean();
 				tarifBean.setDate_prim_trf(BDateTime.getDateActuel());

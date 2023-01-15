@@ -48,7 +48,7 @@ public class SousPackageActionManager extends SousPackageTemplate {
 		setObjectValueModel("listPackgefromPack", servicePackageSys.getPackageSysList(new PackageSysBean()));
 		try {
 
-			if (bs.getFct_id().equals(GenericActionBean.Fn_Créer)
+			if (bs.getFct_id().equals(GenericActionBean.Fn_Creer)
 					
 					
 					||bs.getFct_id().equals(GenericActionBean.Fn_Nouveau ) ) {

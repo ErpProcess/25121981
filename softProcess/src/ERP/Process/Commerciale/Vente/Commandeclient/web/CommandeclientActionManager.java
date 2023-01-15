@@ -154,7 +154,7 @@ public class CommandeclientActionManager extends CommandeclientTemplate {
 			bs.setSousmod_libelle_title(bs.getSousmod_libelle());
 		 
 
-			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
+			if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 				CommandeclientBean    devBean = new CommandeclientBean();
 				devBean.setCmd_date(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()) );
 				setObjectValueModel(FORM_BEAN, devBean);
@@ -690,7 +690,7 @@ public class CommandeclientActionManager extends CommandeclientTemplate {
 			String  cond="     AND   bean.cmd_id  not in ('') " ;
 			
 			if (bs.getFct_id().equals(Fn_Confirmer) || bs.getFct_id().equals(Fn_Modifier) || bs.getFct_id().equals(Fn_Supprimer)) {
-				   cond+="  AND  bean.modeBean.fct_id  in ( '"+Fn_Créer+"' , '"+Fn_Modifier+"')  " ;
+				   cond+="  AND  bean.modeBean.fct_id  in ( '"+Fn_Creer+"' , '"+Fn_Modifier+"')  " ;
 			}
 			 
 			searchBean.setCondition_select_mode(cond);
@@ -726,7 +726,7 @@ public class CommandeclientActionManager extends CommandeclientTemplate {
 			Double avance                   = ProcessFormatNbr.FormatDouble_Troischiffre(getAvance_montant_cmd);
 			 
 			
-			if(bs.getFct_id().equals(Fn_Créer) ||   bs.getFct_id().equals(Fn_Modifier) ){
+			if(bs.getFct_id().equals(Fn_Creer) ||   bs.getFct_id().equals(Fn_Modifier) ){
 				 List_detaille=(List<DetCmdCltBean>) getObjectValueModel(LIST_EDITABLE_CMD_CLT);
 				 setObjectValueModel(FORM_BEAN,detailBean);
 					

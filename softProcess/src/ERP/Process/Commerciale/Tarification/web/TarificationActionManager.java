@@ -721,7 +721,7 @@ public ModelAndView doLoadInfoVente(TarificationBean detailBean ) throws Excepti
 			String condition="";//" AND  bean.tarif_lot is null ";
 			
 			if(bs.getFct_id().equals(Fn_Modifier) || bs.getFct_id().equals(Fn_Confirmer) ||  bs.getFct_id().equals(Fn_Supprimer)  ){
-				condition+="  AND   bean.modeBean.fct_id in ('"+Fn_Realiser+"','"+Fn_Créer+"','"+Fn_Modifier+"','"+Fn_Choix+"')   ";
+				condition+="  AND   bean.modeBean.fct_id in ('"+Fn_Realiser+"','"+Fn_Creer+"','"+Fn_Modifier+"','"+Fn_Choix+"')   ";
 			}
 			searchBean.setCondition_select_mode(condition);
 			

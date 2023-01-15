@@ -231,7 +231,7 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 				   message="Détaille vente est vide ";			
 			     }else {
 			    	 
-			    	 if(  bs.getFct_id().equals(Fn_Créer)  ||  bs.getFct_id().equals(Fn_Facturer) ) {
+			    	 if(  bs.getFct_id().equals(Fn_Creer)  ||  bs.getFct_id().equals(Fn_Facturer) ) {
 			    	 NumSeqReserve numSeqReserve  = new NumSeqReserve();
 				    	numSeqReserve.setCode_num("vente_id");
 			    	 
@@ -382,7 +382,7 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 				return getViewFilterAjax_Servir(FILTER_VIEW_CMD);
 			}
 
-			if (bs.getFct_id().equals(Fn_Créer) ||  bs.getFct_id().equals(Fn_Facturer)   ) {
+			if (bs.getFct_id().equals(Fn_Creer) ||  bs.getFct_id().equals(Fn_Facturer)   ) {
 				setObjectValueModel(LIST_EDITABLE_VENTE, listGridEditable_VENTE);
 				ProcedureVenteBean  devBean = new ProcedureVenteBean();
 				devBean.setVente_date(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()) );
@@ -2085,14 +2085,14 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
 				
 				BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
 				if(bs.getFct_id().equals(Fn_Modifier)  ){
-					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id in ('"+Fn_Créer+"','"+Fn_Modifier+"','"+Fn_Servir+"')   ");
+					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id in ('"+Fn_Creer+"','"+Fn_Modifier+"','"+Fn_Servir+"')   ");
 				}
 				if(bs.getFct_id().equals(Fn_Confirmer) ){
-					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id in ('"+Fn_Créer+"','"+Fn_Modifier+"','"+Fn_Servir+"')   ");
+					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id in ('"+Fn_Creer+"','"+Fn_Modifier+"','"+Fn_Servir+"')   ");
 				}
 				
-				if(bs.getFct_id().equals(Fn_Transférer) ){
-					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id in ('"+Fn_Créer+"','"+Fn_Modifier+"','"+Fn_Servir+"')   ");
+				if(bs.getFct_id().equals(Fn_Transferer) ){
+					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id in ('"+Fn_Creer+"','"+Fn_Modifier+"','"+Fn_Servir+"')   ");
 				}
 				
 				if(bs.getFct_id().equals(Fn_Corriger) ){
@@ -2229,7 +2229,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
             
             if (bs.getFct_id().equals(Fn_Servir) ||  bs.getFct_id().equals(Fn_Contremander)  ){
             	beandemBean.setCondition_select_mode("  " +
-            			"   AND  bean.modeBean.fct_id  in ('"+Fn_Confirmer+"' ,'"+Fn_Créer+"','"+Fn_Nouveau+"','"+Fn_Modifier+"') " +
+            			"   AND  bean.modeBean.fct_id  in ('"+Fn_Confirmer+"' ,'"+Fn_Creer+"','"+Fn_Nouveau+"','"+Fn_Modifier+"') " +
             	"           AND   bean.cmd_date <='"+BDateTime.getDateActuel_system()+"'   ");
 			}
             
@@ -2280,7 +2280,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 	            throwNewException("ins01");
 	          } catch (Exception e) {
 	        	  displayException(e);
-	        	  serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Créer, detailBean.getVente_id());
+	        	  serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Creer, detailBean.getVente_id());
 	        	  if(e.getMessage().equals("ins01")) {
 	        	    TransfertError(e);
 	        	    String numios= getRequest().getParameter("numios");
@@ -2332,7 +2332,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		 	if(e.getMessage().equals("Confirmation effectuée avec succès")) {
 	           TransfertError(e);
 		 	}else {
-		 		 serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Créer, detailBean.getVente_id());
+		 		 serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Creer, detailBean.getVente_id());
 		 	}
 	   }
 	 	
@@ -2368,7 +2368,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
             
             
 	 	  }else {
-	 		 serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Créer, detailBean.getVente_id());
+	 		 serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Creer, detailBean.getVente_id());
 	 	  }
 	 }
 	return getViewAfterAdd(FORM_VIEW_CREER);
@@ -2455,7 +2455,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		 	if(e.getMessage().equals("Confirmation effectuée avec succès")) {
 	        TransfertError(e);
 	 	      }else {
-	 		 serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Créer, beanUpdate.getVente_id());
+	 		 serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Creer, beanUpdate.getVente_id());
 	 	    }
 	 }
 	return getViewList_Ajax(FILTER_VIEW);
@@ -2665,10 +2665,10 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 				return getViewModif_Srv(FORM_VIEW_SERVIR);
 			
 			
-			if (bs.getFct_id().equals(Fn_Transférer) && demandeId.equals("")   )
+			if (bs.getFct_id().equals(Fn_Transferer) && demandeId.equals("")   )
 				return getViewTransferer(FORM_VIEW);
 		 
-			if (bs.getFct_id().equals(Fn_Transférer) && !demandeId.equals("")   )
+			if (bs.getFct_id().equals(Fn_Transferer) && !demandeId.equals("")   )
 				return getViewTransferer(FORM_VIEW_DEM);
 			
 			
@@ -3430,7 +3430,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			Double getVente_mnt_ht          = detailBean.getVente_mnt_ht()==null?new Double(0):detailBean.getVente_mnt_ht();
 			
 			
-			if(bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Servir) || bs.getFct_id().equals(Fn_Nouveau)  
+			if(bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Servir) || bs.getFct_id().equals(Fn_Nouveau)  
 					|| bs.getFct_id().equals(Fn_Modifier)  ||  bs.getFct_id().equals(Fn_Facturer)   ||  bs.getFct_id().equals(Fn_Corriger)   ){
 				
 				 List_detaille=(List<DetProcedureVenteBean>) getObjectValueModel(LIST_EDITABLE_VENTE);

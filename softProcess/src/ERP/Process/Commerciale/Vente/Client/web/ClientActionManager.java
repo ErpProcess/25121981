@@ -67,7 +67,7 @@ public class ClientActionManager extends ClientTemplate {
 			  compteBancaireBean.setBean_sitcod(bean_sitcod);
 			  setObjectValueModel(LIST_CPT_BANK, serviceCompteBancaire.doFetchDatafromServer(compteBancaireBean));
 			
-			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
+			if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 				return getViewAdd( FORM_VIEW );
 			} else {
 				return getViewFilterAjax( FILTER_VIEW );

@@ -135,7 +135,7 @@ public class DevisActionManager extends DevisTemplate {
 			 bs.setSousmod_libelle_title(bs.getSousmod_libelle());
 		 
 
-			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
+			if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 				
 				DevisBean  devBean = new DevisBean();
 				devBean.setDev_date(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()) );
@@ -671,7 +671,7 @@ public    ModelAndView doSelectRow () throws Exception {
 			DevisBean   rowBean = (DevisBean) getObjectValueModel(FORM_BEAN);
 			List <DetDevisBean >List_detaille= new ArrayList<DetDevisBean>();
 			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-			if(bs.getFct_id().equals(Fn_Créer) ||  bs.getFct_id().equals(Fn_Modifier) ){
+			if(bs.getFct_id().equals(Fn_Creer) ||  bs.getFct_id().equals(Fn_Modifier) ){
 				 List_detaille=(List<DetDevisBean>) getObjectValueModel(LIST_EDITABLE_DEVIS);
 			}else{
 				 List_detaille=new ArrayList<DetDevisBean>(rowBean.getList_detaille());   

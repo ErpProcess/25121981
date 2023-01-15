@@ -158,7 +158,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 					
 			    	String message="";
 			    	
-				    	 if(  bs.getFct_id().equals(Fn_Générer) ) {
+				    	 if(  bs.getFct_id().equals(Fn_Generer) ) {
 				    	 NumSeqReserve numSeqReserve  = new NumSeqReserve();
 					     numSeqReserve.setCode_num("fact_clt_id");
 				    	 
@@ -225,7 +225,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			 
 			 if(bs.getSousmod_id().equals(ID_SOUS_MODULE)){
 				 
-				  if (bs.getFct_id().equals(Fn_Générer)   ){
+				  if (bs.getFct_id().equals(Fn_Generer)   ){
 						setObjectValueModel("PDF_IS_CMD", "OUI");
 						setObjectValueModel(MAP_FIELD_BEAN, ProcedureVenteTemplate.MapfieldBean);
 						setObjectValueModel(LIST_VIEW_G, LIST_VIEW_VENTE);
@@ -235,7 +235,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 						setObjectValueModel(FORM_BEAN, new ProcedureVenteBean());
 						setObjectValueModel(SEARCH_BEAN, new ProcedureVenteBean());
 						return getViewFilterAjax_Vente(FILTER_VIEW_VENTE);
-					}else  if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
+					}else  if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 						
 						return getViewAdd(FORM_VIEW);
 						
@@ -248,7 +248,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			 
 			 if(bs.getSousmod_id().equals(ID_SOUS_MODULE_AVOIR)){
 				 
-				  if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
+				  if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 						
 						return getViewFilterAjax(FILTER_VIEW);
 						
@@ -363,7 +363,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	public ModelAndView doFetchDataVente(ProcedureVenteBean searchBean)throws Throwable {
 			try {
 				BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-				if (bs.getFct_id().equals(Fn_Générer)){
+				if (bs.getFct_id().equals(Fn_Generer)){
 					searchBean.setCondition_select_mode("  AND  bean.modeBean.fct_id in ('"+Fn_Confirmer+"')   ");
 				} 
 				
@@ -973,7 +973,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			if(rowBean.getClient().getClt_exonorer().booleanValue()==true) {
 				timbre= new Double(0);
 			}
-			if(bs.getFct_id().equals(Fn_Générer)  ||  bs.getFct_id().equals(Fn_Facturer)   ){
+			if(bs.getFct_id().equals(Fn_Generer)  ||  bs.getFct_id().equals(Fn_Facturer)   ){
 				 List_detaille=(List<Det_Fact_ClientBean>) getObjectValueModel(LIST_DATA_DET_FACT);
 			}else{
 				List_detaille=serviceFacture.doFetchDetaillefromServer(rowBean);
@@ -1261,7 +1261,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			if(detailBean.getClient().getClt_exonorer().booleanValue()==true) {
 				timbre= new Double(0);
 			}
-			if(bs.getFct_id().equals(Fn_Générer)  ||  bs.getFct_id().equals(Fn_Facturer)   ){
+			if(bs.getFct_id().equals(Fn_Generer)  ||  bs.getFct_id().equals(Fn_Facturer)   ){
 				 List_detaille=(List<Det_Fact_ClientBean>) getObjectValueModel(LIST_DATA_DET_FACT);
 			}else{
 				List_detaille=serviceFacture.doFetchDetaillefromServer(detailBean);
@@ -1528,7 +1528,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			removeObjectModel(FORM_BEAN);
 			BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
 		 
-			if (bs.getFct_id().equals(Fn_Générer)){
+			if (bs.getFct_id().equals(Fn_Generer)){
 				setObjectValueModel(MAP_FIELD_BEAN, ProcedureVenteTemplate.MapfieldBean);
 				setObjectValueModel(LIST_VIEW_G, LIST_VIEW_VENTE);
 				setObjectValueModel(NAME_LIST_G ,LIST_DATA_VENTE); 
@@ -1567,7 +1567,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				return getViewConsult_Pdf_ex(FORM_VIEW);
 			
 			
-			if (bs.getFct_id().equals(Fn_Générer))
+			if (bs.getFct_id().equals(Fn_Generer))
 				return getViewConsult_Vente(FORM_VIEW_VENTE);
 
 			if (bs.getFct_id().equals(Fn_Annuler))

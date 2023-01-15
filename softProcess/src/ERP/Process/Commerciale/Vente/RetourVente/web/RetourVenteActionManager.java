@@ -198,7 +198,7 @@ public class RetourVenteActionManager extends RetourVenteTemplate {
 			
 			
 
-			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
+			if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 				
 				setObjectValueModel( FORM_BEAN , new ProcedureVenteBean() );
 				setObjectValueModel( SEARCH_BEAN , new ProcedureVenteBean() );
@@ -351,7 +351,7 @@ public class RetourVenteActionManager extends RetourVenteTemplate {
 			RetourVenteBean  retourVenteBean = new RetourVenteBean();
 			removeObjectModel(FORM_BEAN);
 			
-			if (bs.getFct_id().equals(Fn_Créer)){
+			if (bs.getFct_id().equals(Fn_Creer)){
 				 
 				 
 				setObjectValueModel(MAP_FIELD_BEAN, ProcedureVenteTemplate.MapfieldBean);

@@ -119,16 +119,16 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 			
 			EditionVenteBean searchBean = (EditionVenteBean) getObjectValueModel(SEARCH_BEAN) ;
 			
-			if(ifFonctionEqual(Fn_État_des_ventes) && searchBean.getNatureEdition().equals("f")) {
+			if(ifFonctionEqual(Fn_Etat_des_ventes) && searchBean.getNatureEdition().equals("f")) {
 				pModele.printEtatFactureVenteExport(searchBean);
 		    }
 			
-			if(ifFonctionEqual(Fn_État_des_ventes) && searchBean.getNatureEdition().equals("v")) {
+			if(ifFonctionEqual(Fn_Etat_des_ventes) && searchBean.getNatureEdition().equals("v")) {
 				pModele.printEtatVenteExport(searchBean);
 		     }
 		    
 		    
-		    if(ifFonctionEqual( Fn_État_des_dépenses)) {
+		    if(ifFonctionEqual( Fn_Etat_des_depenses)) {
 		    	pModele.printEtatDepensesProduits(searchBean);
 		    }
 		    
@@ -148,7 +148,7 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
 		     setObjectValueModel(SEARCH_BEAN, searchBean);
 			 JSONObject json      = new JSONObject();
 			
-             if(ifFonctionEqual(Fn_État_des_ventes) && searchBean.getNatureEdition().equals("f")) {
+             if(ifFonctionEqual(Fn_Etat_des_ventes) && searchBean.getNatureEdition().equals("f")) {
             	 List <Det_Fact_ClientBean> listEditionVente =  serviceFacture.doFindByCriteriaList_detaille_Facture(searchBean);
                  Collections.sort(listEditionVente, new Comparator<Det_Fact_ClientBean>() {
          				@Override
@@ -163,7 +163,7 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
             	 json.put("list", "listEditionVente"); 
 			}
              
-             if(ifFonctionEqual(Fn_État_des_ventes) && searchBean.getNatureEdition().equals("v")) {
+             if(ifFonctionEqual(Fn_Etat_des_ventes) && searchBean.getNatureEdition().equals("v")) {
             	 ProcedureVenteBean beanSearch = new ProcedureVenteBean();
             	 beanSearch.setVente_date(searchBean.getDate_debut());
             	 beanSearch.setVente_date2(searchBean.getDate_fin());
@@ -211,7 +211,7 @@ public class EditionVenteActionManager extends EditionVenteTemplate {
              
              
             
-            if(ifFonctionEqual(Fn_État_des_dépenses)) {
+            if(ifFonctionEqual(Fn_Etat_des_depenses)) {
             	ProcedureVenteBean beanSearch  = new ProcedureVenteBean();
             	beanSearch.setVente_date(searchBean.getDate_debut());
             	beanSearch.setVente_date2(searchBean.getDate_fin());

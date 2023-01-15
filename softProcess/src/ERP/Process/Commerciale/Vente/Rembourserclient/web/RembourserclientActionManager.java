@@ -66,7 +66,7 @@ public    ModelAndView doInitServletAction() {
 		
 		
 		
-		if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
+		if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 			
 			setObjectValueModel(MAP_FIELD_BEAN, Facture_clientTemplate.MapfieldBean);
 			setObjectValueModel(LIST_VIEW_G, LIST_VIEW_FACTURE);
@@ -190,7 +190,7 @@ public    ModelAndView doGetRowBean() {
 		BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
 		
 		
-		if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau) ){
+		if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau) ){
 			setObjectValueModel(MAP_FIELD_BEAN, Facture_clientTemplate.MapfieldBean);
 			setObjectValueModel(LIST_VIEW_G, LIST_VIEW_FACTURE);
 			setObjectValueModel(NAME_LIST_G ,LIST_DATA_FACTURE); 
@@ -215,7 +215,7 @@ public    ModelAndView doGetRowBean() {
 			return getViewUpdate(FORM_EDIT_VIEW);
 		if (bs.getFct_id().equals("4"))
 			return getViewDelete(FORM_VIEW);
-		if (bs.getFct_id().equals(Fn_Confirmer) ||  bs.getFct_id().equals(Fn_Régler) )
+		if (bs.getFct_id().equals(Fn_Confirmer) ||  bs.getFct_id().equals(Fn_Regler) )
 			return getViewConfirm(FORM_VIEW);
 		
 		if (bs.getFct_id().equals(Fn_Annuler))

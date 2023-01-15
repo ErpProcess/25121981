@@ -137,7 +137,7 @@ public class ComplementAchatActionManager extends ComplementAchatTemplate {
 			doLoadingLibelleOtherSModule(ComplementAchatTemplate.ID_SOUS_MODULE);
 			 
 			
-			if (bs.getFct_id().equals(Fn_Créer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
+			if (bs.getFct_id().equals(Fn_Creer) || bs.getFct_id().equals(Fn_Nouveau)  ) {
 				setObjectValueModel("LIST_VIEW", LIST_VIEW_ACHAT);
 				setObjectValueModel("nameList" , LIST_DATA_ACHAT);
 				setObjectValueModel("nameGrid",  NAME_GRID_ACHAT);
@@ -384,7 +384,7 @@ public class ComplementAchatActionManager extends ComplementAchatTemplate {
 			
 			
 			
-			if (bs.getFct_id().equals(Fn_Nouveau) || bs.getFct_id().equals(Fn_Créer) ){
+			if (bs.getFct_id().equals(Fn_Nouveau) || bs.getFct_id().equals(Fn_Creer) ){
 				
 				setObjectValueModel("LIST_VIEW", LIST_VIEW_ACHAT);
 				setObjectValueModel("nameList" , LIST_DATA_ACHAT);
@@ -525,7 +525,7 @@ public class ComplementAchatActionManager extends ComplementAchatTemplate {
 				return getViewReception(FORM_VIEW);
 			
 			
-			if (bs.getFct_id().equals(Fn_Transférer)    )
+			if (bs.getFct_id().equals(Fn_Transferer)    )
 				return getViewTransfer(FORM_VIEW);
 			
 			
@@ -750,17 +750,17 @@ public   ModelAndView doAdd_row_EditableDataTableAjax( Det_complment_achatBean  
 				
 	            /**************************************************complement******************************************************/
 	            
-				if(bs.getFct_id().equals(Fn_Transférer) || bs.getFct_id().equals(Fn_Modifier) ){
-				  searchBean.setCondition_etat_complement("  AND  bean.modeBean.fct_id  in ('"+Fn_Modifier+"','"+Fn_Créer+"','"+Fn_Nouveau+"')   ");
+				if(bs.getFct_id().equals(Fn_Transferer) || bs.getFct_id().equals(Fn_Modifier) ){
+				  searchBean.setCondition_etat_complement("  AND  bean.modeBean.fct_id  in ('"+Fn_Modifier+"','"+Fn_Creer+"','"+Fn_Nouveau+"')   ");
 				}
 				
 				
 				if(bs.getFct_id().equals(Fn_Annuler)  && bs.getSousmod_id().equals(ComplementAchatTemplate.ID_SOUS_MODULE)){
-					searchBean.setCondition_etat_complement("  AND  bean.modeBean.fct_id  in ('"+Fn_Modifier+"','"+Fn_Créer+"')   ");
+					searchBean.setCondition_etat_complement("  AND  bean.modeBean.fct_id  in ('"+Fn_Modifier+"','"+Fn_Creer+"')   ");
 				}
 				
 				if(bs.getFct_id().equals(Fn_Supprimer)){
-					searchBean.setCondition_etat_complement("  AND  bean.modeBean.fct_id  in ('"+Fn_Modifier+"','"+Fn_Créer+"','"+Fn_Annuler+"' ,'"+Fn_Nouveau+"')   ");
+					searchBean.setCondition_etat_complement("  AND  bean.modeBean.fct_id  in ('"+Fn_Modifier+"','"+Fn_Creer+"','"+Fn_Annuler+"' ,'"+Fn_Nouveau+"')   ");
 				}
 				/********************************************************************************************************************/
 				
@@ -768,7 +768,7 @@ public   ModelAndView doAdd_row_EditableDataTableAjax( Det_complment_achatBean  
 				
 				/**************************************************Stock******************************************************/
 				if(bs.getFct_id().equals(Fn_reception)){
-					searchBean.setCondition_etat_complement("  AND  bean.modeBean.fct_id  in ('"+Fn_Transférer+"')   ");
+					searchBean.setCondition_etat_complement("  AND  bean.modeBean.fct_id  in ('"+Fn_Transferer+"')   ");
 				}
 				
 				
@@ -782,7 +782,7 @@ public   ModelAndView doAdd_row_EditableDataTableAjax( Det_complment_achatBean  
 				
 				
 				if(bs.getFct_id().equals(Fn_Annuler)  && bs.getSousmod_id().equals(ComplementAchatTemplate.ID_SOUS_MODULE_STOCK)){
-					searchBean.setCondition_etat_complement("  AND  bean.modeBean.fct_id in ('"+Fn_Transférer+"','"+Fn_reception+"')   ");
+					searchBean.setCondition_etat_complement("  AND  bean.modeBean.fct_id in ('"+Fn_Transferer+"','"+Fn_reception+"')   ");
 				}
 				
 				/********************************************************************************************************************/
