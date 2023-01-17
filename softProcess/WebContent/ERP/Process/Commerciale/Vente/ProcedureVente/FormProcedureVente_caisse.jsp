@@ -45,18 +45,8 @@
 
 <script type="text/javascript">
 contenu_toolbarJQuey ="";
-height_tabbJQuey="10%";
+height_tabbJQuey="300px;
 width_tabbJQuey="100%";
-
-$(document).ready(function () {
-var htmlDataClavierNumerique=$("#clavierNumerique").html();
-var dataClv='';
-for (let w = 0; w < 10; w++) {
-	dataClv=dataClv+'<b><input  id="'+w+'"  type="button"  value="'+w+'"  class="buttonClv"   onclick="addQuantite(this.id)"   style="font-size: 16px;text-align:center;width: 40px;" >  </b>';
-}
-$("#clavierNumerique").html(dataClv+htmlDataClavierNumerique) ;	
-});
-
 </script>
 <c:import
 	url="${context_path}/dataGridSetting/EditabledataGridConfig.jsp"></c:import>
@@ -790,8 +780,18 @@ display:block;
 						value="${detailavente_date}" nextElement="depot_id" required /> <select
 						style="display: none;" onchange="getDevise(this.value)" required
 						id="devX" name="devise.dev_id" style="width: 180px;"></select> 
-
-						<br><br>
+	<script>
+                $(function () {
+                    loadSelectAjax("clt_idx", "list_client_for_vente", "clt_id", "clt_lib", "${detailBean.client.clt_id}", true);
+                    var htmlDataClavierNumerique=$("#clavierNumerique").html();
+                    var dataClv='';
+                    for (let w = 0; w < 10; w++) {
+                    	dataClv=dataClv+'<b><input  id="'+w+'"  type="button"  value="'+w+'"  class="buttonClv"   onclick="addQuantite(this.id)"   style="font-size: 16px;text-align:center;width: 40px;" >  </b>';
+                    }
+                    $("#clavierNumerique").html(dataClv+htmlDataClavierNumerique) ;	
+                });
+            </script> <select id="clt_idx" name="client.clt_id" style="width: 180px;  float: left;"    ></select>
+						<br> 
 						<div id="clavierNumerique"></div>
 
 
@@ -806,12 +806,7 @@ display:block;
 								
 									 
 									 
-						<script>
-                $(function () {
-                    loadSelectAjax("clt_idx", "list_client_for_vente", "clt_id", "clt_lib", "${detailBean.client.clt_id}", true);
-                });
-            </script> <select id="clt_idx" name="client.clt_id"
-						style="width: 180px;  float: right;"    ></select>
+					
 								 
 								 
 								<br>
@@ -820,12 +815,9 @@ display:block;
 								<label>DESG</label>
 								<input
 								type="text" id="designation_libelle" size="40"
-								name="designation_libelle" requiredx> <br>
-								<input id="b1"
-								type="button" value="+" onclick="ADD()"
-								style="font-size: 16px; width: 40px; text-align: center;">
-								  <input type="button" value="X" style="font-size: 16px; width: 40px;"
-								onclick="clearQuantite()"  >
+								name="designation_libelle" requiredx>
+								  <input id="b1" type="button" value="+" onclick="ADD()" style="font-size: 16px; width: 40px; text-align: center;">
+								  <input type="button" value="X" style="font-size: 16px; width: 40px;" onclick="clearQuantite()"  >
 								
 												
 
@@ -892,15 +884,15 @@ display:block;
 								name="vente_mnt_net_a_payer" type="montant3" size="17" libre
 								readonly="readonly" maxlength="15"
 								value="${detailBean.vente_mnt_net_a_payer}" />
-						</div> <br> <label> Montant Réçu&nbsp;&nbsp;</label> <input
+						</div><label>Montant Reçu &nbsp;&nbsp;</label> <input
 						id="montant_vente_recu" name="montant_vente_recu" type="montant3"
-						style="font-size: 18px;" size="17" libre
+						style="font-size: 18px;" size="10" libre
 						value="${detailBean.montant_vente_recu}"
 						nextelement="montant_vente_rendu" onblur="loadgrid();" /> <br>
-					<label> Montant Rendu</label> <input id="montant_vente_rendu"
+					<label>Montant a rendre</label> <input id="montant_vente_rendu"
 						name="montant_vente_rendu" libre readonly="readonly"
 						value="${detailBean.montant_vente_rendu}" type="montant3"
-						style="font-size: 18px;" size="17" nextelement="null" /></td>
+						style="font-size: 18px;" size="10" nextelement="null" /></td>
 				</tr>
 
 

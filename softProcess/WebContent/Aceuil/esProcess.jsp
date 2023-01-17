@@ -1231,8 +1231,8 @@ Ext.onReady(function(){
 	 Ext.getCmp('methodPRint').setText("&#9668;&#9658;");
  }
 var primecontact = Ext.getCmp('hyuE');
-primecontact.expand();
-//primecontact.collapse();
+//primecontact.expand();
+primecontact.collapse();
 
  
 			

@@ -1318,8 +1318,9 @@ public ModelAndView doFetchArticleSuivantTarif(    ProcedureVenteBean searchBean
 			if(beanAncienLigne!=null)  {
 				beanAncienLigne.getQuantite();
 				quantiteFromUI=quantiteFromUI+beanAncienLigne.getQuantite();
+				listOfmyData.remove(beanAncienLigne);
 				//throw new Exception("Existe d�j�");
-			}
+			} 
 			Double  quantite_en_stock= new Double(0);
 			HashMap  mapCodBarre=(HashMap) getObjectValueModel("mapCodBarre"  );
 			Code_barreBean bCode_barreBean=(Code_barreBean) mapCodBarre.get(detailBean.getCode_barreX());
