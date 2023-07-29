@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -173,10 +173,10 @@ public class Facture_avoir_clientDAO extends  GenericWeb    {
 			     
 			    	 
 			    	 for (DetRetourVenteBean beand:det_list_avoirfacture) {
-			    		 String keyString  =    beand.getPk().getDetv().getPk().getFkcode_barre().getPk().getCode_barre()+"£"+
-			    		                        beand.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"£"+
-			    		                        beand.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"£"+
-			    		                        beand.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"£";
+			    		 String keyString  =    beand.getPk().getDetv().getPk().getFkcode_barre().getPk().getCode_barre()+"ï¿½"+
+			    		                        beand.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+
+			    		                        beand.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
+			    		                        beand.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"ï¿½";
 			    		List list= (List) map_article.get(keyString);
 			    		if(list==null)list= new ArrayList();
 			    		list.add(beand);

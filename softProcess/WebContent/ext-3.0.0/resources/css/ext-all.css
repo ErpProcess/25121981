@@ -5725,10 +5725,22 @@ ul.x-tab-strip-bottom{
 }
 
 .x-toolbar{
-	/*border-color:#a9bfd3;*/
-   /* background-color:#d0def0;*/
-   /* background-image:url(../images/default/toolbar/bg.gif);*/
+	border-color:#a9bfd3;
+	background-color:#d0def0;
+	/* background-image:url(../images/default/toolbar/bg.gif); */
 }
+
+.x-panel-action {
+    color:#15428b;
+    font-weight:bold;
+    font-size: 11px;
+    font-family: tahoma,arial,verdana,sans-serif;
+    border-color: white;
+    background-color: white;
+    /*border-color:#99bbe8;
+    background-image: url(../images/default/panel/white-top-bottom.gif);*/
+}
+
 
 .x-toolbar td,.x-toolbar span,.x-toolbar input,.x-toolbar div,.x-toolbar select,.x-toolbar label{
     font:normal 11px arial,tahoma, helvetica, sans-serif;
@@ -6669,14 +6681,13 @@ a.x-menu-item {
 
 .x-panel-header {
     color:#15428b;
-	font-weight:bold; 
+    font-weight:bold;
     font-size: 11px;
     font-family: tahoma,arial,verdana,sans-serif;
     border-color: #f5f5f5;
-    background-color: white;
+    background-color: #c0dbf6;
     /*border-color:#99bbe8;
     background-image: url(../images/default/panel/white-top-bottom.gif);*/
-    
 }
 
 .x-panel-body {

@@ -1,11 +1,11 @@
 package ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.CompteBancaire.dao;
 import java.util.List;
 import java.util.ArrayList;
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.CompteBancaire.model.CompteBancaireBean;
@@ -32,18 +32,7 @@ public class CompteBancaireDAO extends  GenericWeb    {
  			   
  			   if( !StringUtils.isEmpty(beanSearch.getCptbanribrs()) )  
 	    			requette+="   AND   bean.cptbanribrs = '"+beanSearch.getCptbanribrs()+"'        ";  
- 			   
- 			   if( !StringUtils.isEmpty(beanSearch.getCptbanadr()) )  
-	    			requette+="   AND   bean.cptbanadr = '"+beanSearch.getCptbanadr()+"'        ";   
- 			   
- 			   if( !StringUtils.isEmpty(beanSearch.getBancod()) )  
-	    			requette+="   AND   bean.bancod = '"+beanSearch.getBancod()+"'        ";   
- 			   
- 			   if( !StringUtils.isEmpty(beanSearch.getCptbanjoucod()) )  
-	    			requette+="   AND   bean.cptbanjoucod = '"+beanSearch.getCptbanjoucod()+"'        "; 
- 			   
- 			   if( !StringUtils.isEmpty(beanSearch.getCptbancptcom()) )  
-	    			requette+="   AND   bean.cptbancptcom = '"+beanSearch.getCptbancptcom()+"'        ";  
+
  			   
  			        requette +=this.setSocieteEtabFetch(beanSearch,"bean.fk_etab_Bean", true); 
  			   

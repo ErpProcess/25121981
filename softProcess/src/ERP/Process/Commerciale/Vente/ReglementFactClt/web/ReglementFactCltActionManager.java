@@ -246,7 +246,7 @@ public class ReglementFactCltActionManager extends ReglementFactCltTemplate {
 			beanLigne.setEtatRegEch(etatRegEch);
 			
 			ModeReglementBean    echMode = new ModeReglementBean();
-		    if( !StringUtils.isBlank(detailBean.getModeRegHeader())   ) {
+		    if( !StringUtils.isEmpty(detailBean.getModeRegHeader())   ) {
 		    	echMode.setMod_id( Integer.parseInt(detailBean.getModeRegHeader()) );
 		    }
 		

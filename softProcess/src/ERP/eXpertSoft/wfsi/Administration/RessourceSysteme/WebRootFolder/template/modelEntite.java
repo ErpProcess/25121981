@@ -95,7 +95,7 @@ public class modelEntite {
 				out.write("import javax.persistence.Entity;");out.println() ;
 				out.write("import javax.persistence.Id;");out.println() ;
 				out.write("import javax.persistence.Table;");out.println() ;
-				out.write("import org.codehaus.jackson.annotate.JsonAutoDetect;");out.println() ;
+				out.write("import com.fasterxml.jackson.annotation.JsonAutoDetect;");out.println() ;
 				out.write("import javax.persistence.EmbeddedId;");out.println() ;
 				out.write("import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericBean;");out.println() ;
 				

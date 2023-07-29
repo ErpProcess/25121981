@@ -166,7 +166,7 @@ public class ActionUtilisateurManager extends UtilisateurTemplate {
 	@SuppressWarnings("unchecked")
 	public ModelAndView doFetchData(UtilisateurBean searchBean)throws Throwable {
 		try {
-			List listDataSrv = serviceUtilisateur.dofetchDatafromServer(searchBean);
+			List listDataSrv = serviceUtilisateur.dofetchDatafromServer(searchBean, false);
 			setObjectValueModel(LIST_DATA, listDataSrv);
 			setObjectValueModel(SEARCH_BEAN, searchBean);
 			AjaxDataTablesUtility.doInitJQueryGrid(listDataSrv);

@@ -30,7 +30,7 @@ import ERP.Process.Commerciale.Vente.Mvtcom.template.MvtcomTemplate;
 import ERP.Process.Commerciale.Vente.Mvtcom.service.MvtcomService;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.bean.BeanSession;
 import ERP.eXpertSoft.wfsi.jqueryoR.datatables.controller.AjaxDataTablesUtility;
-import jdk.nashorn.internal.parser.JSONParser;
+ 
 
 import com.google.gson.JsonIOException;
 
@@ -197,13 +197,13 @@ public class MvtcomActionManager extends MvtcomTemplate {
 	}
 
 	private String loadFile() {
-		  String  chargement = "Chargment succès";
+		  String  chargement = "Chargment succï¿½s";
 			try {
 				MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) getRequest();
 				MultipartFile multipartFile = multiRequest.getFile("file");
 			 
 				if(multipartFile==null){
-					chargement= "échec de chargment";
+					chargement= "ï¿½chec de chargment";
 					setObjectValueModel("MultipartFile", null);
 				}else{
 					
@@ -232,7 +232,7 @@ public class MvtcomActionManager extends MvtcomTemplate {
 				File source = new File("D://" + filename);
 				multipartFile.transferTo(source); */
 			} catch (Exception e) {
-				chargement= "échec de chargment";
+				chargement= "ï¿½chec de chargment";
 				e.printStackTrace();
 			}
 			 

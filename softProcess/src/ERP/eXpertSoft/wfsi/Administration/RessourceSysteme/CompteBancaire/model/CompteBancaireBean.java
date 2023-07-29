@@ -7,7 +7,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Data_entite_simple.model.Data_entite_simpleBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
@@ -20,9 +20,12 @@ public class  CompteBancaireBean   extends  GenericBean {
  
   
 	private static final long serialVersionUID = -7657579619534078805L;
+	
 	@Id
 	@Column(length = 32)
     private String  cptbanribrib =""; 
+	
+	
     @Column	private String  cptbanribrs =""; 
  
   
@@ -30,6 +33,7 @@ public class  CompteBancaireBean   extends  GenericBean {
     @Column	private String  bancod =""; 
     @Column	private String  cptbanjoucod =""; 
     @Column	private String  cptbancptcom =""; 
+    
 	@ManyToOne
 	@JoinColumn(name = "sitcod", insertable = true, updatable = true)
 	private Data_entite_simpleBean bean_sitcod ;

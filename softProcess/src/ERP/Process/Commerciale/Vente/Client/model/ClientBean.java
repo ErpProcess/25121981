@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import ERP.Process.Commerciale.Type_tarification.model.Type_tarificationBean;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Etablissement.model.EtablissementBean;
@@ -85,13 +85,13 @@ public class ClientBean extends GenericBean {
 	 
 	
 	@ManyToOne
-	@JoinColumn(name = "type_trf_id", insertable = true, updatable = true, referencedColumnName = "type_trf_id")
-	private Type_tarificationBean typ_trfBean = new Type_tarificationBean();
+	@JoinColumn(name = "type_trf_id" , referencedColumnName = "type_trf_id" , nullable=true )
+	private Type_tarificationBean typ_trfBean  ;
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "cptbanribrib", insertable = true, updatable = true, referencedColumnName = "cptbanribrib")
-	private CompteBancaireBean compte = new CompteBancaireBean();
+	@JoinColumn(name = "cptbanribrib" , referencedColumnName = "cptbanribrib" , nullable=true)
+	private CompteBancaireBean compte ;
 	
 	
 	@Transient

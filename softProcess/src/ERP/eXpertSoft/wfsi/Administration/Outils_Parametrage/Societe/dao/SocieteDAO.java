@@ -2,10 +2,10 @@ package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Societe.dao;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import ERP.Process.Commerciale.Achat.Facture_Fournisseur.model.FileFactureFournisseur;
@@ -29,11 +29,17 @@ public class SocieteDAO extends  GenericWeb  {
 		
 		String requette="   FROM    SocieteBean bean      WHERE     1=1   ";
 		 
-			if(!StringUtils.isEmpty(beanSearch.getSoc_id()) )   requette+="   AND  bean.soc_id='"+beanSearch.getSoc_id()+"'    ";
 			
-			if(!StringUtils.isEmpty(beanSearch.getSoc_lib()) )  requette+="   AND  bean.soc_lib='"+beanSearch.getSoc_lib()+"'        ";
+			
+			if( getBeanSession() !=null   && getBeanSession().getUsr_id().equals("1111") ) {
+				if(!StringUtils.isEmpty(beanSearch.getSoc_id()) )   requette+="   AND  bean.soc_id='"+beanSearch.getSoc_id()+"'    ";
+				
+				if(!StringUtils.isEmpty(beanSearch.getSoc_lib()) )  requette+="   AND  bean.soc_lib='"+beanSearch.getSoc_lib()+"'        ";
+			 }else {
+				 requette+="   AND  bean.soc_id='"+getBeanSession().getSoc_id()+"'    ";
+			 }
 		     
-			requette+="   AND  bean.soc_id !=''    ";
+		 
 			
 		try {
 			return   hibernateTemplate.find(requette);

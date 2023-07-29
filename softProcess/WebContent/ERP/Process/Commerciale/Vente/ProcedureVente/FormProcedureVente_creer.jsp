@@ -85,7 +85,7 @@ $(document).ready(function () {
 	
 	
 	
-if(custumMessageBoxo!=""  &&  custumMessageBoxo !="Facturation effectuée avec succès"  &&  custumMessageBoxo !="Confirmation effectuée avec succès"  ){
+if(custumMessageBoxo!=""  &&  custumMessageBoxo !="successfulInvoicing"  &&  custumMessageBoxo !="successfullyConfirmation"  ){
 
 var messageBoxx='Confirmer';
 
@@ -102,11 +102,11 @@ Ext.MessageBox.show({
        });
 }  
 
-if(custumMessageBoxo!=""  &&  custumMessageBoxo =="Confirmation effectuée avec succès"){
+if(custumMessageBoxo!=""  &&  custumMessageBoxo =="successfullyConfirmation"){
 
 	Ext.MessageBox.show({
         title:'Imprimer Bon de Livraison',
-        msg: custumMessageBoxo,
+        msg: 'Confirmation effectuÃ©e avec succÃ¨s',
         buttons: {ok:'Imprimer BL',no:'Retour'}  ,
         fn: getActionImprimerBL,
         animateTarget: 'mb4',
@@ -118,10 +118,10 @@ if(custumMessageBoxo!=""  &&  custumMessageBoxo =="Confirmation effectuée avec s
 
 
 
-if(custumMessageBoxo!="" &&  custumMessageBoxo=="Facturation effectuée avec succès"){
+if(custumMessageBoxo!="" &&  custumMessageBoxo=="successfulInvoicing"){
 	Ext.MessageBox.show({
         title:'Imprimer Facture',
-        msg: custumMessageBoxo,
+        msg: 'Facturation effectuÃ©e avec succÃ¨s',
         buttons: {ok:'Imprimer',no:'Retour'}  ,
         fn: getActionImprimer,
         animateTarget: 'mb4',
@@ -175,8 +175,8 @@ function getActionBox(btn){
     	 hidvente="i$_ACT_FACTURER"; 
     	 var  verifNumFac =doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_VERIF_LIST_FACT','text',false);
 
-		  if(verifNumFac!="" &&  verifNumFac.startsWith("©") )  {
-			  var tabOfNumeroFact = verifNumFac.split("©");
+		  if(verifNumFac!="" &&  verifNumFac.startsWith("|") )  {
+			  var tabOfNumeroFact = verifNumFac.split("|");
 	 
 			  var maselectFact='<select onchange="getNumFact(this.value);" >';
 			  for (var z = 0; z < tabOfNumeroFact.length ; z++) {
@@ -188,8 +188,8 @@ function getActionBox(btn){
 			  maselectFact+='</select>';
 			  Ext.MessageBox.show({
 		      title:'INFO',
-		      msg: ' Voulez vous Choisir un Numéro Déja Supprimé : '+maselectFact,
-		      buttons: {ok:'Ancien Numéro',no:'Nouveau Numéro'}  ,
+		      msg: ' Voulez vous Choisir un NumÃ©ro DÃ©ja SupprimÃ©e : '+maselectFact,
+		      buttons: {ok:'Ancien NumÃ©ro',no:'Nouveau NumÃ©ro'}  ,
 		      fn: function (btn){
 		    	  
 		    	  if (btn == 'ok') actFactoData(numrReserveFact); else actFactoData(null);
@@ -268,7 +268,7 @@ var mapEditableGen2 = {        "otab"   :oTable23,
 	                                              ,"mRender": function (data, type, full) {return  formatNumberJs(data,3);  }    },       
 
 	                                       {    "sTitle":"Mvt" , "sName": "isVente"    ,"sWidth": "20%"     ,"sClass" : "alignRight"     , "bSortable": true ,"bVisible": true  
-	                                           ,"mRender": function (data, type, full) {return   data=="false"?"Dépense":"Vente"   }    }, 
+	                                           ,"mRender": function (data, type, full) {return   data=="false"?"Dï¿½pense":"Vente"   }    }, 
 	                                                  
 										   {      "sName": "indx_row_next"        ,"bSearchable": false  , "bSortable": false,"bVisible": false },       
 	                                            ]
@@ -507,7 +507,7 @@ var jsonText=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_
      
    
    
-//Ext.getCmp('RET_GRID').setTitle(' Détaille Vente ');
+//Ext.getCmp('RET_GRID').setTitle(' Dï¿½taille Vente ');
     
 if(panelName=='article'){
 	if(otab_otra!=null &&   otab_otra!= undefined)
@@ -613,7 +613,7 @@ function doExcuteFnAfterGrid( dataSS ){
   
   <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
   
-   <ext:panel  border="false"    bodyStyle="background: none;"        height="120"  >
+   <ext:panel  border="false"    bodyStyle="background: none;"        height="160"  >
    
 <%--         <ext:toolbar         toolbarType="bbar"   >  --%>
 <%--         <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuivant('article')"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar> --%>
@@ -735,7 +735,7 @@ function doExcuteFnAfterGrid( dataSS ){
 	 
 	 
 	 <ext:tabPanel   border="false"        id="sdsfgrgrgpll"   activeTab="RET_GRID"  >
-	         <ext:panel   id="RET_GRID"      bodyStyle="background: none;"    onActivate="getSuivant('article')"   style="height: 100%;"     border="false"      
+	         <ext:panel   id="RET_GRID"      bodyStyle="background: none;"    onActivate="getSuivant('article')"   height="380" style="height: 100%;"     border="false"      
 	         title="Liste Vente"       >
 			    <table id="GRID_SAISIE_DETAIL_VENTE" class="display" width="100%"    > 
 			  
@@ -762,7 +762,7 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th>Référence</th>
 						<th>Désignation</th>
 						<th>Stock</th>
-						<th>Qté</th>
+						<th>Qte</th>
 						<th>Unite</th>
 						<th>T.V.A</th>
 						<th>P.U.V</th>
@@ -798,13 +798,12 @@ function doExcuteFnAfterGrid( dataSS ){
 								<td ></td>
 								<td  ></td>
 								<td colspan="2" ></td>
-								 
 						    </tr>
 					</c:forEach>
 						
 				 </tfoot>
 			    </table>
-<!-- 			       	  <label> Montant réçu</label>    -->
+<!-- 			       	  <label> Montant rï¿½ï¿½u</label>    -->
 <!-- 		   <input id="montant_vente_recu" name="montant_vente_recu"     -->
 <%-- 		    type="montant3"    style="height: 30px;font-size: 18px;"  size="17"           value="${detailBean.montant_vente_recu}"  --%>
 <!-- 		       nextelement="montant_vente_rendu"     onblur="getSuivant('article');"   />			 -->
@@ -886,7 +885,7 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th><input   type="text"       id="codeFocusPrestation"    requiredPrestation        name="code_barreService"       style="width: 95%;"        requiredy ></th>
 						<th><input   type="text"       id="XnextFocusPrestation"   requiredPrestation        name="XnextFocusPrestation"    style="width: 95%;"        requiredy ></th>
 		                <th><input  type="number"      id="quantitePrestation"     requiredPrestation        name="quantiteService"       min="1"    value="1"    style="width: 150px;"              requiredx ></th>
-						<th><select   id="isVentePrestation"  name="isVentePrestation"   > <option  value="true"  > Vente </option><option value="false">Dépense </option>  </select> </th>
+						<th><select   id="isVentePrestation"  name="isVentePrestation"   > <option  value="true"  > Vente </option><option value="false">Dï¿½pense </option>  </select> </th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -896,9 +895,9 @@ function doExcuteFnAfterGrid( dataSS ){
 					 <tr> 
 						<th></th>
 						<th></th>
-						<th>Référence</th>
-						<th>Désignation</th>
-						<th>Qté</th>
+						<th>RÃ©fÃ©rence</th>
+						<th>DÃ©signation</th>
+						<th>Qte</th>
 						<th>P.U.V</th>
 						<th>T.H.T</th>
 						<th></th>
@@ -921,7 +920,7 @@ function doExcuteFnAfterGrid( dataSS ){
 						<th><input   type="text"       id="XnextFocuso"           name="XnextFocuso"   style="width: 95%;"        requiredy ></th>
 						<th ><input  type="number"     id="quantite_stockxc"      name="quantite_stock_fourniture"        style="width: 93%;"             ></th>
 		                <th  colspan="2"><input  type="number"     id="quantiteXx"            name="quantiteFourniture"      min="1"    value="1"    style="width: 93%;"              requiredx ></th>
-						<th><select   id="isVente"  name="isVente"   ><option  value="true"  > Vente </option> <option value="false">Dépense </option>  </select>   </th>
+						<th><select   id="isVente"  name="isVente"   ><option  value="true"  > Vente </option> <option value="false">Dï¿½pense </option>  </select>   </th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -929,12 +928,12 @@ function doExcuteFnAfterGrid( dataSS ){
 					 <tr> 
 						<th></th>
 						<th></th>
-						<th>Référence</th>
-						<th>Désignation</th>
+						<th>RÃ©fÃ©rence</th>
+						<th>Designation</th>
 						<th>Stock</th>
-						<th>Qté</th>
+						<th>Qte</th>
 						<th> </th>
-						<th>Dépense</th>
+						<th>Depense</th>
 						<th>P.U.V</th>
 						<th>T.H.T</th>
 						<th></th>

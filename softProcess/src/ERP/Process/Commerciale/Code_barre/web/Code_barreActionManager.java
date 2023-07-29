@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,7 +172,7 @@ public class Code_barreActionManager extends Code_barreTemplate {
 			String id_elment=getRequest().getParameter("id_elment")==null?"":getRequest().getParameter("id_elment");
 			String l_value  =getRequest().getParameter("l_value")==null?"":getRequest().getParameter("l_value");
 			
-			String[] tab_elmt=id_elment.split("£");
+			String[] tab_elmt=id_elment.split("ï¿½");
 			
 			List  list_des_carac_for_article =(List) getObjectValueModel(LIST_DES_CARAC_FOR_ARTICLE);
 			for (int i = 0; i < list_des_carac_for_article.size(); i++) {
@@ -212,7 +212,7 @@ public class Code_barreActionManager extends Code_barreTemplate {
 						for ( int m = 0; m < list_detail.size(); m++) {
 							DetailCaracteristiqueBean  beandet= list_detail.get(m);
 							if(beandet.getIs_checked().equals("checked")){
-								lis_det.add(caBean.getArt_Bean().getPk_article().getAr_id()+"£"+caBean.getCarac_Bean().getCarac_id()+"£"+beandet.getPk_det_carac().getDet_carac_id());
+								lis_det.add(caBean.getArt_Bean().getPk_article().getAr_id()+"ï¿½"+caBean.getCarac_Bean().getCarac_id()+"ï¿½"+beandet.getPk_det_carac().getDet_carac_id());
 							}
 						}
 						list_Niveau.add(lis_det);
@@ -232,13 +232,13 @@ public class Code_barreActionManager extends Code_barreTemplate {
 				    	 String master_barre=(String) list_7achti_bih.get(i);
 				    	
 				    	 Code_barreBean  bean = new Code_barreBean();
-				    	 bean.getPk().setCode_barre(master_barre.replace("£", ""));
+				    	 bean.getPk().setCode_barre(master_barre.replace("ï¿½", ""));
 				    	 bean.setDesignation(master_barre);
 				    	
 				    	 
 				         Det_code_barre beanCod=  new Det_code_barre();
-				         String[] det_cod_bar=master_barre.split("£");
-				    	 beanCod.getPk_det_codBare().getBean_cod_bar().getPk().setCode_barre(master_barre.replace("£", ""));
+				         String[] det_cod_bar=master_barre.split("ï¿½");
+				    	 beanCod.getPk_det_codBare().getBean_cod_bar().getPk().setCode_barre(master_barre.replace("ï¿½", ""));
 				    	 
 				         beanCod.getPk_det_codBare().getBean_cod_bar().getPk().getAr_bean().getPk_article().setAr_id(det_cod_bar[0]);
 				         bean.getPk().getAr_bean().getPk_article().setAr_id(det_cod_bar[0]);
@@ -263,7 +263,7 @@ public class Code_barreActionManager extends Code_barreTemplate {
 					    	 String property=(String) list_7achti_bih.get(h);
 					    	 for (int n = 0; n < vDetail.size(); n++) {
 					    		 String Proper_add=(String) vDetail.get(n);
-					    		 listfinal.add(property+"¤"+Proper_add);
+					    		 listfinal.add(property+"ï¿½"+Proper_add);
 							 }
 					     }
 					     f++;
@@ -274,16 +274,16 @@ public class Code_barreActionManager extends Code_barreTemplate {
 				    	 String master_cod_bar=(String) list_7achti_bih.get(i);
 				    	 
 				    	 Code_barreBean  bean = new Code_barreBean();
-				    	 bean.getPk().setCode_barre(master_cod_bar.replace("£", ""));
+				    	 bean.getPk().setCode_barre(master_cod_bar.replace("ï¿½", ""));
 				    	 bean.setDesignation(master_cod_bar);
 				    	 
-				    	 String[] detail_cod_bar=master_cod_bar.split("¤");
+				    	 String[] detail_cod_bar=master_cod_bar.split("ï¿½");
 				    	 List  list_detail_cod_bar = new ArrayList<Det_code_barre>();
 				    	 
 				    	 for (int j = 0; j < detail_cod_bar.length; j++) {
 				    		 Det_code_barre beanCod=  new Det_code_barre();
-					         String[] ligne_det_cod_bar=detail_cod_bar[j].split("£");
-					    	 beanCod.getPk_det_codBare().getBean_cod_bar().getPk().setCode_barre(master_cod_bar.replace("£", ""));
+					         String[] ligne_det_cod_bar=detail_cod_bar[j].split("ï¿½");
+					    	 beanCod.getPk_det_codBare().getBean_cod_bar().getPk().setCode_barre(master_cod_bar.replace("ï¿½", ""));
 					        
 					         
 					         beanCod.getPk_det_codBare().getBean_cod_bar().getPk().getAr_bean().getPk_article().setAr_id(ligne_det_cod_bar[0]);
@@ -349,20 +349,20 @@ public class Code_barreActionManager extends Code_barreTemplate {
 				
 				String getDesignation=bean.getDesignation();
 				String designation_libelle=lib;
-				if(getDesignation.indexOf("¤")>-1){
+				if(getDesignation.indexOf("ï¿½")>-1){
 					String  new_ode_barre_Compose="";
-					String[] EE=getDesignation.split("¤");
+					String[] EE=getDesignation.split("ï¿½");
 					for (int j = 0; j < EE.length; j++) {
 						
 						if( j == 0){
-							new_ode_barre_Compose=EE[j].replace("£", "");
+							new_ode_barre_Compose=EE[j].replace("ï¿½", "");
 						}else{
-							String[] part_caracteristik=EE[j].split("£");
+							String[] part_caracteristik=EE[j].split("ï¿½");
 							for (int k = 1; k < part_caracteristik.length; k++) {
 								new_ode_barre_Compose=new_ode_barre_Compose+part_caracteristik[k];
 							}
 						}
-						 DetailCaracteristiqueBean beanww=(DetailCaracteristiqueBean) maplib.get(EE[j].replace("£", ""));
+						 DetailCaracteristiqueBean beanww=(DetailCaracteristiqueBean) maplib.get(EE[j].replace("ï¿½", ""));
 						 if(beanww==null)
 							 designation_libelle=designation_libelle+"  "+"eurreur";
 						   else
@@ -373,13 +373,13 @@ public class Code_barreActionManager extends Code_barreTemplate {
 					
 					
 				}else{
-					   DetailCaracteristiqueBean beanww=(DetailCaracteristiqueBean) maplib.get(getDesignation.replace("£", ""));
+					   DetailCaracteristiqueBean beanww=(DetailCaracteristiqueBean) maplib.get(getDesignation.replace("ï¿½", ""));
 					   if(beanww==null)
 						 designation_libelle=designation_libelle+"  "+"eurreur";
 					   else
 					    designation_libelle=designation_libelle+"  "+beanww.getDet_carac_libelle();
 					   
-					    String  new_ode_barre= bean.getPk().getCode_barre().replace("£", "");
+					    String  new_ode_barre= bean.getPk().getCode_barre().replace("ï¿½", "");
 					    bean.getPk().setCode_barre(new_ode_barre);
 				}
 				 System.out.println(designation_libelle);

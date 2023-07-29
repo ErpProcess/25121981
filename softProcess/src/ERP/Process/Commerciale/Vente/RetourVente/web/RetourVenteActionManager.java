@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -436,7 +436,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		    		if( newBean.getQuantite_retourne() == null  ||  newBean.getQuantite_retourne() ==0) continue;
 		    		
 		    		if( newBean.getQuantite_retourne() < 0 ) {
-		    			String err=" Il existe un ou plusieurs quantité(s) inférieur a zéro ";
+		    			String err=" Il existe un ou plusieurs quantitï¿½(s) infï¿½rieur a zï¿½ro ";
 		    			data.addProperty("erreur"+newBean.getPk().getDetv().getPk().getFkcode_barre().getPk().getCode_barre(),err);
 		    			data.addProperty("Qte"+newBean.getPk().getDetv().getPk().getFkcode_barre().getPk().getCode_barre(),"0");
 		    			data.addProperty(newBean.getPk().getDetv().getPk().getFkcode_barre().getPk().getCode_barre(),"0");
@@ -619,7 +619,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 	        	   String key = (String ) iter.next();
 				
 				   String elmme=  (String) mapTvaImpression.get(key);
-				   String[] ligne=   elmme.split("£");
+				   String[] ligne=   elmme.split("ï¿½");
 				
 				   cell = new PdfPCell(new Phrase(key,GeneratePdf.FONT_12_bold));
 		           cell.setColspan(10);
@@ -787,11 +787,11 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			      for (int i = 0; i < listDataSrv.size(); i++) {
 			    	  DetRetourVenteBean bVenteBean =listDataSrv.get(i);
 			    	  String key_re_vente =
-			    		  bVenteBean.getPk().getR_vente().getRet_vente_id()+"§"+  
-			    		  bVenteBean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-			    		  bVenteBean.getPk().getDetv().getPk().getFkcode_barre().getPk().getCode_barre()+"§"+
-			    		  bVenteBean.getPk().getR_vente().getVente().getDepot().getDepot_id()+"§"+
-			    		  bVenteBean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+			    		  bVenteBean.getPk().getR_vente().getRet_vente_id()+"ï¿½"+  
+			    		  bVenteBean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+			    		  bVenteBean.getPk().getDetv().getPk().getFkcode_barre().getPk().getCode_barre()+"ï¿½"+
+			    		  bVenteBean.getPk().getR_vente().getVente().getDepot().getDepot_id()+"ï¿½"+
+			    		  bVenteBean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 			    		  bVenteBean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 			    	  if(map_debu.get(key_re_vente)==null){
 			    		  map_debu.put(key_re_vente, bVenteBean);
@@ -808,11 +808,11 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 					  Incident_mvt_serieBean beanInc =List_des_retour.get(i);
 					  if(beanInc.getPk().getIncid_mvt().getNature_mvt_id().equals("r-ve")){
 					      String key_serie =
-						  beanInc.getPk().getMvt_incident_id()+"§"+  
-						  beanInc.getPk().getSerieBean().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-						  beanInc.getPk().getSerieBean().getFkCode_barre().getPk().getCode_barre()+"§"+
-						  beanInc.getPk().getSerieBean().getPk().getDepot().getDepot_id()+"§"+
-						  beanInc.getPk().getSerieBean().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+						  beanInc.getPk().getMvt_incident_id()+"ï¿½"+  
+						  beanInc.getPk().getSerieBean().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+						  beanInc.getPk().getSerieBean().getFkCode_barre().getPk().getCode_barre()+"ï¿½"+
+						  beanInc.getPk().getSerieBean().getPk().getDepot().getDepot_id()+"ï¿½"+
+						  beanInc.getPk().getSerieBean().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 						  beanInc.getPk().getSerieBean().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id(); 
 					      DetRetourVenteBean   det_re=  (DetRetourVenteBean) map_debu.get(key_serie);
 					      if(det_re==null ) continue;
@@ -988,7 +988,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 						 element.put("value3",tvaB);
 						 listDataTva.put(element);
 						 
-						 mapTvaImpression.put(tva, base+"£"+tvaB);
+						 mapTvaImpression.put(tva, base+"ï¿½"+tvaB);
 						  
 					 }
 				 }
@@ -1057,7 +1057,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			 
 			 element = new JSONObject();
 			 element.put("td1","3");
-			 element.put("value1","Net à payer");
+			 element.put("value1","Net ï¿½ payer");
 			 element.put("td2","4");
 			 double net_a_payer=ProcessNumber.SOUSTRACTION(total_mnt_gen, avance);
 			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_Troischiffre(net_a_payer));

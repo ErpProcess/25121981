@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -221,7 +221,7 @@ public class GenericWeb       {
     public Map convertStringToHashMap(String strData){
 		
 		Map<String, String> myMap = new HashMap<String, String>();
-		if(StringUtils.isBlank(strData)) return myMap;
+		if(StringUtils.isEmpty(strData)) return myMap;
 		String[] pairs = strData.split(",");
 		 for (int i=0;i<pairs.length;i++) {
 		     String pair = pairs[i];
@@ -1026,7 +1026,6 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 		 } catch (Exception e) {
 			 throw e ;
 			}
-     
  	 } 
     
  public    void setBeanSession_TraceValueInto_Cur_Beanv_1(Object ojexct) throws Exception{
@@ -1236,7 +1235,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 		     this.getSession(req,res);
 		     this.loadPathActionView(tempEncours,req);
 		     this.getBeanAction(tempEncours,HiddenAction , genericactionbean);
-		     this.doIniServlet(tempEncours,HiddenAction);
+		     this.doIniServlet(HiddenAction);
 		     
 		     } catch (Exception e) {
 		    	 displayException(e);
@@ -1340,7 +1339,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 
 
 
-	public   void  doIniServlet   ( Object tempSubModu ,  String  HiddenAction  ) throws NoSuchFieldException,ServletException {
+	public   void  doIniServlet   (   String  HiddenAction  ) throws NoSuchFieldException,ServletException {
 		 
 	 	   String indexlismod_id="";
 		   String IndexSoumod="";
@@ -1357,8 +1356,8 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 	    	String  data_action= getRequest().getParameter("data_action")==null?"":getRequest().getParameter("data_action");
 	    	bs.setData_action(data_action);
 	    	String []tabCoposer = data_action.split(",");
-	    	
-	    	//var data =""+fcId+"ï¿½"+fcLib+"ï¿½"+view_smfct_action+"ï¿½"+smodId+"ï¿½"+smodlib+"ï¿½"+indexLisSouMod+"ï¿½"+ixlismodul;
+	    	                  //1,Nouveau,/ERP/Process/Commerciale/Vente/ProcedureVente/root.action,343,Caisse tactile,5,0
+	    	//var data =""+fcId+","+fcLib+","+view_smfct_action+","+smodId+","+smodlib+","+indexLisSouMod+","+ixlismodul;
 	    	
 	    
 	    	bs.setFct_id(tabCoposer[0]);//(getRequest().getParameter("fct_id")!=null?getRequest().getParameter("fct_id"):"");
@@ -1513,9 +1512,9 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 							 if(hhhh!= null &&  hhhh.size()>0){
 								 error.setMessage(((GlibelleBean)hhhh.get(0)).getLib_libelle());
 							 }else{
-								 error.setMessage(codeerr!=null?codeerr:" Veuillez Contacter Votre Administrateur Systï¿½me ! ");
+								 error.setMessage(codeerr!=null?codeerr:" Veuillez Contacter Votre Administrateur Systeme ! ");
 							 }
-						 setObjectValueModel(MESSAGERROR, error.getMessage()!=null?error.getMessage():"Veuillez contacter votre administrateur systï¿½me !");
+						 setObjectValueModel(MESSAGERROR, error.getMessage()!=null?error.getMessage():"Veuillez contacter votre administrateur systeme !");
 					 }
 				} 
 					 
@@ -1582,7 +1581,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 					 beanSearch.getIdLiblleBean().setLang_id(bs.getLang_id());
 					 
 					 if(codeerr.equals("invo_fct")){
-						 String mSg= name_entite+"  "+name_fct +" avec succï¿½s";
+						 String mSg= name_entite+"  "+name_fct +" avec success";
 						 error.setMessage(mSg);
 					 }else {
 					    List list_message=ActionGlibelleManager.serviceGlibelle.getListDataServer(beanSearch);
@@ -1591,7 +1590,7 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 					       }else{
 						     getStackTrace(e);
 						     e.printStackTrace();
-					         if( codeerr  !=null  &&  codeerr.length()>0) error.setMessage(codeerr); else error.setMessage("Veuillez Contacter Votre Administrateur Systï¿½me ! "); 
+					         if( codeerr  !=null  &&  codeerr.length()>0) error.setMessage(codeerr); else error.setMessage("Veuillez Contacter Votre Administrateur System ! "); 
 			               }
 							
 				     }
@@ -1633,11 +1632,11 @@ public static   void    setValueOject_with_name_field(Object beantrie,String id,
 						     String name_entite=bs.getSousmod_libelle_title();
 							 String name_fct=bs.getFct_libelle();
 							 
-							   codeerr= " ï¿½chec de l'opï¿½ration "+name_fct +"  "+name_entite +"  "+codeerr;
+							   codeerr= " échec de l'operation "+name_fct +"  "+name_entite +"  "+codeerr;
 							  
-							 error.setMessage(codeerr!=null?codeerr:" Veuillez Contacter Votre Administrateur Systï¿½me ! ");
+							 error.setMessage(codeerr!=null?codeerr:" Veuillez Contacter Votre Administrateur Systeme ! ");
 						 }
-					 setObjectValueModel(MESSAGERROR, error.getMessage()!=null?error.getMessage():"Veuillez contacter votre administrateur systï¿½me !");
+					 setObjectValueModel(MESSAGERROR, error.getMessage()!=null?error.getMessage():"Veuillez contacter votre administrateur systeme !");
 				 }
 			}  
 		  return errorObject;

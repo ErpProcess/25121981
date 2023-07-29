@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -195,7 +195,7 @@ public class ComplementVenteDAO extends  GenericWeb    {
 						   }
 						   chaine.length();
 						   chaine=StringUtils.isEmpty(chaine)?"":chaine.substring(0, chaine.length()-1);
-						   if(StringUtils.isEmpty(chaine))throwNewException("List Détaille Vide");
+						   if(StringUtils.isEmpty(chaine))throwNewException("List Dï¿½taille Vide");
 						 
 						   List     list_lot_article   = doGetLot_artcicle(beanUpdate,chaine);
 						   HashMap  map_resultat_stock = doGetStock_artcicle(beanUpdate,chaine);
@@ -268,10 +268,10 @@ public class ComplementVenteDAO extends  GenericWeb    {
 					    for (int i = 0; i < lisStock_max_date_article.size(); i++) {
 								Stock_articleBean sBean= (Stock_articleBean) lisStock_max_date_article.get(i);
 								String key_max_jour =
-									sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-								    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"§"+
-								    sBean.getPk().getDepot().getDepot_id()+"§"+
-								    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+									sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+								    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"ï¿½"+
+								    sBean.getPk().getDepot().getDepot_id()+"ï¿½"+
+								    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 								    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 								map_resultat.put(key_max_jour, sBean);
 						}
@@ -320,10 +320,10 @@ public class ComplementVenteDAO extends  GenericWeb    {
 					    String date_vente =  ProcessDate.getStringFormatDate(beanUpdate.getComp_vente_date());// forcer a date system
 						
 					    String key_trait =""+
-					    detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-					    detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getCode_barre()+"§"+
-						beanUpdate.getVente().getDepot().getDepot_id()+"§"+
-						detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+					    detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+					    detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getCode_barre()+"ï¿½"+
+						beanUpdate.getVente().getDepot().getDepot_id()+"ï¿½"+
+						detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 						detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 					   
 						 if(map_article_jour.get(key_trait)==null) {
@@ -593,10 +593,10 @@ public class ComplementVenteDAO extends  GenericWeb    {
 						 Stock_articleBean stock             =  new Stock_articleBean();
 						
 					     String key_trait =""+
-					     detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-					     detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getCode_barre()+"§"+
-						 beanUpdate.getVente().getDepot().getDepot_id()+"§"+
-						 detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+					     detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+					     detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getCode_barre()+"ï¿½"+
+						 beanUpdate.getVente().getDepot().getDepot_id()+"ï¿½"+
+						 detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 						 detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 					   
 						 Double mnt_Ht_ACHat   = (Double) mapAchat.get("mnt_Ht_ACHat"+ref_article_vente );
@@ -652,7 +652,7 @@ public class ComplementVenteDAO extends  GenericWeb    {
 								 
 								 if(date_Retvente.equals(date_stock)){
 									 
-	 								 //String key=stock.getStock_article_id()+"£"+detail_Bean.getCause().getNature_incident_id();
+	 								 //String key=stock.getStock_article_id()+"ï¿½"+detail_Bean.getCause().getNature_incident_id();
 									 IncidentStock_articleBean  mp =(IncidentStock_articleBean) map_id_Incident.get("") ;
 									  
 									  

@@ -1,8 +1,15 @@
 eclipse.preferences.version=1
-encoding//WebContent/Aceuil/esProcess.jsp=UTF-8
+encoding//WebContent/Aceuil/esProcess.jsp=ISO-8859-1
 encoding//WebContent/ERP/Process/Commerciale/Vente/Mvtcom/FormMvtcom.jsp=UTF-8
 encoding//WebContent/ERP/Process/Commerciale/Vente/ProcedureVente/FormProcedureVente_caisse.jsp=UTF-8
+encoding//WebContent/ERP/Process/Commerciale/Vente/ProcedureVente/FormProcedureVente_creer.jsp=ISO-8859-1
 encoding//WebContent/jQuery/process_script_datepicker.js=UTF-8
 encoding//WebContent/saas/index.jsp=UTF-8
 encoding//src/ERP/Process/Commerciale/Vente/Facture_client/web/PrintPdfModeleKobbi.java=UTF-8
+encoding//src/ERP/Process/Commerciale/Vente/ProcedureVente/web/ProcedureVenteActionManager.java=UTF-8
+encoding//src/ERP/eXpertSoft/wfsi/Administration/GestionAuthentification/web/ActionAuthentificationManager.java=ISO-8859-1
+encoding//src/ERP/eXpertSoft/wfsi/Administration/GestionUtilisateurs/Privilege/web/PrivilegeActionManager.java=ISO-8859-1
+encoding//src/ERP/eXpertSoft/wfsi/Administration/Outils_Parametrage/Generic/GenericWeb.java=ISO-8859-1
 encoding//src/ERP/eXpertSoft/wfsi/Administration/Outils_Parametrage/Societe/web/ActionSocieteManager.java=UTF-8
+encoding//src/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/web/ActionDataTablesManager.java=ISO-8859-1
+encoding/<project>=UTF-8

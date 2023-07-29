@@ -1,9 +1,9 @@
 package ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.dao;
 import java.util.List;
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.TVA.model.TVABean;

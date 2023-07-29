@@ -5,10 +5,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericActionBean;
@@ -148,7 +148,7 @@ public class ComplementAchatDAO extends  GenericWeb    {
 			//this.hibernateTemplate.bulkUpdate(" UPDATE  Reception_achatBean b  set  b.retour_id="+beanSave.getRetour_id()+"   where   b.pk.achat_id='"+beanSave.getAchat().getPk().getAchat_id()+"' ");
 			//this.saveTraceVersion_Master_detailles(listOfmyData, Reception_achatTemplate.MapfieldBean_detaille, Reception_achatTemplate.id_entite_det_achat, Reception_achatTemplate.entites_detaille);
 			 
-			//if( !StringUtils.isBlank( beanSave.getDem_achat().getDem_achat_id()) )
+			//if( !StringUtils.isEmpty( beanSave.getDem_achat().getDem_achat_id()) )
 			//
 			
 			result = true;

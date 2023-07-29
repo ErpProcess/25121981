@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -197,7 +197,7 @@ public class DocumentLotDAO extends  GenericWeb    {
 							continue;
 						}
 						if(truU==null &&  kio>0){
-							throwNewException(" Les Lots choisis ont des prix différents ");	
+							throwNewException(" Les Lots choisis ont des prix diffï¿½rents ");	
 						}
 					}
 				}
@@ -227,7 +227,7 @@ public class DocumentLotDAO extends  GenericWeb    {
 							beanSave.getFkCode_barre().getPk().getAr_bean().getChoix().getData_id().equals("sel"))
 							
 			){
-				throwNewException(" Aucun Lots côchez pour le mode de selection  ");	
+				throwNewException(" Aucun Lots cï¿½chez pour le mode de selection  ");	
 			}
 			
 			/**********************************************************update le mode du choix prix*********************************************************/

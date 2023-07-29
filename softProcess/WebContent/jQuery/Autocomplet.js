@@ -79,9 +79,9 @@ $("#"+codeFocu).autocomplete({
                     .data( "item.autocomplete", item )
                    
                     .append( "<a >"+
-                               "<div   style='height: 12px;'>"+
-                                 "<div style='position: relative;top: -6px;'  >"+item.value+"</div>"+
-                                 "<div style='position: relative;top: -33.5px;margin-left: 100px;'  >"+item.label+"</div>"+
+                               "<div   style='height: 20px;'>"+
+                                 "<div style='position: relative;top: -2px;'  >"+item.value+"</div>"+
+                                 "<div style='position: relative;top: -25px;margin-left: 100px;'  >"+item.label+"</div>"+
                                "</div>"+
                              "</a>" )
                     
@@ -159,10 +159,10 @@ $('input[id="'+Xlibelle+'"]').autocomplete({
          $(this).autocomplete("search", $('input[id="'+Xlibelle+'"]').val());
     }).data( "autocomplete" )._renderItem = function( ul, item ) {
     
-	    var  styleLibelle="position: relative;top: -6px;";
-	    var  styleCode="position: relative;top: -33.5px;margin-left: 250px;";
+	    var  styleLibelle="position: relative;top: -2px;";
+	    var  styleCode="position: relative;top: -25px;margin-left: 250px;";
 	    var  styleLeA="width:98%;";
-	    var  styleLeDiv="height: 12px;";
+	    var  styleLeDiv="height: 20px;";
 	    
 	    /*if(item.value=="Code"){
 	        styleLibelle="position: relative;top: -6px;;background-color:#c3dde0;";
@@ -255,10 +255,10 @@ $('input[id="'+Xcode+'"]').autocomplete({
          $(this).autocomplete("search",   $('input[id="'+Xcode+'"]').val());
     }).data( "autocomplete" )._renderItem = function( ul, item ) {
     
-        var  styleCode="position: relative;top: -6px;";
-	    var  styleLibelle="position: relative;top: -33.5px;margin-left: 150px;";
+        var  styleCode="position: relative;top: -2px;";
+	    var  styleLibelle="position: relative;top: -25px;margin-left: 150px;";
 	    var  styleLeA="width:98%;";
-	    var  styleLeDiv="height: 12px;";
+	    var  styleLeDiv="height: 20px;";
 	    
                 return $( "<li    ></li>" )
                     .data( "item.autocomplete", item )
@@ -359,16 +359,16 @@ $('input[id="'+Xlibelle+'"]').autocomplete({
          $(this).autocomplete("search", $('input[id="'+Xlibelle+'"]').val());
     }).data( "autocomplete" )._renderItem = function( ul, item ) {
     
-	    var  styleLibelle="position: relative;top: -6px;width:auto;";
-	    var  styleCode="position: relative;top: -33.5px;margin-left:"+margincode+"px;width:auto;";
+	    var  styleLibelle="position: relative;top: -2px;width:auto;";
+	    var  styleCode="position: relative;top: -25px;margin-left:"+margincode+"px;width:auto;";
 	    var  styleLeA="width:98%;";
-	    var  styleLeDiv="height: 14px;";
+	    var  styleLeDiv="height: 20px;";
 	    
 	    /*if(item.value=="Code"){
-	        styleLibelle="position: relative;top: -6px;;background-color:#c3dde0;";
-	        styleCode="position: relative;top: -33.5px;margin-left: 250px;background-color:#c3dde0;width:auto;display:inline-block;";
+	        styleLibelle="position: relative;top: -2px;background-color:#c3dde0;";
+	        styleCode="position: relative;top: -25px;margin-left: 250px;background-color:#c3dde0;width:auto;display:inline-block;";
 	        styleLeA="width:100%;";
-	        styleLeDiv="height: 12px;position: fixed;z-index: 99999;";
+	        styleLeDiv="height: 20px;position: fixed;z-index: 99999;";
 	    }*/
 	    
  
@@ -458,10 +458,10 @@ $('input[id="'+Xcode+'"]').autocomplete({
         
 	    
 	    
-	    var  styleCodeX="position: relative;top: -6px;width:auto;";
-	    var  styleLibelleX="position: relative;top: -33.5px;margin-left:"+marginlib+"px;width:auto;";
+	    var  styleCodeX="position: relative;top: -2px;width:auto;";
+	    var  styleLibelleX="position: relative;top: -25px;margin-left:"+marginlib+"px;width:auto;";
 	    var  styleLeAX="width:auto;";
-	    var  styleLeDivX="height: 15px;";
+	    var  styleLeDivX="height: 20px;";
 	    
                 return $( "<li    ></li>" )
                     .data( "item.autocomplete", item )
@@ -565,9 +565,9 @@ $('input[id="'+Xcode2+'"]').autocomplete({
                 return $( "<li></li>" )
                     .data( "item.autocomplete", item )
                     .append( "<a>"+
-                               "<div  style='height: 15px;'>"+
-                                 "<div style='position: relative;top: -6px;'  >"+item.value+"</div>"+
-                                 "<div style='position: relative;top: -33.5px;margin-left: 200px;'  >"+item.label+"</div>"+
+                               "<div  style='height: 20px;'>"+
+                                 "<div style='position: relative;top: -2px;'  >"+item.value+"</div>"+
+                                 "<div style='position: relative;top: -25px;margin-left: 200px;'  >"+item.label+"</div>"+
                                "</div>"+
                              "</a>" )
                     
@@ -645,9 +645,9 @@ $('input[id="'+Xlibelle2+'"]').autocomplete({
                 return $( "<li></li>" )
                     .data( "item.autocomplete", item )
                     .append( "<a>"+
-                               "<div  style='height: 15px;'>"+
-                                 "<div style='position: relative;top: -6px;'  >"+item.label+"</div>"+
-                                 "<div style='position: relative;top: -33.5px;margin-left: 200px;'  >"+item.value+"</div>"+
+                               "<div  style='height: 20px;'>"+
+                                 "<div style='position: relative;top: -2px;'  >"+item.label+"</div>"+
+                                 "<div style='position: relative;top: -25px;margin-left: 200px;'  >"+item.value+"</div>"+
                                "</div>"+
                              "</a>" )
                     
@@ -731,9 +731,9 @@ $('input[id="'+codIn+'"]').autocomplete({
                 return $( "<li></li>" )
                     .data( "item.autocomplete", item )
                     .append( "<a>"+
-                               "<div  style='height: 15px;'>"+
-                                 "<div style='position: relative;top: -6px;'  >"+item.value+"</div>"+
-                                 "<div style='position: relative;top: -33.5px;margin-left: 200px;'  >"+item.label+"</div>"+
+                               "<div  style='height: 20px;'>"+
+                                 "<div style='position: relative;top: -2px;'  >"+item.value+"</div>"+
+                                 "<div style='position: relative;top: -25px;margin-left: 200px;'  >"+item.label+"</div>"+
                                "</div>"+
                              "</a>" )
                     
@@ -801,9 +801,9 @@ $('input[id="'+libgrid+'"]').autocomplete({
                 return $( "<li></li>" )
                     .data( "item.autocomplete", item )
                     .append( "<a>"+
-                               "<div  style='height: 15px;'>"+
-                                 "<div style='position: relative;top: -6px;'  >"+item.label+"</div>"+
-                                 "<div style='position: relative;top: -33.5px;margin-left: 200px;'  >"+item.value+"</div>"+
+                               "<div  style='height: 20px;'>"+
+                                 "<div style='position: relative;top: -2px;'  >"+item.label+"</div>"+
+                                 "<div style='position: relative;top: -25px;margin-left: 200px;'  >"+item.value+"</div>"+
                                "</div>"+
                              "</a>" )
                     
@@ -900,9 +900,9 @@ $('input[id="'+codeFocu+'"]').autocomplete({
                     .data( "item.autocomplete", item )
                    
                     .append( "<a >"+
-                               "<div   style='height: 12px;'>"+
-                                 "<div style='position: relative;top: -6px;'  >"+item.value+"</div>"+
-                                 "<div style='position: relative;top: -33.5px;margin-left: 100px;'  >"+item.label+"</div>"+
+                               "<div   style='height: 20px;'>"+
+                                 "<div style='position: relative;top: -2px;'  >"+item.value+"</div>"+
+                                 "<div style='position: relative;top: -25px;margin-left: 100px;'  >"+item.label+"</div>"+
                                "</div>"+
                              "</a>" )
                     
@@ -991,9 +991,9 @@ $('input[id="'+XnextFocus+'"]').autocomplete({
                     .data( "item.autocomplete", item )
                    
                     .append( "<a >"+
-                               "<div   style='height: 12px;'>"+
-                                 "<div style='position: relative;top: -6px;'  >"+item.label+"</div>"+
-                                 "<div style='position: relative;top: -33.5px;margin-left: 250px;'  >"+item.value+"</div>"+
+                               "<div   style='height: 20px;'>"+
+                                 "<div style='position: relative;top: -2px;'  >"+item.label+"</div>"+
+                                 "<div style='position: relative;top: -25px;margin-left: 250px;'  >"+item.value+"</div>"+
                                "</div>"+
                              "</a>" )
                     
@@ -1088,10 +1088,10 @@ $('input[id="'+codeFocu+'"]').autocomplete({
          $('input[id="'+codeFocu+'"]').autocomplete( "enable" );
          $(this).autocomplete("search",  $('input[id="'+codeFocu+'"]').val());
     }).data( "autocomplete" )._renderItem = function( ul, item ) {
-                var  styleCodeX="position: relative;top: -6px;width:auto;";
-	    var  styleLibelleX="position: relative;top: -33.5px;margin-left:"+widthLib+"px;width:auto;";
+                var  styleCodeX="position: relative;top: -2px;width:auto;";
+	    var  styleLibelleX="position: relative;top: -25px;margin-left:"+widthLib+"px;width:auto;";
 	    var  styleLeAX="width:auto;";
-	    var  styleLeDivX="height: 15px;";
+	    var  styleLeDivX="height: 20px;";
 	    
                 return $( "<li    ></li>" )
                     .data( "item.autocomplete", item )
@@ -1196,10 +1196,10 @@ $('input[id="'+XnextFocus+'"]').autocomplete({
 	    var  styleLeDiv="height: 14px;";
 	    
 	    /*if(item.value=="Code"){
-	        styleLibelle="position: relative;top: -6px;;background-color:#c3dde0;";
-	        styleCode="position: relative;top: -33.5px;margin-left: 250px;background-color:#c3dde0;width:auto;display:inline-block;";
+	        styleLibelle="position: relative;top: -2px;background-color:#c3dde0;";
+	        styleCode="position: relative;top: -25px;margin-left: 250px;background-color:#c3dde0;width:auto;display:inline-block;";
 	        styleLeA="width:100%;";
-	        styleLeDiv="height: 12px;position: fixed;z-index: 99999;";
+	        styleLeDiv="height: 20px;position: fixed;z-index: 99999;";
 	    }*/
 	    
   

@@ -1,7 +1,7 @@
 package ERP.Process.Commerciale.Vente.Service.dao;
 import java.util.List;
 import java.util.ArrayList;
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;

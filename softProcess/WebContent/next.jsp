@@ -188,7 +188,7 @@ function doWelcome() {
           </div>
         </div>
         
-          <div class="input-group mb-3">
+          <div class="input-group mb-3"  style="display: none;">
            <input class="form-control"  autocomplete="off"  id="nomprenom"  name="nomprenom"  type="text"   readonly="readonly" 
                      value=""     >
                     <input   id="baseUrlProject"  name="baseUrlProject"  type="hidden"   value=""  >

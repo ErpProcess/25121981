@@ -40,14 +40,14 @@ var  TYPIO=Ext.MessageBox.INFO;
 
 
 $(document).ready(function () {
-	
-if(MyMessageBoxo!=""){
+titreMessageBox="ERREUR";
+if( MyMessageBoxo != undefined && MyMessageBoxo!=""){
 	var iconMessageBox = Ext.MessageBox.INFO;
 	var titreMessageBox="INFO";
 	if(MyMessageBoxo.startsWith("ERREUR") ||   MyMessageBoxo.startsWith("ERROR") ){
 		iconMessageBox = Ext.MessageBox.ERROR;
 		titreMessageBox="ERREUR";
-     } 
+} 
  Ext.MessageBox.show({
            title:titreMessageBox,
            msg: MyMessageBoxo ,

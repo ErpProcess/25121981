@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -343,7 +343,7 @@ public class RetourVenteDAO extends  GenericWeb    {
 				   
 				   boolean  sup=ProcessDate.isStrictementSuperieur(beanUpdate.getRet_vente_date(), BDateTime.getDateActuel());
 				    if(sup)
-				    	throwNewException(" Date retour "+ProcessDate.getStringFormatDate(beanUpdate.getRet_vente_date())+" supérieur a date system");
+				    	throwNewException(" Date retour "+ProcessDate.getStringFormatDate(beanUpdate.getRet_vente_date())+" supï¿½rieur a date system");
 				   
 				   List <DetRetourVenteBean> listOfmyData=(List) getObjectValueModel(RetourVenteTemplate.LIST_EDITABLE_RETOUR_VENTE);
 				 
@@ -353,7 +353,7 @@ public class RetourVenteDAO extends  GenericWeb    {
 				   }
 				   chaine.length();
 				   chaine=StringUtils.isEmpty(chaine)?"":chaine.substring(0, chaine.length()-1);
-				   if(StringUtils.isEmpty(chaine))throwNewException("List Détaille Vide");
+				   if(StringUtils.isEmpty(chaine))throwNewException("List Dï¿½taille Vide");
 				 
 				   List     list_lot_article   = doGetLot_artcicle(beanUpdate,chaine);
 				   HashMap  map_retourn        = doGetStock_artcicle(beanUpdate,chaine);
@@ -382,7 +382,7 @@ public class RetourVenteDAO extends  GenericWeb    {
 					this.setUpdateValueFieldTraceOject(beanUpdate);
 					session.saveOrUpdate(beanUpdate);
 				 
-			      /* if( !StringUtils.isBlank( beanUpdate.getCommande().getCmd_id()) ){
+			      /* if( !StringUtils.isEmpty( beanUpdate.getCommande().getCmd_id()) ){
 				     session.createQuery("    UPDATE   CommandeclientBean b  set   b.modeBean.fct_id="+bs.getFct_id()+"  " +
 				     		"       where   b.cmd_id='"+beanUpdate.getCommande().getCmd_id()+"'    ").executeUpdate();
 			       }*/
@@ -575,10 +575,10 @@ public class RetourVenteDAO extends  GenericWeb    {
 				    for (int i = 0; i < lisStock_max_date_article.size(); i++) {
 							Stock_articleBean sBean= (Stock_articleBean) lisStock_max_date_article.get(i);
 							String key_max_jour =
-								sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-							    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"§"+
-							    sBean.getPk().getDepot().getDepot_id()+"§"+
-							    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+								sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+							    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"ï¿½"+
+							    sBean.getPk().getDepot().getDepot_id()+"ï¿½"+
+							    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 							    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 							map_resultat.put(key_max_jour, sBean);
 							
@@ -592,7 +592,7 @@ public class RetourVenteDAO extends  GenericWeb    {
 				    	String chain=elment.substring(0, elment.length()-1);
 				    	List <IncidentStock_articleBean> listIncident_Stock_max_article = daoStock_article.doFindListIncident_Stock_article(chain);
 				    	for ( IncidentStock_articleBean  bbb:  listIncident_Stock_max_article  ) {
-							String key=bbb.getPk().getStock_article_id()+"£"+bbb.getPk().getCause().getNature_incident_id();
+							String key=bbb.getPk().getStock_article_id()+"ï¿½"+bbb.getPk().getCause().getNature_incident_id();
 							IncidentStock_articleBean  value=(IncidentStock_articleBean) map_id_Incident.get(key);
 							if(value==null)map_id_Incident.put(key, bbb);
 						}
@@ -626,10 +626,10 @@ public class RetourVenteDAO extends  GenericWeb    {
 					 Stock_articleBean stock             =  new Stock_articleBean();
 					
 				     String key_trait =""+
-				     detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-				     detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getCode_barre()+"§"+
-					 beanUpdate.getVente().getDepot().getDepot_id()+"§"+
-					 detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+				     detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+				     detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getCode_barre()+"ï¿½"+
+					 beanUpdate.getVente().getDepot().getDepot_id()+"ï¿½"+
+					 detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 					 detail_Bean.getPk().getDetv().getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 				   
 					 Double mnt_Ht_ACHat   = (Double) mapAchat.get("mnt_Ht_ACHat"+ref_article_vente );
@@ -686,7 +686,7 @@ public class RetourVenteDAO extends  GenericWeb    {
 							 
 							 if(date_Retvente.equals(date_stock)){
 								 
- 								 String key=stock.getStock_article_id()+"£"+detail_Bean.getCause().getNature_incident_id();
+ 								 String key=stock.getStock_article_id()+"ï¿½"+detail_Bean.getCause().getNature_incident_id();
 								 IncidentStock_articleBean  mp =(IncidentStock_articleBean) map_id_Incident.get(key) ;
 								  if( mp==null ){
 									 IncidentStock_articleBean incidentBean = new IncidentStock_articleBean();

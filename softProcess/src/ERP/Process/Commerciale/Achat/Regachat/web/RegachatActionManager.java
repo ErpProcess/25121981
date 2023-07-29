@@ -368,7 +368,7 @@ public   ModelAndView doActualiserGrid( RegachatBean  searchBean ) throws Except
 			beanLigne.setEtatRegEch(etatRegEch);
 			
 			ModeReglementBean    echMode = new ModeReglementBean();
-		    if( !StringUtils.isBlank(detailBean.getModeRegHeader())   ) {
+		    if( !StringUtils.isEmpty(detailBean.getModeRegHeader())   ) {
 		    	echMode.setMod_id( Integer.parseInt(detailBean.getModeRegHeader()) );
 		    }
 		

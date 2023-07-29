@@ -10,7 +10,7 @@ import java.util.Map;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.ejb.criteria.predicate.IsEmptyPredicate;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -294,14 +294,14 @@ public class ArticleActionManager extends ArticleTemplate {
 	
 	
 	 public ModelAndView uploadFile() throws Exception {
-	        String  chargement= " Chargment du fichier effectué avec succès  ";
+	        String  chargement= " Chargment du fichier effectuï¿½ avec succï¿½s  ";
 	        String data="";
 			try {
 				MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) getRequest();
 				MultipartFile multipartFile = multiRequest.getFile("file");
 				 
 				if(multipartFile==null){
-					chargement= " échec de chargment  ";
+					chargement= " ï¿½chec de chargment  ";
 					setObjectValueModel("MultipartFile", null);
 				}else{
 					
@@ -343,7 +343,7 @@ public class ArticleActionManager extends ArticleTemplate {
 			        setObjectValueModel("listDesArticleLoader", listDesArticleLoader);
 				 
 			} catch (Exception e) {
-				chargement= " échec de chargment  ";
+				chargement= " ï¿½chec de chargment  ";
 				e.printStackTrace();
 			}
 			getResponse().setContentType("text");
@@ -480,7 +480,7 @@ public class ArticleActionManager extends ArticleTemplate {
 			removeObjectModel(FORM_BEAN);
 			BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
 			ArticleBean rowBean = (ArticleBean) getIndexFromDataGrid_v1((String) getObjectValueModel(NAME_LIST_G));
-			if( !StringUtils.isBlank(rowBean.getData_article_langue()) ) {
+			if( !StringUtils.isEmpty(rowBean.getData_article_langue()) ) {
 				JSONObject jsonObj = new JSONObject(rowBean.getData_article_langue());
 				HashMap<String, Object> yourHashMap = new Gson().fromJson(jsonObj.toString(), HashMap.class);
 				Map<String,Object> yearMap = yourHashMap;  
@@ -636,8 +636,8 @@ public class ArticleActionManager extends ArticleTemplate {
 			 
 			 JSONObject json        = new JSONObject();
 			 boolean enter=false;
-			 if( !StringUtils.isBlank(dataSocieteLng_ar) ) { enter=true; json.put("ar",  convertStringToHashMap(dataSocieteLng_ar)); }
-			 if( !StringUtils.isBlank(dataSocieteLng_en) ) { enter=true; json.put("en", convertStringToHashMap(dataSocieteLng_en));  }
+			 if( !StringUtils.isEmpty(dataSocieteLng_ar) ) { enter=true; json.put("ar",  convertStringToHashMap(dataSocieteLng_ar)); }
+			 if( !StringUtils.isEmpty(dataSocieteLng_en) ) { enter=true; json.put("en", convertStringToHashMap(dataSocieteLng_en));  }
 			 
 			 if(enter ) { 
 			 String data_societe_langue=json.toString();
@@ -682,8 +682,8 @@ public class ArticleActionManager extends ArticleTemplate {
 			 
 			 JSONObject json        = new JSONObject();
 			 boolean enter=false;
-			 if( !StringUtils.isBlank(dataSocieteLng_ar) ) { enter=true; json.put("ar",  convertStringToHashMap(dataSocieteLng_ar)); }
-			 if( !StringUtils.isBlank(dataSocieteLng_en) ) { enter=true; json.put("en", convertStringToHashMap(dataSocieteLng_en));  }
+			 if( !StringUtils.isEmpty(dataSocieteLng_ar) ) { enter=true; json.put("ar",  convertStringToHashMap(dataSocieteLng_ar)); }
+			 if( !StringUtils.isEmpty(dataSocieteLng_en) ) { enter=true; json.put("en", convertStringToHashMap(dataSocieteLng_en));  }
 			 
 			 if(enter ) { 
 			 String data_societe_langue=json.toString();

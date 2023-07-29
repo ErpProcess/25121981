@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,13 +91,13 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 
  
 	 public ModelAndView uploadFile() throws Exception {
-        String  chargement= " Chargment du fichier effectué avec succès  ";
+        String  chargement= " Chargment du fichier effectuï¿½ avec succï¿½s  ";
 		try {
 			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) getRequest();
 			MultipartFile multipartFile = multiRequest.getFile("file");
 		 
 			if(multipartFile==null){
-				chargement= " échec de chargment  ";
+				chargement= " ï¿½chec de chargment  ";
 				setObjectValueModel("MultipartFile", null);
 			}else{
 				
@@ -120,7 +120,7 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 			File source = new File("D://" + filename);
 			multipartFile.transferTo(source); */
 		} catch (Exception e) {
-			chargement= " échec de chargment  ";
+			chargement= " ï¿½chec de chargment  ";
 			e.printStackTrace();
 		}
 		getResponse().setContentType("text");
@@ -243,10 +243,10 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 		    	 avance_montant_achat=ProcessNumber.addition(avance_montant_achat, mntAvance);
 		    	 List <Det_reception_achatBean>list_detaille=serviceReception_achat.doFetchDetailAchat(bean) ;
 		    	 for (Det_reception_achatBean beand:list_detaille) {
-		    		 String keyString  =    beand.getPk().getFkCode_barre().getPk().getCode_barre()+"£"+
-		    		                        beand.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"£"+
-		    		                        beand.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"£"+
-		    		                        beand.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"£";
+		    		 String keyString  =    beand.getPk().getFkCode_barre().getPk().getCode_barre()+"ï¿½"+
+		    		                        beand.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+
+		    		                        beand.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
+		    		                        beand.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"ï¿½";
 		    		List list= (List) map_article.get(keyString);
 		    		if(list==null)list= new ArrayList();
 		    		list.add(beand);
@@ -465,7 +465,7 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 	        cell.setBorder(cell.NO_BORDER);
 	        tabletitle.addCell(cell);
 	        
-	        cell = new PdfPCell(new Phrase("Arrêtée la présente facture à la somme de :",GeneratePdf.FONT_12_normal));
+	        cell = new PdfPCell(new Phrase("Arrï¿½tï¿½e la prï¿½sente facture ï¿½ la somme de :",GeneratePdf.FONT_12_normal));
 	        cell.setColspan(100);
 	    
 	        cell.setVerticalAlignment(Element.ALIGN_LEFT);
@@ -510,7 +510,7 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 		tableTopHeader.setWidthPercentage(96);
 		 
 		    
-		PdfPCell cell = new PdfPCell(new Phrase(" Facture N° ",GeneratePdf.FONT_12_bold));
+		PdfPCell cell = new PdfPCell(new Phrase(" Facture Nï¿½ ",GeneratePdf.FONT_12_bold));
 	    cell.setColspan(13);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -805,7 +805,7 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
         	   String key = (String ) iter.next();
 			
 			   String elmme=  (String) mapTvaImpression.get(key);
-			   String[] ligne=   elmme.split("£");
+			   String[] ligne=   elmme.split("ï¿½");
 			
 			   cell = new PdfPCell(new Phrase(key,GeneratePdf.FONT_12_bold));
 	           cell.setColspan(10);
@@ -1034,7 +1034,7 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 						 element.put("value3",tvaB);
 						 listDataTva.put(element);
 						 
-						 mapTvaImpression.put(tva, base+"£"+tvaB);
+						 mapTvaImpression.put(tva, base+"ï¿½"+tvaB);
 						  
 					 }
 				 }
@@ -1116,7 +1116,7 @@ public class Facture_FournisseurActionManager extends Facture_FournisseurTemplat
 			 
 			 element = new JSONObject();
 			 element.put("td1","2");
-			 element.put("value1","Net à payer");
+			 element.put("value1","Net ï¿½ payer");
 			 element.put("td2","3");
 			 double net_a_payer=ProcessNumber.SOUSTRACTION(total_mnt_gen, avance);
 			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_Troischiffre(net_a_payer));

@@ -1,7 +1,7 @@
 package ERP.Process.Commerciale.Vente.Parametrage.TypeAvoir.dao;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

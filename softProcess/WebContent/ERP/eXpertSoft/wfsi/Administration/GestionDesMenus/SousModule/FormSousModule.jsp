@@ -1,19 +1,37 @@
 <%@ include file="/Aceuil/esProcess.jsp"      %>
- 
+<link   href="<%=request.getContextPath()%>/jQuery/jquery.multiselect.css" rel="stylesheet" />
+<script src="<%=request.getContextPath()%>/jQuery/jquery.multiselect.js"   ></script>
 <script  type="text/javascript">
 $(document).ready(function (){
 LoadAutoCompletAjax("mod_id","mod_libelle","sousmod_libelle","listModulForSouModulCre");       
 });
 </script>
   <ext:body  >  
-  <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"   >  
+  <ext:panel  border="false"    bodyStyle="background: none;"      renderTo="ThePageJsp"  height="600"  >  
  <table class="tableStyleContent"  cellpadding="5" cellspacing="10"  id="tblData"     >  
     
      <tr>  
    <td width="7%"><label>${mod_id}</label></td>  
    <td width="93%"  >  
-   <input id="mod_id" name="moduleBean.mod_id"     type="text"    size="20"    value="${detailBean.moduleBean.mod_id}"    nextElement="sousmod_libelle"   autofocus     /> 
-   <input id="mod_libelle" name="moduleBean.mod_libelle"     type="text"    size="20"    value="${detailBean.moduleBean.mod_libelle}"    nextElement="sousmod_libelle"        />   
+   <input id="mod_id" name="moduleBean.mod_id"     type="text"    size="20"    value="${detailBean.moduleBean.mod_id}"                   nextElement="sousmod_libelle"   autofocus     /> 
+   <input id="mod_libelle" name="moduleBean.mod_libelle"     type="text"    size="20"    value="${detailBean.moduleBean.mod_libelle}"    nextElement="sousmod_libelle"  /> 
+  S.Module List <input id="module_list" name="module_list"     type="text"    size="20"    value="${detailBean.module_list}"     /> <bR>
+  Code  <input id="sousmod_code" name="sousmod_code"     type="text"    size="10"    value="${detailBean.sousmod_code}"     /> <bR>
+    
+     <script  >
+     $(function() { 
+     
+		         loadSelectAjax("moduSelect","listModulForSouModulCre","mod_id","mod_libelle","${detailBean.module_list}",false);
+		         var dataModuleList=$("#module_list").val();
+		         const charsModuleList = dataModuleList.split(',');
+		         $("#moduSelect").val(charsModuleList);
+		          })
+		         function  getDataFromMulti(valuoe){
+    	          $("#module_list").val($("#moduSelect").val());
+                 }
+		          </script>
+	<select  id="moduSelect"  name="mod_idx"    multiple     onchange="getDataFromMulti(this.value)"    ></select>   
+		              
   </td>  
    </tr> 
    
@@ -67,3 +85,17 @@ LoadAutoCompletAjax("mod_id","mod_libelle","sousmod_libelle","listModulForSouMod
  </table>   
 </ext:panel>
 </ext:body>
+<script>
+$(function () {
+    $('select[multiple]').multiselect({
+        columns: 4,
+        placeholder: 'Select States',
+        maxHeight:200,
+        search: true,
+        searchOptions: {
+            'default': 'Search States'
+        },
+        selectAll: true
+    });
+});
+</script>

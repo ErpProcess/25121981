@@ -371,7 +371,7 @@ public static ModelAndView doChangePrintFormat( ) throws Exception{
 		ModelAndView mode = new ModelAndView();
 		MessageBean error = new MessageBean();
 		if (getModel() == null){
-			error.setMessage("Votre Session a été abondanée, Identifiez vous de nouveau !");
+			error.setMessage("Votre Session a ï¿½tï¿½ abondanï¿½e, Identifiez vous de nouveau !");
 		}else{
 			//session.invalidate();
 			error.setMessage("");
@@ -387,13 +387,13 @@ public static ModelAndView doChangePrintFormat( ) throws Exception{
 		if (getModel() == null){
 			MessageBean error = new MessageBean();
 			ModelAndView mode = new ModelAndView();
-			error.setMessage("Votre Session a été abondanée, Identifiez vous de nouveau ");
+			error.setMessage("Session TerminÃ©e, Identifiez vous de nouveau ");
 			mode.addObject(MESSAGERROR, error.getMessage());
-			mode.setViewName(getRequest().getContextPath() + ActionAuthentificationManager.PATH_SLACH + "next");
+			mode.setViewName(getRequest().getContextPath() + ActionAuthentificationManager.PATH_SLACH + "index");
 			return mode;
 		}else{
 			ModelAndView mod=getModel();
-			mod.setViewName(getRequest().getContextPath() + ActionAuthentificationManager.PATH_SLACH + "next");
+			mod.setViewName(getRequest().getContextPath() + ActionAuthentificationManager.PATH_SLACH + "index");
 			return mod;
 		}
 		
@@ -406,7 +406,7 @@ public static ModelAndView doChangePrintFormat( ) throws Exception{
 		if (getModel() == null){
 			MessageBean error = new MessageBean();
 			ModelAndView mode = new ModelAndView();
-			error.setMessage("Votre Session a été abondanée, Identifiez vous de nouveau !");
+			error.setMessage("Session expiree, Identifiez vous de nouveau !");
 			//getSession().invalidate();
 			mode.addObject(MESSAGERROR, error.getMessage());
 			return null;
@@ -777,7 +777,7 @@ public static ModelAndView getViewTransfer(String isPage) {
 public static ModelAndView getViewReception(String isPage) {
 	MenuActionBean twebBean = new MenuActionBean();
 	twebBean.setTypebtn(submit);
-	twebBean.setLibelleAction("Valider-Réception");
+	twebBean.setLibelleAction("Valider-Rï¿½ception");
 	twebBean.setAct_doValid("i$_ACT_RECEPTION");
 	twebBean.setAct_doRetour("i$_ACT_RETOUR_TO_LIST");
 	twebBean.setBtValid(FALSE);

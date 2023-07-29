@@ -133,25 +133,25 @@ public   static  JSONObject doLoadingConfigPrintDocument() throws Exception {
 		JSONObject document     = json.getJSONObject("printDocument");
 		JSONObject header       = document.getJSONObject("headerDocument");
 		String entete="";
-		if( header.has("ligne1Body")  &&   !StringUtils.isBlank(header.getString("ligne1Body")))
+		if( header.has("ligne1Body")  &&   !StringUtils.isEmpty(header.getString("ligne1Body")))
 		entete+=shell.evaluate(header.getString("ligne1Body"))+"\n\r";
 		
-		if( header.has("ligne2Body")  &&   !StringUtils.isBlank(header.getString("ligne2Body")))
+		if( header.has("ligne2Body")  &&   !StringUtils.isEmpty(header.getString("ligne2Body")))
 		entete+=shell.evaluate(header.getString("ligne2Body"))+"\n\r";
 
-		if( header.has("ligne3Body")  &&   !StringUtils.isBlank(header.getString("ligne3Body")))
+		if( header.has("ligne3Body")  &&   !StringUtils.isEmpty(header.getString("ligne3Body")))
 		entete+=shell.evaluate(header.getString("ligne3Body"))+"\n\r";
 		
-		if( header.has("ligne4Body")  &&   !StringUtils.isBlank(header.getString("ligne4Body")))
+		if( header.has("ligne4Body")  &&   !StringUtils.isEmpty(header.getString("ligne4Body")))
 		entete+=shell.evaluate(header.getString("ligne4Body"))+"\n\r";
 		
-		if( header.has("ligne5Body")  &&   !StringUtils.isBlank(header.getString("ligne5Body")))
+		if( header.has("ligne5Body")  &&   !StringUtils.isEmpty(header.getString("ligne5Body")))
 		entete+=shell.evaluate(header.getString("ligne5Body"))+"\n\r";
 		
-     	if( header.has("ligne6Body")  &&   !StringUtils.isBlank(header.getString("ligne6Body")))
+     	if( header.has("ligne6Body")  &&   !StringUtils.isEmpty(header.getString("ligne6Body")))
   		 entete+=shell.evaluate(header.getString("ligne6Body"))+"\n\r";
      	
-     	if( header.has("ligne6Body")  &&   !StringUtils.isBlank(header.getString("ligne6Body")))
+     	if( header.has("ligne6Body")  &&   !StringUtils.isEmpty(header.getString("ligne6Body")))
      		 entete+=shell.evaluate(header.getString("ligne6Body"))+"\n\r";
     	
      	if( document.has("espaceTotalDesous") )
@@ -189,25 +189,25 @@ public   static  JSONObject doLoadingConfigPrintDocumentRetenue() throws Excepti
 		JSONObject document     = json.getJSONObject("printRetenue");
 		JSONObject header       = document.getJSONObject("headerDocument");
 		String entete="";
-		if( header.has("ligne1Body")  &&   !StringUtils.isBlank(header.getString("ligne1Body")))
+		if( header.has("ligne1Body")  &&   !StringUtils.isEmpty(header.getString("ligne1Body")))
 		entete+= header.getString("ligne1Body") +"\n\r";
 		
-		if( header.has("ligne2Body")  &&   !StringUtils.isBlank(header.getString("ligne2Body")))
+		if( header.has("ligne2Body")  &&   !StringUtils.isEmpty(header.getString("ligne2Body")))
 		entete+= header.getString("ligne2Body") +"\n\r";
 
-		if( header.has("ligne3Body")  &&   !StringUtils.isBlank(header.getString("ligne3Body")))
+		if( header.has("ligne3Body")  &&   !StringUtils.isEmpty(header.getString("ligne3Body")))
 		entete+= header.getString("ligne3Body") +"\n\r";
 		
-		if( header.has("ligne4Body")  &&   !StringUtils.isBlank(header.getString("ligne4Body")))
+		if( header.has("ligne4Body")  &&   !StringUtils.isEmpty(header.getString("ligne4Body")))
 		entete+= header.getString("ligne4Body") +"\n\r";
 		
-		if( header.has("ligne5Body")  &&   !StringUtils.isBlank(header.getString("ligne5Body")))
+		if( header.has("ligne5Body")  &&   !StringUtils.isEmpty(header.getString("ligne5Body")))
 		entete+= header.getString("ligne5Body") +"\n\r";
 		
-     	if( header.has("ligne6Body")  &&   !StringUtils.isBlank(header.getString("ligne6Body")))
+     	if( header.has("ligne6Body")  &&   !StringUtils.isEmpty(header.getString("ligne6Body")))
   		 entete+= header.getString("ligne6Body") +"\n\r";
      	
-     	if( header.has("ligne7Body")  &&   !StringUtils.isBlank(header.getString("ligne7Body")))
+     	if( header.has("ligne7Body")  &&   !StringUtils.isEmpty(header.getString("ligne7Body")))
      		 entete+= header.getString("ligne7Body") +"\n\r";
     	
      	if( document.has("espaceTotalDesous") )

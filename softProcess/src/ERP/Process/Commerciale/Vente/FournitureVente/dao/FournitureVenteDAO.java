@@ -1,11 +1,11 @@
 package ERP.Process.Commerciale.Vente.FournitureVente.dao;
 import java.util.List;
 import java.util.ArrayList;
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;
 import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.ProcessDate;
@@ -32,7 +32,7 @@ public class FournitureVenteDAO extends  GenericWeb    {
 		  try{
 		    String requette=" select  bean   FROM    DetFournitureVenteBean    bean    WHERE     1=1       ";
    
- 			   if(   beanSearch.getVenteFrn()!=null  &&   !StringUtils.isBlank(beanSearch.getVenteFrn().getVente_id()) )  
+ 			   if(   beanSearch.getVenteFrn()!=null  &&   !StringUtils.isEmpty(beanSearch.getVenteFrn().getVente_id()) )  
 	    			requette+="   AND   bean.fourniture.venteFrn.vente_id = '"+beanSearch.getVenteFrn().getVente_id()+"'        ";  
 // 			   else 
 // 					requette+="   AND   bean.fourniture.vente_id = 'bidan01'        ";  
@@ -103,7 +103,7 @@ public class FournitureVenteDAO extends  GenericWeb    {
 	    			requette+="   AND   bean.frn_ve_libelle = '"+beanSearch.getFrn_ve_libelle()+"'        ";    
  			 
  			   
- 			  if(   beanSearch.getVenteFrn()!=null  &&   !StringUtils.isBlank(beanSearch.getVenteFrn().getVente_id()) )  
+ 			  if(   beanSearch.getVenteFrn()!=null  &&   !StringUtils.isEmpty(beanSearch.getVenteFrn().getVente_id()) )  
 	    			requette+="   AND   bean.venteFrn.vente_id = '"+beanSearch.getVenteFrn().getVente_id()+"'        ";   
  			   
  			   if(  beanSearch.getFrn_ve_date()!=null )  

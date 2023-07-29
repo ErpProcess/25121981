@@ -7,7 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,22 +159,22 @@ public class TarificationDAO extends  GenericWeb    {
 	 			
 	  List <DetProcedureVenteBean>  lisDetProcedure = session.createQuery(" select  bean   FROM DetProcedureVenteBean bean     WHERE  bean.tarif.tarif_vente_id='"+beanSearch+"'       ").list();
 	  for (DetProcedureVenteBean bean:lisDetProcedure ) {
-		  string=string+"Vente N°:"+bean.getPk().getVente().getVente_id()+"<br>";
+		  string=string+"Vente Nï¿½:"+bean.getPk().getVente().getVente_id()+"<br>";
 	  }
 	  
 	  List <DetCmdCltBean>  lisDetCmdClt = session.createQuery(" select  bean   FROM DetCmdCltBean         bean     WHERE  bean.tarif.tarif_vente_id='"+beanSearch+"'       ").list();
 	  for (DetCmdCltBean bean:lisDetCmdClt ) {
-		  string=string+"Commande N°:"+bean.getPk().getCmd().getCmd_id()+"<br>";
+		  string=string+"Commande Nï¿½:"+bean.getPk().getCmd().getCmd_id()+"<br>";
 	  }
 	  
 	  List <DevisBean>  lisDetDevis = session.createQuery(" select   x   FROM DetDevisBean   bean ,DevisBean x     WHERE  x.devis_id=bean.pk.devis.devis_id    and   bean.tarif.tarif_vente_id='"+beanSearch+"'       ").list();
 	  for (DevisBean bean:lisDetDevis ) {
-		  string=string+"Devis N°:"+bean.getDevis_id()+"<br>";
+		  string=string+"Devis Nï¿½:"+bean.getDevis_id()+"<br>";
 	  }
 	  
 	  /*List <Detail_mvt_vente_articleBean>  lisDet_mvt_vente = session.createQuery(" select bean FROM Detail_mvt_vente_articleBean bean WHERE  bean.tarif.tarif_vente_id='"+beanSearch.getTarif_vente_id()+"'       ").list();
 	  for (Detail_mvt_vente_articleBean bean:lisDet_mvt_vente ) {
-		  string=string+"Devis N°:"+bean.getPk().getDevis().getDevis_id()+"<br>";
+		  string=string+"Devis Nï¿½:"+bean.getPk().getDevis().getDevis_id()+"<br>";
 	  }*/
 		
 	  

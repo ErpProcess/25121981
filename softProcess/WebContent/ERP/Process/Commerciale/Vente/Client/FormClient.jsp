@@ -88,8 +88,8 @@
   <tr>  
    <td width="7%"><label>Compte.Bank.Fact</label></td>  
    <td width="93%" height="40px" >  
-      <input id="cptbanribrs"   name="compte.cptbanribrs"       type="text"    size="10"                value="${detailBean.compte.cptbanribrs}"         required        />  
-      <input id="cptbanribrib"  name="compte.cptbanribrib"      type="text"      size="30"            value="${detailBean.compte.cptbanribrib}"        required         /> 
+      <input id="cptbanribrs"   name="compte.cptbanribrs"       type="text"    size="10"                value="${detailBean.compte.cptbanribrs}"                  />  
+      <input id="cptbanribrib"  name="compte.cptbanribrib"      type="text"      size="30"            value="${detailBean.compte.cptbanribrib}"                  /> 
  
   </td>  
    </tr> 

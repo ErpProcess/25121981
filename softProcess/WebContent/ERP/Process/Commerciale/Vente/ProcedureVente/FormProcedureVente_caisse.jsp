@@ -1,7 +1,8 @@
 <%@include file="/Aceuil/esProcess.jsp"%>
+
+
+
 <style>
-
-
 
 .buttonClv {
 	background-color: #4CAF50;
@@ -43,13 +44,8 @@
 
 
 
-<script type="text/javascript">
-contenu_toolbarJQuey ="";
-height_tabbJQuey="300px;
-width_tabbJQuey="100%";
-</script>
-<c:import
-	url="${context_path}/dataGridSetting/EditabledataGridConfig.jsp"></c:import>
+ 
+<c:import url="${context_path}/dataGridSetting/EditabledataGridConfig.jsp"></c:import>
 
 
 <script type="text/javascript">
@@ -166,9 +162,18 @@ return  footX;
 
 
 $(document).ready(function () {
-
+var config_header_foot_tableJQuey1 ='<"ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix"lf<"toolbar_es">r>t<"ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix"ip>';
+var contenu_toolbarJQuey1          ='';
+	 
+height_tabbJQuey="300px";
+width_tabbJQuey="100%";
+ 
+LoadAutoCompletAjax_with_marGin("pk.code_barre","designation_libelle","quantiteX","list_article_proVente","500","250");
+LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle","vente_obs","list_depot_stock","250","100");  
+       
+	
 LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
-		 config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
+		 config_header_foot_tableJQuey1  ,  contenu_toolbarJQuey1  );
 
 if(custumMessageBoxo!=""  &&  custumMessageBoxo !="Facturation effectuée avec succès"  &&  custumMessageBoxo !="Confirmation effectuée avec succès"  ){
 
@@ -314,10 +319,7 @@ return verifNum;
 }
 
              
-$(document).ready(function (){
-LoadAutoCompletAjax_with_marGin("pk.code_barre","designation_libelle","quantiteX","list_article_proVente","500","250");
-LoadAutoCompletAjax_with_marGin("depot_id","depot_libelle","vente_obs","list_depot_stock","250","100");  
-});                                                                                         
+                                                                                  
  
  
  
@@ -350,7 +352,11 @@ $(function() {
 
 function clearQuantite(){
 	$('#quantiteX').val('');
+	 $('input[id="pk.code_barre"]').val('');  
+	 $('#designation_libelle').val('');
 } 
+
+ 
 
 
 function addQuantite(qteParam){
@@ -459,9 +465,17 @@ if(!teste_required()) return ;
 $("#choixPanel").val(panelName);
 var jsonText=doGenerate_methode_ajaxWithReturn('POST','${tmlx.urlAjax}','i$_ACT_LOAD_TARIF_CLIENT','json',false);
 var htmlDataGalleryArticle='';
+var indexGallery= 29;
 if(jsonText!=null)
-jsonText.forEach(obj => {
-	htmlDataGalleryArticle=htmlDataGalleryArticle+'<b><input  id="'+obj.pk.code_barre+'"   class="btnArticle"   type="button"  value="'+obj.designation_libelle+'"    onclick="addProduit(this.id,this.value)"    >  </b>';
+jsonText.forEach((obj,index )=> {
+	var prod=obj.designation_libelle;
+	indexGallery = indexGallery +40 ;
+	 var gal= '<div class="gallery"  style="cursor: grab;background-color: hsl('+indexGallery+', 100%, 70%);"   id="'+obj.pk.code_barre+'"  onclick="addProduit(this.id,document.getElementById(this.id).innerHTML)"   >'+
+	            '<div class="desc"  style="cursor: grab;"   >'+obj.designation_libelle+'</div>'+
+	           //'<input  id="'+obj.pk.code_barre+'"    type="button"  value="'+obj.designation_libelle+'"    onclick="addProduit(this.id,this.value)"    >'+
+	          '</div>' ;
+	          htmlDataGalleryArticle=htmlDataGalleryArticle+gal;
+	//htmlDataGalleryArticle=htmlDataGalleryArticle+'<b><input  id="'+obj.pk.code_barre+'"   class="btnArticle"   type="button"  value="'+obj.designation_libelle+'"    onclick="addProduit(this.id,this.value)"    >  </b>';
 });
 
 $("#galleryArticle").html(htmlDataGalleryArticle) ;	
@@ -470,7 +484,7 @@ if(panelName=='article'){
 	 otab_otra.fnAdjustColumnSizing();
 	else
 	  LoadDataEditableFromServer_toolbar( mapEditableGen  , afficher_mess_emptyJQuey  ,  nbr_ligneJQuey  , height_tabbJQuey  , width_tabbJQuey  , 
-	 config_header_foot_tableJQuey  ,  contenu_toolbarJQuey  );
+	 config_header_foot_tableJQuey1  ,  contenu_toolbarJQuey1  );
 }
 } 
 
@@ -553,7 +567,7 @@ function doExcuteFnAfterGrid( dataSS ){
 margin:0px;
 padding:0px;
 list-style-type:none;
-height:500px;
+height:600px;
 overflow:scroll;
 -webkit-backface-visibility: hidden; 
 backface-visibility: hidden;  
@@ -562,7 +576,7 @@ backface-visibility: hidden;
 {
 position:relative;
 background:#ccc; 
-width:150px;
+width:100px;
 height:50px;
 margin-bottom:5px;
 }
@@ -665,11 +679,11 @@ display:block;
 			<%--         <ext:toolbar         toolbarType="bbar"   >  --%>
 			<%--         <ext:toolbar.button  text=" Suivant  >> "   style="margin-left:999px;"   onClick="getSuivant('article')"   id="btnnext"  ></ext:toolbar.button> </ext:toolbar> --%>
 
-			<table cellpadding="2" cellspacing="2" id="tblData" width="100%" border="1">
+			<table 	 id="tblData" width="100%" border="1">
 
 
 				<tr>
-					<td rowspan="8" colspan="4" width="10%" valign="top">
+					<td rowspan="8" colspan="4" width="7%" valign="top">
 					
 					    <label style="display: none;">${depot_id}</label>
 						<input id="depot_id" name="depot.depot_id" type="hidden"
@@ -690,14 +704,14 @@ display:block;
 					        success: function(data) {
 					             var $regions = $('#'+id_region);
 					             for (var h = 0; h <data.myliste.length; h++) {
-					              var htmlDivfam='<li class="var_nav">' +
-					                  '<div class="link_bg"></div>'+
-					                  '<div class="link_title">'+
+					              var htmlDivfam='<li class="var_nav"   >' +
+					                  '<div class="link_bg"   ></div>'+
+					                  '<div class="link_title"   >'+
 					                    '<div class=icon > '+
 					                 //   '<i ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cup-hot" viewBox="0 0 16 16">'+
 					              //' <path fill-rule="evenodd" d="M.5 6a.5.5 0 0 0-.488.608l1.652 7.434A2.5 2.5 0 0 0 4.104 16h5.792a2.5 2.5 0 0 0 2.44-1.958l.131-.59a3 3 0 0 0 1.3-5.854l.221-.99A.5.5 0 0 0 13.5 6H.5ZM13 12.5a2.01 2.01 0 0 1-.316-.025l.867-3.898A2.001 2.001 0 0 1 13 12.5ZM2.64 13.825 1.123 7h11.754l-1.517 6.825A1.5 1.5 0 0 1 9.896 15H4.104a1.5 1.5 0 0 1-1.464-1.175Z"/>'+
 					             // ' <path d="m4.4.8-.003.004-.014.019a4.167 4.167 0 0 0-.204.31 2.327 2.327 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.31 3.31 0 0 1-.202.388 5.444 5.444 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 3.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 3.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 3 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 4.4.8Zm3 0-.003.004-.014.019a4.167 4.167 0 0 0-.204.31 2.327 2.327 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.31 3.31 0 0 1-.202.388 5.444 5.444 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 6.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 6.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 6 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 7.4.8Zm3 0-.003.004-.014.019a4.077 4.077 0 0 0-.204.31 2.337 2.337 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.198 3.198 0 0 1-.202.388 5.385 5.385 0 0 1-.252.382l-.019.025-.005.008-.002.002A.5.5 0 0 1 9.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 9.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 9 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 10.4.8Z"/></svg> </i> '+
-					               ' </div> <a  class="aCaisse"  href="javascript:MyFunction(\''+data.myliste[h].keyx +'\');"     ><span class="spanCaisse" >'+data.myliste[h].valuex+'</span></a></div></li>' 
+					               ' </div   > <a  class="aCaisse"  href="javascript:MyFunction(\''+data.myliste[h].keyx +'\');"     ><span class="spanCaisse" >'+data.myliste[h].valuex+'</span></a></div></li>' 
 					               $regions.append(htmlDivfam);
 					             }  
 					        }
@@ -713,50 +727,7 @@ display:block;
             </script>  					 
    <input id="fam_id" name="fam_id"  type="hidden"  >   				 
 <nav>
-  <UL class="ulCaisse" id="familleDiv">
-   <!--  >li class="var_nav">
-      <div class="link_bg"></div>
-      <div class="link_title">
-        <div class=icon> 
-        <i >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cup-hot" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M.5 6a.5.5 0 0 0-.488.608l1.652 7.434A2.5 2.5 0 0 0 4.104 16h5.792a2.5 2.5 0 0 0 2.44-1.958l.131-.59a3 3 0 0 0 1.3-5.854l.221-.99A.5.5 0 0 0 13.5 6H.5ZM13 12.5a2.01 2.01 0 0 1-.316-.025l.867-3.898A2.001 2.001 0 0 1 13 12.5ZM2.64 13.825 1.123 7h11.754l-1.517 6.825A1.5 1.5 0 0 1 9.896 15H4.104a1.5 1.5 0 0 1-1.464-1.175Z"/>
-  <path d="m4.4.8-.003.004-.014.019a4.167 4.167 0 0 0-.204.31 2.327 2.327 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.31 3.31 0 0 1-.202.388 5.444 5.444 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 3.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 3.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 3 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 4.4.8Zm3 0-.003.004-.014.019a4.167 4.167 0 0 0-.204.31 2.327 2.327 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.31 3.31 0 0 1-.202.388 5.444 5.444 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 6.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 6.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 6 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 7.4.8Zm3 0-.003.004-.014.019a4.077 4.077 0 0 0-.204.31 2.337 2.337 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.198 3.198 0 0 1-.202.388 5.385 5.385 0 0 1-.252.382l-.019.025-.005.008-.002.002A.5.5 0 0 1 9.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 9.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 9 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 10.4.8Z"/>
-</svg>
-        
-        </i>
-        </div>
-        <a  class="aCaisse" href="#"><span class="spanCaisse" >About Us</span></a>
-      </div>
-   </li-->
-   
-   <!-- li class="var_nav">
-      <div class="link_bg"></div>
-      <div class="link_title">
-        <div class=icon> 
-        <i class="icon-lightbulb icon-2x"></i>
-        </div>
-        <a href="#" class="aCaisse" ><span class="spanCaisse" >Ideas</span></a>
-      </div>
-   </li>
-   <li class="var_nav">
-      <div class="link_bg"></div>
-      <div class="link_title">
-        <div class=icon> 
-        <i class="icon-wrench icon-2x"></i>
-        </div>
-        <a href="#" class="aCaisse" ><span class="spanCaisse">Services</span></a>
-      </div>
-   </li>
-   <li class="var_nav">
-      <div class="link_bg"></div>
-      <div class="link_title">
-        <div class=icon> 
-        <i class="icon-briefcase icon-2x"></i>
-        </div>
-      <a href="#" class="aCaisse" ><span class="spanCaisse" >Marketing</span></a>
-      </div>
-   </li -->
+  <UL class="ulCaisse" id="familleDiv" >
    
   </UL>
 </nav>
@@ -767,7 +738,7 @@ display:block;
 
 
 				<tr valign="top">
-					<td width="50%" colspan="4">
+					<td width="55%" colspan="4">
 						 
 <input
 						id="choixPanel" name="choixPanel" type="hidden" /> <label>${vente_id}</label>
@@ -785,30 +756,65 @@ display:block;
                     loadSelectAjax("clt_idx", "list_client_for_vente", "clt_id", "clt_lib", "${detailBean.client.clt_id}", true);
                     var htmlDataClavierNumerique=$("#clavierNumerique").html();
                     var dataClv='';
+                    
+                   
                     for (let w = 0; w < 10; w++) {
-                    	dataClv=dataClv+'<b><input  id="'+w+'"  type="button"  value="'+w+'"  class="buttonClv"   onclick="addQuantite(this.id)"   style="font-size: 16px;text-align:center;width: 40px;" >  </b>';
+                    	dataClv=dataClv+'<b><input  id="'+w+'"  type="button"  value="'+w+'"  class="buttonClv"     onclick="addQuantite(this.id)"   style="font-size: 16px;text-align:center;width: 75px;" ></b>';
                     }
+                    dataClv=dataClv+'<b><input  id="caisseTable"  type="button"  value="Table"  class="buttonClv"      style="font-size: 16px;text-align:center;width: 75px;" ></b>';
+                    dataClv=dataClv+'<b><input  id="numeroTable"  type="text"  name="numeroTable"  value=""     class="buttonClv"   style="font-size: 16px;text-align:center;width: 68px;height:65px;margin-left:5px;margin-right:5px;" ></b>';
+                    dataClv=dataClv+'<b><input  id="clearNumeroTable"  type="button"  value="X Table"  class="buttonClv"     style="font-size: 16px;text-align:center;width: 75px;background-color: red;" ></b>';
+                    dataClv=dataClv+'<b><input  id="btnQteCommande"  type="button"  value="Qte"  class="buttonClv"      style="font-size: 16px;text-align:center;width: 75px;" ></b>';
+                    dataClv=dataClv+'<b><input  id="qteCommande"  type="text"  name="qteCommande"  value=""     class="buttonClv"   style="font-size: 16px;text-align:center;width: 68px;height:65px;margin-left:5px;margin-right:5px;" ></b>';
+                    dataClv=dataClv+'<b><input  id="clearQteCommande"  type="button"  value="X QTE"  class="buttonClv"     style="font-size: 16px;text-align:center;width: 75px;background-color: red;" ></b>';
+                    /*var htmlQte='<div><label>QTE&nbsp;&nbsp;&nbsp;</label> <input type="number" id="quantiteX" name="quantiteX" value="" style="width: 60px;"><br>'+
+					'<label>REF&nbsp;&nbsp;&nbsp;</label> <input type="text" id="pk.code_barre" size="15"  name="code_barreX" ><br>'+
+					'<label>DESG</label><input type="text" id="designation_libelle" size="40" name="designation_libelle" >'+
+					'<input id="b1" type="button" value="+" onclick="ADD()" style="font-size: 16px; width: 40px; text-align: center;">'+
+					'<input type="button" value="X" style="font-size: 16px; width: 40px;" onclick="clearQuantite()"  ><div>';*/
+					// dataClv=dataClv+htmlQte;
                     $("#clavierNumerique").html(dataClv+htmlDataClavierNumerique) ;	
                 });
             </script> <select id="clt_idx" name="client.clt_id" style="width: 180px;  float: left;"    ></select>
 						<br> 
-						<div id="clavierNumerique"></div>
+						<div id="clavierNumerique"  ></div>
 
 
 						<div id="galleryArticle" style="overflow-y: scroll; height: 100%; width : 100%;text-align: center;"></div>
+<style>
+div.gallery {
+  margin: 5px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 125px;
+  height: 125px;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+  background-color: blue;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+</style>
  
+ 
+
+
 
 					</td>
 					<td width="40%" rowspan="8" valign="top">
 						<div>
 								<label>QTE&nbsp;&nbsp;&nbsp;</label> <input type="number"
 								id="quantiteX" name="quantiteX" value="" style="width: 60px;">
-								
-									 
-									 
-					
-								 
-								 
 								<br>
 								<label>REF&nbsp;&nbsp;&nbsp;</label> <input type="text" id="pk.code_barre" size="15"
 								name="code_barreX" requiredx> <br>
@@ -827,9 +833,9 @@ display:block;
 								<tr>
 									<th></th>
 									<th></th>
-									<th>Qté</th>
-									<th>Désignation</th>
-									<th>Désignation</th>
+									<th>Qte</th>
+									<th>Designation</th>
+									<th>Designation</th>
 									<th>Prix.U</th>
 									<th>Total</th>
 									<th></th>

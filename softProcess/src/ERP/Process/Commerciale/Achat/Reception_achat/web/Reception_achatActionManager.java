@@ -18,7 +18,7 @@ import jxl.WorkbookSettings;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -154,7 +154,7 @@ public class Reception_achatActionManager extends Reception_achatTemplate {
 			 resLieu.getPk().getUsr().setUsr_id(bs.getUsr_id());
 			 List <ResponsableLieuBean> listReslieux=serviceResponsableLieu.doFetchDatafromServer(resLieu);
 			 if(listReslieux==null ||  listReslieux.size()==0)
-				 throwNewException(" Utilisateur non affecté ");
+				 throwNewException(" Utilisateur non affectï¿½ ");
 			 List  listLieux= new ArrayList();
 			 
 			 DepotStockageBean  depot = null;
@@ -358,7 +358,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		    		if( newBean.getQuantite() == null  ) continue;
 		    		if( newBean.getQuantite() < 0 ) {
 		    			newBean.setQuantite(new Double(0));
-		    			String err=" Il existe un ou plusieurs quantité(s) inférieur a zéro ";
+		    			String err=" Il existe un ou plusieurs quantitï¿½(s) infï¿½rieur a zï¿½ro ";
 		    			data.addProperty("erreur"+newBean.getPk().getFkCode_barre().getPk().getCode_barre(),err);
 		    			data.addProperty("Qte"+newBean.getPk().getFkCode_barre().getPk().getCode_barre(),"0");
 		    			data.addProperty(newBean.getPk().getFkCode_barre().getPk().getCode_barre(),"0");
@@ -369,7 +369,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		    			
 		    		if( newBean.getQuantite() >  newBean.getQuantite_demander()   ) {
 		    			newBean.setQuantite(new Double(0));
-		    			String err=" Il existe un ou plusieurs quantité(s) supérieur  a la quantité  demandées   ";
+		    			String err=" Il existe un ou plusieurs quantitï¿½(s) supï¿½rieur  a la quantitï¿½  demandï¿½es   ";
 		    			data.addProperty("erreur"+newBean.getPk().getFkCode_barre().getPk().getCode_barre(),err);
 		    			data.addProperty("Qte"+newBean.getPk().getFkCode_barre().getPk().getCode_barre(),"0");
 		    			data.addProperty(newBean.getPk().getFkCode_barre().getPk().getCode_barre(),"0");
@@ -472,7 +472,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			
 			HashMap  mapdA=ProcessUtil.getHashMap_code_bean(listOfmyData, "pk.fkCode_barre.pk.code_barre");
 			
-			if(mapdA.get(code_barre)!=null)  throw new Exception("Existe déjà");
+			if(mapdA.get(code_barre)!=null)  throw new Exception("Existe dï¿½jï¿½");
 			
 			
 			HashMap  MAP_ARTICLE=ProcessUtil.getHashMap_code_bean(list_article_dem_achatOrigine, "pk.code_barre");
@@ -903,7 +903,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 						 		" AND  bean.achat_date < '"+ProcessDate.getStringFormatDate(rowBeans.getAchat_date())+"' ");
 						List list= serviceReception_achat.doFetchDatafromServer(achatBean);
 						if(list!= null  &&    list.size()>0){
-							//throwNewException(" il existe des vente non encore confirmer a une date inférieur a :"+ProcessDate.getStringFormatDate(rowBeans.getAchat_date()));
+							//throwNewException(" il existe des vente non encore confirmer a une date infï¿½rieur a :"+ProcessDate.getStringFormatDate(rowBeans.getAchat_date()));
 						}
 					 } 
 			}
@@ -1020,7 +1020,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 	        genpdf.doWriteHeaderDocument_PDF(document,fs,bSession);
 	        doWriteEntete_reception_achat(document,denBean);
 	    	Reception_achatBean rBeanS=(Reception_achatBean) getObjectValueModel(FORM_BEAN);
-	        genpdf.doWriteTitle_Table(document,"Bon de réception N° "+rBeanS.getAchat_id());
+	        genpdf.doWriteTitle_Table(document,"Bon de rï¿½ception Nï¿½ "+rBeanS.getAchat_id());
 	        genpdf.doWrite_Header_Table(table,MapfieldBean_detaille);
 	        genpdf.doWrite_Data_Table(lisData,table,MapfieldBean_detaille);
 	        document.add(table);
@@ -1113,7 +1113,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
            tableTOTAL.addCell(cellS);
            Reception_achatBean  reBean= (Reception_achatBean) getObjectValueModel(BEAN_TOTAL);
        	
-           PdfPCell cell = new PdfPCell(new Phrase(" Total Qté",GeneratePdf.FONT_12_bold));
+           PdfPCell cell = new PdfPCell(new Phrase(" Total Qtï¿½",GeneratePdf.FONT_12_bold));
            cell.setColspan(50);
            cell.setFixedHeight(20f);
            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -1160,7 +1160,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
            tableTOTAL.addCell(cell);
            
            
-           cell = new PdfPCell(new Phrase("Total Général",GeneratePdf.FONT_12_bold));
+           cell = new PdfPCell(new Phrase("Total Gï¿½nï¿½ral",GeneratePdf.FONT_12_bold));
            cell.setColspan(81);
            cell.setFixedHeight(20f);
            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -1205,7 +1205,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			     
 			    Reception_achatBean rBeanS=(Reception_achatBean) getObjectValueModel(FORM_BEAN);
 		        
-			    setObjectValueModel("titleHead","Bon de réception N° "+rBeanS.getAchat_id()) ;
+			    setObjectValueModel("titleHead","Bon de rï¿½ception Nï¿½ "+rBeanS.getAchat_id()) ;
 			    dbexp.createTitleMap(excelSheet,MapfieldBean_detaille);
 			    dbexp.creatheaderMap(excelSheet,MapfieldBean_detaille);
 			    dbexp.createContentWithList(excelSheet,lisData,MapfieldBean_detaille);
@@ -1225,10 +1225,10 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 		try {
 			serviceReception_achat.doCreateRowData(detailBean);
 			setObjectValueModel(FORM_BEAN, detailBean);
-			throwNewException("Reception effectuée avec succès");
+			throwNewException("Reception effectuï¿½e avec succï¿½s");
 		} catch (Exception e) {
       	  displayException(e);
-      	  if(e.getMessage().equals("Reception effectuée avec succès"))
+      	  if(e.getMessage().equals("Reception effectuï¿½e avec succï¿½s"))
       	  TransfertError(e);
 		}
 		return getViewAdd_Commit(FORM_VIEW_EDIT);
@@ -1299,7 +1299,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			rBeanS.setAchat_date(ProcessDate.convert_String_to_Date(BDateTime.getDateActuel_system()));
 			setObjectValueModel(FORM_BEAN,rBeanS);
 			setObjectValueModel(LIST_EDITABLE_RECEP_ACHAT      , new ArrayList<Det_reception_achatBean>());
-			throwNewException("Confirmation effectuée avec succès");
+			throwNewException("Confirmation effectuï¿½e avec succï¿½s");
 		} catch (Exception e) {
 			displayException(e);
 		}
@@ -1334,7 +1334,7 @@ public static ModelAndView doActualiser_GRID( ) throws Exception{
 			Reception_achatBean  detailBeanS =(Reception_achatBean) getObjectValueModel(FORM_BEAN );
 			serviceReception_achat.doTransfererRowData(detailBeanS);
 			remove_row_from_list(LIST_DATA);
-			throwNewException("Réception  Valider !");
+			throwNewException("Rï¿½ception  Valider !");
 		} catch (Exception e) {
 			displayException(e);
 		}

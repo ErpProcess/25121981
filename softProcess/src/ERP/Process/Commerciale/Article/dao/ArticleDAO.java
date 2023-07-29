@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import ERP.Process.Commerciale.Article.model.ArticleBean;
@@ -536,7 +536,7 @@ public class ArticleDAO extends  GenericWeb    {
 		try {
 			String sssss=(String) getObjectValueModel("moda");
 			this.setUpdateValueFieldTraceOject(beanUpdate);
-			if(StringUtils.isNotEmpty(sssss) && sssss.equals("tout")){
+			if(!StringUtils.isEmpty(sssss) && sssss.equals("tout")){
 			ArticleBean Ar	= (ArticleBean) getObjectValueModel(ORIGINAL_FORM_BEAN);
 			beanUpdate.setBean_sitcod(Ar.getBean_sitcod());
 			BeanSession bs      = (BeanSession)getObjectValueModel(BEAN_SESSION);

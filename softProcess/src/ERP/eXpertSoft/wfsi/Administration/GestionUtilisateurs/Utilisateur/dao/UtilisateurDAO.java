@@ -1,11 +1,13 @@
 package ERP.eXpertSoft.wfsi.Administration.GestionUtilisateurs.Utilisateur.dao;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import ERP.eXpertSoft.wfsi.Administration.GestionUtilisateurs.Utilisateur.model.UtilisateurBean;
@@ -24,19 +26,28 @@ public class UtilisateurDAO extends  GenericWeb    {
 	
 	 
 	@SuppressWarnings("unchecked")
-	public List<UtilisateurBean> doFindListUtilisateur(UtilisateurBean beanSearch) {
+	public List<UtilisateurBean> doFindListUtilisateur(UtilisateurBean beanSearch, boolean authentication ) {
 		
 		 String requette=" select  b   FROM    UtilisateurBean b    WHERE     1=1       ";
-		
-		/*String requette="  SELECT  b.usr_id, b.usr_nom, b.usr_pre,   to_char(b.usr_date_naiss,'MM-DD-YYYY')    "+
-		"    from UtilisateurBean b   WHERE     1=1 ";*/
-
-		 
+			try {
+		     /*String requette="  SELECT  b.usr_id, b.usr_nom, b.usr_pre,   to_char(b.usr_date_naiss,'MM-DD-YYYY')    "+
+		     "    from UtilisateurBean b   WHERE     1=1 ";*/
+		    
 			if(!StringUtils.isEmpty(beanSearch.getUsr_login()) )   requette+="   AND  b.usr_login='"+beanSearch.getUsr_login()+"'    ";
 			
 			if(!StringUtils.isEmpty(beanSearch.getUsr_pwd()) )     requette+="   AND  b.usr_pwd='"+beanSearch.getUsr_pwd()+"'        ";
-		
-		try {
+			 
+			if( !authentication    &&  getBeanSession() !=null   && !getBeanSession().getUsr_id().equals("1111") ) {
+			     requette += this.setSocieteEtabFetch(beanSearch,"b.etab_bean", false);	
+			 }
+			
+		 
+			if( !authentication    &&  getBeanSession() !=null   &&  !getBeanSession().getUsr_id().equals("1111") ) {
+				requette+=" AND b.usr_id not in ('1111') ";
+			}
+	
+			
+	
 			return   hibernateTemplate.find(requette);
 		} catch (Exception ex) {
 			ex.printStackTrace();

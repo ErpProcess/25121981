@@ -51,8 +51,8 @@ public class UtilisateurService  extends GenericWeb  {
 	
 	
 	@Transactional(readOnly=true)
-	public List<UtilisateurBean> dofetchDatafromServer(UtilisateurBean beanSearch){
-		return daoUtilisateur.doFindListUtilisateur(beanSearch);
+	public List<UtilisateurBean> dofetchDatafromServer(UtilisateurBean beanSearch, boolean authentication){
+		return daoUtilisateur.doFindListUtilisateur(beanSearch,    authentication);
 	}
 	
 	@Transactional

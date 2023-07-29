@@ -211,7 +211,7 @@ function doAfficherCodeBar(levalde_type){
 		      </tr>
 		      
 		      <tr>
-		        <td ><label>Cathégorie Produit</label></td>
+		        <td ><label>Cathï¿½gorie Produit</label></td>
 		        <td > 
 		        <script  >$(function() {  loadSelectAjax("art_cath","list_cathegori_article","data_id","data_libelle","${detailBean.cathegorie.data_id}",false);  })</script>
 		        <select  id="art_cath"  name="cathegorie.data_id"           style="width: 200px;"           required   ></select>   
@@ -229,7 +229,7 @@ function doAfficherCodeBar(levalde_type){
 		      </tr>
 		     
 		       <tr>  
-		   		<td  ><label>Dépôt</label></td>  
+		   		<td  ><label>Dï¿½pï¿½t</label></td>  
 		   		<td    >  
 		   		
 		   		  <script  >$(function() { 

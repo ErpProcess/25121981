@@ -124,12 +124,14 @@ function doActiveTabInterafce(idtabs){
 	   <td width="93%">  
 	   <input id="prf_id"         name="pkPriv.pfrBean.prf_id"               type="text"   size="7"  value="${detailBean.pkPriv.pfrBean.prf_id}"        libre  readonly="readonly"  />  
 	   <input id="prf_libelle"    name="pkPriv.pfrBean.prf_libelle"          type="text"   size="20"  value="${detailBean.pkPriv.pfrBean.prf_libelle}"  libre  readonly="readonly"   />
+	   <div id="RET_GRID"></div> 
+	   <div id="Privilege-Grid"></div>
 	  </td>  
 	   </tr>   
 	 </table>   
 </ext:panel>
 
-<ext:tabPanel  id="tabpWebRoot"   bodyStyle="background: none;"    style="width: 90%;margin: 30px 30px 30px;"   border="true"    activeTab="panelWebroot1"   >
+<ext:tabPanel  id="tabpWebRoot"   bodyStyle="background: none;"    style="width: 90%;margin: 30px 30px 30px;"   border="true"  height="400"   activeTab="panelWebroot1"   >
 	 <ext:panel   title="Liste des Packages "     bodyStyle="background: none;"   id="panelWebroot1"  > 
 	 <table id="gridPackages" class="display" width="100%" ></table>  
 	 </ext:panel>

@@ -138,7 +138,6 @@ public class ProcedureVenteController  extends ProcedureVenteActionManager   {
 		          if (i$_ACT_CALCUL_TOTAL_GRID)        return   doCalculerTotalGrid(beanVente);
 		          
 		          
-		          
 		          if (i$_ACT_CALCUL_TOTAL_FOURNITURE)  return   doCalculerTotalFourniture();
 		    	  
 		          

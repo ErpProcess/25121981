@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
@@ -122,7 +122,7 @@ public class ClientActionManager extends ClientTemplate {
 			removeObjectModel(FORM_BEAN);
 			BeanSession bs = (BeanSession) getObjectValueModel(BEAN_SESSION);
 			ClientBean rowBean = (ClientBean)getIndexFromDataGrid_v1((String) getObjectValueModel(NAME_LIST_G));
-			if( !StringUtils.isBlank(rowBean.getData_client_langue()) ) {
+			if( !StringUtils.isEmpty(rowBean.getData_client_langue()) ) {
 			JSONObject jsonObj = new JSONObject(rowBean.getData_client_langue());
 			HashMap<String, Object> yourHashMap = new Gson().fromJson(jsonObj.toString(), HashMap.class);
 			Map<String,Object> yearMap = yourHashMap;  

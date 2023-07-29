@@ -3,7 +3,7 @@ package ERP.Process.Commerciale.Vente.Commandeclient.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,7 +140,7 @@ public class CommandeclientDAO   extends  GenericWeb   {
 					CommandeclientTemplate.id_entite_detaille,
 					CommandeclientTemplate.entites_detaille);
 
-			// if( !StringUtils.isBlank(
+			// if( !StringUtils.isEmpty(
 			// beanSave.getDem_achat().getDem_achat_id()) )
 			// this.hibernateTemplate.bulkUpdate(" UPDATE Demande_achatBean b
 			// set b.modeBean.fct_id="+bs.getFct_id()+" where

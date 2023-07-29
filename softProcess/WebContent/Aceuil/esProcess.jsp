@@ -16,20 +16,25 @@
 <meta http-equiv="expires" content="0">    
 <meta http-equiv="keywords"    content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 <link   rel="icon"   href="<%=request.getContextPath()%>/img/process.gif"   type="image/gif"  >
 <link    href="<%=request.getContextPath()%>/ext-3.0.0/resources/css/ext-all.css"     rel="stylesheet"       type="text/css"     media="all"    />
 <link   rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/ext-3.0.0/resources/css/xtheme-gray.css" >
-<link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/demo_table.css"               rel="stylesheet" type="text/css" media="all" />
-<link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/demo_table_jui.css"           rel="stylesheet" type="text/css" media="all" />
+<!-- 
+<link    href="< %=request.getContextPath()%>/jQuery/dataTable/css/demo_table.css"               rel="stylesheet" type="text/css" media="all" />
+<link    href="< %=request.getContextPath()%>/jQuery/dataTable/css/demo_table_jui.css"           rel="stylesheet" type="text/css" media="all" />
+ -->
+ 
 <link    href="<%=request.getContextPath()%>/jQuery/themes/base/jquery-ui.css" rel="stylesheet" rel="stylesheet" type="text/css" media="all" />
 <link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/jquery-ui-1.8.13.custom.css"  rel="stylesheet" type="text/css" media="all" />
+
 <link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/datatable2.css"               rel="stylesheet" type="text/css" media="all" />
+
 <link    href="<%=request.getContextPath()%>/jQuery/themes/smoothness/jquery-uiRedmond.css"     rel="stylesheet" type="text/css" media="all" />
 <link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/ColumnFilterWidgets.css"      rel="stylesheet" type="text/css" media="all" />
 <link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/ColReorder.css"               rel="stylesheet" type="text/css" media="all" />
 <link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/jquery.dataTables.css"        rel="stylesheet" type="text/css" media="all" />
-<link    href="<%=request.getContextPath()%>/jQuery/dataTable/css/demo_table_jui.css"           rel="stylesheet" type="text/css" media="all" />
 <link    href="<%=request.getContextPath()%>/jQuery/css/jquery-ui-1.8.11.custom.css"            rel="stylesheet" type="text/css" media="all" />
 
 <link    href="<%=request.getContextPath()%>/jQuery/css/wajdi.css"        type="text/css" rel="stylesheet" media="all"  />
@@ -39,6 +44,10 @@
  
 <link    href="<%=request.getContextPath()%>/css/process_style_date.css"  type="text/css" rel="stylesheet" media="all"  />
 <link    href="<%=request.getContextPath()%>/css/process_style_input.css" type="text/css" rel="stylesheet" media="all"  />
+<!--  
+<link    href="< %=request.getContextPath()%>/css/bootstrap-glyphicons.css" type="text/css" rel="stylesheet" media="all" >
+
+-->
 
 <style  >
 
@@ -90,26 +99,35 @@
 <script  src="<%=request.getContextPath()%>/ext-3.0.0/adapter/ext/ext-base.js"        type="text/javascript" ></script>
 <script  src="<%=request.getContextPath()%>/ext-3.0.0/ext-all.js"                     type="text/javascript" ></script>
 <script  src="<%=request.getContextPath()%>/ext-3.0.0/Ext.ux.PanelCollapsedTitle.js"  type="text/javascript" ></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">    
+<link   href="<%=request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+ 
 
 <script type="text/javascript" src="<%=request.getContextPath() %>/jQuery/jquery.maskedinput.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script  src="<%=request.getContextPath() %>/jQuery/jquery1.7.js"                          type="text/javascript"></script>
 <script  src="<%=request.getContextPath() %>/jQuery/dataTable/jquery.dataTables.min1.7.js" type="text/javascript"></script>
-<script  src="<%=request.getContextPath() %>/jQuery/jquery-1.5.2.min.js"                type="text/javascript"  ></script>
+<!-- 
+<script  src="< %=request.getContextPath() %>/jQuery/jquery-1.5.2.min.js"                type="text/javascript"  ></script>
+ -->
 <script  src="<%=request.getContextPath() %>/jQuery/jquery.form.js"                     type="text/javascript"  ></script>	
 <script  src="<%=request.getContextPath() %>/jQuery/dataTable/jquery.dataTables.min.js" type="text/javascript"></script>
 <script  src="<%=request.getContextPath() %>/jQuery/jquery-ui-1.8.11.custom.min.js"     type="text/javascript"></script>
+
+ 
 <script  src="<%=request.getContextPath() %>/jQuery/jquery-1.8.2.min.js"                type="text/javascript"  ></script> 
+ 
 
 
 
-<script src="<%=request.getContextPath() %>/jQuery/dataTable/jquery.dataTables.js"     type="text/javascript"></script>
+
+<script src="<%=request.getContextPath()%>/jQuery/dataTable/jquery.dataTables.js"     type="text/javascript"></script>
+ 
 <script src="<%=request.getContextPath() %>/jQuery/dataTable/ColReorderWithResize.js"  type="text/javascript"></script>
  
 <script src="<%=request.getContextPath() %>/jQuery/dataTable/ColumnFilterWidgets.js"           type="text/javascript"></script>
@@ -146,25 +164,25 @@ select[readonly] option{
 <script>
 	 var contexPath = "<%=request.getContextPath() %>";
 	 var baseURL = window.location.protocol + '\/\/' + window.location.host + '\/';
-	 var UrlServerListeCorrlee="${urlloadListeAuto}";
-	 var urls_Generic_def     ="${baseAjaxUrl}/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action";
+	 var UrlServerListeCorrlee='${urlloadListeAuto}';
+	 var urls_Generic_def     ='${baseAjaxUrl}/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action';
 	 
-	 var UrlServerListeComboSelect="${baseAjaxUrl}/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action?HiddenAction=i$_ACT_LOAD_SELECT";
+	 var UrlServerListeComboSelect='${baseAjaxUrl}/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action?HiddenAction=i$_ACT_LOAD_SELECT';
 	 
-	 var urlos="${urlloadDataTableAjax}" ;
-	 var urlSmodule="${tmlx.url}";
-	 var baseAjaxUrl="${baseAjaxUrl}";
+	 var urlos='${urlloadDataTableAjax}';
+	 var urlSmodule='${tmlx.url}';
+	 var baseAjaxUrl='${baseAjaxUrl}';
 	 var gaiSelected =[];
      var oTable;
-     var MyMessageBoxo="${messageError}";
-     var custumMessageBoxo="${custmessageError}";
+     var MyMessageBoxo='${messageError}';
+     var custumMessageBoxo='${custmessageError}';
      
       
      
-     var urlsAjaxSource_def ="${baseAjaxUrl}/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action?HiddenAction=i$_ACT_LOAD_EDITABLE_TABLE_AJAX";
-     var urlsUpdateURL_def  ="${baseAjaxUrl}/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action?HiddenAction=i$_ACT_UPDATE_EDITABLE";
-     var urlsDeleteURL_def  ="${baseAjaxUrl}/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action?HiddenAction=i$_ACT_DELETE_ROW_EDITABLE_TABLE_AJAX";
-     var urlsAddURL_def     ="${baseAjaxUrl}/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action?HiddenAction=i$_ACT_LOAD_EDITABLE_TABLE_AJAX";
+     var urlsAjaxSource_def ='${baseAjaxUrl}/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action?HiddenAction=i$_ACT_LOAD_EDITABLE_TABLE_AJAX';
+     var urlsUpdateURL_def  ='${baseAjaxUrl}/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action?HiddenAction=i$_ACT_UPDATE_EDITABLE';
+     var urlsDeleteURL_def  ='${baseAjaxUrl}/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action?HiddenAction=i$_ACT_DELETE_ROW_EDITABLE_TABLE_AJAX';
+     var urlsAddURL_def     ='${baseAjaxUrl}/ERP/eXpertSoft/wfsi/framework_dev/JQuery_datatables_Version1/root.action?HiddenAction=i$_ACT_LOAD_EDITABLE_TABLE_AJAX';
      
      
      /*****************************************************Config Editable Data Grid JQuery****************************************************/
@@ -172,30 +190,30 @@ select[readonly] option{
      var  contenu_toolbarJQuey          ='<b><input  id="b1"  type="button"  value="+"    onclick="ADD()"   style="font-size: 16px;width: 40px;text-align:center;" >&nbsp;&nbsp;&nbsp;<input  type="button"  value="-"       onclick="Delete_ROW()"                  style="font-size: 16px;width: 40px;"  ></b>';
      var  nbr_ligneJQuey=7;
      var  height_tabbJQuey=240;
-     var  width_tabbJQuey="100%";
+     var  width_tabbJQuey='100%';
      var  afficher_mess_emptyJQuey=false;
      var  height_dTble=350;
      var  windowLongeur=900;//$(window).height();
      
-     var  tyPePaRam="false";
+     var  tyPePaRam='false';
      
      /******************************************************************************************************************************************/
-	 var dataGridConfig_width="100%";
+	 var dataGridConfig_width='100%';
 	 var doubleclickGrid=true;
 	  
       /******************************************************************************************************************************************/
       
-     var  path_Rootac="${pathRootac}";
-     var  tml_disabled="${tml.disabled}";
-     var  tml_idReadonly="${tml.idReadonly}";
-     var  tml_readonly="${tml.readonly}";
-     var  bs_fct_id="${bs.fct_id}"; 
-     var  cham_videRouge="${_chamvideRouge}"; 
-     var  cham_obligatoire="${_chamobligatoire}"; 
-     var  bs_pack_libelle="${bs.pack_libelle}"; 
-     var  bs_mod_libelle="${bs.mod_libelle}"; 
-     var  bs_sousmod_libelle="${bs.sousmod_libelle}";
-     var  bs_patternDecimalFormat="${bs.patternDecimalFormat}";
+     var  path_Rootac='${pathRootac}';
+     var  tml_disabled='${tml.disabled}';
+     var  tml_idReadonly='${tml.idReadonly}';
+     var  tml_readonly='${tml.readonly}';
+     var  bs_fct_id='${bs.fct_id}'; 
+     var  cham_videRouge='${_chamvideRouge}'; 
+     var  cham_obligatoire='${_chamobligatoire}'; 
+     var  bs_pack_libelle='${bs.pack_libelle}'; 
+     var  bs_mod_libelle='${bs.mod_libelle}'; 
+     var  bs_sousmod_libelle='${bs.sousmod_libelle}';
+     var  bs_patternDecimalFormat='${bs.patternDecimalFormat}';
      
      
  function addPourcentage(valeurPer){
@@ -242,11 +260,13 @@ function doValidAction() {
     if (typeof control_de_liste !== 'undefined' && typeof control_de_liste === 'function'){
 		  var retour= control_de_liste();
 		  
-		  if(retour!="" &&  !retour.startsWith("©") )  {  alertExt("Erreur",retour,"4"); return;    }
 		  
 		  
-		  if(retour!="" &&  retour.startsWith("©") )  {
-			  var tabOfNumero = retour.split("©");
+		  if(retour!="" &&  !retour.startsWith("|") )  {  alertExt("Erreur",retour,"4"); return;    }
+		  
+		  
+		  if(retour!="" &&  retour.startsWith("|") )  {
+			  var tabOfNumero = retour.split("|");
 	 
 			  var maselect='<select onchange="getNum(this.value);" >';
 			  for (var z = 0; z < tabOfNumero.length ; z++) {
@@ -258,8 +278,8 @@ function doValidAction() {
 			  maselect+='</select>';
 			  Ext.MessageBox.show({
 		      title:'Enregistrement',
-		      msg: ' Choisir un Numéro de vente déja Supprimé : '+maselect,
-		      buttons: {ok:'Ancien Numéro',no:'Nouveau Numéro'}  ,
+		      msg: ' Choisir un Num�ro de vente d�ja Supprim� : '+maselect,
+		      buttons: {ok:'Ancien Num�ro',no:'Nouveau Num�ro'}  ,
 // 		      fn:  getActionbtnuik(buttonId,numrf) ,
 		      //fn: showResultText.createDelegate(this, tabOfNumero, true),
 		      fn: function (btn){
@@ -521,9 +541,9 @@ function  doResetAjaxData(){
  
 
 function bonjour() {
-    $('#myformToServeur').find('input[name="HiddenAction"]').val("i$_ACT_LOAD_Mod_SM");
+    $('#myformToServeur').find('input[name="HiddenAction"]').val('i$_ACT_LOAD_Mod_SM');
     $('#myformToServeur').attr('target', '_self');
-	$("#myformToServeur").attr("action",contexPath+"/ERP/eXpertSoft/wfsi/Administration/GestionAuthentification/root.action?sousPackId=${bs.spack_id}");
+	$("#myformToServeur").attr('action',contexPath+'/ERP/eXpertSoft/wfsi/Administration/GestionAuthentification/root.action?sousPackId=${bs.spack_id}');
 	$("#myformToServeur").submit();
 }
    
@@ -540,7 +560,7 @@ function getInitActions(fct_id , fct_libelle,view_smfct_action , sousmod_id ,sou
             }
             
             
-       
+           
             var data =fct_id+","+fct_libelle+","+url_request_action+","+sousmod_id+","+sousmod_libelle+","+indexLisSouMod+","+ixlismodul;
         // alert(fct_id+"¤"+fct_libelle+"¤"+url_request_action+"¤"+sousmod_id+"¤"+sousmod_libelle+"¤"+indexLisSouMod+"¤"+ixlismodul);
                           
@@ -567,13 +587,33 @@ function getInitActions(fct_id , fct_libelle,view_smfct_action , sousmod_id ,sou
        }
        
        
-       
+
+function  killSession(){
+    	   
+   var url = contexPath+"/ERP/eXpertSoft/wfsi/Administration/GestionAuthentification/root.action?HiddenAction=i$_ACT_EXIST_APP";  
+   
+  
+  		$.ajax({ 
+  	      type: 'POST', 
+  	      url: url, 
+  	      data:  "valResPassage=vide", 
+  	      dataType: 'text',
+  	      success: function (data) {
+  	     
+  	      
+  	    	  window.location=baseURL+contexPath ; // "/next.jsp";
+  	   
+  	     
+  	    },
+  	    error: function (result) {
+  	        
+  	     }
+  	}); 
+
+}
 
 function   closedApp(){
-		 var redirectrr = contexPath+'/ERP/eXpertSoft/wfsi/Administration/GestionAuthentification/root.action';
-		 var  foorr=document.forms.actionhori;
-		      foorr.HiddenAction.value="i$_ACT_EXIST_APP";
-              foorr.action=redirectrr;
+		
     
         Ext.onReady(function(){
 			Ext.Msg.show({
@@ -582,7 +622,7 @@ function   closedApp(){
 				buttons: Ext.Msg.YESNO,
 				fn: function (btn){
 					if (btn == 'yes'){
-						 foorr.submit();
+						killSession();
 						}
 					if (btn == 'no')
 					var oo="";
@@ -796,7 +836,7 @@ width: 100%;margin-top: 1.2%;margin-left: 2%;margin-bottom: 2%;margin-right: 8%;
 
                     <div class="navbar-header" style="margin-right: 3%;">
                         <bR>
-                        <b  >SOFT.PROCESS</b>
+                        <b>${bs.soc_lib}</b>
                     </div>
 
                     <div class="navbar-collapse collapse" id="mobile_menu">
@@ -805,14 +845,19 @@ width: 100%;margin-top: 1.2%;margin-left: 2%;margin-bottom: 2%;margin-right: 8%;
                             
                              <c:forEach var="moduleBean"  varStatus="indxM" items="${listModule}"    > 
 	                            
-	                             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><c:out value="${moduleBean.mod_libelle}"/><span class="caret"></span></a>
+	                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><c:out value="${moduleBean.mod_libelle}"/><span class="caret"></span></a>
 	                             
                                 <ul class="dropdown-menu">
                                 <c:forEach var="sousModulebean" varStatus="indxSm"
 												items="${moduleBean.listsmodule}">
-														<li><c:forEach var="fcBean" varStatus="soduter"
-														items="${sousModulebean.listf}">
-														<c:if test="${soduter.index==0}">
+														<li>
+													    <c:set var = "varFnInit"   value = "0"/>
+														<c:forEach var="fcBean1" varStatus="soduter1" items="${sousModulebean.listf}">
+														<c:if test="${fcBean1.fct_id==2}" ><c:set var = "varFnInit"   value = "${soduter1.index}"/></c:if>
+														</c:forEach>
+														
+														<c:forEach var="fcBean" varStatus="soduter" items="${sousModulebean.listf}">
+														<c:if test="${soduter.index==varFnInit}" >
 															<a
 																href="javascript:getInitActions('${fcBean.fct_id}','${fcBean.fct_libelle}','${fcBean.view_smfct_action}',
                         '${sousModulebean.sousmod_id}','${sousModulebean.sousmod_libelle}',
@@ -832,27 +877,19 @@ width: 100%;margin-top: 1.2%;margin-left: 2%;margin-bottom: 2%;margin-right: 8%;
                             </li>
 	                        </c:forEach>
                         </ul>
-                       <%--  <ul class="nav navbar-nav">
-                            <li>
-                                <form action="" class="navbar-form">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input type="search" name="search" id="" placeholder="Search Anything Here..." class="form-control">
-                                            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                                        </div>
-                                    </div>
-                                </form>
-                            </li>
-                        </ul> --%>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login / Sign Up <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Profile</a></li>
-                                    <li><a href="javascript:closedApp();">Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                    
+                        <ul class="nav navbar-nav navbar-right" style="margin-right: 1%;">
+        
+        <li  >
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About<span class="glyphicon glyphicon-log-in"></span> <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">${bs.etab_lib}</a></li>
+            <li><a href="#">${bs.prf_libelle}</a></li>
+            <li><a href="javascript:closedApp();">D�connexion</a></li>
+          </ul>
+                  </li>      
+                  </ul>
+                        
                     </div>
                 </div>
             </div>
@@ -1002,7 +1039,7 @@ width: 100%;margin-top: 1.2%;margin-left: 2%;margin-bottom: 2%;margin-right: 8%;
 
 
     <ext:panel region="west"      margins="0 0 0 0"  autoScroll="yes"   border="true"    width="170"   collapsible="true"  
-	  titleCollapse="&nbsp;" id="hyuE"   title="&nbsp;&nbsp;"    split="false"   collapseMode="true"   hideCollapseTool="false"  
+	  titleCollapse="&nbsp;" id="hyuE"   title="&nbsp;&nbsp;"  style="background-color: red;"  split="false"   collapseMode="true"   hideCollapseTool="false"  
 	  plugins="[Ext.ux.PanelCollapsedTitle]">
 	  
          
@@ -1083,13 +1120,13 @@ width: 100%;margin-top: 1.2%;margin-left: 2%;margin-bottom: 2%;margin-right: 8%;
 	              
 	                   
 	                    >
-		                  <ext:toolbar   id="Wqs"          >   
-		                 
+		                  <ext:toolbar   id="Wqs"     style="background-color: #c0dbf6;"     >   
+		                           
 					       <c:if test="${fn:length(sousModulebean.listf)> 0}">  
 				              <c:forEach var="fcBean" varStatus="inFct" items="${sousModulebean.listf}">
 				                <ext:toolbar.button     tooltip="${fcBean.fct_libelle}"
 				                         icon="${pathRootac}${fcBean.fct_icon}" 
-				                         cls="x-btn-text-icon"  text=""
+				                         cls="x-btn-text-icon"  text="${fcBean.fct_libelle}"
 						                 onClick="getInitActions('${fcBean.fct_id}','${fcBean.fct_libelle}','${fcBean.view_smfct_action}',
 								      	                         '${sousModulebean.sousmod_id}','${sousModulebean.sousmod_libelle}',
 								      	                         '${bs.indexSousModule}','${bs.indexModule}','${sousModulebean.sousmod_action}',this)"/>  
@@ -1098,11 +1135,13 @@ width: 100%;margin-top: 1.2%;margin-left: 2%;margin-bottom: 2%;margin-right: 8%;
 				              
 				                
 				           </c:if>
+				             
+								      	             
 				            <div style="background-color:#00000;padding-left: 3%;font-weight: bold;padding-top: 0.5%;top: -50px;padding-bottom: 5px;font-size: 15px;font-family: arial;"  >${bs.fct_libelle} ${bs.prefix_sousmod_libelle_title} ${bs.sousmod_libelle_title}</div>
 				          </ext:toolbar>
 				          
-		                  <ext:toolbar   id="WqsSED"      style="background-image:none;background-color:white;float:right;margin-right:0.5;border:none;"  >            
-							 	              
+		                     <ext:toolbar   id="WqsSED"      style="background-image:none;float:right;margin-right:0.5;border:none;magin-top:10px;height:40px;padding-top:10px;"  >            
+						             
 							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/page-first.gif"   cls="x-btn-text-icon"    disabled="${tml.btfirst}"          onClick="${tml.fctdoFisrt}"  />  
 							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/page-prev.gif"    cls="x-btn-text-icon"    disabled="${tml.btPrevious}"      onClick="${tml.fctdoPrevieus}"   />
 							<ext:toolbar.button    icon="${pathRootac}/css/icons/fam/page-next.gif"    cls="x-btn-text-icon"    disabled="${tml.btNext}"    onClick="${tml.fctdoNext}"   />  
@@ -1130,18 +1169,18 @@ width: 100%;margin-top: 1.2%;margin-left: 2%;margin-bottom: 2%;margin-right: 8%;
 							
 							<ext:toolbar.button    cls="x-btn-text-icon"    text="&nbsp;"   id="ESPACE_DEUX"      minWidth="20"  disabled="true" />
 								
-						<%-- 	<ext:toolbar.button    cls="x-btn-text-iconXX"    text="${tml.libelleCommit}"      icon="${pathRootac}/css/icons/fam/icon_commit.png"     id="btCommit"      disabled="${tml.commit}"         onClick="${tml.fctdoCommit}"     />
+						 	<ext:toolbar.button    cls="x-btn-text-iconXX"    text="${tml.libelleCommit}"      icon="${pathRootac}/css/icons/fam/icon_commit.png"     id="btCommit"      disabled="${tml.commit}"         onClick="${tml.fctdoCommit}"     />
 							<ext:toolbar.separator/>  
 							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="${tml.libelleRollback}"    icon="${pathRootac}/css/icons/fam/icon_rollback.png"   id="btRollback"    disabled="${tml.rollback}"       onClick="${tml.fctdoRollback}"  />  				        
-					 --%>
+					 
 								
 							 <ext:toolbar.separator />
-							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="${tml.libelleAction}"  icon="${pathRootac}/css/icons/fam/${tml.iconAction}"       minWidth="150"         type="submit"    id="btValidx"    onClick="${tml.fctdoValid}"  disabled="${tml.btValid}"     />  
+							<ext:toolbar.button    cls="x-btn-text-iconXX"     text="${tml.libelleAction}"    icon="${pathRootac}/css/icons/fam/${tml.iconAction}"       minWidth="150"         type="submit"    id="btValidx"    onClick="${tml.fctdoValid}"  disabled="${tml.btValid}"     />  
 							<ext:toolbar.separator />
-							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="Réinitialiser"           icon="${pathRootac}/css/icons/fam/gtk-cancel.png"              type="button"    id="btReset"    disabled="${tml.btReset}"   onClick="${tml.fctdoReset}"   />   
+							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="R�initialiser"           icon="${pathRootac}/css/icons/fam/gtk-cancel.png"              type="button"    id="btReset"    disabled="${tml.btReset}"   onClick="${tml.fctdoReset}"   />   
 							<ext:toolbar.separator/>
-							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="Retour"                 icon="${pathRootac}/css/icons/fam/Redo.png"               type="button"     id="btRetour"      disabled="${tml.btRetour}"  onClick="${tml.fctdoRetour}" /> 
-	                     </ext:toolbar>
+							<ext:toolbar.button    cls="x-btn-text-iconXX"    text="Retour"                  icon="${pathRootac}/css/icons/fam/Redo.png"               type="button"     id="btRetour"      disabled="${tml.btRetour}"  onClick="${tml.fctdoRetour}" /> 
+	                        </ext:toolbar>  
 	                  </ext:panel>
 	            </ext:body>
 	            <div id="errmsg"  style="color: red;font-weight: bold;margin-left: 45%;"></div> 

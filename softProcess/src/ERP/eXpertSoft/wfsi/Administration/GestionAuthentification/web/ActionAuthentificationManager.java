@@ -20,6 +20,7 @@ import java.util.Vector;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -155,9 +156,9 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 					 getResponse().getWriter().write("fini");
 				 }else{
 					
-					 getResponse().getWriter().write(bs.getView_smfct_action()+"£"+bs.getData_action());
+					 getResponse().getWriter().write(bs.getView_smfct_action()+"#"+bs.getData_action());
 				 }
-				 
+				 System.out.println(" ------------ doInitLoadAppl Action   -------------------------");
 				 getResponse().setContentType(HTML_CONTENT_TYPE);      
 		  } catch (Exception e) {
 			 
@@ -195,7 +196,7 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 		try {
 			String  system = ProcessDate.getCurrentTimeStamp(new Date());
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			Date dateteste = sdf.parse(system); //La date1 est le 23 février 1995
+			Date dateteste = sdf.parse(system); //La date1 est le 23 fï¿½vrier 1995
 			Date date2 = sdf.parse(DATE_LIMIT);
 			int ret= dateteste.compareTo(date2);
 			if (getModel() == null)
@@ -268,23 +269,20 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 				if("1111".equals(utilisateur.getUsr_pwd())) {
 					list = daoUtilisateur.doFindListUtilisateurByLogin(utilisateur);
 				}else{
-					throw new Exception("Vérifier Mot de Passe");
+					throw new Exception("Username ou Mot de Passe Incorrect");
 				}
 				
 			    }else {
-				  
-				  list = utilisateurService.dofetchDatafromServer(utilisateur);
+				  list = utilisateurService.dofetchDatafromServer(utilisateur, true);
 			   }
 		 
 			UtilisateurBean utilBean = new UtilisateurBean();
 			if (list == null || list.size() == 0)
-				throw new Exception("Vérifier Mot de Passe");
+				throw new Exception("Username or Mot de Passe Incorrect");
 			
 			utilBean = (UtilisateurBean) list.get(0);
 			
-			if(ret>0 &&  utilBean.getEtab_bean().getPk_etab().getSoc_bean().getSoc_id().equals("6")) {
-				throw new Exception("Erreur de mise a jour systeme");
-			}
+		 
 			
 			GlibelleBean bsreash = new GlibelleBean();
 			IdLiblleBean bea = new IdLiblleBean();
@@ -495,6 +493,7 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			setObjectValueModel("mapHashMApRAcoucci", mapHashMApRAcoucci);
 			setObjectValueModel("mapHashSousPAck", mapHashSousPAck);
 			setUtilDevFront();
+			
 			return getHome();
 		} catch (Exception e) {
 			displayException(e);
@@ -510,12 +509,27 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 
 	public ModelAndView doQuitterApplication() {
 	 
-		ModelAndView mode = new ModelAndView();
-		mode.setViewName(getRequest().getContextPath() + PATH_SLACH + "next");
-		 if (getSession()!=null){
-             getSession().invalidate();
-         }
-		return mode;
+	 
+		getResponse().setContentType("text");
+		getResponse().setHeader("Cache-Control", "no-cache");
+		getResponse().setStatus(200);
+
+		try {
+			 if (getSession()!=null){
+	             getSession().invalidate();
+	         }
+			getResponse().getWriter().write("Session killed");
+
+		} catch (IOException e) {
+			getResponse().setStatus(400);
+			e.printStackTrace();
+		}
+
+		return null;
+		//mode.setViewName(getRequest()  + PATH_SLACH + "index" );
+		//mode.setViewName(uri);
+		
+	 
 	}
 	
 	
@@ -732,7 +746,7 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 		try {
 			String  system = ProcessDate.getCurrentTimeStamp(new Date());
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			Date dateteste = sdf.parse(system); //La date1 est le 23 février 1995
+			Date dateteste = sdf.parse(system); //La date1 est le 23 fï¿½vrier 1995
 			Date date2 = sdf.parse(DATE_LIMIT);
 			int ret= dateteste.compareTo(date2);
 			
@@ -747,7 +761,7 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 				System.out.println("SYSO XXXXXXXX-------- "+getSession().getId());
 			}
 
-			List <UtilisateurBean>listUtilisa =  utilisateurService.dofetchDatafromServer(beanUti);
+			List <UtilisateurBean>listUtilisa =  utilisateurService.dofetchDatafromServer(beanUti, true);
 
 			if (listUtilisa != null && listUtilisa.size() > 0  && password.equals("")) {
 				UtilisateurBean OUfa = (UtilisateurBean) listUtilisa.get(0);
@@ -763,7 +777,7 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 			} else if ((listUtilisa == null || listUtilisa.size() == 0)  && password.equals("")) {
 				getResponse().getWriter().write("loginGhalit"); 
 			} else if ((listUtilisa == null || listUtilisa.size() == 0)  && !password.equals("")) {
-				getResponse().getWriter().write("Vérifier le mot de passe ");
+				getResponse().getWriter().write("VÃ©rifier le mot de passe ");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -889,9 +903,9 @@ public class ActionAuthentificationManager extends AuthentificationTemplate {
 										  fctBean.setView_smfct_action(bean_Fct.getPkPriv().getSmfonctionmodel().getView_smfct_action());
 										  
 										  fctBean.setData_action(
-												  bean_Fct.getPkPriv().getSmfonctionmodel().getOrdre()+"£"+
-												  bean_Fct.getPkPriv().getSmfonctionmodel().getView_smfct_action()+"£"+
-												  sousModuleBean.getSousmod_id().toString()+"£"+
+												  bean_Fct.getPkPriv().getSmfonctionmodel().getOrdre()+"ï¿½"+
+												  bean_Fct.getPkPriv().getSmfonctionmodel().getView_smfct_action()+"ï¿½"+
+												  sousModuleBean.getSousmod_id().toString()+"ï¿½"+
 												  fctBean.getFct_id().toString()
 												  );
 									  }

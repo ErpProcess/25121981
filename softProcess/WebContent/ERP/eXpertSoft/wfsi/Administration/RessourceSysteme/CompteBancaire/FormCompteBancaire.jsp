@@ -5,7 +5,7 @@
    <tr>  
    <td width="7%"><label>${cptbanribrs}</label></td>  
    <td width="93%"  >  
-   <input id="cptbanribrib" name="cptbanribrib"     type="hidden"    size="40"       maxlength="55"     
+   <input id="cptbanribrib" name="cptbanribrib"     type="text"    size="40"       maxlength="55"     
       value="${detailBean.cptbanribrib}"    nextElement="cptbanribrs"    autofocus         />  
       
     
@@ -15,7 +15,7 @@
    <tr>  
    <td width="7%"><label>${cptbanribrib} </label></td>  
    <td width="93%"  >  
-   <input id="cptbanribrs" name="cptbanribrs"     type="text"    size="100"       maxlength="100"        value="${detailBean.cptbanribrs}"    nextElement="cptbanadr"              />  
+   <input id="cptbanribrs" name="cptbanribrs"     type="text"    size="100"       maxlength="100"        value="${detailBean.cptbanribrs}"    nextElement="cptbanadr"    />  
   </td>  
    </tr>   
    <tr>  

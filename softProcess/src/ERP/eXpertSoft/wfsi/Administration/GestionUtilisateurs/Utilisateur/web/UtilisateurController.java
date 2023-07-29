@@ -27,6 +27,10 @@ import ERP.eXpertSoft.wfsi.Administration.GestionUtilisateurs.Utilisateur.templa
  */
 @Controller
 public class UtilisateurController  extends ActionUtilisateurManager   {
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5756589515553163465L;
 		@InitBinder
 		public void initBinder(WebDataBinder binder) {
 		   SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

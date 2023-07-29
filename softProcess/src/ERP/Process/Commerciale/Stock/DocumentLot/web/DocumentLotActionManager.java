@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
@@ -383,7 +383,7 @@ public class DocumentLotActionManager extends DocumentLotTemplate {
 			for (int i = 0; i < listDataSrv.size(); i++) {
 	        	SerieArticletBean  sBean =(SerieArticletBean) listDataSrv.get(i) ;	
 	        	sBean.setVente(tarica);
-	        	if( StringUtils.isNotEmpty(sBean.getSelected()) ){
+	        	if( !StringUtils.isEmpty(sBean.getSelected()) ){
 	        		sBean.setTo_check("checked");
 	        	}
 	        	 TarificationBean nvente  =  new TarificationBean();
@@ -447,7 +447,7 @@ public class DocumentLotActionManager extends DocumentLotTemplate {
 			serviceDocumentLot.doSuppChoixRowData(searchBean,list_des_lots_for_select);
 			setObjectValueModel(SEARCH_BEAN, searchBean);
 			setObjectValueModel("list_des_lots_for_select", new ArrayList());
-		    throwNewException("Opération effectuée");
+		    throwNewException("Opï¿½ration effectuï¿½e");
 		} catch (Exception e) {
 			getResponse().setContentType(HTML_CONTENT_TYPE);
 			getResponse().getWriter().print(e.getMessage());
@@ -516,7 +516,7 @@ public class DocumentLotActionManager extends DocumentLotTemplate {
 								continue;
 							}
 							if(truU==null &&  kio>0){
-								message=" Les Lots choisis ont des prix différents ";	 
+								message=" Les Lots choisis ont des prix diffï¿½rents ";	 
 							}
 						}
 					}
@@ -545,7 +545,7 @@ public class DocumentLotActionManager extends DocumentLotTemplate {
 								beanSave.getFkCode_barre().getPk().getAr_bean().getChoix().getData_id().equals("sel"))
 								
 				){
-					message=" Aucun Lots côchez pour le mode de selection  " ;	
+					message=" Aucun Lots cï¿½chez pour le mode de selection  " ;	
 				}
 				
 				

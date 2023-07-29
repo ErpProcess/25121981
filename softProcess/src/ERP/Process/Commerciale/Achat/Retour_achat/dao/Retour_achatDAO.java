@@ -3,7 +3,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,7 +165,7 @@ public class Retour_achatDAO extends  GenericWeb    {
 			
 			//this.saveTraceVersion_Master_detailles(listOfmyData, Reception_achatTemplate.MapfieldBean_detaille, Reception_achatTemplate.id_entite_det_achat, Reception_achatTemplate.entites_detaille);
 			 
-			//if( !StringUtils.isBlank( beanSave.getDem_achat().getDem_achat_id()) )
+			//if( !StringUtils.isEmpty( beanSave.getDem_achat().getDem_achat_id()) )
 			//
 			
 			result=true;

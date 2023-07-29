@@ -51,7 +51,7 @@ function  fifoA(){
 	     window.location=baseURL2+contexPath+"/next.jsp";
 	     }else{
 	     
-	      var valueAction = data.split('£');
+	      var valueAction = data.split('ï¿½');
 	      var url_re_action = valueAction[0];
 		  var data_ac = valueAction[1];
 	      var urluu=contexPath+url_re_action;
@@ -88,7 +88,7 @@ Ext.onReady(function(){
 </script>
  
      <form  id="actionhori"  method="post"    > 
-      <input  type="hidden"  name="HiddenAction"  id="HiddenAction"   value="" > 
+       <input  type="hidden"  name="HiddenAction"  id="HiddenAction"   value="" > 
        <input  type="hidden"  name="data_action"   id="data_action"    value="" > 
      </form>
 

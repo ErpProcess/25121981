@@ -2,10 +2,10 @@ package ERP.Process.Commerciale.Vente.Devis.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import ERP.Process.Commerciale.Vente.Devis.model.DetDevisBean;
@@ -74,7 +74,7 @@ public class DevisDAO extends  GenericWeb    {
 				
 		//	this.saveTraceVersion_Master_detailles(listOfmyData, Reception_achatTemplate.MapfieldBean_detaille, Reception_achatTemplate.id_entite_det_achat, Reception_achatTemplate.entites_detaille);
 			 
-			//if( !StringUtils.isBlank( beanSave.getDem_achat().getDem_achat_id()) )
+			//if( !StringUtils.isEmpty( beanSave.getDem_achat().getDem_achat_id()) )
 			//this.hibernateTemplate.bulkUpdate(" UPDATE  Demande_achatBean b  set  b.modeBean.fct_id="+bs.getFct_id()+"   where   b.dem_achat_id='"+beanSave.getDem_achat().getDem_achat_id()+"' ");
 			
 			result = true;

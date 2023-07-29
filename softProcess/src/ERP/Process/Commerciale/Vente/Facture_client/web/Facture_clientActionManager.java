@@ -12,7 +12,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,7 +165,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				    	 List<NumSeqReserve> lisnum=daoNumSequentiel.doFetchNumSequentielReseve(numSeqReserve); 
 					    	if(lisnum!=null  &&   lisnum.size()>0) {
 					    		for (NumSeqReserve numSeqReser  : lisnum) {
-					    			message+="©"+numSeqReser.getNumero();
+					    			message+="ï¿½"+numSeqReser.getNumero();
 								}
 					    	} 
 				         }
@@ -428,10 +428,10 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	    	 
 	    	 List <DetProcedureVenteBean>list_detaill_Vente=serviceProcedureVente.doFetch_detDatafromServer(beanVente) ;
 	    	 for (DetProcedureVenteBean beand:list_detaill_Vente) {
-	    		 String keyString  =    beand.getPk().getFkcode_barre().getPk().getCode_barre()+"£"+
-	    		                        beand.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"£"+
-	    		                        beand.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"£"+
-	    		                        beand.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"£";
+	    		 String keyString  =    beand.getPk().getFkcode_barre().getPk().getCode_barre()+"ï¿½"+
+	    		                        beand.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+
+	    		                        beand.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
+	    		                        beand.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"ï¿½";
 	    		List list= (List) map_article.get(keyString);
 	    		if(list==null)list= new ArrayList();
 	    		list.add(beand);
@@ -453,10 +453,10 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 					  if(!isVenteData) continue;
 				  }
 				  
-	    		 String keyString  =    beanfrns.getFkcode_barre().getPk().getCode_barre()+"£"+
-	    				 beanfrns.getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"£"+
-	    				 beanfrns.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"£"+
-	    				 beanfrns.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"£";
+	    		 String keyString  =    beanfrns.getFkcode_barre().getPk().getCode_barre()+"ï¿½"+
+	    				 beanfrns.getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+
+	    				 beanfrns.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
+	    				 beanfrns.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"ï¿½";
 	    		List list= (List) map_fourniture.get(keyString);
 	    		if(list==null)list= new ArrayList();
 	    		list.add(beanfrns);
@@ -477,10 +477,10 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 				  }
 				 
 				 
-	    		 String keyString  =    beanserv.getFkcode_barre().getPk().getCode_barre()+"£"+
-	    				                beanserv.getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"£"+
-	    				                beanserv.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"£"+
-	    				                beanserv.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"£";
+	    		 String keyString  =    beanserv.getFkcode_barre().getPk().getCode_barre()+"ï¿½"+
+	    				                beanserv.getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+
+	    				                beanserv.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
+	    				                beanserv.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id()+"ï¿½";
 	    		List list= (List) map_Service.get(keyString);
 	    		if(list==null)list= new ArrayList();
 	    		list.add(beanserv);
@@ -1127,7 +1127,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 						  
 						 element.put("value3",tvaB);
 						 listDataTva.put(element);
-						 mapTvaImpression.put(tva, base+"£"+tvaB);
+						 mapTvaImpression.put(tva, base+"ï¿½"+tvaB);
 					 }
 				 }
 			 
@@ -1212,7 +1212,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			 
 			 element = new JSONObject();
 			 element.put("td1","4");
-			 element.put("value1","Net à payer");
+			 element.put("value1","Net ï¿½ payer");
 			 element.put("td2","5");
 			 Double net_a_payer=ProcessNumber.SOUSTRACTION(total_mnt_gen, avance);
 			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(net_a_payer,pattern));
@@ -1415,7 +1415,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 						  
 						 element.put("value3",tvaB);
 						 listDataTva.put(element);
-						 mapTvaImpression.put(tva, base+"£"+tvaB);
+						 mapTvaImpression.put(tva, base+"ï¿½"+tvaB);
 					 }
 				 }
 			 
@@ -1500,7 +1500,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 			 
 			 element = new JSONObject();
 			 element.put("td1","4");
-			 element.put("value1","Net à payer");
+			 element.put("value1","Net ï¿½ payer");
 			 element.put("td2","5");
 			 Double net_a_payer=ProcessNumber.SOUSTRACTION(total_mnt_gen, avance);
 			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(net_a_payer,pattern));
@@ -1648,7 +1648,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	        cell.setBorder(cell.NO_BORDER);
 	        tabletitle.addCell(cell);
 	        
-	        cell = new PdfPCell(new Phrase("Arrêtée la présente facture à la somme de :",GeneratePdf.Normal_10_times_roman));
+	        cell = new PdfPCell(new Phrase("Arrï¿½tï¿½e la prï¿½sente facture ï¿½ la somme de :",GeneratePdf.Normal_10_times_roman));
 	        cell.setColspan(100);
 	        cell.setVerticalAlignment(Element.ALIGN_LEFT);
 	        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -1746,7 +1746,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 		tableTopHeader.setWidthPercentage(96);
 		 
 		    
-		PdfPCell cell = new PdfPCell(new Phrase(" Facture N° ",GeneratePdf.FONT_12_bold));
+		PdfPCell cell = new PdfPCell(new Phrase(" Facture Nï¿½ ",GeneratePdf.FONT_12_bold));
 	    cell.setColspan(13);
 	    cell.setFixedHeight(20f);
 	    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -1977,7 +1977,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
 	tableTopHeader.setWidthPercentage(96);
 	 
 	    
-	PdfPCell cell = new PdfPCell(new Phrase("Facture Pro Forma N°",GeneratePdf.FONT_12_bold));
+	PdfPCell cell = new PdfPCell(new Phrase("Facture Pro Forma Nï¿½",GeneratePdf.FONT_12_bold));
     cell.setColspan(24);
     cell.setFixedHeight(20f);
     cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -2151,7 +2151,7 @@ public class Facture_clientActionManager extends Facture_clientTemplate {
         	   String key = (String ) iter.next();
 			
 			   String elmme=  (String) mapTvaImpression.get(key);
-			   String[] ligne=   elmme.split("£");
+			   String[] ligne=   elmme.split("ï¿½");
 			
 			   cell = new PdfPCell(new Phrase(key,GeneratePdf.FONT_12_bold));
 	           cell.setColspan(10);

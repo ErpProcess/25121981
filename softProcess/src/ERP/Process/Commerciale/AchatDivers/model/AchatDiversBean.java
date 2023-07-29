@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.springframework.format.annotation.DateTimeFormat;
 @JsonAutoDetect
 @Entity

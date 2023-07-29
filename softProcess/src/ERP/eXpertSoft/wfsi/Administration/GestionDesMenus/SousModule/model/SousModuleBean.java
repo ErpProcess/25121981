@@ -20,7 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Fonction.model.FonctionBean;
 import ERP.eXpertSoft.wfsi.Administration.GestionDesMenus.Module.model.ModuleBean;
@@ -70,6 +70,14 @@ public class SousModuleBean implements Serializable,Cloneable{
 	
 	@Column
 	private Integer sousmod_ordre ;
+	
+	
+	@Column
+	private String module_list ;
+	
+	@Column
+	private String sousmod_code ;
+
 	
 	
 	 
@@ -202,6 +210,22 @@ public class SousModuleBean implements Serializable,Cloneable{
 
 	public void setSousmod_ordre(Integer sousmod_ordre) {
 		this.sousmod_ordre = sousmod_ordre;
+	}
+
+	public String getModule_list() {
+		return module_list;
+	}
+
+	public void setModule_list(String module_list) {
+		this.module_list = module_list;
+	}
+
+	public String getSousmod_code() {
+		return sousmod_code;
+	}
+
+	public void setSousmod_code(String sousmod_code) {
+		this.sousmod_code = sousmod_code;
 	}
 
 	 

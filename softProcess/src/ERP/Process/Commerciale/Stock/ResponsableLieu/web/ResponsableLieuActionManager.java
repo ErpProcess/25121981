@@ -48,11 +48,10 @@ public class ResponsableLieuActionManager extends ResponsableLieuTemplate {
 			setObjectValueModel(SEARCH_BEAN, getObjectValueModel(MODEL_BEAN));
 			removeObjectModel((String) getObjectValueModel(NAME_LIST_G));
 			BeanSession bs =(BeanSession)getObjectValueModel(BEAN_SESSION);
-			List <UtilisateurBean> list_uti= serviceUtilisateur.dofetchDatafromServer(UtilisateurBean.class.newInstance()) ;
+			List <UtilisateurBean> list_uti= serviceUtilisateur.dofetchDatafromServer(UtilisateurBean.class.newInstance(), false) ;
 			for (UtilisateurBean bb:list_uti) {
 				bb.setNom_prenom(bb.getUsr_nom()+"   "+bb.getUsr_pre());
 			}
-			
 			setObjectValueModel(UtilisateurTemplate.LIST_DATA      , list_uti);
 			setObjectValueModel(LIST_DEPOT_STOCK               , serviceDepotStockage.doFetchDatafromServer(DepotStockageBean.class.newInstance()));
 			

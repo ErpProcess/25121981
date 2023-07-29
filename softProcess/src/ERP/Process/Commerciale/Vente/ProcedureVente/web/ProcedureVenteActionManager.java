@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -228,23 +228,20 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
 			     if(  (list_editable_vente==null || list_editable_vente.size()==0)  &&
 			    	  (list_editable_fourniture_vente==null || list_editable_fourniture_vente.size()==0) &&
 			    	  (list_editable_prestation==null || list_editable_prestation.size()==0) ) {
-				   message="D�taille vente est vide ";			
+				   message="Détaille vente est vide ";			
 			     }else {
 			    	 
 			    	 if(  bs.getFct_id().equals(Fn_Creer)  ||  bs.getFct_id().equals(Fn_Facturer) ) {
 			    	 NumSeqReserve numSeqReserve  = new NumSeqReserve();
-				    	numSeqReserve.setCode_num("vente_id");
-			    	 
+				     numSeqReserve.setCode_num("vente_id");
 			    	 List<NumSeqReserve> lisnum=daoNumSequentiel.doFetchNumSequentielReseve(numSeqReserve); 
 				    	if(lisnum!=null  &&   lisnum.size()>0) {
 				    		for (NumSeqReserve numSeqReser  : lisnum) {
-				    			message+="�"+numSeqReser.getNumero();
+				    			message+="|"+numSeqReser.getNumero();
 							}
 				    	} 
 			         }
 			     }
-			     
-			     
 				  getResponse().setContentType(HTML_CONTENT_TYPE);
 				  getResponse().getWriter().print(message);
 				} catch (Exception e) {
@@ -274,7 +271,7 @@ public class ProcedureVenteActionManager extends ProcedureVenteTemplate {
  	        List<NumSeqReserve> lisnum=daoNumSequentiel.doFetchNumSequentielReseve(numSeqReserve); 
 	    	if(lisnum!=null  &&   lisnum.size()>0) {
 	    		for (NumSeqReserve numSeqReser  : lisnum) {
-	    			message+="�"+numSeqReser.getNumero();
+	    			message+="|"+numSeqReser.getNumero();
 				}
 	    	} 
 	    	
@@ -620,7 +617,7 @@ public   ModelAndView doActualiserGridPrestation( ProcedureVenteBean bean ) thro
 		    	if(ss!=null){
 		    		if( newBean.getQuantite() == null  ||  newBean.getQuantite() ==0) continue;
 		    		if( newBean.getQuantite() < 0 ) {
-		    			String err=" Il existe un ou plusieurs quantit�(s) inf�rieur a z�ro ";
+		    			String err=" Il existe un ou plusieurs quantite(s) inferieur a zero ";
 		    			data.addProperty("erreur"+newBean.getFkcode_barre().getPk().getCode_barre(),err);
 		    			data.addProperty("Qte"+newBean.getFkcode_barre().getPk().getCode_barre(),"0");
 		    			data.addProperty(newBean.getFkcode_barre().getPk().getCode_barre(),"0");
@@ -703,7 +700,7 @@ public   ModelAndView doActualiserGridFourniture( ProcedureVenteBean bean ) thro
 		    	if(ss!=null){
 		    		if( newBean.getQuantite() == null  ||  newBean.getQuantite() ==0) continue;
 		    		if( newBean.getQuantite() < 0 ) {
-		    			String err=" Il existe un ou plusieurs quantit�(s) inf�rieur a z�ro ";
+		    			String err=" Il existe un ou plusieurs quantite(s) inferieur a zero ";
 		    			data.addProperty("erreur"+newBean.getFkcode_barre().getPk().getCode_barre(),err);
 		    			data.addProperty("Qte"+newBean.getFkcode_barre().getPk().getCode_barre(),"0");
 		    			data.addProperty(newBean.getFkcode_barre().getPk().getCode_barre(),"0");
@@ -829,7 +826,7 @@ public   ModelAndView doActualiser_GRID( ProcedureVenteBean detailBean ) throws 
 		    	if(ss!=null){
 		    		if( newBean.getQuantite() == null  ||  newBean.getQuantite() ==0) continue;
 		    		if( newBean.getQuantite() < 0 ) {
-		    			String err=" Il existe un ou plusieurs quantit�(s) inf�rieur a z�ro ";
+		    			String err=" Il existe un ou plusieurs quantite(s) inferieur a zero ";
 		    			data.addProperty("erreur"+newBean.getPk().getFkcode_barre().getPk().getCode_barre(),err);
 		    			data.addProperty("Qte"+newBean.getPk().getFkcode_barre().getPk().getCode_barre(),"0");
 		    			data.addProperty(newBean.getPk().getFkcode_barre().getPk().getCode_barre(),"0");
@@ -963,7 +960,7 @@ public   ModelAndView doActualiser_methode( ) throws Exception{
 					mapbidan.put(serieBean.getFkCode_barre().getPk().getCode_barre(), "Traiter");
 					mapbidan_cak.put(serieBean.getFkCode_barre().getPk().getCode_barre(), "Traiter");
 				}else{
-					mapbidan.put(serieBean.getFkCode_barre().getPk().getCode_barre(), "G�n�ric");
+					mapbidan.put(serieBean.getFkCode_barre().getPk().getCode_barre(), "Generic");
 				}
 			}
 			
@@ -979,8 +976,8 @@ public   ModelAndView doActualiser_methode( ) throws Exception{
 				}
 				
 				if(mapbidan.get(venBean.getPk().getFkcode_barre().getPk().getCode_barre())==null){
-				data.addProperty(venBean.getPk().getFkcode_barre().getPk().getCode_barre(),"G�n�ric");
-				venBean.setMethode_s("G�n�ric");
+				data.addProperty(venBean.getPk().getFkcode_barre().getPk().getCode_barre(),"Generic");
+				venBean.setMethode_s("Generic");
 				continue;
 				}
 				if(mapbidan_cak.get(venBean.getPk().getFkcode_barre().getPk().getCode_barre())!=null){
@@ -990,9 +987,9 @@ public   ModelAndView doActualiser_methode( ) throws Exception{
 				}
 				if(mapbidan.get(venBean.getPk().getFkcode_barre().getPk().getCode_barre())!=null
 						&&   
-						mapbidan.get(venBean.getPk().getFkcode_barre().getPk().getCode_barre()).equals("G�n�ric") ){
-					data.addProperty(venBean.getPk().getFkcode_barre().getPk().getCode_barre(),"G�n�ric");
-					venBean.setMethode_s("G�n�ric");
+						mapbidan.get(venBean.getPk().getFkcode_barre().getPk().getCode_barre()).equals("Generic") ){
+					data.addProperty(venBean.getPk().getFkcode_barre().getPk().getCode_barre(),"Generic");
+					venBean.setMethode_s("Generic");
 				}
 				 
 		     }
@@ -1505,7 +1502,7 @@ public   ModelAndView doAdd_row_Fourniture( ProcedureVenteBean detailBean  ) thr
 			setObjectValueModel(FORM_BEAN,detailBean); 
 			List list_article_Origine =(List) getObjectValueModel(LIST_ARTICLE_VENTE_FOURNITURE_ORIGINE);
 			HashMap  map_articl=ProcessUtil.getHashMap_code_bean(listOfmyData, "fkcode_barre.pk.code_barre");
-			if(map_articl.get(detailBean.getCode_barreFurniture())!=null)  throw new Exception("Existe d�j�");
+			if(map_articl.get(detailBean.getCode_barreFurniture())!=null)  throw new Exception("Existe deja");
 			Double  quantite_en_stock= new Double(0);
 			HashMap  mapCodBarre=(HashMap) getObjectValueModel(MAP_CODBARRE_FOURNITURE );
 			Code_barreBean bCode_barreBean=(Code_barreBean) mapCodBarre.get(detailBean.getCode_barreFurniture());
@@ -1659,7 +1656,7 @@ public   ModelAndView doAdd_row_Prestation( ProcedureVenteBean detailBean  ) thr
 	 
 		
 		HashMap  map_articl=ProcessUtil.getHashMap_code_bean(listOfmyData, "fkcode_barre.pk.code_barre");
-		if(map_articl.get(detailBean.getCode_barreService())!=null)  throw new Exception("Existe d�j�");
+		if(map_articl.get(detailBean.getCode_barreService())!=null)  throw new Exception("Existe deja");
 		Double  quantite_en_stock= new Double(0);
 		HashMap  mapCodBarre=(HashMap) getObjectValueModel(MAP_CODBARRE_SERVICE );
 		Code_barreBean bCode_barreBean=(Code_barreBean) mapCodBarre.get(detailBean.getCode_barreFurniture());
@@ -1774,7 +1771,7 @@ private TarificationBean definitionTarification_deventeFouniture( ProcedureVente
 	 try {
 		
 	   HashMap  mapTarification=(HashMap) getObjectValueModel(MAP_TARIFICATION_FOURNITURE);
-	   ss          = (TarificationBean) mapTarification.get(detailBean.getCode_barreFurniture()+"�"+beancl.getTyp_trfBean().getType_trf_id());
+	   ss          = (TarificationBean) mapTarification.get(detailBean.getCode_barreFurniture()+"|"+beancl.getTyp_trfBean().getType_trf_id());
      if(bCode_barreBean.getPk().getAr_bean().getMode()!=null 
     		 &&  bCode_barreBean.getPk().getAr_bean().getMode().getData_id().equals("pl")){
     	 SerieArticletBean searchBean  = new SerieArticletBean();
@@ -1791,7 +1788,7 @@ private TarificationBean definitionTarification_deventeFouniture( ProcedureVente
     		 Lot=sBean.getPk().getNum_serie();
 		 }
     	 if(qt.doubleValue()<detailBean.getQuantiteFourniture().doubleValue())
-		    	throwNewException("cette quantit� n'est pas disponible en Lot choisis");
+		    	throwNewException("cette quantite n'est pas disponible en Lot choisis");
     	 
     	 
     	 TarificationBean search2= new TarificationBean();
@@ -1804,7 +1801,7 @@ private TarificationBean definitionTarification_deventeFouniture( ProcedureVente
     	 search2.setNum_serie(Lot);
          List<TarificationBean> listDatafro2  = serviceTarification.doFetchDatafromServer(search2);
          if(listDatafro2!=null  && listDatafro2.size()>0 && listDatafro2.size()>1){
-        	 throwNewException("Il ya deux prix de lot  dans la m�me journ�e pour cet article. Veuillez V�rifier les Tarifs de vente ");
+        	 throwNewException("Il ya deux prix de lot  dans la meme journee pour cet article. Veuillez Verifier les Tarifs de vente ");
          }
          if(listDatafro2!=null  && listDatafro2.size()>0 && listDatafro2.size()==1){
         	 ss=listDatafro2.get(0);
@@ -1820,7 +1817,7 @@ private TarificationBean definitionTarification_deventeFouniture( ProcedureVente
 	
 	if(ss==null)  
 	{ 
-		ss  =(TarificationBean) mapTarification.get(detailBean.getCode_barreFurniture()+"�"+GROUPE_TARIF_VENTE_PUBLIC);
+		ss  =(TarificationBean) mapTarification.get(detailBean.getCode_barreFurniture()+"|"+GROUPE_TARIF_VENTE_PUBLIC);
 	}
 	if(ss==null)  throwNewException("Manque Tarification pour cette article");
 	
@@ -1838,10 +1835,10 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
 	 try {
 		
 		   HashMap  mapTarification=(HashMap) getObjectValueModel(MAP_TARIFICATION_SERVICE);
-		   ss          = (TarificationBean) mapTarification.get(detailBean.getCode_barreService()+"�"+beancl.getTyp_trfBean().getType_trf_id());
+		   ss          = (TarificationBean) mapTarification.get(detailBean.getCode_barreService()+"|"+beancl.getTyp_trfBean().getType_trf_id());
 			if(ss==null)  
 			{ 
-				ss  =(TarificationBean) mapTarification.get(detailBean.getCode_barreFurniture()+"�"+GROUPE_TARIF_VENTE_PUBLIC);
+				ss  =(TarificationBean) mapTarification.get(detailBean.getCode_barreFurniture()+"|"+GROUPE_TARIF_VENTE_PUBLIC);
 			}
 			if(ss==null)  throwNewException("Manque Tarification pour cette article");
 			
@@ -1859,7 +1856,7 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
 		 try {
 			
 		   HashMap  mapTarification=(HashMap) getObjectValueModel(MAP_TARIFICATION);
-		   ss          = (TarificationBean) mapTarification.get(detailBean.getCode_barreX()+"�"+beancl.getTyp_trfBean().getType_trf_id());
+		   ss          = (TarificationBean) mapTarification.get(detailBean.getCode_barreX()+"|"+beancl.getTyp_trfBean().getType_trf_id());
 	     if(bCode_barreBean.getPk().getAr_bean().getMode()!=null 
 	    		 &&  bCode_barreBean.getPk().getAr_bean().getMode().getData_id().equals("pl")){
 	    	 SerieArticletBean searchBean  = new SerieArticletBean();
@@ -1876,7 +1873,7 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
 	    		 Lot=sBean.getPk().getNum_serie();
 			 }
 	    	 if(qt.doubleValue()<detailBean.getQuantiteX().doubleValue())
-			    	throwNewException("cette quantit� n'est pas disponible en Lot choisis");
+			    	throwNewException("cette quantite n'est pas disponible en Lot choisis");
 	    	 
 	    	 
         	 TarificationBean search2= new TarificationBean();
@@ -1889,7 +1886,7 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
         	 search2.setNum_serie(Lot);
              List<TarificationBean> listDatafro2  = serviceTarification.doFetchDatafromServer(search2);
              if(listDatafro2!=null  && listDatafro2.size()>0 && listDatafro2.size()>1){
-            	 throwNewException("Il ya deux prix de lot  dans la m�me journ�e pour cet article. Veuillez V�rifier les Tarifs de vente ");
+            	 throwNewException("Il ya deux prix de lot  dans la meme journee pour cet article. Veuillez Verifier les Tarifs de vente ");
              }
 	         if(listDatafro2!=null  && listDatafro2.size()>0 && listDatafro2.size()==1){
 	        	 ss=listDatafro2.get(0);
@@ -1905,7 +1902,7 @@ private TarificationBean definitionTarificationService( ProcedureVenteBean detai
 		
 		if(ss==null)  
 		{ 
-			ss  =(TarificationBean) mapTarification.get(detailBean.getCode_barreX()+"�"+GROUPE_TARIF_VENTE_PUBLIC);
+			ss  =(TarificationBean) mapTarification.get(detailBean.getCode_barreX()+"|"+GROUPE_TARIF_VENTE_PUBLIC);
 		}
 		if(ss==null)  throwNewException("Manque Tarification pour cette article");
 		
@@ -2334,10 +2331,10 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 //		setObjectValueModel(LIST_EDITABLE_VENTE, listGridEditable_VENTE);
 //		setObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE  , new  ArrayList<DetFournitureVenteBean>());
 //		setObjectValueModel(LIST_EDITABLE_PRESTATION  , new  ArrayList<DetServiceBean>());
-	    throwNewException("Confirmation effectu�e avec succ�s");
+	    throwNewException("successfullyConfirmation");
 	 	} catch (Exception e) {
 		 	displayException(e);
-		 	if(e.getMessage().equals("Confirmation effectu�e avec succ�s")) {
+		 	if(e.getMessage().equals("successfullyConfirmation")) {
 	           TransfertError(e);
 		 	}else {
 		 		 serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Creer, detailBean.getVente_id());
@@ -2360,10 +2357,10 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		setObjectValueModel(LIST_EDITABLE_VENTE, listGridEditable_VENTE);
 		setObjectValueModel(LIST_EDITABLE_PRESTATION  , new  ArrayList<DetServiceBean>());
 		setObjectValueModel(LIST_EDITABLE_FOURNITURE_VENTE  , new  ArrayList<DetFournitureVenteBean>());
-	    throwNewException("Facturation effectu�e avec succ�s");
+	    throwNewException("successfulInvoicing");
 	 	} catch (Exception e) {
 	 	displayException(e);
-	 	 if(e.getMessage().equals("Facturation effectu�e avec succ�s")) {
+	 	 if(e.getMessage().equals("successfulInvoicing")) {
             TransfertError(e);
             String numios= getRequest().getParameter("numiosFacture");
     	    if(  numios!=null &&  !numios.equals("null") ) {
@@ -2457,10 +2454,10 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 		 serviceProcedureVente.doConfirmRowData(beanUpBean,fVenteBean,service); 
 //		 remove_row_from_list(LIST_DATA); 
 //		 removeObjectModel(FORM_BEAN);
-		 throwNewException("Confirmation effectu�e avec succ�s");
+		 throwNewException("successfullyConfirmation");
 	 	} catch (Exception e) {
 		 	displayException(e);
-		 	if(e.getMessage().equals("Confirmation effectu�e avec succ�s")) {
+		 	if(e.getMessage().equals("successfullyConfirmation")) {
 	        TransfertError(e);
 	 	      }else {
 	 		 serviceProcedureVente.doRetourModeOrigin("ProcedureVenteBean", Fn_Creer, beanUpdate.getVente_id());
@@ -3144,7 +3141,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
         	   String key = (String ) iter.next();
 			
 			   String elmme=  (String) mapTvaImpression.get(key);
-			   String[] ligne=   elmme.split("�");
+			   String[] ligne=   elmme.split("|");
 			
 			   cell = new PdfPCell(new Phrase(key,GeneratePdf.Normal_9_times_roman));
 	           cell.setColspan(10);
@@ -3252,7 +3249,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			     
 			    ProcedureVenteBean rBeanS=(ProcedureVenteBean) getObjectValueModel(FORM_BEAN);
 		        
-			    setObjectValueModel("titleHead","Vente N� "+rBeanS.getVente_id()) ;
+			    setObjectValueModel("titleHead","Vente N "+rBeanS.getVente_id()) ;
 			    dbexp.createTitleMap(excelSheet,MapfieldBean_detaille);
 			    dbexp.creatheaderMap(excelSheet,MapfieldBean_detaille);
 			    dbexp.createContentWithList(excelSheet,lisData,MapfieldBean_detaille);
@@ -3576,7 +3573,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 						  
 						 element.put("value3",tvaB);
 						 listDataTva.put(element);
-						 mapTvaImpression.put(tva, base+"�"+tvaB);
+						 mapTvaImpression.put(tva, base+"|"+tvaB);
 					 }
 				 }
 			 
@@ -3671,7 +3668,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
 			 
 			 element = new JSONObject();
 			 element.put("td1","4");
-			 element.put("value1","Net � payer");
+			 element.put("value1","Net a payer");
 			 element.put("td2","5");
 			 Double net_a_payer=ProcessNumber.SOUSTRACTION(total_mnt_gen, avance);
 			 element.put("value2",ProcessFormatNbr.FormatDouble_To_String_PatternChiffre(net_a_payer,pattern));
@@ -3937,7 +3934,7 @@ public ModelAndView doFetchData_Commande(ProcedureVenteBean searchBean) throws T
     		/*********************************************montant_benefice *******************************************/
     		if(le_cout.doubleValue()>0 &&   beanLigne.getIsVente()  ){
     		Double	 montant_benefice = ProcessNumber.SOUSTRACTION(montant_ht_vente, le_cout);
-    		montant_benefice          =ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_benefice,pattern);
+    		montant_benefice          = ProcessFormatNbr.FormatDouble_ParameterChiffre(montant_benefice,pattern);
     		beanLigne.setMontant_benefice(montant_benefice);
     		marge_benefice_vente=ProcessNumber.addition(marge_benefice_vente, montant_benefice);
     		}

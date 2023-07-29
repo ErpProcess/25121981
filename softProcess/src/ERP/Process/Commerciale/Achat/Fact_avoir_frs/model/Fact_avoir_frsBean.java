@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.codehaus.jackson.annotate.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import javax.persistence.EmbeddedId;
 
 import ERP.Process.Commerciale.Achat.Facture_Fournisseur.model.Facture_FournisseurBean;

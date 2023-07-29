@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,7 +131,7 @@ public class Reception_achatDAO extends GenericWeb {
 			requette += "   AND   bean.depot.depot_id = '" + beanSearch.getDepot().getDepot_id()+"'        ";
 		
 		
-		if ( !StringUtils.isBlank(beanSearch.getCondition_etat_achat()) )
+		if ( !StringUtils.isEmpty(beanSearch.getCondition_etat_achat()) )
 			
 			requette += "   " + beanSearch.getCondition_etat_achat()+"        ";
 		
@@ -249,7 +249,7 @@ public class Reception_achatDAO extends GenericWeb {
 				
 			this.saveTraceVersion_Master_detailles(listOfmyData, Reception_achatTemplate.MapfieldBean_detaille, Reception_achatTemplate.id_entite_det_achat, Reception_achatTemplate.entites_detaille);
 			  
-			if( !StringUtils.isBlank( beanSave.getDem_achat().getDem_achat_id()) )
+			if( !StringUtils.isEmpty( beanSave.getDem_achat().getDem_achat_id()) )
 				 session.createQuery(" UPDATE  Demande_achatBean b  set  b.modeBean.fct_id="+bs.getFct_id()+"  " +
 				 		"  where   b.dem_achat_id='"+beanSave.getDem_achat().getDem_achat_id()+"' ").executeUpdate();
 			commitTransaction(session);
@@ -348,10 +348,10 @@ public class Reception_achatDAO extends GenericWeb {
 			    for (int i = 0; i < lisStock_max_date_article.size(); i++) {
 						Stock_articleBean sBean= (Stock_articleBean) lisStock_max_date_article.get(i);
 						String key_max_jour =
-							sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-						    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"§"+
-						    sBean.getPk().getDepot().getDepot_id()+"§"+
-						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+							sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+						    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"ï¿½"+
+						    sBean.getPk().getDepot().getDepot_id()+"ï¿½"+
+						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 						    map_article_jour.put(key_max_jour, sBean);
 				}
@@ -362,10 +362,10 @@ public class Reception_achatDAO extends GenericWeb {
 					     Det_reception_achatBean detail_Bean  = (Det_reception_achatBean) listOfmyDataClone.get(i);
 						 String date_reception =  ProcessDate.getStringFormatDate(beanUpdate.getAchat_date()); 
 					     String keyTrait =""+
-					     detail_Bean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-					     detail_Bean.getPk().getFkCode_barre().getPk().getCode_barre()+"§"+
-						 beanUpdate.getDepot().getDepot_id()+"§"+
-						 detail_Bean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+					     detail_Bean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+					     detail_Bean.getPk().getFkCode_barre().getPk().getCode_barre()+"ï¿½"+
+						 beanUpdate.getDepot().getDepot_id()+"ï¿½"+
+						 detail_Bean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 						 detail_Bean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 					     Double prix_unit_moyen_pond = new Double(0);
 					 
@@ -521,10 +521,10 @@ public class Reception_achatDAO extends GenericWeb {
 			    for (int i = 0; i < lisStock_max_date_article.size(); i++) {
 						Stock_articleBean sBean= (Stock_articleBean) lisStock_max_date_article.get(i);
 						String key_max_jour =
-							sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-						    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"§"+
-						    sBean.getPk().getDepot().getDepot_id()+"§"+
-						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+							sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+						    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"ï¿½"+
+						    sBean.getPk().getDepot().getDepot_id()+"ï¿½"+
+						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 						map_resultat.put(key_max_jour, sBean);
 				}
@@ -554,7 +554,7 @@ public class Reception_achatDAO extends GenericWeb {
 			      chaine=StringUtils.isEmpty(chaine)?"":chaine.substring(0, chaine.length()-1);
 			      
 			      if(StringUtils.isEmpty(chaine))
-			    	  throwNewException("List Détaille Vide");
+			    	  throwNewException("List Dï¿½taille Vide");
 			 
 			  
 			      HashMap  map_resultat_stock       = doGetStock_artcicle(beanUpdate,chaine);
@@ -578,7 +578,7 @@ public class Reception_achatDAO extends GenericWeb {
 				 session.createQuery( " UPDATE  Reception_achatBean b  set      b.modeBean.fct_id="+GenericActionBean.Fn_Confirmer+"   " +
 							"      where   b.achat_id='"+beanUpdate.getAchat_id()+"' ").executeUpdate();
 				 
-		         if( !StringUtils.isBlank( beanUpdate.getDem_achat().getDem_achat_id()) )
+		         if( !StringUtils.isEmpty( beanUpdate.getDem_achat().getDem_achat_id()) )
 		        	 session.createQuery( " UPDATE  Demande_achatBean b  set  b.modeBean.fct_id="+GenericActionBean.Fn_Confirmer+"    where  " +
 		        	 		"  b.dem_achat_id='"+beanUpdate.getDemande_id()+"' ").executeUpdate();
 		     
@@ -691,10 +691,10 @@ public class Reception_achatDAO extends GenericWeb {
 			 
 			        String date_reception=ProcessDate.getStringFormatDate(beanUpdate.getAchat_date());//forcer a date system ;;;;;;; c pas date achat
 				    String key_trait =""+
-					detBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-					detBean.getPk().getFkCode_barre().getPk().getCode_barre()+"§"+
-					beanUpdate.getDepot().getDepot_id()+"§"+
-					detBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+					detBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+					detBean.getPk().getFkCode_barre().getPk().getCode_barre()+"ï¿½"+
+					beanUpdate.getDepot().getDepot_id()+"ï¿½"+
+					detBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 					detBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 				
 				     Stock_articleBean stock          = new Stock_articleBean(); 

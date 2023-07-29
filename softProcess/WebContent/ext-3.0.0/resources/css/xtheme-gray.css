@@ -400,12 +400,13 @@ ul.x-tab-strip-bottom{
 	background-image: url(../images/gray/button/group-tb.gif);
 }
 .x-toolbar{
-	/* border-color:#d0d0d0; */
-	/* background-color:#f0f0f0; */
+	border-color:#d0d0d0;
+	background-color: #ffffff;
 	/* background-image:
 	url(../images/gray/toolbar/bg.gif); */
 }
 .x-toolbar td,.x-toolbar span,.x-toolbar input,.x-toolbar div,.x-toolbar select,.x-toolbar label{
+    /*background-color: #c0dbf6;*/
     font:normal 11px arial,tahoma, helvetica, sans-serif;
 }
 

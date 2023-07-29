@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import ERP.Process.Commerciale.Stock.Stock_article.model.MouvementStockBean;
 import ERP.Process.Commerciale.Tarification.model.TarificationBean;
@@ -170,7 +170,7 @@ public class DetProcedureVenteBean extends GenericBean {
 	
 	
 	@Transient
-	private String	 methode_s	 = "Généric";
+	private String	 methode_s	 = "Gï¿½nï¿½ric";
 	
 	
 	@Column

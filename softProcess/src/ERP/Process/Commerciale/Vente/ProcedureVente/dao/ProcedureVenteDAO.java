@@ -9,7 +9,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Id;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -283,7 +283,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				 
 			//this.saveTraceVersion_Master_detailles(listOfmyData, ProcedureVenteTemplate.MapfieldBean_detaille, ProcedureVenteTemplate.id_entite_detaille, ProcedureVenteTemplate.entite_detaille);
 			 
-			if( !StringUtils.isBlank( beanSave.getCommande().getCmd_id()) )
+			if( !StringUtils.isEmpty( beanSave.getCommande().getCmd_id()) )
 			  session.createQuery("   UPDATE  CommandeclientBean b  set  b.modeBean.fct_id="+bs.getFct_id()+"  " +
 			  		"                 where   b.cmd_id='"+beanSave.getCommande().getCmd_id()+"' ").executeUpdate();
 			
@@ -457,7 +457,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			this.setUpdateValueFieldTraceOject(beanUpdate);
 			session.saveOrUpdate(beanUpdate);
 		 
-	       if( !StringUtils.isBlank( beanUpdate.getCommande().getCmd_id()) ){
+	       if( !StringUtils.isEmpty( beanUpdate.getCommande().getCmd_id()) ){
 		     session.createQuery("    UPDATE   CommandeclientBean b  set   b.modeBean.fct_id="+GenericActionBean.Fn_Livrer+"  " +
 		     		"       where   b.cmd_id='"+beanUpdate.getCommande().getCmd_id()+"'    ").executeUpdate();
 	       }
@@ -523,7 +523,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			this.setUpdateValueFieldTraceOject(beanUpdate);
 			session.saveOrUpdate(beanUpdate);
 		 
-	       if( !StringUtils.isBlank( beanUpdate.getCommande().getCmd_id()) ){
+	       if( !StringUtils.isEmpty( beanUpdate.getCommande().getCmd_id()) ){
 		     session.createQuery("    UPDATE   CommandeclientBean b  set   b.modeBean.fct_id="+GenericActionBean.Fn_Livrer+"  " +
 		     		"       where   b.cmd_id='"+beanUpdate.getCommande().getCmd_id()+"'    ").executeUpdate();
 	       }
@@ -589,7 +589,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			this.setUpdateValueFieldTraceOject(beanUpdate);
 			session.saveOrUpdate(beanUpdate);
 		 
-	       if( !StringUtils.isBlank( beanUpdate.getCommande().getCmd_id()) ){
+	       if( !StringUtils.isEmpty( beanUpdate.getCommande().getCmd_id()) ){
 		     session.createQuery("    UPDATE   CommandeclientBean b  set   b.modeBean.fct_id="+GenericActionBean.Fn_Livrer+"  " +
 		     		"                 where   b.cmd_id='"+beanUpdate.getCommande().getCmd_id()+"'    ").executeUpdate();
 	       }
@@ -651,10 +651,10 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			    for (int i = 0; i < lisStock_max_date_article.size(); i++) {
 						Stock_articleBean sBean= (Stock_articleBean) lisStock_max_date_article.get(i);
 						String key_max_jour =
-							sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-						    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"§"+
-						    sBean.getPk().getDepot().getDepot_id()+"§"+
-						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+							sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+						    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"ï¿½"+
+						    sBean.getPk().getDepot().getDepot_id()+"ï¿½"+
+						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 						map_resultat.put(key_max_jour, sBean);
 				}
@@ -680,10 +680,10 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			    for (int i = 0; i < lisStock_max_date_article.size(); i++) {
 						Stock_articleBean sBean= (Stock_articleBean) lisStock_max_date_article.get(i);
 						String key_max_jour =
-							sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-						    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"§"+
-						    sBean.getPk().getDepot().getDepot_id()+"§"+
-						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+							sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+						    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"ï¿½"+
+						    sBean.getPk().getDepot().getDepot_id()+"ï¿½"+
+						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 						map_article_jour.put(key_max_jour, sBean);
 				}
@@ -694,10 +694,10 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 						 DetProcedureVenteBean detail_Bean  = (DetProcedureVenteBean) listOfmyDataClone.get(i);
 						 String date_vente =  ProcessDate.getStringFormatDate(beanUpdate.getVente_date()); 
 					     String keyTrait =""+
-					     detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-					     detail_Bean.getPk().getFkcode_barre().getPk().getCode_barre()+"§"+
-						 beanUpdate.getDepot().getDepot_id()+"§"+
-						 detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+					     detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+					     detail_Bean.getPk().getFkcode_barre().getPk().getCode_barre()+"ï¿½"+
+						 beanUpdate.getDepot().getDepot_id()+"ï¿½"+
+						 detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 						 detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 					     Double prix_unit_moyen_pond = new Double(0);
 					 
@@ -792,10 +792,10 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			    for (int i = 0; i < lisStock_max_date_article.size(); i++) {
 						Stock_articleBean sBean= (Stock_articleBean) lisStock_max_date_article.get(i);
 						String key_max_jour =
-							sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-						    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"§"+
-						    sBean.getPk().getDepot().getDepot_id()+"§"+
-						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+							sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+						    sBean.getPk().getFkCode_barre().getPk().getCode_barre()+"ï¿½"+
+						    sBean.getPk().getDepot().getDepot_id()+"ï¿½"+
+						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 						    sBean.getPk().getFkCode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 						map_article_jour.put(key_max_jour, sBean);
 				}
@@ -806,10 +806,10 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 					     DetFournitureVenteBean detail_Bean  = (DetFournitureVenteBean) listOfmyDataClone.get(i);
 						 String date_vente =  ProcessDate.getStringFormatDate(beanUpdate.getVente_date()); 
 					     String keyTrait =""+
-					     detail_Bean.getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-					     detail_Bean.getFkcode_barre().getPk().getCode_barre()+"§"+
-						 beanUpdate.getDepot().getDepot_id()+"§"+
-						 detail_Bean.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+					     detail_Bean.getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+					     detail_Bean.getFkcode_barre().getPk().getCode_barre()+"ï¿½"+
+						 beanUpdate.getDepot().getDepot_id()+"ï¿½"+
+						 detail_Bean.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 						 detail_Bean.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 					     Double prix_unit_moyen_pond = new Double(0);
 					 
@@ -944,10 +944,10 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				}
 				 
 			    String key_trait =""+
-			    detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-			    detail_Bean.getPk().getFkcode_barre().getPk().getCode_barre()+"§"+
-				beanUpdate.getDepot().getDepot_id()+"§"+
-				detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+			    detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+			    detail_Bean.getPk().getFkcode_barre().getPk().getCode_barre()+"ï¿½"+
+				beanUpdate.getDepot().getDepot_id()+"ï¿½"+
+				detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 				detail_Bean.getPk().getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 			    Double prix_unit_moyen_pond = new Double(0);
 			    Stock_articleBean stock         = new Stock_articleBean();
@@ -1088,10 +1088,10 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 			    String date_vente =  ProcessDate.getStringFormatDate(beanUpdate.getVente_date());// forcer a date system
 				
 			    String key_trait =""+
-			    detail_Bean.getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"§"+  
-			    detail_Bean.getFkcode_barre().getPk().getCode_barre()+"§"+
-				beanUpdate.getDepot().getDepot_id()+"§"+
-				detail_Bean.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"§"+
+			    detail_Bean.getFkcode_barre().getPk().getAr_bean().getPk_article().getAr_id()+"ï¿½"+  
+			    detail_Bean.getFkcode_barre().getPk().getCode_barre()+"ï¿½"+
+				beanUpdate.getDepot().getDepot_id()+"ï¿½"+
+				detail_Bean.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getEtab_id()+"ï¿½"+
 				detail_Bean.getFkcode_barre().getPk().getAr_bean().getPk_article().getEtabBean().getPk_etab().getSoc_bean().getSoc_id();
 			   
 				 if(map_article_jour.get(key_trait)==null) {
@@ -1304,13 +1304,13 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				}
 				
 				if( qteInitTot<mayQ  &&  lotchoix==true ){
-					mapRes.put("retournErreur", "La quantité en Lot choisie n'est pas disponible");
+					mapRes.put("retournErreur", "La quantitï¿½ en Lot choisie n'est pas disponible");
 					mapRes.put("retour", false);
 					return mapRes;
 				}
 				
 				if( qteInitTot<mayQ  &&  lotchoix==false ){
-					mapRes.put("retournErreur", "La quantité en Lot    n'est pas disponible");
+					mapRes.put("retournErreur", "La quantitï¿½ en Lot    n'est pas disponible");
 					mapRes.put("retour", false);
 					return mapRes;
 				}
@@ -1449,13 +1449,13 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				}
 				
 				if( qteInitTot<mayQ  &&  lotchoix==true ){
-					mapRes.put("retournErreur", "La quantité en Lot choisie n'est pas disponible");
+					mapRes.put("retournErreur", "La quantitï¿½ en Lot choisie n'est pas disponible");
 					mapRes.put("retour", false);
 					return mapRes;
 				}
 				
 				if( qteInitTot<mayQ  &&  lotchoix==false ){
-					mapRes.put("retournErreur", "La quantité en Lot    n'est pas disponible");
+					mapRes.put("retournErreur", "La quantitï¿½ en Lot    n'est pas disponible");
 					mapRes.put("retour", false);
 					return mapRes;
 				}
@@ -1709,7 +1709,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				if( detfourn.getQuantite()==null) { continue; }
 				if( detfourn.getQuantite().doubleValue()==0 ||  detfourn.getQuantite().doubleValue()<0) { continue;}
 				
-				if( StringUtils.isBlank(fournitureVenteBean.getFrn_ve_id()) ) {
+				if( StringUtils.isEmpty(fournitureVenteBean.getFrn_ve_id()) ) {
 					daoNumSequentiel.getNumSeqSimple(fournitureVenteBean,"frn_ve_id",session);
 					this.setBeanTrace(fournitureVenteBean);
 					fournitureVenteBean.setFrn_ve_libelle(beanUpdate.getVente_libelle());
@@ -1730,7 +1730,7 @@ public class ProcedureVenteDAO extends  GenericWeb    {
 				if( detService.getQuantite()==null) { continue; }
 				if( detService.getQuantite().doubleValue()==0 ||  detService.getQuantite().doubleValue()<0) { continue;}
 				
-				if( StringUtils.isBlank(serviceBean.getSrv_id()) ) {
+				if( StringUtils.isEmpty(serviceBean.getSrv_id()) ) {
 					daoNumSequentiel.getNumSeqSimple(serviceBean,"srv_id",session);	
 					this.setBeanTrace(serviceBean);
 					serviceBean.setSrv_libelle(beanUpdate.getVente_libelle());

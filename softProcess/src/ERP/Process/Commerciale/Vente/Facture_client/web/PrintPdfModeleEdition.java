@@ -1655,7 +1655,7 @@ public void printEtatVenteExport( EditionVenteBean searchBean ) throws Exception
 	        	   }
 	        	   else if(j==1){
 	        		   String valu="";
-			        	if(beanTotal!=null   &&   !StringUtils.isBlank(beanTotal.getTotal_quantite())  ) {
+			        	if(beanTotal!=null   &&   !StringUtils.isEmpty(beanTotal.getTotal_quantite())  ) {
 			        		Double ddd=Double.parseDouble(beanTotal.getTotal_quantite());
 			        		int iddd = Integer.valueOf(ddd.intValue());
 				        	valu=String.valueOf(iddd);

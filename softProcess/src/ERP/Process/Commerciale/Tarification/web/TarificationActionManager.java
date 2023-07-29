@@ -11,7 +11,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
@@ -174,7 +174,7 @@ public class TarificationActionManager extends TarificationTemplate {
 			if (bs.getFct_id().equals(Fn_Modifier) || bs.getFct_id().equals(Fn_Supprimer) ){
 				String elmt=serviceTarification.doFetchTarif(rowBean.getTarif_vente_id());
 				if(elmt.length()>0)
-					throwNewException(" Cette Tarification est déjà Utilisée : <br>"+elmt);
+					throwNewException(" Cette Tarification est dï¿½jï¿½ Utilisï¿½e : <br>"+elmt);
 			 }
 			setObjectValueModel(FORM_BEAN, rowBean);
 			setObjectValueModel("deviseData", rowBean);
@@ -287,7 +287,7 @@ public class TarificationActionManager extends TarificationTemplate {
 			   ActionDataTablesManager  aTablesManager= new ActionDataTablesManager();
 			   try {
 				   String sValueId = getRequest().getParameter("sValueId") == null ? "" : getRequest().getParameter("sValueId");
-				   if(!sValueId.equals("UIJ987654ù$$$")) 
+				   if(!sValueId.equals("UIJ987654ï¿½$$$")) 
 					 aTablesManager.doTraiterColonne();
 				   
 				List listmaxTarific=   (List) getObjectValueModel("listmaxTarific");

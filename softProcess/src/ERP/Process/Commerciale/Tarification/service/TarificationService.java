@@ -1,5 +1,5 @@
 package ERP.Process.Commerciale.Tarification.service;
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
@@ -66,7 +66,7 @@ public class TarificationService  extends GenericWeb  {
 			}
             
             if(!inter){
-            	message+="  cette tarification n'est pas vérifier ";
+            	message+="  cette tarification n'est pas vï¿½rifier ";
             }
             
 		}else{
@@ -90,7 +90,7 @@ public class TarificationService  extends GenericWeb  {
 			
 			for (int i = 0; i < list_Tarification_vente.size(); i++) {
 				TarificationBean beantrie=(TarificationBean) list_Tarification_vente.get(i);
-				 String  key=beantrie.getFkCode_barre().getPk().getCode_barre()+"µ";
+				 String  key=beantrie.getFkCode_barre().getPk().getCode_barre()+"|";
 				         key=key+beantrie.getGroupe().getType_trf_id();
 				      TarificationBean  dssdf=(TarificationBean) mapTRF.get(key);
 				        if(dssdf==null){

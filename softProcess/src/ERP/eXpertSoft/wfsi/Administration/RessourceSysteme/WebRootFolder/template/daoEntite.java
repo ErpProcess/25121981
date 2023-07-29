@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StringUtils;
 
 import ERP.eXpertSoft.wfsi.Administration.RessourceSysteme.WebRootFolder.model.WebRootFolderBean;
 
@@ -28,11 +28,11 @@ public class daoEntite {
 				 
 				out.write("import java.util.List;");out.println() ;
 				out.write("import java.util.ArrayList;");out.println() ;
-				out.write("import org.apache.commons.lang.StringUtils;");out.println() ;
+				out.write("import org.springframework.util.StringUtils;");out.println() ;
 				out.write("import org.hibernate.SessionFactory;");out.println() ;
 				out.write("import org.hibernate.Session;");out.println() ;
 				out.write("import org.springframework.beans.factory.annotation.Autowired;");out.println() ;
-				out.write("import org.springframework.orm.hibernate3.HibernateTemplate;");out.println() ;
+				out.write("import org.springframework.orm.hibernate5.HibernateTemplate;");out.println() ;
 				out.write("import org.springframework.stereotype.Repository;");out.println() ;
 				out.write("import ERP.eXpertSoft.wfsi.Administration.Outils_Parametrage.Generic.GenericWeb;");out.println() ;
 				out.write("import "+pathpackage+"model."+getNameEntite+"Bean;");out.println() ;
